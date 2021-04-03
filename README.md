@@ -49,7 +49,7 @@ Yapp 18기 iOS 2팀 개발 프로젝트입니다.
 
 ## Coding Convention
 
-StyleShare의 Swift Style Guide[https://github.com/StyleShare/swift-style-guide]를 참고함
+StyleShare의 [Swift Style Guide](https://github.com/StyleShare/swift-style-guide)를 참고함
 
 - Indention: 2 spaces.![textEditing1](https://github.com/YAPP-18th/iOS-Team-2-Frontend/blob/develop/Resources/textEditing01.png)
 
