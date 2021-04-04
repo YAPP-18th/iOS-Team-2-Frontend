@@ -18,6 +18,8 @@
 		AAD45C7F2619C36900A6F4D6 /* SF-Pro-Text-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = AAD45C6D2619C36800A6F4D6 /* SF-Pro-Text-Thin.otf */; };
 		AAD45C812619C36900A6F4D6 /* SF-Pro-Text-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = AAD45C6F2619C36900A6F4D6 /* SF-Pro-Text-Regular.otf */; };
 		AAD45C822619C36900A6F4D6 /* SF-Pro-Text-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = AAD45C702619C36900A6F4D6 /* SF-Pro-Text-Medium.otf */; };
+		AAD45C9E2619CAEC00A6F4D6 /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAD45C9D2619CAEC00A6F4D6 /* UIColor+Extensions.swift */; };
+		AAD45CA92619CB2A00A6F4D6 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AAD45CA82619CB2A00A6F4D6 /* Colors.xcassets */; };
 		D6F9AC8B71CC355648D6E8B6 /* Pods_YoongYoongTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A06BD70420FBCDDEF5E50E3 /* Pods_YoongYoongTests.framework */; };
 		DAB00027260F12CA00D8208F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB00026260F12CA00D8208F /* AppDelegate.swift */; };
 		DAB0002B260F12CA00D8208F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB0002A260F12CA00D8208F /* ViewController.swift */; };
@@ -65,6 +67,8 @@
 		AAD45C6D2619C36800A6F4D6 /* SF-Pro-Text-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Thin.otf"; sourceTree = "<group>"; };
 		AAD45C6F2619C36900A6F4D6 /* SF-Pro-Text-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Regular.otf"; sourceTree = "<group>"; };
 		AAD45C702619C36900A6F4D6 /* SF-Pro-Text-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Medium.otf"; sourceTree = "<group>"; };
+		AAD45C9D2619CAEC00A6F4D6 /* UIColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
+		AAD45CA82619CB2A00A6F4D6 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		AB05194427AB14D9AFFEE470 /* Pods-YoongYoongTests.dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YoongYoongTests.dev.xcconfig"; path = "Target Support Files/Pods-YoongYoongTests/Pods-YoongYoongTests.dev.xcconfig"; sourceTree = "<group>"; };
 		C4A4BE283F0F18E7064708AB /* Pods-YoongYoong.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YoongYoong.release.xcconfig"; path = "Target Support Files/Pods-YoongYoong/Pods-YoongYoong.release.xcconfig"; sourceTree = "<group>"; };
 		DAB00023260F12CA00D8208F /* YoongYoong.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YoongYoong.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -117,6 +121,7 @@
 			children = (
 				AAD45C512619BFD800A6F4D6 /* Fonts */,
 				DAB00032260F12CD00D8208F /* Assets.xcassets */,
+				AAD45CA82619CB2A00A6F4D6 /* Colors.xcassets */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -149,6 +154,7 @@
 			isa = PBXGroup;
 			children = (
 				AAD45C572619C06800A6F4D6 /* UIFont+Extensions.swift */,
+				AAD45C9D2619CAEC00A6F4D6 /* UIColor+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -350,6 +356,7 @@
 				AAD45C722619C36900A6F4D6 /* SF-Pro-Text-Heavy.otf in Resources */,
 				AAD45C7F2619C36900A6F4D6 /* SF-Pro-Text-Thin.otf in Resources */,
 				AAD45C772619C36900A6F4D6 /* SF-Pro-Text-Semibold.otf in Resources */,
+				AAD45CA92619CB2A00A6F4D6 /* Colors.xcassets in Resources */,
 				AAD45C752619C36900A6F4D6 /* SF-Pro-Text-Black.otf in Resources */,
 				AAD45C732619C36900A6F4D6 /* SF-Pro-Text-Light.otf in Resources */,
 			);
@@ -480,6 +487,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DAB0002B260F12CA00D8208F /* ViewController.swift in Sources */,
+				AAD45C9E2619CAEC00A6F4D6 /* UIColor+Extensions.swift in Sources */,
 				DAB00027260F12CA00D8208F /* AppDelegate.swift in Sources */,
 				AAD45C582619C06800A6F4D6 /* UIFont+Extensions.swift in Sources */,
 				DAB00031260F12CA00D8208F /* YoongYoong.xcdatamodeld in Sources */,
