@@ -134,6 +134,14 @@
 			path = MapScene;
 			sourceTree = "<group>";
 		};
+		AA344626261B31590034E1BC /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				DAB00026260F12CA00D8208F /* AppDelegate.swift */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
 		AAD45C502619BFC800A6F4D6 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -212,10 +220,10 @@
 		DAB00025260F12CA00D8208F /* YoongYoong */ = {
 			isa = PBXGroup;
 			children = (
+				AA344626261B31590034E1BC /* Application */,
 				AA344614261B2F050034E1BC /* Presentation */,
 				AAD45C552619C05800A6F4D6 /* Common */,
 				AAD45C502619BFC800A6F4D6 /* Resources */,
-				DAB00026260F12CA00D8208F /* AppDelegate.swift */,
 				DAB0002A260F12CA00D8208F /* ViewController.swift */,
 				DAB00034260F12CD00D8208F /* LaunchScreen.storyboard */,
 				DAB00037260F12CD00D8208F /* Info.plist */,
@@ -687,6 +695,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				NMAP_CLIENT_ID = jzyxx74dem;
 				PRODUCT_BUNDLE_IDENTIFIER = kr.co.yapp18.iOS2.yongyong.YoongYoong;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = YongYonng;
@@ -709,6 +718,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				NMAP_CLIENT_ID = jzyxx74dem;
 				PRODUCT_BUNDLE_IDENTIFIER = kr.co.yapp18.iOS2.yongyong.YoongYoong;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = YongYonng;
@@ -874,6 +884,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				NMAP_CLIENT_ID = jzyxx74dem;
 				PRODUCT_BUNDLE_IDENTIFIER = "kr.co.yapp18.iOS2.yongyong.YoongYoong-Dev";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "YongYong-Dev";
