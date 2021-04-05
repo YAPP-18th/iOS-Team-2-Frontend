@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		6AFAAC9AAB1CEE62B8A4467B /* Pods_YoongYoong.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 758DACE043760F2E75EB5FCB /* Pods_YoongYoong.framework */; };
+		AA344617261B2F240034E1BC /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA344616261B2F240034E1BC /* MapViewController.swift */; };
 		AAD45C582619C06800A6F4D6 /* UIFont+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAD45C572619C06800A6F4D6 /* UIFont+Extensions.swift */; };
 		AAD45C722619C36900A6F4D6 /* SF-Pro-Text-Heavy.otf in Resources */ = {isa = PBXBuildFile; fileRef = AAD45C602619C36600A6F4D6 /* SF-Pro-Text-Heavy.otf */; };
 		AAD45C732619C36900A6F4D6 /* SF-Pro-Text-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = AAD45C612619C36600A6F4D6 /* SF-Pro-Text-Light.otf */; };
@@ -57,6 +58,7 @@
 		948D7D766C7E57695042FF1F /* Pods-YoongYoong.dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YoongYoong.dev.xcconfig"; path = "Target Support Files/Pods-YoongYoong/Pods-YoongYoong.dev.xcconfig"; sourceTree = "<group>"; };
 		9AA94A64E3F69882F456EE4D /* Pods-YoongYoong.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YoongYoong.debug.xcconfig"; path = "Target Support Files/Pods-YoongYoong/Pods-YoongYoong.debug.xcconfig"; sourceTree = "<group>"; };
 		9BB5CF0D7707EB35250D4235 /* Pods-YoongYoong-YoongYoongUITests.dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YoongYoong-YoongYoongUITests.dev.xcconfig"; path = "Target Support Files/Pods-YoongYoong-YoongYoongUITests/Pods-YoongYoong-YoongYoongUITests.dev.xcconfig"; sourceTree = "<group>"; };
+		AA344616261B2F240034E1BC /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		AAD45C572619C06800A6F4D6 /* UIFont+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extensions.swift"; sourceTree = "<group>"; };
 		AAD45C602619C36600A6F4D6 /* SF-Pro-Text-Heavy.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Heavy.otf"; sourceTree = "<group>"; };
 		AAD45C612619C36600A6F4D6 /* SF-Pro-Text-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Light.otf"; sourceTree = "<group>"; };
@@ -116,6 +118,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AA344614261B2F050034E1BC /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				AA344615261B2F0F0034E1BC /* MapScene */,
+			);
+			path = Presentation;
+			sourceTree = "<group>";
+		};
+		AA344615261B2F0F0034E1BC /* MapScene */ = {
+			isa = PBXGroup;
+			children = (
+				AA344616261B2F240034E1BC /* MapViewController.swift */,
+			);
+			path = MapScene;
+			sourceTree = "<group>";
+		};
 		AAD45C502619BFC800A6F4D6 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -194,6 +212,7 @@
 		DAB00025260F12CA00D8208F /* YoongYoong */ = {
 			isa = PBXGroup;
 			children = (
+				AA344614261B2F050034E1BC /* Presentation */,
 				AAD45C552619C05800A6F4D6 /* Common */,
 				AAD45C502619BFC800A6F4D6 /* Resources */,
 				DAB00026260F12CA00D8208F /* AppDelegate.swift */,
@@ -487,6 +506,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DAB0002B260F12CA00D8208F /* ViewController.swift in Sources */,
+				AA344617261B2F240034E1BC /* MapViewController.swift in Sources */,
 				AAD45C9E2619CAEC00A6F4D6 /* UIColor+Extensions.swift in Sources */,
 				DAB00027260F12CA00D8208F /* AppDelegate.swift in Sources */,
 				AAD45C582619C06800A6F4D6 /* UIFont+Extensions.swift in Sources */,
