@@ -8,10 +8,17 @@
 import UIKit
 import NMapsMap
 import SnapKit
+import RxSwift
+import RxCocoa
 
 class MapViewController: UIViewController {
+  let disposeBag = DisposeBag()
   
   var mapView: NMFMapView!
+  
+  let myLocationButton = UIButton().then {
+    $0.setImage(UIImage(named: "btnMapMyLocation"), for: .normal)
+  }
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -19,6 +26,7 @@ class MapViewController: UIViewController {
     configuration()
     setupView()
     setupLayout()
+    bind()
   }
 }
 
@@ -35,12 +43,26 @@ extension MapViewController {
   private func setupView() {
     
     self.view.addSubview(self.mapView)
+    self.view.addSubview(myLocationButton)
   }
   
   private func setupLayout() {
     mapView.snp.makeConstraints {
       $0.edges.equalToSuperview()
     }
+    
+    myLocationButton.snp.makeConstraints {
+      $0.trailing.equalTo(-19)
+      $0.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom).offset(-16)
+      $0.width.height.equalTo(48)
+    }
+  }
+  
+  private func bind() {
+    self.myLocationButton.rx.tap.bind {
+      //Todo1: 위치 권한 체크
+      //Todo2: 지도 현재 위치로 이동 및 indicator출력
+    }.disposed(by: disposeBag)
   }
   
   private func updateView() {
