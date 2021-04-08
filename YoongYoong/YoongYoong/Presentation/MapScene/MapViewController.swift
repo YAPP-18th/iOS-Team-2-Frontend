@@ -20,6 +20,12 @@ class MapViewController: UIViewController {
     $0.setImage(UIImage(named: "btnMapMyLocation"), for: .normal)
   }
   
+  let postButton = UIButton().then {
+    $0.setTitleColor(.white, for: .normal)
+    $0.setTitle("이 가게 포스트 쓰기", for: .normal)
+    $0.backgroundColor = .brandPrimary
+  }
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     
@@ -27,6 +33,12 @@ class MapViewController: UIViewController {
     setupView()
     setupLayout()
     bind()
+  }
+  
+  override func viewDidLayoutSubviews() {
+    super.viewDidLayoutSubviews()
+    postButton.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+    postButton.layer.cornerRadius = 16.0
   }
 }
 
@@ -44,6 +56,7 @@ extension MapViewController {
     
     self.view.addSubview(self.mapView)
     self.view.addSubview(myLocationButton)
+    self.view.addSubview(postButton)
   }
   
   private func setupLayout() {
@@ -56,6 +69,13 @@ extension MapViewController {
       $0.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom).offset(-16)
       $0.width.height.equalTo(48)
     }
+    
+    postButton.snp.makeConstraints {
+      $0.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom)
+      $0.leading.trailing.equalToSuperview()
+      $0.height.equalTo(56)
+    }
+    postButton.isHidden = true
   }
   
   private func bind() {
@@ -63,17 +83,24 @@ extension MapViewController {
       //Todo1: 위치 권한 체크
       //Todo2: 지도 현재 위치로 이동 및 indicator출력
     }.disposed(by: disposeBag)
+    
+    self.postButton.rx.tap.bind {
+      //Todo1: 포스트 작성 UI 호출
+    }.disposed(by: disposeBag)
   }
   
   private func updateView() {
     
   }
-}
-
-extension MapViewController: NMFMapViewTouchDelegate {
+  
+  // MARK: - Private
   private func didTap(_ marker: NMFMarker) {
     //Todo: 마커 터치시 수행할 작업 ex) 핀 활성화 및 매장 선택
   }
+}
+
+extension MapViewController: NMFMapViewTouchDelegate {
+  
   
   func mapView(_ mapView: NMFMapView, didTapMap latlng: NMGLatLng, point: CGPoint) {
     //Todo: 맵 터치시 수행할 작업 ex) 핀 비활성화 및 매장 선택 취소
