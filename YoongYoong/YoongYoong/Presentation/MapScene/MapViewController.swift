@@ -26,6 +26,8 @@ class MapViewController: UIViewController {
     $0.backgroundColor = .brandPrimary
   }
   
+  let storeInfoView = MapStoreInfoView()
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     
@@ -57,6 +59,7 @@ extension MapViewController {
     self.view.addSubview(self.mapView)
     self.view.addSubview(myLocationButton)
     self.view.addSubview(postButton)
+    self.view.addSubview(storeInfoView)
   }
   
   private func setupLayout() {
@@ -66,7 +69,7 @@ extension MapViewController {
     
     myLocationButton.snp.makeConstraints {
       $0.trailing.equalTo(-19)
-      $0.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom).offset(-16)
+      $0.bottom.equalTo(storeInfoView.snp.top).offset(-16)
       $0.width.height.equalTo(48)
     }
     
@@ -75,7 +78,12 @@ extension MapViewController {
       $0.leading.trailing.equalToSuperview()
       $0.height.equalTo(56)
     }
-    postButton.isHidden = true
+    
+    storeInfoView.snp.makeConstraints {
+      $0.leading.equalTo(29)
+      $0.trailing.equalTo(-29)
+      $0.bottom.equalTo(postButton.snp.top).offset(-16)
+    }
   }
   
   private func bind() {
