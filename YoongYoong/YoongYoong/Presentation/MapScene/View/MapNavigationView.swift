@@ -8,8 +8,11 @@
 import UIKit
 import Then
 import SnapKit
+import RxSwift
+import RxCocoa
 
 class MapNavigationView: UIView {
+  let disposeBag = DisposeBag()
   
   // MARK: - View
   let searchContainerView = UIView().then {
@@ -18,6 +21,10 @@ class MapNavigationView: UIView {
   
   let tipButton = UIButton().then {
     $0.setImage(UIImage(named: "icBtnNavTip"), for: .normal)
+  }
+  
+  let searchField = UITextField().then {
+    $0.placeholder = "가게명 또는 카테고리 검색"
   }
   
   let searchButton = UIButton().then {
@@ -29,6 +36,7 @@ class MapNavigationView: UIView {
     configuration()
     setupView()
     setupLayout()
+    bind()
   }
   
   required init?(coder: NSCoder) {
@@ -39,8 +47,12 @@ class MapNavigationView: UIView {
     super.layoutSubviews()
     searchContainerView.layer.cornerRadius = 16
     searchContainerView.layer.borderWidth = 1
-    searchContainerView.layer.borderColor = UIColor(hexString: "#E5E5EA").cgColor
+    searchContainerView.layer.borderColor = searchField.isFirstResponder
+      ? UIColor.brandPrimary.cgColor
+      : UIColor(hexString: "#E5E5EA").cgColor
   }
+  
+  
 }
 
 extension MapNavigationView {
@@ -52,6 +64,7 @@ extension MapNavigationView {
     
     self.addSubview(searchContainerView)
     searchContainerView.addSubview(tipButton)
+    searchContainerView.addSubview(searchField)
     searchContainerView.addSubview(searchButton)
   }
   
@@ -68,9 +81,34 @@ extension MapNavigationView {
       $0.leading.centerY.equalToSuperview()
       $0.width.height.equalTo(34)
     }
+    
+    searchField.snp.makeConstraints {
+      $0.leading.equalTo(tipButton.snp.trailing)
+      $0.trailing.equalTo(searchButton.snp.leading)
+      $0.centerY.equalToSuperview()
+      $0.height.equalTo(24)
+    }
+    
     searchButton.snp.makeConstraints {
       $0.trailing.centerY.equalToSuperview()
       $0.width.height.equalTo(40)
     }
+  }
+  
+  private func bind() {
+    searchField.rx.controlEvent([.editingDidBegin, .editingDidEnd])
+      .bind {
+        self.setNeedsLayout()
+      }.disposed(by: disposeBag)
+    
+    searchField.rx.controlEvent([.primaryActionTriggered])
+      .bind {
+        self.searchField.resignFirstResponder()
+      }.disposed(by: disposeBag)
+    
+    searchButton.rx.tap
+      .bind {
+        self.searchField.resignFirstResponder()
+      }.disposed(by: disposeBag)
   }
 }
