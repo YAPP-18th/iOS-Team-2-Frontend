@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		6AFAAC9AAB1CEE62B8A4467B /* Pods_YoongYoong.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 758DACE043760F2E75EB5FCB /* Pods_YoongYoong.framework */; };
+		7EA4F3D826247E67001C754C /* SearchHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EA4F3D726247E67001C754C /* SearchHistoryViewController.swift */; };
+		7EA4F3DD2624888B001C754C /* SearchHistoryItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EA4F3DC2624888B001C754C /* SearchHistoryItemCell.swift */; };
 		7EDCDB6F262321D60029BE45 /* StoreSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EDCDB6E262321D60029BE45 /* StoreSearchViewController.swift */; };
 		AAD45C582619C06800A6F4D6 /* UIFont+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAD45C572619C06800A6F4D6 /* UIFont+Extensions.swift */; };
 		AAD45C722619C36900A6F4D6 /* SF-Pro-Text-Heavy.otf in Resources */ = {isa = PBXBuildFile; fileRef = AAD45C602619C36600A6F4D6 /* SF-Pro-Text-Heavy.otf */; };
@@ -55,6 +57,8 @@
 		5E844A4FB1E67E67DDBA7C1C /* Pods-YoongYoong-YoongYoongUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YoongYoong-YoongYoongUITests.debug.xcconfig"; path = "Target Support Files/Pods-YoongYoong-YoongYoongUITests/Pods-YoongYoong-YoongYoongUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		6B8446DB571903D78466AE9B /* Pods-YoongYoongTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YoongYoongTests.debug.xcconfig"; path = "Target Support Files/Pods-YoongYoongTests/Pods-YoongYoongTests.debug.xcconfig"; sourceTree = "<group>"; };
 		758DACE043760F2E75EB5FCB /* Pods_YoongYoong.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_YoongYoong.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7EA4F3D726247E67001C754C /* SearchHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistoryViewController.swift; sourceTree = "<group>"; };
+		7EA4F3DC2624888B001C754C /* SearchHistoryItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistoryItemCell.swift; sourceTree = "<group>"; };
 		7EDCDB6E262321D60029BE45 /* StoreSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreSearchViewController.swift; sourceTree = "<group>"; };
 		948D7D766C7E57695042FF1F /* Pods-YoongYoong.dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YoongYoong.dev.xcconfig"; path = "Target Support Files/Pods-YoongYoong/Pods-YoongYoong.dev.xcconfig"; sourceTree = "<group>"; };
 		9AA94A64E3F69882F456EE4D /* Pods-YoongYoong.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YoongYoong.debug.xcconfig"; path = "Target Support Files/Pods-YoongYoong/Pods-YoongYoong.debug.xcconfig"; sourceTree = "<group>"; };
@@ -118,12 +122,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		7EDCDB6C262320850029BE45 /* Post */ = {
+		7EDCDB6C262320850029BE45 /* PostScene */ = {
 			isa = PBXGroup;
 			children = (
 				7EDCDB6E262321D60029BE45 /* StoreSearchViewController.swift */,
+				7EA4F3D726247E67001C754C /* SearchHistoryViewController.swift */,
+				7EA4F3DC2624888B001C754C /* SearchHistoryItemCell.swift */,
 			);
-			path = Post;
+			path = PostScene;
 			sourceTree = "<group>";
 		};
 		AAD45C502619BFC800A6F4D6 /* Resources */ = {
@@ -208,7 +214,7 @@
 				AAD45C502619BFC800A6F4D6 /* Resources */,
 				DAB00026260F12CA00D8208F /* AppDelegate.swift */,
 				DAB0002A260F12CA00D8208F /* ViewController.swift */,
-				7EDCDB6C262320850029BE45 /* Post */,
+				7EDCDB6C262320850029BE45 /* PostScene */,
 				DAB00034260F12CD00D8208F /* LaunchScreen.storyboard */,
 				DAB00037260F12CD00D8208F /* Info.plist */,
 				DAB0002F260F12CA00D8208F /* YoongYoong.xcdatamodeld */,
@@ -498,9 +504,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				DAB0002B260F12CA00D8208F /* ViewController.swift in Sources */,
+				7EA4F3D826247E67001C754C /* SearchHistoryViewController.swift in Sources */,
 				AAD45C9E2619CAEC00A6F4D6 /* UIColor+Extensions.swift in Sources */,
 				DAB00027260F12CA00D8208F /* AppDelegate.swift in Sources */,
 				AAD45C582619C06800A6F4D6 /* UIFont+Extensions.swift in Sources */,
+				7EA4F3DD2624888B001C754C /* SearchHistoryItemCell.swift in Sources */,
 				7EDCDB6F262321D60029BE45 /* StoreSearchViewController.swift in Sources */,
 				DAB00031260F12CA00D8208F /* YoongYoong.xcdatamodeld in Sources */,
 			);
