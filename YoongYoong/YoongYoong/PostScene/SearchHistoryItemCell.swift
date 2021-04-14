@@ -44,11 +44,11 @@ class SearchHistoryItemCell: UITableViewCell {
   
   private func setupAttribute() {
     textLabel?.do {
-      $0.font = UIFont.sdGhothicNeo(ofSize: 15, weight: .regular)
+      $0.font = UIFont.sdGhothicNeo(ofSize: 12, weight: .regular)
     }
     
     deleteButton.do {
-      $0.backgroundColor = .brandPrimary
+      $0.setImage(#imageLiteral(resourceName: "Close-16px-1"), for: .normal)
       $0.addTarget(self, action: #selector(deleteButtonDidTap), for: .touchUpInside)
     }
   }

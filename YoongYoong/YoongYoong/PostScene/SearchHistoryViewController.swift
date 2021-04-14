@@ -36,6 +36,7 @@ class SearchHistoryViewController: UIViewController {
     containerView.snp.makeConstraints { make in
       make.width.equalTo(view.snp.width)
       make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+      make.centerX.equalTo(view)
       make.height.equalTo(38)
     }
     
@@ -55,8 +56,8 @@ class SearchHistoryViewController: UIViewController {
     
     tableView.snp.makeConstraints { make in
       make.top.equalTo(containerView.snp.bottom)
-      make.centerX.equalTo(view)
-      make.width.equalTo(345)
+      make.left.equalTo(view.snp.left).offset(16)
+      make.right.equalTo(view.snp.right).offset(-16)
       make.bottom.equalTo(view.snp.bottom)
     }
     
@@ -68,7 +69,7 @@ class SearchHistoryViewController: UIViewController {
     }
 
     titleLabel.do {
-      $0.font = UIFont.sdGhothicNeo(ofSize: 16, weight: .regular)
+      $0.font = UIFont.sdGhothicNeo(ofSize: 14, weight: .regular)
       $0.textColor = #colorLiteral(red: 0.5490196078, green: 0.5529411765, blue: 0.5725490196, alpha: 1) // system gray text 02
       $0.text = "최근 검색어"
     }

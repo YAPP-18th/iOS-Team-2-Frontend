@@ -33,6 +33,7 @@ class StoreSearchViewController: UIViewController {
     progressView.snp.makeConstraints { make in
       make.width.equalTo(view.safeAreaLayoutGuide.snp.width)
       make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+      make.centerX.equalTo(view)
     }
     
     titleLabel.snp.makeConstraints{ make in
@@ -72,7 +73,7 @@ class StoreSearchViewController: UIViewController {
     
     titleLabel.do {
       $0.text = "어디에서 용기를 냈나요?"
-      $0.font = UIFont.sdGhothicNeo(ofSize: 20, weight: .regular)
+      $0.font = UIFont.sdGhothicNeo(ofSize: 24, weight: .regular)
     }
     
     searchBarContainer.do {
@@ -85,6 +86,7 @@ class StoreSearchViewController: UIViewController {
       $0.borderStyle = .none
       $0.placeholder = "검색어를 입력하세요"
       $0.clearButtonMode = .whileEditing
+      $0.font = UIFont.sdGhothicNeo(ofSize: 16, weight: .regular)
     }
     
     searchButton.do {
@@ -93,8 +95,7 @@ class StoreSearchViewController: UIViewController {
     
     searchButton.do {
       // TODO: 검색 아이콘으로 바꾸기
-      $0.backgroundColor = .black
-//      $0.setImage(UIImage(named: ""), for: .normal)
+      $0.setImage(#imageLiteral(resourceName: "searchStroked"), for: .normal)
     }
     
   }
@@ -102,6 +103,7 @@ class StoreSearchViewController: UIViewController {
   @objc
   private func searchButtonDidTap() {
     // TODO: Search Logic
+    print("DidTap")
   }
   
 }
