@@ -104,6 +104,7 @@ class SearchResultItemCell: UITableViewCell {
     storeLabel.do {
       $0.font = UIFont.sdGhothicNeo(ofSize: 14, weight: .bold)
       $0.textColor = #colorLiteral(red: 0.06666666667, green: 0.06666666667, blue: 0.06666666667, alpha: 1)
+      $0.text = "김밥천국"
     }
     
     addressContainer.do {
@@ -119,6 +120,7 @@ class SearchResultItemCell: UITableViewCell {
     addressLabel.do {
       $0.font = UIFont.sdGhothicNeo(ofSize: 12, weight: .regular)
       $0.textColor = #colorLiteral(red: 0.06666666667, green: 0.06666666667, blue: 0.06666666667, alpha: 1)
+      $0.text = "서울시 송파구 송파대로 106-17"
     }
     
     hoursContainer.do {
@@ -134,17 +136,21 @@ class SearchResultItemCell: UITableViewCell {
     hoursLabel.do {
       $0.font = UIFont.sdGhothicNeo(ofSize: 12, weight: .regular)
       $0.textColor = #colorLiteral(red: 0.06666666667, green: 0.06666666667, blue: 0.06666666667, alpha: 1)
+      $0.text = "매일 00:00 - 24:00"
     }
     
     distanceLabel.do {
       $0.font = UIFont.sdGhothicNeo(ofSize: 12, weight: .regular)
       $0.textColor = #colorLiteral(red: 0.5490196078, green: 0.5529411765, blue: 0.5725490196, alpha: 1)
       $0.textAlignment = .right
+      $0.text = "600m"
+
     }
     
     postLabel.do {
       $0.font = UIFont.sdGhothicNeo(ofSize: 12, weight: .regular)
       $0.textColor = #colorLiteral(red: 0.5490196078, green: 0.5529411765, blue: 0.5725490196, alpha: 1)
+      $0.text = "포스트 20개"
     }
     
     verticalBarLabel.do {
