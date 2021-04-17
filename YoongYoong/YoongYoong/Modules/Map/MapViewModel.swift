@@ -11,14 +11,18 @@ import RxSwift
 
 class MapViewModel: ViewModel, ViewModelType {
   struct Input {
-    
+    let tipSelection: Observable<Void>
   }
   
   struct Output {
-    
+    let tipSelection: Driver<TipViewModel>
   }
   
   func transform(input: Input) -> Output {
-    return Output()
+    let tipSelection = input.tipSelection.asDriver(onErrorJustReturn: ()).map { () -> TipViewModel in
+      let viewModel = TipViewModel()
+      return viewModel
+    }
+    return Output(tipSelection: tipSelection)
   }
 }

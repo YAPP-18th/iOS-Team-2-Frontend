@@ -20,6 +20,8 @@
 		AAC78FFA262A773D009CC84E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC78FF9262A773D009CC84E /* ViewController.swift */; };
 		AAC79002262A7A1D009CC84E /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC79001262A7A1D009CC84E /* NavigationController.swift */; };
 		AAC79008262A809D009CC84E /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC79007262A809D009CC84E /* MapViewModel.swift */; };
+		AAC79015262A91A4009CC84E /* TipViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC79014262A91A4009CC84E /* TipViewModel.swift */; };
+		AAC79020262AA7E3009CC84E /* TipViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC7901F262AA7E3009CC84E /* TipViewController.swift */; };
 		AAD45C582619C06800A6F4D6 /* UIFont+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAD45C572619C06800A6F4D6 /* UIFont+Extensions.swift */; };
 		AAD45C722619C36900A6F4D6 /* SF-Pro-Text-Heavy.otf in Resources */ = {isa = PBXBuildFile; fileRef = AAD45C602619C36600A6F4D6 /* SF-Pro-Text-Heavy.otf */; };
 		AAD45C732619C36900A6F4D6 /* SF-Pro-Text-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = AAD45C612619C36600A6F4D6 /* SF-Pro-Text-Light.otf */; };
@@ -80,6 +82,8 @@
 		AAC78FF9262A773D009CC84E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		AAC79001262A7A1D009CC84E /* NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 		AAC79007262A809D009CC84E /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
+		AAC79014262A91A4009CC84E /* TipViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipViewModel.swift; sourceTree = "<group>"; };
+		AAC7901F262AA7E3009CC84E /* TipViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipViewController.swift; sourceTree = "<group>"; };
 		AAD45C572619C06800A6F4D6 /* UIFont+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extensions.swift"; sourceTree = "<group>"; };
 		AAD45C602619C36600A6F4D6 /* SF-Pro-Text-Heavy.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Heavy.otf"; sourceTree = "<group>"; };
 		AAD45C612619C36600A6F4D6 /* SF-Pro-Text-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Light.otf"; sourceTree = "<group>"; };
@@ -185,6 +189,7 @@
 		AAC78FE5262A6FAD009CC84E /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				AAC79013262A9196009CC84E /* Tip */,
 				AAC79006262A807D009CC84E /* Map */,
 				AAC78FE6262A6FB6009CC84E /* Main */,
 			);
@@ -206,6 +211,15 @@
 				AAC79007262A809D009CC84E /* MapViewModel.swift */,
 			);
 			path = Map;
+			sourceTree = "<group>";
+		};
+		AAC79013262A9196009CC84E /* Tip */ = {
+			isa = PBXGroup;
+			children = (
+				AAC79014262A91A4009CC84E /* TipViewModel.swift */,
+				AAC7901F262AA7E3009CC84E /* TipViewController.swift */,
+			);
+			path = Tip;
 			sourceTree = "<group>";
 		};
 		AAD45C502619BFC800A6F4D6 /* Resources */ = {
@@ -597,7 +611,9 @@
 				AAC78FF0262A7027009CC84E /* TabBarController.swift in Sources */,
 				AAC79008262A809D009CC84E /* MapViewModel.swift in Sources */,
 				AA72B7DD261B3996001E959B /* MapNavigationView.swift in Sources */,
+				AAC79015262A91A4009CC84E /* TipViewModel.swift in Sources */,
 				AAC78FFA262A773D009CC84E /* ViewController.swift in Sources */,
+				AAC79020262AA7E3009CC84E /* TipViewController.swift in Sources */,
 				DAB00031260F12CA00D8208F /* YoongYoong.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

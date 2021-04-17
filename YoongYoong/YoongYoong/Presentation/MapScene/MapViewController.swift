@@ -42,6 +42,17 @@ class MapViewController: ViewController {
     bind()
   }
   
+  override func bindViewModel() {
+    super.bindViewModel()
+    guard let viewModel = viewModel as? MapViewModel else { return }
+    let input = MapViewModel.Input(tipSelection: navView.tipButton.rx.tap.asObservable())
+    let output = viewModel.transform(input: input)
+    
+    output.tipSelection.drive(onNext: { [weak self] viewModel in
+      self?.navigator.show(segue: .tip(viewModel: viewModel), sender: self, transition: .navigation())
+    }).disposed(by: disposeBag)
+  }
+  
   override func viewDidLayoutSubviews() {
     super.viewDidLayoutSubviews()
     postButton.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
@@ -53,10 +64,6 @@ extension MapViewController {
   private func configuration() {
     self.view.backgroundColor = .white
     self.navigationItem.titleView = navView
-    navView.tipButton.rx.tap
-      .bind(onNext: {
-        self.navigationController?.pushViewController(UIViewController(), animated: true)
-      }).disposed(by: disposeBag)
     mapView = NMFMapView()
     mapView.allowsRotating = false
     mapView.allowsTilting = false
