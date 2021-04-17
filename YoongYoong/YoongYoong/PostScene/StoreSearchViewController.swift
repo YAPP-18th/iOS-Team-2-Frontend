@@ -94,7 +94,6 @@ class StoreSearchViewController: UIViewController {
     }
     
     searchButton.do {
-      // TODO: 검색 아이콘으로 바꾸기
       $0.setImage(#imageLiteral(resourceName: "searchStroked"), for: .normal)
     }
     
@@ -102,8 +101,7 @@ class StoreSearchViewController: UIViewController {
   
   @objc
   private func searchButtonDidTap() {
-    // TODO: Search Logic
-    print("DidTap")
+    // TODO: view -> viewModel
   }
   
 }

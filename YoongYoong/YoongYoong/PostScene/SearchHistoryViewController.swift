@@ -9,10 +9,6 @@ import UIKit
 import SnapKit
 import Then
 
-/* TODO:
- 1. label 텍스트 크기, 색상 코드화.
-*/
-
 class SearchHistoryViewController: UIViewController {
   var dummyData = [["검색어1"], ["검색어2"], ["검색어3"]]
 
@@ -70,16 +66,16 @@ class SearchHistoryViewController: UIViewController {
 
     titleLabel.do {
       $0.font = UIFont.sdGhothicNeo(ofSize: 14, weight: .regular)
-      $0.textColor = #colorLiteral(red: 0.5490196078, green: 0.5529411765, blue: 0.5725490196, alpha: 1) // system gray text 02
+      $0.textColor = #colorLiteral(red: 0.5490196078, green: 0.5529411765, blue: 0.5725490196, alpha: 1)
       $0.text = "최근 검색어"
     }
     
     removeAllButton.do {
       $0.layer.cornerRadius = 10
       $0.layer.borderWidth = 1
-      $0.layer.borderColor = #colorLiteral(red: 0.8980392157, green: 0.8980392157, blue: 0.9176470588, alpha: 1).cgColor // system gray 05
+      $0.layer.borderColor = #colorLiteral(red: 0.8980392157, green: 0.8980392157, blue: 0.9176470588, alpha: 1).cgColor
       $0.setTitle("전체삭제", for: .normal)
-      $0.setTitleColor(#colorLiteral(red: 0.5490196078, green: 0.5529411765, blue: 0.5725490196, alpha: 1), for: .normal) // system gray text 02
+      $0.setTitleColor(#colorLiteral(red: 0.5490196078, green: 0.5529411765, blue: 0.5725490196, alpha: 1), for: .normal) 
       $0.titleLabel?.font = UIFont.sdGhothicNeo(ofSize: 12, weight: .regular)
       $0.addTarget(self, action: #selector(removeAllButtonDidTap), for: .touchUpInside)
     }
@@ -125,12 +121,12 @@ extension SearchHistoryViewController: UITableViewDataSource {
       return UITableViewCell()
     }
     
-    // TODO: ViewModel.output
+    // TODO: viewModel -> view
     cell.textLabel?.text = dummyData[indexPath.section][0]
     
     cell.didDelete = { [weak self] in
       guard let self = self else { return }
-      // TODO: event -> viewModel
+      // TODO: view -> viewModel
       self.dummyData.remove(at: indexPath.section)
       tableView.reloadData()
     }
@@ -146,6 +142,6 @@ extension SearchHistoryViewController: UITableViewDelegate {
 
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     tableView.deselectRow(at: indexPath, animated: false)
-    // event -> ViewModel
+    // TODO: view -> ViewModel
   }
 }

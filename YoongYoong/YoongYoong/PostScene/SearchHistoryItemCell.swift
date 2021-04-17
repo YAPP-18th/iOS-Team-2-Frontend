@@ -9,11 +9,6 @@ import UIKit
 import SnapKit
 import Then
 
-/* TODO: UI 관련
-  1. deleteButton 이미지 교체.
-  2. label 텍스트 크기, 색상 코드화.
- */
-
 class SearchHistoryItemCell: UITableViewCell {
   static let height = CGFloat(32)
   static let reuseIdentifier = String(describing: SearchHistoryViewController.self)
