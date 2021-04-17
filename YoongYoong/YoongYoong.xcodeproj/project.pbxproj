@@ -126,14 +126,46 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7E487566262ACCFD001014BC /* SearchHistory */ = {
+			isa = PBXGroup;
+			children = (
+				7EA4F3D726247E67001C754C /* SearchHistoryViewController.swift */,
+				7E487575262ACD1B001014BC /* Cell */,
+			);
+			path = SearchHistory;
+			sourceTree = "<group>";
+		};
+		7E48756A262ACD0A001014BC /* SearchResult */ = {
+			isa = PBXGroup;
+			children = (
+				7E9F7B8126281D7100051D03 /* SearchResultViewController.swift */,
+				7E48756E262ACD14001014BC /* Cell */,
+			);
+			path = SearchResult;
+			sourceTree = "<group>";
+		};
+		7E48756E262ACD14001014BC /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				7E9F7B8626281D8B00051D03 /* SearchResultItemCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		7E487575262ACD1B001014BC /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				7EA4F3DC2624888B001C754C /* SearchHistoryItemCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
 		7EDCDB6C262320850029BE45 /* PostScene */ = {
 			isa = PBXGroup;
 			children = (
 				7EDCDB6E262321D60029BE45 /* StoreSearchViewController.swift */,
-				7EA4F3D726247E67001C754C /* SearchHistoryViewController.swift */,
-				7EA4F3DC2624888B001C754C /* SearchHistoryItemCell.swift */,
-				7E9F7B8126281D7100051D03 /* SearchResultViewController.swift */,
-				7E9F7B8626281D8B00051D03 /* SearchResultItemCell.swift */,
+				7E487566262ACCFD001014BC /* SearchHistory */,
+				7E48756A262ACD0A001014BC /* SearchResult */,
 			);
 			path = PostScene;
 			sourceTree = "<group>";
