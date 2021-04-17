@@ -144,23 +144,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		AA344614261B2F050034E1BC /* Presentation */ = {
-			isa = PBXGroup;
-			children = (
-				AA344615261B2F0F0034E1BC /* MapScene */,
-			);
-			path = Presentation;
-			sourceTree = "<group>";
-		};
-		AA344615261B2F0F0034E1BC /* MapScene */ = {
-			isa = PBXGroup;
-			children = (
-				AA72B7DB261B394E001E959B /* View */,
-				AA344616261B2F240034E1BC /* MapViewController.swift */,
-			);
-			path = MapScene;
-			sourceTree = "<group>";
-		};
 		AA344626261B31590034E1BC /* Application */ = {
 			isa = PBXGroup;
 			children = (
@@ -210,6 +193,8 @@
 		AAC79006262A807D009CC84E /* Map */ = {
 			isa = PBXGroup;
 			children = (
+				AA72B7DB261B394E001E959B /* View */,
+				AA344616261B2F240034E1BC /* MapViewController.swift */,
 				AAC79007262A809D009CC84E /* MapViewModel.swift */,
 			);
 			path = Map;
@@ -317,7 +302,6 @@
 				AAF67E07262AE68B00F643E1 /* Managers */,
 				AAC78FE5262A6FAD009CC84E /* Modules */,
 				AA344626261B31590034E1BC /* Application */,
-				AA344614261B2F050034E1BC /* Presentation */,
 				AAD45C552619C05800A6F4D6 /* Common */,
 				AAD45C502619BFC800A6F4D6 /* Resources */,
 				DAB00034260F12CD00D8208F /* LaunchScreen.storyboard */,
