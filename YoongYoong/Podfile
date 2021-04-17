@@ -7,8 +7,8 @@ target 'YoongYoong' do
 
   # Pods for YoongYoong
   # Async
-    pod 'RxSwift', '5.0.0'
-    pod 'RxCocoa', '5.0.0'
+    pod 'RxSwift', '5.1.1'
+    pod 'RxCocoa', '5.1.1'
   # UI
     pod 'SnapKit', '~> 5.0.0'
     pod 'IQKeyboardManagerSwift'
