@@ -15,9 +15,7 @@ class MapNavigationView: UIView {
   let disposeBag = DisposeBag()
   
   // MARK: - View
-  let searchContainerView = UIView().then {
-    $0.backgroundColor = .white
-  }
+  let searchContainerView = UIView()
   
   let tipButton = UIButton().then {
     $0.setImage(UIImage(named: "icBtnNavTip"), for: .normal)
@@ -58,7 +56,7 @@ class MapNavigationView: UIView {
 
 extension MapNavigationView {
   private func configuration() {
-     backgroundColor = .white
+
   }
   
   private func setupView() {

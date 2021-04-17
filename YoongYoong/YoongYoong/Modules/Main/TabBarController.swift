@@ -23,10 +23,10 @@ enum TabBarItem: Int {
   
   var image: UIImage? {
     switch self {
-    case .home: return UIImage(named: "")
-    case .feed: return UIImage(named: "")
-    case .post: return UIImage(named: "")
-    case .myPage: return UIImage(named: "")
+    case .home: return UIImage(named: "icTabbarHome_inactive")
+    case .feed: return UIImage(named: "icTabbarFeed_inactive")
+    case .post: return UIImage(named: "icTabbarPost_inactive")
+    case .myPage: return UIImage(named: "icTabbarMyPage_inactive")
     }
   }
   

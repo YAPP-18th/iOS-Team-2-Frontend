@@ -12,6 +12,13 @@ import RxSwift
 import RxCocoa
 
 class MapViewController: ViewController {
+  
+  let navView = MapNavigationView().then {
+    $0.snp.makeConstraints {
+      $0.width.equalTo(UIScreen.main.bounds.width)
+      $0.height.equalTo(44)
+    }
+  }
   var mapView: NMFMapView!
   
   let myLocationButton = UIButton().then {
@@ -45,6 +52,11 @@ class MapViewController: ViewController {
 extension MapViewController {
   private func configuration() {
     self.view.backgroundColor = .white
+    self.navigationItem.titleView = navView
+    navView.tipButton.rx.tap
+      .bind(onNext: {
+        self.navigationController?.pushViewController(UIViewController(), animated: true)
+      }).disposed(by: disposeBag)
     mapView = NMFMapView()
     mapView.allowsRotating = false
     mapView.allowsTilting = false
@@ -53,15 +65,6 @@ extension MapViewController {
   }
   
   private func setupView() {
-    let navView = MapNavigationView().then {
-      $0.snp.makeConstraints {
-        $0.width.equalTo(UIScreen.main.bounds.width)
-        $0.height.equalTo(44)
-      }
-    }
-    self.navigationItem.leftBarButtonItem = nil
-    self.navigationItem.titleView = navView
-    
     self.view.addSubview(self.mapView)
     self.view.addSubview(myLocationButton)
     self.view.addSubview(postButton)
