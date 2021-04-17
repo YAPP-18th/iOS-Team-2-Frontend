@@ -57,6 +57,7 @@ class Navigator {
     switch transition{
     case .root(in: let window):
       window.rootViewController = target
+      return
     case .custom:
       return
     default:
