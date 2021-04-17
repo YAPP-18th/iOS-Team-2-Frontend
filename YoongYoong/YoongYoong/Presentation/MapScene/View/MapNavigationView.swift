@@ -24,6 +24,7 @@ class MapNavigationView: UIView {
   }
   
   let searchField = UITextField().then {
+    $0.borderStyle = .none
     $0.placeholder = "가게명 또는 카테고리 검색"
   }
   
@@ -71,15 +72,20 @@ extension MapNavigationView {
   private func setupLayout() {
     
     searchContainerView.snp.makeConstraints {
-      $0.leading.equalTo(16)
+      $0.leading.equalTo(8)
       $0.trailing.equalTo(-16)
       $0.height.equalTo(40)
-      $0.bottom.equalTo(-9)
+      $0.centerY.equalToSuperview()
     }
     
     tipButton.snp.makeConstraints {
       $0.leading.centerY.equalToSuperview()
       $0.width.height.equalTo(34)
+    }
+    
+    searchButton.snp.makeConstraints {
+      $0.trailing.centerY.equalToSuperview()
+      $0.width.height.equalTo(40)
     }
     
     searchField.snp.makeConstraints {
@@ -89,10 +95,7 @@ extension MapNavigationView {
       $0.height.equalTo(24)
     }
     
-    searchButton.snp.makeConstraints {
-      $0.trailing.centerY.equalToSuperview()
-      $0.width.height.equalTo(40)
-    }
+    
   }
   
   private func bind() {

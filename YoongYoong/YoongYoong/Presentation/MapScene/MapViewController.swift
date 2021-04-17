@@ -11,9 +11,7 @@ import SnapKit
 import RxSwift
 import RxCocoa
 
-class MapViewController: UIViewController {
-  let disposeBag = DisposeBag()
-  
+class MapViewController: ViewController {
   var mapView: NMFMapView!
   
   let myLocationButton = UIButton().then {
@@ -55,6 +53,14 @@ extension MapViewController {
   }
   
   private func setupView() {
+    let navView = MapNavigationView().then {
+      $0.snp.makeConstraints {
+        $0.width.equalTo(UIScreen.main.bounds.width)
+        $0.height.equalTo(44)
+      }
+    }
+    self.navigationItem.leftBarButtonItem = nil
+    self.navigationItem.titleView = navView
     
     self.view.addSubview(self.mapView)
     self.view.addSubview(myLocationButton)

@@ -13,6 +13,14 @@
 		AA6E013F261F6A0D00318E30 /* CALayer+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6E013E261F6A0D00318E30 /* CALayer+Extensions.swift */; };
 		AA72B7DD261B3996001E959B /* MapNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA72B7DC261B3996001E959B /* MapNavigationView.swift */; };
 		AA72B7E5261B45FA001E959B /* MapSearchNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA72B7E4261B45FA001E959B /* MapSearchNavigationController.swift */; };
+		AAC78F91262A67FD009CC84E /* Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC78F90262A67FD009CC84E /* Application.swift */; };
+		AAC78F96262A6916009CC84E /* ViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC78F95262A6916009CC84E /* ViewModelType.swift */; };
+		AAC78FE8262A6FC4009CC84E /* TabBarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC78FE7262A6FC4009CC84E /* TabBarViewModel.swift */; };
+		AAC78FF0262A7027009CC84E /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC78FEF262A7027009CC84E /* TabBarController.swift */; };
+		AAC78FF5262A7150009CC84E /* Navigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC78FF4262A7150009CC84E /* Navigator.swift */; };
+		AAC78FFA262A773D009CC84E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC78FF9262A773D009CC84E /* ViewController.swift */; };
+		AAC79002262A7A1D009CC84E /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC79001262A7A1D009CC84E /* NavigationController.swift */; };
+		AAC79008262A809D009CC84E /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC79007262A809D009CC84E /* MapViewModel.swift */; };
 		AAD45C582619C06800A6F4D6 /* UIFont+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAD45C572619C06800A6F4D6 /* UIFont+Extensions.swift */; };
 		AAD45C722619C36900A6F4D6 /* SF-Pro-Text-Heavy.otf in Resources */ = {isa = PBXBuildFile; fileRef = AAD45C602619C36600A6F4D6 /* SF-Pro-Text-Heavy.otf */; };
 		AAD45C732619C36900A6F4D6 /* SF-Pro-Text-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = AAD45C612619C36600A6F4D6 /* SF-Pro-Text-Light.otf */; };
@@ -27,7 +35,6 @@
 		AAD45CA92619CB2A00A6F4D6 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AAD45CA82619CB2A00A6F4D6 /* Colors.xcassets */; };
 		D6F9AC8B71CC355648D6E8B6 /* Pods_YoongYoongTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A06BD70420FBCDDEF5E50E3 /* Pods_YoongYoongTests.framework */; };
 		DAB00027260F12CA00D8208F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB00026260F12CA00D8208F /* AppDelegate.swift */; };
-		DAB0002B260F12CA00D8208F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB0002A260F12CA00D8208F /* ViewController.swift */; };
 		DAB00031260F12CA00D8208F /* YoongYoong.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DAB0002F260F12CA00D8208F /* YoongYoong.xcdatamodeld */; };
 		DAB00033260F12CD00D8208F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DAB00032260F12CD00D8208F /* Assets.xcassets */; };
 		DAB00036260F12CD00D8208F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DAB00034260F12CD00D8208F /* LaunchScreen.storyboard */; };
@@ -67,6 +74,14 @@
 		AA6E013E261F6A0D00318E30 /* CALayer+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CALayer+Extensions.swift"; sourceTree = "<group>"; };
 		AA72B7DC261B3996001E959B /* MapNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapNavigationView.swift; sourceTree = "<group>"; };
 		AA72B7E4261B45FA001E959B /* MapSearchNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapSearchNavigationController.swift; sourceTree = "<group>"; };
+		AAC78F90262A67FD009CC84E /* Application.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Application.swift; sourceTree = "<group>"; };
+		AAC78F95262A6916009CC84E /* ViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelType.swift; sourceTree = "<group>"; };
+		AAC78FE7262A6FC4009CC84E /* TabBarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewModel.swift; sourceTree = "<group>"; };
+		AAC78FEF262A7027009CC84E /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		AAC78FF4262A7150009CC84E /* Navigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navigator.swift; sourceTree = "<group>"; };
+		AAC78FF9262A773D009CC84E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		AAC79001262A7A1D009CC84E /* NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
+		AAC79007262A809D009CC84E /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
 		AAD45C572619C06800A6F4D6 /* UIFont+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extensions.swift"; sourceTree = "<group>"; };
 		AAD45C602619C36600A6F4D6 /* SF-Pro-Text-Heavy.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Heavy.otf"; sourceTree = "<group>"; };
 		AAD45C612619C36600A6F4D6 /* SF-Pro-Text-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Light.otf"; sourceTree = "<group>"; };
@@ -83,7 +98,6 @@
 		C4A4BE283F0F18E7064708AB /* Pods-YoongYoong.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YoongYoong.release.xcconfig"; path = "Target Support Files/Pods-YoongYoong/Pods-YoongYoong.release.xcconfig"; sourceTree = "<group>"; };
 		DAB00023260F12CA00D8208F /* YoongYoong.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YoongYoong.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAB00026260F12CA00D8208F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		DAB0002A260F12CA00D8208F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		DAB00030260F12CA00D8208F /* YoongYoong.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = YoongYoong.xcdatamodel; sourceTree = "<group>"; };
 		DAB00032260F12CD00D8208F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DAB00035260F12CD00D8208F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -147,6 +161,8 @@
 			isa = PBXGroup;
 			children = (
 				DAB00026260F12CA00D8208F /* AppDelegate.swift */,
+				AAC78F90262A67FD009CC84E /* Application.swift */,
+				AAC78FF4262A7150009CC84E /* Navigator.swift */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -167,6 +183,32 @@
 				AA72B7E4261B45FA001E959B /* MapSearchNavigationController.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		AAC78FE5262A6FAD009CC84E /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				AAC79006262A807D009CC84E /* Map */,
+				AAC78FE6262A6FB6009CC84E /* Main */,
+			);
+			path = Modules;
+			sourceTree = "<group>";
+		};
+		AAC78FE6262A6FB6009CC84E /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				AAC78FE7262A6FC4009CC84E /* TabBarViewModel.swift */,
+				AAC78FEF262A7027009CC84E /* TabBarController.swift */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		AAC79006262A807D009CC84E /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				AAC79007262A809D009CC84E /* MapViewModel.swift */,
+			);
+			path = Map;
 			sourceTree = "<group>";
 		};
 		AAD45C502619BFC800A6F4D6 /* Resources */ = {
@@ -199,6 +241,9 @@
 			isa = PBXGroup;
 			children = (
 				AAD45C562619C05E00A6F4D6 /* Extensions */,
+				AAC78F95262A6916009CC84E /* ViewModelType.swift */,
+				AAC78FF9262A773D009CC84E /* ViewController.swift */,
+				AAC79001262A7A1D009CC84E /* NavigationController.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -248,11 +293,11 @@
 		DAB00025260F12CA00D8208F /* YoongYoong */ = {
 			isa = PBXGroup;
 			children = (
+				AAC78FE5262A6FAD009CC84E /* Modules */,
 				AA344626261B31590034E1BC /* Application */,
 				AA344614261B2F050034E1BC /* Presentation */,
 				AAD45C552619C05800A6F4D6 /* Common */,
 				AAD45C502619BFC800A6F4D6 /* Resources */,
-				DAB0002A260F12CA00D8208F /* ViewController.swift */,
 				DAB00034260F12CD00D8208F /* LaunchScreen.storyboard */,
 				DAB00037260F12CD00D8208F /* Info.plist */,
 				DAB0002F260F12CA00D8208F /* YoongYoong.xcdatamodeld */,
@@ -541,15 +586,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DAB0002B260F12CA00D8208F /* ViewController.swift in Sources */,
+				AAC78FE8262A6FC4009CC84E /* TabBarViewModel.swift in Sources */,
 				AA6E013A261F611600318E30 /* MapStoreInfoView.swift in Sources */,
+				AAC78F91262A67FD009CC84E /* Application.swift in Sources */,
 				AA344617261B2F240034E1BC /* MapViewController.swift in Sources */,
 				AA72B7E5261B45FA001E959B /* MapSearchNavigationController.swift in Sources */,
 				AAD45C9E2619CAEC00A6F4D6 /* UIColor+Extensions.swift in Sources */,
 				DAB00027260F12CA00D8208F /* AppDelegate.swift in Sources */,
 				AAD45C582619C06800A6F4D6 /* UIFont+Extensions.swift in Sources */,
+				AAC78F96262A6916009CC84E /* ViewModelType.swift in Sources */,
+				AAC79002262A7A1D009CC84E /* NavigationController.swift in Sources */,
 				AA6E013F261F6A0D00318E30 /* CALayer+Extensions.swift in Sources */,
+				AAC78FF5262A7150009CC84E /* Navigator.swift in Sources */,
+				AAC78FF0262A7027009CC84E /* TabBarController.swift in Sources */,
+				AAC79008262A809D009CC84E /* MapViewModel.swift in Sources */,
 				AA72B7DD261B3996001E959B /* MapNavigationView.swift in Sources */,
+				AAC78FFA262A773D009CC84E /* ViewController.swift in Sources */,
 				DAB00031260F12CA00D8208F /* YoongYoong.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

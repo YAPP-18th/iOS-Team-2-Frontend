@@ -16,14 +16,14 @@ class MapSearchNavigationController: UINavigationController {
   }
   
   func setupNavigationBar() {
-      self.view.addSubview(navigationView)
-      navigationView.snp.makeConstraints {
-          $0.leading.trailing.top.equalToSuperview()
-          $0.bottom.equalTo(self.navigationBar)
-      }
-      self.view.bringSubviewToFront(navigationBar)
-      navigationBar.setBackgroundImage(UIImage(), for: .default)
-      navigationBar.shadowImage = UIImage()
-      navigationBar.isTranslucent = true
+    self.view.addSubview(navigationView)
+    navigationView.snp.makeConstraints {
+      $0.leading.trailing.top.equalToSuperview()
+      $0.bottom.equalTo(self.navigationBar)
+    }
+    self.view.bringSubviewToFront(navigationView)
+    navigationBar.setBackgroundImage(UIImage(), for: .default)
+    navigationBar.shadowImage = UIImage()
+    navigationBar.isTranslucent = true
   }
 }
