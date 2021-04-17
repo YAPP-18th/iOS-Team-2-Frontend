@@ -36,20 +36,38 @@ class MapViewController: ViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    configuration()
-    setupView()
-    setupLayout()
-    bind()
   }
   
   override func bindViewModel() {
     super.bindViewModel()
+    
     guard let viewModel = viewModel as? MapViewModel else { return }
-    let input = MapViewModel.Input(tipSelection: navView.tipButton.rx.tap.asObservable())
+    let input = MapViewModel.Input(
+      tip: navView.tipButton.rx.tap.asObservable(),
+      post: postButton.rx.tap.asObservable(),
+      myLocation: myLocationButton.rx.tap.asObservable()
+    )
     let output = viewModel.transform(input: input)
     
-    output.tipSelection.drive(onNext: { [weak self] viewModel in
+    output.tip.drive(onNext: { [weak self] viewModel in
       self?.navigator.show(segue: .tip(viewModel: viewModel), sender: self, transition: .navigation())
+    }).disposed(by: disposeBag)
+    
+    output.location.drive (onNext: { [weak self] location in
+      guard let self = self else { return }
+      let position = NMFCameraPosition(
+        .init(lat: location.latitude, lng: location.longitude),
+        zoom: 16.0
+      )
+      self.mapView.moveCamera(.init(position: position))
+    }).disposed(by: disposeBag)
+    
+    output.setting.subscribe(onNext: { [weak self] in
+      self?.alertSetting()
+    }).disposed(by: disposeBag)
+    
+    output.appSetting.subscribe(onNext: { [weak self] in
+      self?.alertAppSetting()
     }).disposed(by: disposeBag)
   }
   
@@ -58,10 +76,10 @@ class MapViewController: ViewController {
     postButton.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
     postButton.layer.cornerRadius = 16.0
   }
-}
-
-extension MapViewController {
-  private func configuration() {
+  
+  // MARK: - Setup Views and Layout
+  override func configuration() {
+    super.configuration()
     self.view.backgroundColor = .white
     self.navigationItem.titleView = navView
     mapView = NMFMapView()
@@ -71,14 +89,17 @@ extension MapViewController {
     mapView.touchDelegate = self
   }
   
-  private func setupView() {
+  override func setupView() {
+    super.setupView()
     self.view.addSubview(self.mapView)
     self.view.addSubview(myLocationButton)
     self.view.addSubview(postButton)
     self.view.addSubview(storeInfoView)
   }
   
-  private func setupLayout() {
+  override func setupLayout() {
+    super.setupLayout()
+    
     mapView.snp.makeConstraints {
       $0.edges.equalToSuperview()
     }
@@ -102,21 +123,33 @@ extension MapViewController {
     }
   }
   
-  private func bind() {
-    self.myLocationButton.rx.tap.bind {
-      //Todo1: 위치 권한 체크
-      //Todo2: 지도 현재 위치로 이동 및 indicator출력
-    }.disposed(by: disposeBag)
-    
-    self.postButton.rx.tap.bind {
-      //Todo1: 포스트 작성 UI 호출
-    }.disposed(by: disposeBag)
-  }
-  
   private func updateView() {
     
   }
   
+  private func alertSetting() {
+    let alertController = UIAlertController(title: "알림", message: "위치 정보 확인을 위해 설정에서 위치 권한을 허용해주세요.", preferredStyle: .alert)
+    alertController.addAction(.init(title: "권한설정", style: .default, handler: { _ in
+      guard let url = URL(string: "App-prefs:root=Privacy&path=LOCATION") else { return }
+      UIApplication.shared.open(url, options: [:], completionHandler: nil)
+    }))
+    alertController.addAction(.init(title: "취소", style: .cancel))
+    self.present(alertController, animated: true)
+  }
+  
+  private func alertAppSetting() {
+    let alertController = UIAlertController(title: "알림", message: "위치 정보 확인을 위해 설정에서 위치 권한을 허용해주세요.", preferredStyle: .alert)
+    alertController.addAction(.init(title: "권한설정", style: .default, handler: { _ in
+
+      guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
+      UIApplication.shared.open(url, options: [:], completionHandler: nil)
+    }))
+    alertController.addAction(.init(title: "취소", style: .cancel))
+    self.present(alertController, animated: true)
+  }
+}
+
+extension MapViewController {
   // MARK: - Private
   private func didTap(_ marker: NMFMarker) {
     //Todo: 마커 터치시 수행할 작업 ex) 핀 활성화 및 매장 선택

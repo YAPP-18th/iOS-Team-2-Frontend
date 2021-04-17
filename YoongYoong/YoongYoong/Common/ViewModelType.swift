@@ -17,5 +17,10 @@ protocol ViewModelType {
 }
 
 class ViewModel: NSObject {
+  let disposeBag = DisposeBag()
+  var locationManager: LocationService
   
+  init(locationManager: LocationService = LocationManager.shared) {
+    self.locationManager = locationManager
+  }
 }

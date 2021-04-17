@@ -30,7 +30,9 @@ class ViewController: UIViewController, Navigatable {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    setupUI()
+    configuration()
+    setupView()
+    setupLayout()
     bindViewModel()
     
     NotificationCenter.default
@@ -38,14 +40,21 @@ class ViewController: UIViewController, Navigatable {
         .subscribe { [weak self] (event) in
             self?.didBecomeActive()
         }.disposed(by: disposeBag)
-
-  }
-  
-  func setupUI() {
-    self.view.backgroundColor = .white
   }
   
   func bindViewModel() {
+    
+  }
+  
+  func configuration() {
+    
+  }
+  
+  func setupView() {
+    
+  }
+  
+  func setupLayout() {
     
   }
   

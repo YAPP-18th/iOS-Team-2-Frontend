@@ -6,23 +6,61 @@
 //
 
 import Foundation
+import CoreLocation
 import RxCocoa
 import RxSwift
 
 class MapViewModel: ViewModel, ViewModelType {
   struct Input {
-    let tipSelection: Observable<Void>
+    let tip: Observable<Void>
+    let post: Observable<Void>
+    let myLocation: Observable<Void>
   }
   
   struct Output {
-    let tipSelection: Driver<TipViewModel>
+    let tip: Driver<TipViewModel>
+    let setting: Observable<Void>
+    let appSetting: Observable<Void>
+    let location: Driver<CLLocationCoordinate2D>
   }
   
+  var settingTrigger = PublishSubject<Void>()
+  var appSettingTrigger = PublishSubject<Void>()
+  
+  var location = PublishSubject<CLLocationCoordinate2D>()
+  
   func transform(input: Input) -> Output {
-    let tipSelection = input.tipSelection.asDriver(onErrorJustReturn: ()).map { () -> TipViewModel in
+    let tip = input.tip.asDriver(onErrorJustReturn: ()).map { () -> TipViewModel in
       let viewModel = TipViewModel()
       return viewModel
     }
-    return Output(tipSelection: tipSelection)
+    //1 -
+    input.myLocation.subscribe(onNext: { [weak self] in
+      guard let self = self else { return }
+      if LocationManager.shared.locationServicesEnabled {
+        switch self.locationManager.permissionStatus.value {
+        case .authorizedWhenInUse, .authorizedAlways:
+          self.location.onNext(self.locationManager.locationChanged.value)
+        case .denied:
+          self.appSettingTrigger.onNext(())
+        case .notDetermined:
+          self.locationManager.requestPermission()
+        default:
+          break
+        }
+      } else {
+        self.settingTrigger.onNext(())
+      }
+    }).disposed(by: disposeBag)
+    
+    let setting = self.settingTrigger.asObservable()
+    let appSetting = self.appSettingTrigger.asObservable()
+    let location = self.location.asDriver(onErrorJustReturn: .init(latitude: 37.5662952, longitude: 126.9757564))
+    return Output(
+      tip: tip,
+      setting: setting,
+      appSetting: appSetting,
+      location: location
+    )
   }
 }
