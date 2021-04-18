@@ -8,6 +8,20 @@
 
 /* Begin PBXBuildFile section */
 		6AFAAC9AAB1CEE62B8A4467B /* Pods_YoongYoong.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 758DACE043760F2E75EB5FCB /* Pods_YoongYoong.framework */; };
+		AA344617261B2F240034E1BC /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA344616261B2F240034E1BC /* MapViewController.swift */; };
+		AA6E013A261F611600318E30 /* MapStoreInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6E0139261F611600318E30 /* MapStoreInfoView.swift */; };
+		AA6E013F261F6A0D00318E30 /* CALayer+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6E013E261F6A0D00318E30 /* CALayer+Extensions.swift */; };
+		AA72B7DD261B3996001E959B /* MapNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA72B7DC261B3996001E959B /* MapNavigationView.swift */; };
+		AAC78F91262A67FD009CC84E /* Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC78F90262A67FD009CC84E /* Application.swift */; };
+		AAC78F96262A6916009CC84E /* ViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC78F95262A6916009CC84E /* ViewModelType.swift */; };
+		AAC78FE8262A6FC4009CC84E /* TabBarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC78FE7262A6FC4009CC84E /* TabBarViewModel.swift */; };
+		AAC78FF0262A7027009CC84E /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC78FEF262A7027009CC84E /* TabBarController.swift */; };
+		AAC78FF5262A7150009CC84E /* Navigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC78FF4262A7150009CC84E /* Navigator.swift */; };
+		AAC78FFA262A773D009CC84E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC78FF9262A773D009CC84E /* ViewController.swift */; };
+		AAC79002262A7A1D009CC84E /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC79001262A7A1D009CC84E /* NavigationController.swift */; };
+		AAC79008262A809D009CC84E /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC79007262A809D009CC84E /* MapViewModel.swift */; };
+		AAC79015262A91A4009CC84E /* TipViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC79014262A91A4009CC84E /* TipViewModel.swift */; };
+		AAC79020262AA7E3009CC84E /* TipViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC7901F262AA7E3009CC84E /* TipViewController.swift */; };
 		AAD45C582619C06800A6F4D6 /* UIFont+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAD45C572619C06800A6F4D6 /* UIFont+Extensions.swift */; };
 		AAD45C722619C36900A6F4D6 /* SF-Pro-Text-Heavy.otf in Resources */ = {isa = PBXBuildFile; fileRef = AAD45C602619C36600A6F4D6 /* SF-Pro-Text-Heavy.otf */; };
 		AAD45C732619C36900A6F4D6 /* SF-Pro-Text-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = AAD45C612619C36600A6F4D6 /* SF-Pro-Text-Light.otf */; };
@@ -20,9 +34,9 @@
 		AAD45C822619C36900A6F4D6 /* SF-Pro-Text-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = AAD45C702619C36900A6F4D6 /* SF-Pro-Text-Medium.otf */; };
 		AAD45C9E2619CAEC00A6F4D6 /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAD45C9D2619CAEC00A6F4D6 /* UIColor+Extensions.swift */; };
 		AAD45CA92619CB2A00A6F4D6 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AAD45CA82619CB2A00A6F4D6 /* Colors.xcassets */; };
+		AAF67E09262AE69600F643E1 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF67E08262AE69600F643E1 /* LocationManager.swift */; };
 		D6F9AC8B71CC355648D6E8B6 /* Pods_YoongYoongTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A06BD70420FBCDDEF5E50E3 /* Pods_YoongYoongTests.framework */; };
 		DAB00027260F12CA00D8208F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB00026260F12CA00D8208F /* AppDelegate.swift */; };
-		DAB0002B260F12CA00D8208F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB0002A260F12CA00D8208F /* ViewController.swift */; };
 		DAB00031260F12CA00D8208F /* YoongYoong.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DAB0002F260F12CA00D8208F /* YoongYoong.xcdatamodeld */; };
 		DAB00033260F12CD00D8208F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DAB00032260F12CD00D8208F /* Assets.xcassets */; };
 		DAB00036260F12CD00D8208F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DAB00034260F12CD00D8208F /* LaunchScreen.storyboard */; };
@@ -57,6 +71,20 @@
 		948D7D766C7E57695042FF1F /* Pods-YoongYoong.dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YoongYoong.dev.xcconfig"; path = "Target Support Files/Pods-YoongYoong/Pods-YoongYoong.dev.xcconfig"; sourceTree = "<group>"; };
 		9AA94A64E3F69882F456EE4D /* Pods-YoongYoong.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YoongYoong.debug.xcconfig"; path = "Target Support Files/Pods-YoongYoong/Pods-YoongYoong.debug.xcconfig"; sourceTree = "<group>"; };
 		9BB5CF0D7707EB35250D4235 /* Pods-YoongYoong-YoongYoongUITests.dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YoongYoong-YoongYoongUITests.dev.xcconfig"; path = "Target Support Files/Pods-YoongYoong-YoongYoongUITests/Pods-YoongYoong-YoongYoongUITests.dev.xcconfig"; sourceTree = "<group>"; };
+		AA344616261B2F240034E1BC /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		AA6E0139261F611600318E30 /* MapStoreInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapStoreInfoView.swift; sourceTree = "<group>"; };
+		AA6E013E261F6A0D00318E30 /* CALayer+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CALayer+Extensions.swift"; sourceTree = "<group>"; };
+		AA72B7DC261B3996001E959B /* MapNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapNavigationView.swift; sourceTree = "<group>"; };
+		AAC78F90262A67FD009CC84E /* Application.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Application.swift; sourceTree = "<group>"; };
+		AAC78F95262A6916009CC84E /* ViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelType.swift; sourceTree = "<group>"; };
+		AAC78FE7262A6FC4009CC84E /* TabBarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewModel.swift; sourceTree = "<group>"; };
+		AAC78FEF262A7027009CC84E /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		AAC78FF4262A7150009CC84E /* Navigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navigator.swift; sourceTree = "<group>"; };
+		AAC78FF9262A773D009CC84E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		AAC79001262A7A1D009CC84E /* NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
+		AAC79007262A809D009CC84E /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
+		AAC79014262A91A4009CC84E /* TipViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipViewModel.swift; sourceTree = "<group>"; };
+		AAC7901F262AA7E3009CC84E /* TipViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipViewController.swift; sourceTree = "<group>"; };
 		AAD45C572619C06800A6F4D6 /* UIFont+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extensions.swift"; sourceTree = "<group>"; };
 		AAD45C602619C36600A6F4D6 /* SF-Pro-Text-Heavy.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Heavy.otf"; sourceTree = "<group>"; };
 		AAD45C612619C36600A6F4D6 /* SF-Pro-Text-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Light.otf"; sourceTree = "<group>"; };
@@ -69,11 +97,11 @@
 		AAD45C702619C36900A6F4D6 /* SF-Pro-Text-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Medium.otf"; sourceTree = "<group>"; };
 		AAD45C9D2619CAEC00A6F4D6 /* UIColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
 		AAD45CA82619CB2A00A6F4D6 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
+		AAF67E08262AE69600F643E1 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		AB05194427AB14D9AFFEE470 /* Pods-YoongYoongTests.dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YoongYoongTests.dev.xcconfig"; path = "Target Support Files/Pods-YoongYoongTests/Pods-YoongYoongTests.dev.xcconfig"; sourceTree = "<group>"; };
 		C4A4BE283F0F18E7064708AB /* Pods-YoongYoong.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YoongYoong.release.xcconfig"; path = "Target Support Files/Pods-YoongYoong/Pods-YoongYoong.release.xcconfig"; sourceTree = "<group>"; };
 		DAB00023260F12CA00D8208F /* YoongYoong.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YoongYoong.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAB00026260F12CA00D8208F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		DAB0002A260F12CA00D8208F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		DAB00030260F12CA00D8208F /* YoongYoong.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = YoongYoong.xcdatamodel; sourceTree = "<group>"; };
 		DAB00032260F12CD00D8208F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DAB00035260F12CD00D8208F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -116,6 +144,71 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AA344626261B31590034E1BC /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				DAB00026260F12CA00D8208F /* AppDelegate.swift */,
+				AAC78F90262A67FD009CC84E /* Application.swift */,
+				AAC78FF4262A7150009CC84E /* Navigator.swift */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		AA6E0138261F610300318E30 /* MapStoreInfoView */ = {
+			isa = PBXGroup;
+			children = (
+				AA6E0139261F611600318E30 /* MapStoreInfoView.swift */,
+			);
+			path = MapStoreInfoView;
+			sourceTree = "<group>";
+		};
+		AA72B7DB261B394E001E959B /* View */ = {
+			isa = PBXGroup;
+			children = (
+				AA6E0138261F610300318E30 /* MapStoreInfoView */,
+				AA72B7DC261B3996001E959B /* MapNavigationView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		AAC78FE5262A6FAD009CC84E /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				AAC79013262A9196009CC84E /* Tip */,
+				AAC79006262A807D009CC84E /* Map */,
+				AAC78FE6262A6FB6009CC84E /* Main */,
+			);
+			path = Modules;
+			sourceTree = "<group>";
+		};
+		AAC78FE6262A6FB6009CC84E /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				AAC78FE7262A6FC4009CC84E /* TabBarViewModel.swift */,
+				AAC78FEF262A7027009CC84E /* TabBarController.swift */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		AAC79006262A807D009CC84E /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				AA72B7DB261B394E001E959B /* View */,
+				AA344616261B2F240034E1BC /* MapViewController.swift */,
+				AAC79007262A809D009CC84E /* MapViewModel.swift */,
+			);
+			path = Map;
+			sourceTree = "<group>";
+		};
+		AAC79013262A9196009CC84E /* Tip */ = {
+			isa = PBXGroup;
+			children = (
+				AAC79014262A91A4009CC84E /* TipViewModel.swift */,
+				AAC7901F262AA7E3009CC84E /* TipViewController.swift */,
+			);
+			path = Tip;
+			sourceTree = "<group>";
+		};
 		AAD45C502619BFC800A6F4D6 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -146,6 +239,9 @@
 			isa = PBXGroup;
 			children = (
 				AAD45C562619C05E00A6F4D6 /* Extensions */,
+				AAC78F95262A6916009CC84E /* ViewModelType.swift */,
+				AAC78FF9262A773D009CC84E /* ViewController.swift */,
+				AAC79001262A7A1D009CC84E /* NavigationController.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -155,8 +251,17 @@
 			children = (
 				AAD45C572619C06800A6F4D6 /* UIFont+Extensions.swift */,
 				AAD45C9D2619CAEC00A6F4D6 /* UIColor+Extensions.swift */,
+				AA6E013E261F6A0D00318E30 /* CALayer+Extensions.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		AAF67E07262AE68B00F643E1 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				AAF67E08262AE69600F643E1 /* LocationManager.swift */,
+			);
+			path = Managers;
 			sourceTree = "<group>";
 		};
 		CDA85A6B298B95FB1F3880D7 /* Frameworks */ = {
@@ -194,10 +299,11 @@
 		DAB00025260F12CA00D8208F /* YoongYoong */ = {
 			isa = PBXGroup;
 			children = (
+				AAF67E07262AE68B00F643E1 /* Managers */,
+				AAC78FE5262A6FAD009CC84E /* Modules */,
+				AA344626261B31590034E1BC /* Application */,
 				AAD45C552619C05800A6F4D6 /* Common */,
 				AAD45C502619BFC800A6F4D6 /* Resources */,
-				DAB00026260F12CA00D8208F /* AppDelegate.swift */,
-				DAB0002A260F12CA00D8208F /* ViewController.swift */,
 				DAB00034260F12CD00D8208F /* LaunchScreen.storyboard */,
 				DAB00037260F12CD00D8208F /* Info.plist */,
 				DAB0002F260F12CA00D8208F /* YoongYoong.xcdatamodeld */,
@@ -486,10 +592,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DAB0002B260F12CA00D8208F /* ViewController.swift in Sources */,
+				AAC78FE8262A6FC4009CC84E /* TabBarViewModel.swift in Sources */,
+				AA6E013A261F611600318E30 /* MapStoreInfoView.swift in Sources */,
+				AAC78F91262A67FD009CC84E /* Application.swift in Sources */,
+				AA344617261B2F240034E1BC /* MapViewController.swift in Sources */,
 				AAD45C9E2619CAEC00A6F4D6 /* UIColor+Extensions.swift in Sources */,
 				DAB00027260F12CA00D8208F /* AppDelegate.swift in Sources */,
 				AAD45C582619C06800A6F4D6 /* UIFont+Extensions.swift in Sources */,
+				AAC78F96262A6916009CC84E /* ViewModelType.swift in Sources */,
+				AAC79002262A7A1D009CC84E /* NavigationController.swift in Sources */,
+				AA6E013F261F6A0D00318E30 /* CALayer+Extensions.swift in Sources */,
+				AAC78FF5262A7150009CC84E /* Navigator.swift in Sources */,
+				AAC78FF0262A7027009CC84E /* TabBarController.swift in Sources */,
+				AAC79008262A809D009CC84E /* MapViewModel.swift in Sources */,
+				AA72B7DD261B3996001E959B /* MapNavigationView.swift in Sources */,
+				AAC79015262A91A4009CC84E /* TipViewModel.swift in Sources */,
+				AAC78FFA262A773D009CC84E /* ViewController.swift in Sources */,
+				AAC79020262AA7E3009CC84E /* TipViewController.swift in Sources */,
+				AAF67E09262AE69600F643E1 /* LocationManager.swift in Sources */,
 				DAB00031260F12CA00D8208F /* YoongYoong.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -668,6 +788,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				NMAP_CLIENT_ID = jzyxx74dem;
 				PRODUCT_BUNDLE_IDENTIFIER = kr.co.yapp18.iOS2.yongyong.YoongYoong;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "YongYong Release";
@@ -691,6 +812,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				NMAP_CLIENT_ID = jzyxx74dem;
 				PRODUCT_BUNDLE_IDENTIFIER = kr.co.yapp18.iOS2.yongyong.YoongYoong;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "YongYong Release";
@@ -857,6 +979,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				NMAP_CLIENT_ID = jzyxx74dem;
 				PRODUCT_BUNDLE_IDENTIFIER = "kr.co.yapp18.iOS2.yongyong.YoongYoong-Dev";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "YongYong-Dev";
