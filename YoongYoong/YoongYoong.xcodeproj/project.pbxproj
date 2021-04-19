@@ -154,6 +154,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7E209973262DB53900A43E70 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				7EDCDB6E262321D60029BE45 /* StoreSearchViewController.swift */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
 		7E487566262ACCFD001014BC /* SearchHistory */ = {
 			isa = PBXGroup;
 			children = (
@@ -188,16 +196,16 @@
 			path = Cell;
 			sourceTree = "<group>";
 		};
-		7EDCDB6C262320850029BE45 /* PostScene */ = {
+		7EDCDB6C262320850029BE45 /* Post */ = {
 			isa = PBXGroup;
 			children = (
-				7EDCDB6E262321D60029BE45 /* StoreSearchViewController.swift */,
+				7E209973262DB53900A43E70 /* Search */,
 				7E487566262ACCFD001014BC /* SearchHistory */,
 				7E48756A262ACD0A001014BC /* SearchResult */,
 			);
-			path = PostScene;
-      sourceTree = "<group>";
-    };
+			path = Post;
+			sourceTree = "<group>";
+		};
 		AA344626261B31590034E1BC /* Application */ = {
 			isa = PBXGroup;
 			children = (
@@ -228,6 +236,7 @@
 		AAC78FE5262A6FAD009CC84E /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				7EDCDB6C262320850029BE45 /* Post */,
 				AAC79013262A9196009CC84E /* Tip */,
 				AAC79006262A807D009CC84E /* Map */,
 				AAC78FE6262A6FB6009CC84E /* Main */,
@@ -358,8 +367,6 @@
 				AA344626261B31590034E1BC /* Application */,
 				AAD45C552619C05800A6F4D6 /* Common */,
 				AAD45C502619BFC800A6F4D6 /* Resources */,
-				DAB0002A260F12CA00D8208F /* ViewController.swift */,
-				7EDCDB6C262320850029BE45 /* PostScene */,
 				DAB00034260F12CD00D8208F /* LaunchScreen.storyboard */,
 				DAB00037260F12CD00D8208F /* Info.plist */,
 				DAB0002F260F12CA00D8208F /* YoongYoong.xcdatamodeld */,
@@ -648,7 +655,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DAB0002B260F12CA00D8208F /* ViewController.swift in Sources */,
 				7E9F7B8226281D7100051D03 /* SearchResultViewController.swift in Sources */,
 				7EA4F3D826247E67001C754C /* SearchHistoryViewController.swift in Sources */,
 				AAD45C9E2619CAEC00A6F4D6 /* UIColor+Extensions.swift in Sources */,
