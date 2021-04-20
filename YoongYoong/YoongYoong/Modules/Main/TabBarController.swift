@@ -16,6 +16,9 @@ enum TabBarItem: Int {
     case .home:
       let vc = MapViewController(viewModel: viewModel, navigator: navigator)
       return NavigationController(rootViewController: vc)
+    case .post:
+      let vc = PostViewController(viewModel: viewModel, navigator: navigator)
+      return vc
     default:
       return ViewController(viewModel: viewModel, navigator: navigator)
     }

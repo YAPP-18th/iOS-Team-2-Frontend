@@ -31,6 +31,9 @@ class TabBarViewModel: ViewModel, ViewModelType {
     case .home:
       let viewModel = MapViewModel()
       return viewModel
+    case .post:
+      let viewModel = PostViewModel()
+      return viewModel
     default:
       return ViewModel()
     }
