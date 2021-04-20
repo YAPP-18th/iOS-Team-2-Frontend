@@ -1,38 +1,48 @@
 //
-//  SearchHistoryViewController.swift
+//  PostSearchHistoryView.swift
 //  YoongYoong
 //
 //  Created by 원현식 on 2021/04/12.
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 import SnapKit
 import Then
 
-class SearchHistoryViewController: UIViewController {
+class PostSearchHistoryView: UIView {
   var dummyData = [["검색어1"], ["검색어2"], ["검색어3"]]
-
+  
+  private let containerView = UIView()
+  private let titleLabel = UILabel()
   let tableView = UITableView()
-  let containerView = UIView()
-  let titleLabel = UILabel()
   let removeAllButton = UIButton()
   
-  override func viewDidLoad() {
-    super.viewDidLoad()
+  override init(frame: CGRect) {
+    super.init(frame: frame)
+    setupView()
     setupLayout()
-    setupAttribute()
+    configuration()
+    
+  }
+  
+  required init?(coder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
+  
+  private func setupView() {
+    containerView.addSubview(titleLabel)
+    containerView.addSubview(removeAllButton)
+    self.addSubview(containerView)
+    self.addSubview(tableView)
   }
   
   private func setupLayout() {
-    containerView.addSubview(titleLabel)
-    containerView.addSubview(removeAllButton)
-    view.addSubview(containerView)
-    view.addSubview(tableView)
-    
     containerView.snp.makeConstraints { make in
-      make.width.equalTo(view.snp.width)
-      make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
-      make.centerX.equalTo(view)
+      make.width.equalTo(self.snp.width)
+      make.top.equalTo(self.safeAreaLayoutGuide.snp.top)
+      make.centerX.equalTo(self)
       make.height.equalTo(38)
     }
     
@@ -52,15 +62,15 @@ class SearchHistoryViewController: UIViewController {
     
     tableView.snp.makeConstraints { make in
       make.top.equalTo(containerView.snp.bottom)
-      make.left.equalTo(view.snp.left).offset(16)
-      make.right.equalTo(view.snp.right).offset(-16)
-      make.bottom.equalTo(view.snp.bottom)
+      make.left.equalTo(self.snp.left).offset(16)
+      make.right.equalTo(self.snp.right).offset(-16)
+      make.bottom.equalTo(self.snp.bottom)
     }
     
   }
   
-  private func setupAttribute() {
-    view.do {
+  private func configuration() {
+    self.do {
       $0.backgroundColor = .white
     }
 
@@ -84,17 +94,17 @@ class SearchHistoryViewController: UIViewController {
       $0.dataSource = self
       $0.delegate = self
       $0.separatorStyle = .none
-      $0.rowHeight = SearchHistoryItemCell.height
+      $0.rowHeight = PostSearchHistoryItemCell.height
       $0.tableFooterView = UIView()
-      $0.register(SearchHistoryItemCell.self,
-                  forCellReuseIdentifier: SearchHistoryItemCell.reuseIdentifier)
+      $0.register(PostSearchHistoryItemCell.self,
+                  forCellReuseIdentifier: PostSearchHistoryItemCell.reuseIdentifier)
     }
     
   }
 
   @objc
   private func removeAllButtonDidTap() {
-    // TODO: event -> ViewModel
+    // TODO: ViewModel.Input
     dummyData.removeAll()
     tableView.reloadData()
   }
@@ -102,7 +112,7 @@ class SearchHistoryViewController: UIViewController {
 }
 
 // MARK: - UITableViewDelegate, UITableViewDataSource
-extension SearchHistoryViewController: UITableViewDataSource {
+extension PostSearchHistoryView: UITableViewDataSource {
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return 1
   }
@@ -117,7 +127,7 @@ extension SearchHistoryViewController: UITableViewDataSource {
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    guard let cell = tableView.dequeueReusableCell(withIdentifier: SearchHistoryItemCell.reuseIdentifier, for: indexPath) as? SearchHistoryItemCell else {
+    guard let cell = tableView.dequeueReusableCell(withIdentifier: PostSearchHistoryItemCell.reuseIdentifier, for: indexPath) as? PostSearchHistoryItemCell else {
       return UITableViewCell()
     }
     
@@ -135,9 +145,9 @@ extension SearchHistoryViewController: UITableViewDataSource {
 
 }
 
-extension SearchHistoryViewController: UITableViewDelegate {
+extension PostSearchHistoryView: UITableViewDelegate {
   func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-    return SearchHistoryItemCell.cellSpacingHeight
+    return PostSearchHistoryItemCell.cellSpacingHeight
   }
 
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

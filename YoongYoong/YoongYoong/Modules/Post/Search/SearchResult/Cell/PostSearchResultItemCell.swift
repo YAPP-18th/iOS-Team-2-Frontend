@@ -1,5 +1,5 @@
 //
-//  SearchResultItemCell.swift
+//  PostSearchResultItemCell.swift
 //  YoongYoong
 //
 //  Created by 원현식 on 2021/04/15.
@@ -7,9 +7,9 @@
 
 import UIKit
 
-class SearchResultItemCell: UITableViewCell {
+class PostSearchResultItemCell: UITableViewCell {
     
-  static let reuseIdentifier = String(describing: SearchResultItemCell.self)
+  static let reuseIdentifier = String(describing: PostSearchResultItemCell.self)
   static let height = CGFloat(96)
   
   private let storeLabel = UILabel()

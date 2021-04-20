@@ -1,5 +1,5 @@
 //
-//  SearchHistoryItemCell.swift
+//  PostSearchHistoryItemCell.swift
 //  YoongYoong
 //
 //  Created by 원현식 on 2021/04/12.
@@ -9,9 +9,9 @@ import UIKit
 import SnapKit
 import Then
 
-class SearchHistoryItemCell: UITableViewCell {
+class PostSearchHistoryItemCell: UITableViewCell {
   static let height = CGFloat(32)
-  static let reuseIdentifier = String(describing: SearchHistoryViewController.self)
+  static let reuseIdentifier = String(describing: PostSearchHistoryView.self)
   static let cellSpacingHeight = CGFloat(8)
   
   let deleteButton = UIButton()

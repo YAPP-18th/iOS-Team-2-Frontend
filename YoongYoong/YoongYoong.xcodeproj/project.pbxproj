@@ -8,11 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		6AFAAC9AAB1CEE62B8A4467B /* Pods_YoongYoong.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 758DACE043760F2E75EB5FCB /* Pods_YoongYoong.framework */; };
-		7E9F7B8226281D7100051D03 /* SearchResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E9F7B8126281D7100051D03 /* SearchResultViewController.swift */; };
-		7E9F7B8726281D8B00051D03 /* SearchResultItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E9F7B8626281D8B00051D03 /* SearchResultItemCell.swift */; };
-		7EA4F3D826247E67001C754C /* SearchHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EA4F3D726247E67001C754C /* SearchHistoryViewController.swift */; };
-		7EA4F3DD2624888B001C754C /* SearchHistoryItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EA4F3DC2624888B001C754C /* SearchHistoryItemCell.swift */; };
-		7EDCDB6F262321D60029BE45 /* StoreSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EDCDB6E262321D60029BE45 /* StoreSearchViewController.swift */; };
+		7E209983262DB64700A43E70 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E209982262DB64700A43E70 /* PostViewController.swift */; };
+		7E608BFF262DCD3A008708F7 /* PostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E608BFE262DCD3A008708F7 /* PostViewModel.swift */; };
+		7E608C07262E8E1A008708F7 /* PostSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E608C06262E8E1A008708F7 /* PostSearchViewModel.swift */; };
+		7E9F7B8226281D7100051D03 /* PostSearchResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E9F7B8126281D7100051D03 /* PostSearchResultView.swift */; };
+		7E9F7B8726281D8B00051D03 /* PostSearchResultItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E9F7B8626281D8B00051D03 /* PostSearchResultItemCell.swift */; };
+		7EA4F3D826247E67001C754C /* PostSearchHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EA4F3D726247E67001C754C /* PostSearchHistoryView.swift */; };
+		7EA4F3DD2624888B001C754C /* PostSearchHistoryItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EA4F3DC2624888B001C754C /* PostSearchHistoryItemCell.swift */; };
+		7EDCDB6F262321D60029BE45 /* PostSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EDCDB6E262321D60029BE45 /* PostSearchViewController.swift */; };
 		AA344617261B2F240034E1BC /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA344616261B2F240034E1BC /* MapViewController.swift */; };
 		AA6E013A261F611600318E30 /* MapStoreInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6E0139261F611600318E30 /* MapStoreInfoView.swift */; };
 		AA6E013F261F6A0D00318E30 /* CALayer+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6E013E261F6A0D00318E30 /* CALayer+Extensions.swift */; };
@@ -73,11 +76,14 @@
 		5E844A4FB1E67E67DDBA7C1C /* Pods-YoongYoong-YoongYoongUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YoongYoong-YoongYoongUITests.debug.xcconfig"; path = "Target Support Files/Pods-YoongYoong-YoongYoongUITests/Pods-YoongYoong-YoongYoongUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		6B8446DB571903D78466AE9B /* Pods-YoongYoongTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YoongYoongTests.debug.xcconfig"; path = "Target Support Files/Pods-YoongYoongTests/Pods-YoongYoongTests.debug.xcconfig"; sourceTree = "<group>"; };
 		758DACE043760F2E75EB5FCB /* Pods_YoongYoong.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_YoongYoong.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		7E9F7B8126281D7100051D03 /* SearchResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultViewController.swift; sourceTree = "<group>"; };
-		7E9F7B8626281D8B00051D03 /* SearchResultItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultItemCell.swift; sourceTree = "<group>"; };
-		7EA4F3D726247E67001C754C /* SearchHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistoryViewController.swift; sourceTree = "<group>"; };
-		7EA4F3DC2624888B001C754C /* SearchHistoryItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistoryItemCell.swift; sourceTree = "<group>"; };
-		7EDCDB6E262321D60029BE45 /* StoreSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreSearchViewController.swift; sourceTree = "<group>"; };
+		7E209982262DB64700A43E70 /* PostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
+		7E608BFE262DCD3A008708F7 /* PostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewModel.swift; sourceTree = "<group>"; };
+		7E608C06262E8E1A008708F7 /* PostSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostSearchViewModel.swift; sourceTree = "<group>"; };
+		7E9F7B8126281D7100051D03 /* PostSearchResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostSearchResultView.swift; sourceTree = "<group>"; };
+		7E9F7B8626281D8B00051D03 /* PostSearchResultItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostSearchResultItemCell.swift; sourceTree = "<group>"; };
+		7EA4F3D726247E67001C754C /* PostSearchHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostSearchHistoryView.swift; sourceTree = "<group>"; };
+		7EA4F3DC2624888B001C754C /* PostSearchHistoryItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostSearchHistoryItemCell.swift; sourceTree = "<group>"; };
+		7EDCDB6E262321D60029BE45 /* PostSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostSearchViewController.swift; sourceTree = "<group>"; };
 		948D7D766C7E57695042FF1F /* Pods-YoongYoong.dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YoongYoong.dev.xcconfig"; path = "Target Support Files/Pods-YoongYoong/Pods-YoongYoong.dev.xcconfig"; sourceTree = "<group>"; };
 		9AA94A64E3F69882F456EE4D /* Pods-YoongYoong.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YoongYoong.debug.xcconfig"; path = "Target Support Files/Pods-YoongYoong/Pods-YoongYoong.debug.xcconfig"; sourceTree = "<group>"; };
 		9BB5CF0D7707EB35250D4235 /* Pods-YoongYoong-YoongYoongUITests.dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YoongYoong-YoongYoongUITests.dev.xcconfig"; path = "Target Support Files/Pods-YoongYoong-YoongYoongUITests/Pods-YoongYoong-YoongYoongUITests.dev.xcconfig"; sourceTree = "<group>"; };
@@ -157,7 +163,10 @@
 		7E209973262DB53900A43E70 /* Search */ = {
 			isa = PBXGroup;
 			children = (
-				7EDCDB6E262321D60029BE45 /* StoreSearchViewController.swift */,
+				7EDCDB6E262321D60029BE45 /* PostSearchViewController.swift */,
+				7E608C06262E8E1A008708F7 /* PostSearchViewModel.swift */,
+				7E487566262ACCFD001014BC /* SearchHistory */,
+				7E48756A262ACD0A001014BC /* SearchResult */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -165,7 +174,7 @@
 		7E487566262ACCFD001014BC /* SearchHistory */ = {
 			isa = PBXGroup;
 			children = (
-				7EA4F3D726247E67001C754C /* SearchHistoryViewController.swift */,
+				7EA4F3D726247E67001C754C /* PostSearchHistoryView.swift */,
 				7E487575262ACD1B001014BC /* Cell */,
 			);
 			path = SearchHistory;
@@ -174,7 +183,7 @@
 		7E48756A262ACD0A001014BC /* SearchResult */ = {
 			isa = PBXGroup;
 			children = (
-				7E9F7B8126281D7100051D03 /* SearchResultViewController.swift */,
+				7E9F7B8126281D7100051D03 /* PostSearchResultView.swift */,
 				7E48756E262ACD14001014BC /* Cell */,
 			);
 			path = SearchResult;
@@ -183,7 +192,7 @@
 		7E48756E262ACD14001014BC /* Cell */ = {
 			isa = PBXGroup;
 			children = (
-				7E9F7B8626281D8B00051D03 /* SearchResultItemCell.swift */,
+				7E9F7B8626281D8B00051D03 /* PostSearchResultItemCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -191,7 +200,7 @@
 		7E487575262ACD1B001014BC /* Cell */ = {
 			isa = PBXGroup;
 			children = (
-				7EA4F3DC2624888B001C754C /* SearchHistoryItemCell.swift */,
+				7EA4F3DC2624888B001C754C /* PostSearchHistoryItemCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -199,9 +208,9 @@
 		7EDCDB6C262320850029BE45 /* Post */ = {
 			isa = PBXGroup;
 			children = (
+				7E209982262DB64700A43E70 /* PostViewController.swift */,
+				7E608BFE262DCD3A008708F7 /* PostViewModel.swift */,
 				7E209973262DB53900A43E70 /* Search */,
-				7E487566262ACCFD001014BC /* SearchHistory */,
-				7E48756A262ACD0A001014BC /* SearchResult */,
 			);
 			path = Post;
 			sourceTree = "<group>";
@@ -655,13 +664,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7E9F7B8226281D7100051D03 /* SearchResultViewController.swift in Sources */,
-				7EA4F3D826247E67001C754C /* SearchHistoryViewController.swift in Sources */,
+				7E9F7B8226281D7100051D03 /* PostSearchResultView.swift in Sources */,
+				7EA4F3D826247E67001C754C /* PostSearchHistoryView.swift in Sources */,
 				AAD45C9E2619CAEC00A6F4D6 /* UIColor+Extensions.swift in Sources */,
 				DAB00027260F12CA00D8208F /* AppDelegate.swift in Sources */,
 				AAD45C582619C06800A6F4D6 /* UIFont+Extensions.swift in Sources */,
-				7EA4F3DD2624888B001C754C /* SearchHistoryItemCell.swift in Sources */,
-				7EDCDB6F262321D60029BE45 /* StoreSearchViewController.swift in Sources */,
+				7EA4F3DD2624888B001C754C /* PostSearchHistoryItemCell.swift in Sources */,
+				7EDCDB6F262321D60029BE45 /* PostSearchViewController.swift in Sources */,
 				AAC78FE8262A6FC4009CC84E /* TabBarViewModel.swift in Sources */,
 				AA6E013A261F611600318E30 /* MapStoreInfoView.swift in Sources */,
 				AAC78F91262A67FD009CC84E /* Application.swift in Sources */,
@@ -671,17 +680,20 @@
 				AAD45C582619C06800A6F4D6 /* UIFont+Extensions.swift in Sources */,
 				AAC78F96262A6916009CC84E /* ViewModelType.swift in Sources */,
 				AAC79002262A7A1D009CC84E /* NavigationController.swift in Sources */,
+				7E209983262DB64700A43E70 /* PostViewController.swift in Sources */,
 				AA6E013F261F6A0D00318E30 /* CALayer+Extensions.swift in Sources */,
 				AAC78FF5262A7150009CC84E /* Navigator.swift in Sources */,
 				AAC78FF0262A7027009CC84E /* TabBarController.swift in Sources */,
+				7E608C07262E8E1A008708F7 /* PostSearchViewModel.swift in Sources */,
 				AAC79008262A809D009CC84E /* MapViewModel.swift in Sources */,
 				AA72B7DD261B3996001E959B /* MapNavigationView.swift in Sources */,
 				AAC79015262A91A4009CC84E /* TipViewModel.swift in Sources */,
 				AAC78FFA262A773D009CC84E /* ViewController.swift in Sources */,
+				7E608BFF262DCD3A008708F7 /* PostViewModel.swift in Sources */,
 				AAC79020262AA7E3009CC84E /* TipViewController.swift in Sources */,
 				AAF67E09262AE69600F643E1 /* LocationManager.swift in Sources */,
 				DAB00031260F12CA00D8208F /* YoongYoong.xcdatamodeld in Sources */,
-				7E9F7B8726281D8B00051D03 /* SearchResultItemCell.swift in Sources */,
+				7E9F7B8726281D8B00051D03 /* PostSearchResultItemCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
