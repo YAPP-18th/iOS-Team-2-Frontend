@@ -44,6 +44,8 @@
 		DAB0004C260F12CE00D8208F /* YoongYoongUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB0004B260F12CE00D8208F /* YoongYoongUITests.swift */; };
 		DABB2CF1263032330061EC98 /* Identifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DABB2CF0263032330061EC98 /* Identifiable.swift */; };
 		DABB2CF9263033F60061EC98 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DABB2CF8263033F60061EC98 /* UIView+Extensions.swift */; };
+		DABB2D0926304FCD0061EC98 /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DABB2D0826304FCD0061EC98 /* LogInViewController.swift */; };
+		DABB2D0E263050770061EC98 /* LogInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DABB2D0D263050770061EC98 /* LogInViewModel.swift */; };
 		DAE3E4C526302EAD005A0A61 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE3E4C426302EAD005A0A61 /* OnboardingViewController.swift */; };
 		DBBE82F53A75CC8AAF58B667 /* Pods_YoongYoong_YoongYoongUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 238ACAD42E9502C9F4DB3139 /* Pods_YoongYoong_YoongYoongUITests.framework */; };
 /* End PBXBuildFile section */
@@ -117,6 +119,8 @@
 		DAB0004D260F12CE00D8208F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DABB2CF0263032330061EC98 /* Identifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Identifiable.swift; sourceTree = "<group>"; };
 		DABB2CF8263033F60061EC98 /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
+		DABB2D0826304FCD0061EC98 /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
+		DABB2D0D263050770061EC98 /* LogInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewModel.swift; sourceTree = "<group>"; };
 		DAE3E4C426302EAD005A0A61 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		F1BA7E9CFA81CCA931C8F5E2 /* Pods-YoongYoong-YoongYoongUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YoongYoong-YoongYoongUITests.release.xcconfig"; path = "Target Support Files/Pods-YoongYoong-YoongYoongUITests/Pods-YoongYoong-YoongYoongUITests.release.xcconfig"; sourceTree = "<group>"; };
 		F1D48CD7588577A288A8C11C /* Pods-YoongYoongTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YoongYoongTests.release.xcconfig"; path = "Target Support Files/Pods-YoongYoongTests/Pods-YoongYoongTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -312,10 +316,10 @@
 				AA344626261B31590034E1BC /* Application */,
 				AAD45C552619C05800A6F4D6 /* Common */,
 				AAD45C502619BFC800A6F4D6 /* Resources */,
+				DAE3E4BF26302E60005A0A61 /* Scene */,
 				DAB00034260F12CD00D8208F /* LaunchScreen.storyboard */,
 				DAB00037260F12CD00D8208F /* Info.plist */,
 				DAB0002F260F12CA00D8208F /* YoongYoong.xcdatamodeld */,
-				DAE3E4BF26302E60005A0A61 /* Scene */,
 			);
 			path = YoongYoong;
 			sourceTree = "<group>";
@@ -358,6 +362,7 @@
 			isa = PBXGroup;
 			children = (
 				DAE3E4CC26303031005A0A61 /* View */,
+				DABB2D0D263050770061EC98 /* LogInViewModel.swift */,
 			);
 			path = OnBoarding;
 			sourceTree = "<group>";
@@ -365,17 +370,10 @@
 		DAE3E4CC26303031005A0A61 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				DAE3E4CD26303039005A0A61 /* Cell */,
 				DAE3E4C426302EAD005A0A61 /* OnboardingViewController.swift */,
+				DABB2D0826304FCD0061EC98 /* LogInViewController.swift */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		DAE3E4CD26303039005A0A61 /* Cell */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Cell;
 			sourceTree = "<group>";
 		};
 		E036F4A44D511B5C71BDCB3E /* Pods */ = {
@@ -645,6 +643,7 @@
 				AA6E013A261F611600318E30 /* MapStoreInfoView.swift in Sources */,
 				AAC78F91262A67FD009CC84E /* Application.swift in Sources */,
 				AA344617261B2F240034E1BC /* MapViewController.swift in Sources */,
+				DABB2D0E263050770061EC98 /* LogInViewModel.swift in Sources */,
 				DABB2CF1263032330061EC98 /* Identifiable.swift in Sources */,
 				AAD45C9E2619CAEC00A6F4D6 /* UIColor+Extensions.swift in Sources */,
 				DAB00027260F12CA00D8208F /* AppDelegate.swift in Sources */,
@@ -659,6 +658,7 @@
 				AAC79008262A809D009CC84E /* MapViewModel.swift in Sources */,
 				AA72B7DD261B3996001E959B /* MapNavigationView.swift in Sources */,
 				AAC79015262A91A4009CC84E /* TipViewModel.swift in Sources */,
+				DABB2D0926304FCD0061EC98 /* LogInViewController.swift in Sources */,
 				AAC78FFA262A773D009CC84E /* ViewController.swift in Sources */,
 				AAC79020262AA7E3009CC84E /* TipViewController.swift in Sources */,
 				AAF67E09262AE69600F643E1 /* LocationManager.swift in Sources */,

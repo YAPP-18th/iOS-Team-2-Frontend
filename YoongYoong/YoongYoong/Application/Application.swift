@@ -16,11 +16,16 @@ final class Application: NSObject {
     super.init()
   }
   var window: UIWindow?
-  
-  func presentInitialScreen(in window: UIWindow?) {
+  func presentInitialScreen(in window: UIWindow?, isFirst : Bool = false) {
     guard let window = window else { return }
     self.window = window
-    let viewModel = TabBarViewModel()
-    self.navigator.show(segue: .tabs(viewModel: viewModel), sender: nil, transition: .root(in: window))
+    //최초접속인경우 온보딩 보여줍니다.
+    if isFirst {
+      self.navigator.show(segue: .onboarding(viewModel: nil), sender: nil, transition: .root(in: window))
+    }
+    else {
+      let viewModel = TabBarViewModel()
+      self.navigator.show(segue: .tabs(viewModel: viewModel), sender: nil, transition: .root(in: window))
+    }
   }
 }

@@ -17,7 +17,7 @@ extension Identifiable {
     return String(describing: self)
   }
 }
-
+//identifier를 자동으로 만들어줍니다.
 extension UITableViewCell: Identifiable {}
 extension UICollectionViewCell: Identifiable {}
 extension UIViewController: Identifiable {}
