@@ -14,6 +14,8 @@
 		7EA4F3D826247E67001C754C /* PostSearchHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EA4F3D726247E67001C754C /* PostSearchHistoryView.swift */; };
 		7EA4F3DD2624888B001C754C /* PostSearchHistoryItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EA4F3DC2624888B001C754C /* PostSearchHistoryItemCell.swift */; };
 		7EDCDB6F262321D60029BE45 /* PostSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EDCDB6E262321D60029BE45 /* PostSearchViewController.swift */; };
+		7EF2DC64263076F80002E1E3 /* PostMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF2DC63263076F80002E1E3 /* PostMapViewController.swift */; };
+		7EF2DC69263077610002E1E3 /* PostMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF2DC68263077610002E1E3 /* PostMapViewModel.swift */; };
 		AA344617261B2F240034E1BC /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA344616261B2F240034E1BC /* MapViewController.swift */; };
 		AA6E013A261F611600318E30 /* MapStoreInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6E0139261F611600318E30 /* MapStoreInfoView.swift */; };
 		AA6E013F261F6A0D00318E30 /* CALayer+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6E013E261F6A0D00318E30 /* CALayer+Extensions.swift */; };
@@ -80,6 +82,8 @@
 		7EA4F3D726247E67001C754C /* PostSearchHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostSearchHistoryView.swift; sourceTree = "<group>"; };
 		7EA4F3DC2624888B001C754C /* PostSearchHistoryItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostSearchHistoryItemCell.swift; sourceTree = "<group>"; };
 		7EDCDB6E262321D60029BE45 /* PostSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostSearchViewController.swift; sourceTree = "<group>"; };
+		7EF2DC63263076F80002E1E3 /* PostMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostMapViewController.swift; sourceTree = "<group>"; };
+		7EF2DC68263077610002E1E3 /* PostMapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostMapViewModel.swift; sourceTree = "<group>"; };
 		948D7D766C7E57695042FF1F /* Pods-YoongYoong.dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YoongYoong.dev.xcconfig"; path = "Target Support Files/Pods-YoongYoong/Pods-YoongYoong.dev.xcconfig"; sourceTree = "<group>"; };
 		9AA94A64E3F69882F456EE4D /* Pods-YoongYoong.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YoongYoong.debug.xcconfig"; path = "Target Support Files/Pods-YoongYoong/Pods-YoongYoong.debug.xcconfig"; sourceTree = "<group>"; };
 		9BB5CF0D7707EB35250D4235 /* Pods-YoongYoong-YoongYoongUITests.dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YoongYoong-YoongYoongUITests.dev.xcconfig"; path = "Target Support Files/Pods-YoongYoong-YoongYoongUITests/Pods-YoongYoong-YoongYoongUITests.dev.xcconfig"; sourceTree = "<group>"; };
@@ -167,6 +171,15 @@
 			path = Search;
 			sourceTree = "<group>";
 		};
+		7E438BAE26307619000C53BD /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				7EF2DC63263076F80002E1E3 /* PostMapViewController.swift */,
+				7EF2DC68263077610002E1E3 /* PostMapViewModel.swift */,
+			);
+			path = Map;
+			sourceTree = "<group>";
+		};
 		7E487566262ACCFD001014BC /* SearchHistory */ = {
 			isa = PBXGroup;
 			children = (
@@ -205,6 +218,7 @@
 			isa = PBXGroup;
 			children = (
 				7E209973262DB53900A43E70 /* Search */,
+				7E438BAE26307619000C53BD /* Map */,
 			);
 			path = Post;
 			sourceTree = "<group>";
@@ -674,10 +688,12 @@
 				AAD45C582619C06800A6F4D6 /* UIFont+Extensions.swift in Sources */,
 				AAC78F96262A6916009CC84E /* ViewModelType.swift in Sources */,
 				AAC79002262A7A1D009CC84E /* NavigationController.swift in Sources */,
+				7EF2DC64263076F80002E1E3 /* PostMapViewController.swift in Sources */,
 				AA6E013F261F6A0D00318E30 /* CALayer+Extensions.swift in Sources */,
 				AAC78FF5262A7150009CC84E /* Navigator.swift in Sources */,
 				AAC78FF0262A7027009CC84E /* TabBarController.swift in Sources */,
 				7E608C07262E8E1A008708F7 /* PostSearchViewModel.swift in Sources */,
+				7EF2DC69263077610002E1E3 /* PostMapViewModel.swift in Sources */,
 				AAC79008262A809D009CC84E /* MapViewModel.swift in Sources */,
 				AA72B7DD261B3996001E959B /* MapNavigationView.swift in Sources */,
 				AAC79015262A91A4009CC84E /* TipViewModel.swift in Sources */,
