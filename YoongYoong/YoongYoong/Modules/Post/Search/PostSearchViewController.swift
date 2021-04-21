@@ -96,6 +96,9 @@ class PostSearchViewController: ViewController {
   
   override func configuration() {
     super.configuration()
+    // 임시 dismiss 버튼
+    self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(closeButtonDidTap))
+    
     view.backgroundColor = .white
     progressView.do {
       $0.progressTintColor = .brandPrimary
@@ -145,6 +148,11 @@ class PostSearchViewController: ViewController {
     searchTextField.resignFirstResponder()
     searchResultView.isHidden = false
     searchHistoryView.isHidden = true
+  }
+  
+  @objc
+  private func closeButtonDidTap() {
+    self.dismiss(animated: true, completion: nil)
   }
   
 }

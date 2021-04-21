@@ -11,7 +11,7 @@ import RxCocoa
 
 class PostSearchViewModel: ViewModel, ViewModelType {
   struct Input {
-    // textFieldShouldBeginEditing, searchButtonDidTap, removeButtonDidTap, removeAllButtonDidTap, searchResultItemDidTap
+    // textFieldShouldBeginEditing, searchButtonDidTap, searchHistoryItemDidTap, removeButtonDidTap, removeAllButtonDidTap, searchResultItemDidTap
   }
   
   struct Output {
