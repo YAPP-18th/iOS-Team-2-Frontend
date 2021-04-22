@@ -11,9 +11,7 @@ import RxCocoa
 import SnapKit
 import Then
 
-class PostSearchHistoryView: UIView {
-  var dummyData = [["검색어1"], ["검색어2"], ["검색어3"]]
-  
+class PostSearchHistoryView: UIView {  
   private let containerView = UIView()
   private let titleLabel = UILabel()
   let tableView = UITableView()
@@ -87,12 +85,9 @@ class PostSearchHistoryView: UIView {
       $0.setTitle("전체삭제", for: .normal)
       $0.setTitleColor(#colorLiteral(red: 0.5490196078, green: 0.5529411765, blue: 0.5725490196, alpha: 1), for: .normal) 
       $0.titleLabel?.font = UIFont.sdGhothicNeo(ofSize: 12, weight: .regular)
-      $0.addTarget(self, action: #selector(removeAllButtonDidTap), for: .touchUpInside)
     }
     
     tableView.do {
-      $0.dataSource = self
-      $0.delegate = self
       $0.separatorStyle = .none
       $0.rowHeight = PostSearchHistoryItemCell.height
       $0.tableFooterView = UIView()
@@ -102,56 +97,4 @@ class PostSearchHistoryView: UIView {
     
   }
 
-  @objc
-  private func removeAllButtonDidTap() {
-    // TODO: ViewModel.Input
-    dummyData.removeAll()
-    tableView.reloadData()
-  }
-  
-}
-
-// MARK: - UITableViewDelegate, UITableViewDataSource
-extension PostSearchHistoryView: UITableViewDataSource {
-  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return 1
-  }
-  
-  func numberOfSections(in tableView: UITableView) -> Int {
-    return dummyData.count
-  }
-  
-  func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-    let view = UIView()
-    return view
-  }
-  
-  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    guard let cell = tableView.dequeueReusableCell(withIdentifier: PostSearchHistoryItemCell.reuseIdentifier, for: indexPath) as? PostSearchHistoryItemCell else {
-      return UITableViewCell()
-    }
-    
-    // TODO: viewModel -> view
-    cell.textLabel?.text = dummyData[indexPath.section][0]
-    
-    cell.didDelete = { [weak self] in
-      guard let self = self else { return }
-      // TODO: view -> viewModel
-      self.dummyData.remove(at: indexPath.section)
-      tableView.reloadData()
-    }
-    return cell
-  }
-
-}
-
-extension PostSearchHistoryView: UITableViewDelegate {
-  func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-    return PostSearchHistoryItemCell.cellSpacingHeight
-  }
-
-  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    tableView.deselectRow(at: indexPath, animated: false)
-    // TODO: view -> ViewModel
-  }
 }

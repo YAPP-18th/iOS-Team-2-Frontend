@@ -36,34 +36,10 @@ class PostSearchResultView: UIView {
   
   private func configuration() {
     tableView.do {
-      $0.delegate = self
-      $0.dataSource = self
       $0.rowHeight = PostSearchResultItemCell.height
       $0.register(PostSearchResultItemCell.self,
                   forCellReuseIdentifier: PostSearchResultItemCell.reuseIdentifier)
     }
   }
-  
 }
 
-extension PostSearchResultView: UITableViewDataSource {
-  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return 10
-  }
-  
-  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    guard let cell = tableView.dequeueReusableCell(withIdentifier: PostSearchResultItemCell.reuseIdentifier) as? PostSearchResultItemCell else {
-      return UITableViewCell()
-    }
-    cell.setSeletedColor()
-    
-    return cell
-  }
-}
-
-extension PostSearchResultView: UITableViewDelegate {
-  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    tableView.deselectRow(at: indexPath, animated: true)
-    // TODO: view -> viewModel
-  }
-}

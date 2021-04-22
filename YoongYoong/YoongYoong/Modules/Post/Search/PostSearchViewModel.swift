@@ -10,16 +10,22 @@ import RxSwift
 import RxCocoa
 
 class PostSearchViewModel: ViewModel, ViewModelType {
+  var dummyData = ["검색어1", "검색어2","검색어3","검색어4", "검색어5"]
+ 
   struct Input {
-    // textFieldShouldBeginEditing, searchButtonDidTap, searchHistoryItemDidTap, removeButtonDidTap, removeAllButtonDidTap, searchResultItemDidTap
+    //  searchText, searchHistoryItemDidTap, removeSearchHistoryItem, removeAllButtonDidTap, searchResultItem
   }
   
   struct Output {
-    // fetchSearchHistory, fetchSearchResult, postMapView
+    // searchHistory, searchResult, postMapView
+    var searchHistory: Observable<[String]>
+    var searchResult: Observable<[Int]>
   }
   
   func transform(input: Input) -> Output {
-    return Output()
+    let output = Output(searchHistory: Observable.of(dummyData),
+                        searchResult: Observable.of([1,2,3,4,5]))
+    return output
   }
   
 }

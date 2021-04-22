@@ -29,12 +29,32 @@ class PostSearchViewController: ViewController {
   }
   
   override func bindViewModel() {
-    super.bindViewModel()    
+    super.bindViewModel()
+    
+    guard let viewModel = viewModel as? PostSearchViewModel else { return }
+
+ 
+    let input = PostSearchViewModel.Input()
+
+    let output = viewModel.transform(input: input)
+
+    output.searchHistory
+      .bind(to: searchHistoryView.tableView.rx.items(
+              cellIdentifier: PostSearchHistoryItemCell.reuseIdentifier,
+              cellType: PostSearchHistoryItemCell.self)) { _ , item , cell  in
+        cell.textLabel?.text = item
+
+      }.disposed(by: disposeBag)
+    
+    output.searchResult
+      .bind(to: searchResultView.tableView.rx.items(cellIdentifier: PostSearchResultItemCell.reuseIdentifier, cellType: PostSearchResultItemCell.self)) { _, _, cell  in
+        cell.setSeletedColor()
+      }
+    
   }
   
   override func setupView() {
     super.setupView()
-    view.addSubview(progressView)
     view.addSubview(titleLabel)
     searchBarContainer.addSubview(searchTextField)
     searchBarContainer.addSubview(searchButton)
@@ -47,14 +67,9 @@ class PostSearchViewController: ViewController {
   
   override func setupLayout() {
     super.setupLayout()
-    progressView.snp.makeConstraints { make in
-      make.width.equalTo(view.safeAreaLayoutGuide.snp.width)
-      make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
-      make.centerX.equalTo(view)
-    }
     
     titleLabel.snp.makeConstraints{ make in
-      make.top.equalTo(progressView.snp.bottom).offset(16)
+      make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(16)
       make.left.equalTo(view.snp.left).offset(16)
     }
     
@@ -121,6 +136,7 @@ class PostSearchViewController: ViewController {
       $0.delegate = self
       $0.placeholder = "검색어를 입력하세요"
       $0.clearButtonMode = .whileEditing
+      $0.becomeFirstResponder()
       $0.font = UIFont.sdGhothicNeo(ofSize: 16, weight: .regular)
     }
     
@@ -157,12 +173,10 @@ class PostSearchViewController: ViewController {
   
 }
 
-
 extension PostSearchViewController: UITextFieldDelegate {
   func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
     searchResultView.isHidden = true
     searchHistoryView.isHidden = false
-    
     return true
   }
 }
