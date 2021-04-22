@@ -57,7 +57,7 @@ class PostSearchResultItemCell: UITableViewCell {
     distanceLabel.snp.makeConstraints { make in
       make.width.equalTo(43)
       make.height.equalTo(16)
-      make.left.equalTo(storeLabel.snp.right).offset(10)
+      make.left.equalTo(storeLabel.snp.right).offset(25)
       make.top.equalTo(contentView.snp.top).offset(16)
     }
     
