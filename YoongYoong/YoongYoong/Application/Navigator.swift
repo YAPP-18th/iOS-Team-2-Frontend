@@ -19,6 +19,7 @@ class Navigator {
   enum Scene {
     case tabs(viewModel: TabBarViewModel)
     case tip(viewModel: TipViewModel)
+    case post(viewModel: PostSearchViewModel)
   }
   
   enum Transition {
@@ -31,6 +32,7 @@ class Navigator {
     case navigation(_ direction: Direction = .right)
     case customModal
     case modal
+    case modalFullScreen
     case detail
     case alert
     case custom
@@ -44,6 +46,9 @@ class Navigator {
     case.tip(let viewModel):
       let tipVC = TipViewController(viewModel: viewModel, navigator: self)
       return tipVC
+    case.post(let viewModel):
+      let postVC = PostSearchViewController(viewModel: viewModel, navigator: self)
+      return postVC
     }
   }
   
@@ -88,6 +93,14 @@ class Navigator {
         let nav = NavigationController(rootViewController: target)
         sender.present(nav, animated: true, completion: nil)
       }
+      
+    case .modalFullScreen:
+      DispatchQueue.main.async {
+        let nav = NavigationController(rootViewController: target)
+        nav.modalPresentationStyle = .fullScreen
+        sender.present(nav, animated: true, completion: nil)
+      }
+      
     case .detail:
       DispatchQueue.main.async {
         let nav = NavigationController(rootViewController: target)

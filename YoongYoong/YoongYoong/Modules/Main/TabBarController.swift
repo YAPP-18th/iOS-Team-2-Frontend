@@ -16,6 +16,9 @@ enum TabBarItem: Int {
     case .home:
       let vc = MapViewController(viewModel: viewModel, navigator: navigator)
       return NavigationController(rootViewController: vc)
+    case .post:
+      let vc = PostSearchViewController(viewModel: viewModel, navigator: navigator)
+      return NavigationController(rootViewController: vc)
     default:
       return ViewController(viewModel: viewModel, navigator: navigator)
     }
@@ -76,6 +79,7 @@ class TabBarController: UITabBarController, Navigatable {
     
     self.setViewControllers(self.viewControllers, animated:false)
     self.selectedIndex = 0
+    self.delegate = self
   }
   
   func bindViewModel() {
@@ -93,5 +97,22 @@ class TabBarController: UITabBarController, Navigatable {
       }
       self.setViewControllers(controllers, animated: true)
     }).disposed(by: self.disposeBag)
+  }
+}
+
+extension TabBarController: UITabBarControllerDelegate {
+  func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
+    
+    guard let viewController = viewController as? NavigationController,
+          viewController.topViewController is PostSearchViewController else { return true }
+    
+    guard let viewModel = viewModel,
+          let postViewModel = viewModel.viewModel(for: .post) as? PostSearchViewModel else {
+      return true
+    }
+    
+    self.navigator.show(segue: .post(viewModel: postViewModel), sender: self, transition: .modalFullScreen)
+
+    return false
   }
 }
