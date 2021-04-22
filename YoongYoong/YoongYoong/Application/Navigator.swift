@@ -19,6 +19,7 @@ class Navigator {
   enum Scene {
     case tabs(viewModel: TabBarViewModel)
     case tip(viewModel: TipViewModel)
+    case onboarding(viewModel: ViewModel? = nil)
     case post(viewModel: PostSearchViewModel)
   }
   
@@ -46,6 +47,17 @@ class Navigator {
     case.tip(let viewModel):
       let tipVC = TipViewController(viewModel: viewModel, navigator: self)
       return tipVC
+    case .onboarding(let viewModel) :
+      if let vm = viewModel {
+        let vc = LogInViewController(viewModel: vm, navigator: self)
+        return vc
+      }
+      else {
+        let onboardingVC = OnboradingViewController(viewModel: nil, navigator: self)
+        let navi = UINavigationController()
+        navi.viewControllers = [onboardingVC]
+        return navi
+      }
     case.post(let viewModel):
       let postVC = PostSearchViewController(viewModel: viewModel, navigator: self)
       return postVC
