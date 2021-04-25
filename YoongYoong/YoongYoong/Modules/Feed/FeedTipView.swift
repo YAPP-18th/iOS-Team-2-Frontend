@@ -8,8 +8,12 @@
 import UIKit
 import Then
 import SnapKit
+import RxSwift
+import RxCocoa
 
 class FeedTipView: UIView {
+  private let bag = DisposeBag()
+  
   let yongyongImageView = UIImageView().then {
     $0.contentMode = .scaleAspectFit
     $0.image = UIImage(named: "imgYongYongTip")
@@ -36,6 +40,11 @@ class FeedTipView: UIView {
   
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
+  }
+  
+  func bind(to viewModel: FeedTipViewModel) {
+    viewModel.date.asDriver().drive(self.dateLabel.rx.text).disposed(by: bag)
+    viewModel.tip.asDriver().drive(self.tipLabel.rx.text).disposed(by: bag)
   }
 }
 
@@ -71,9 +80,5 @@ extension FeedTipView {
       $0.bottom.equalTo(-14)
       $0.height.greaterThanOrEqualTo(20)
     }
-  }
-  
-  private func updateView() {
-    
   }
 }
