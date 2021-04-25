@@ -38,6 +38,8 @@
 		AAF68E72262F374500F643E1 /* FeedTipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF68E71262F374500F643E1 /* FeedTipView.swift */; };
 		AAF68E7A262F511F00F643E1 /* FeedListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF68E79262F511F00F643E1 /* FeedListTableViewCell.swift */; };
 		AAF68E7F262F53C000F643E1 /* FeedListContainerListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF68E7E262F53C000F643E1 /* FeedListContainerListView.swift */; };
+		AAF6903A2635C40C00F643E1 /* FeedTipViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF690392635C40C00F643E1 /* FeedTipViewModel.swift */; };
+		AAF6903F2635C68200F643E1 /* FeedListContainerListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF6903E2635C68200F643E1 /* FeedListContainerListViewModel.swift */; };
 		D6F9AC8B71CC355648D6E8B6 /* Pods_YoongYoongTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A06BD70420FBCDDEF5E50E3 /* Pods_YoongYoongTests.framework */; };
 		DAB00027260F12CA00D8208F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB00026260F12CA00D8208F /* AppDelegate.swift */; };
 		DAB00031260F12CA00D8208F /* YoongYoong.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DAB0002F260F12CA00D8208F /* YoongYoong.xcdatamodeld */; };
@@ -104,6 +106,8 @@
 		AAF68E71262F374500F643E1 /* FeedTipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedTipView.swift; sourceTree = "<group>"; };
 		AAF68E79262F511F00F643E1 /* FeedListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedListTableViewCell.swift; sourceTree = "<group>"; };
 		AAF68E7E262F53C000F643E1 /* FeedListContainerListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedListContainerListView.swift; sourceTree = "<group>"; };
+		AAF690392635C40C00F643E1 /* FeedTipViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedTipViewModel.swift; sourceTree = "<group>"; };
+		AAF6903E2635C68200F643E1 /* FeedListContainerListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedListContainerListViewModel.swift; sourceTree = "<group>"; };
 		AB05194427AB14D9AFFEE470 /* Pods-YoongYoongTests.dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YoongYoongTests.dev.xcconfig"; path = "Target Support Files/Pods-YoongYoongTests/Pods-YoongYoongTests.dev.xcconfig"; sourceTree = "<group>"; };
 		C4A4BE283F0F18E7064708AB /* Pods-YoongYoong.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YoongYoong.release.xcconfig"; path = "Target Support Files/Pods-YoongYoong/Pods-YoongYoong.release.xcconfig"; sourceTree = "<group>"; };
 		DAB00023260F12CA00D8208F /* YoongYoong.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YoongYoong.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -275,8 +279,10 @@
 			isa = PBXGroup;
 			children = (
 				AAF68E71262F374500F643E1 /* FeedTipView.swift */,
+				AAF690392635C40C00F643E1 /* FeedTipViewModel.swift */,
 				AAF68E79262F511F00F643E1 /* FeedListTableViewCell.swift */,
 				AAF68E7E262F53C000F643E1 /* FeedListContainerListView.swift */,
+				AAF6903E2635C68200F643E1 /* FeedListContainerListViewModel.swift */,
 			);
 			path = Feed;
 			sourceTree = "<group>";
@@ -611,6 +617,7 @@
 			files = (
 				AAF68E72262F374500F643E1 /* FeedTipView.swift in Sources */,
 				AAC78FE8262A6FC4009CC84E /* TabBarViewModel.swift in Sources */,
+				AAF6903A2635C40C00F643E1 /* FeedTipViewModel.swift in Sources */,
 				AA6E013A261F611600318E30 /* MapStoreInfoView.swift in Sources */,
 				AAC78F91262A67FD009CC84E /* Application.swift in Sources */,
 				AA344617261B2F240034E1BC /* MapViewController.swift in Sources */,
@@ -618,6 +625,7 @@
 				DAB00027260F12CA00D8208F /* AppDelegate.swift in Sources */,
 				AAD45C582619C06800A6F4D6 /* UIFont+Extensions.swift in Sources */,
 				AAC78F96262A6916009CC84E /* ViewModelType.swift in Sources */,
+				AAF6903F2635C68200F643E1 /* FeedListContainerListViewModel.swift in Sources */,
 				AAC79002262A7A1D009CC84E /* NavigationController.swift in Sources */,
 				AAF68E7F262F53C000F643E1 /* FeedListContainerListView.swift in Sources */,
 				AA6E013F261F6A0D00318E30 /* CALayer+Extensions.swift in Sources */,

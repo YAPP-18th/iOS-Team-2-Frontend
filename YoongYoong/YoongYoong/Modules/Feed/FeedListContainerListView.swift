@@ -8,23 +8,11 @@
 import UIKit
 import Then
 import SnapKit
+import RxSwift
+import RxCocoa
 
 class FeedListContainerListView: UIView {
-  struct ViewModel {
-    struct ContainerItem {
-      var menuName: String
-      var containerName: String
-    }
-    
-    var itemList: [ContainerItem]
-  }
-  
-  var viewModel: ViewModel? {
-    didSet {
-      self.updateView()
-    }
-  }
-  
+  let bag = DisposeBag()
   let stackView = UIStackView().then {
     $0.axis = .vertical
   }
@@ -38,6 +26,12 @@ class FeedListContainerListView: UIView {
   
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
+  }
+  
+  func bind(to viewModel: FeedListContainerListViewModel) {
+    viewModel.menuList.subscribe(onNext: { list in
+      self.updateList(list)
+    }).disposed(by: bag)
   }
 }
 
@@ -59,18 +53,17 @@ extension FeedListContainerListView {
     }
   }
   
-  private func updateView() {
-    guard let vm = self.viewModel else { return }
-    vm.itemList.forEach { item in
+  private func updateList(_ itemList: [(String, String)]) {
+    itemList.forEach { item in
       let view = UIView()
       let menuLabel = UILabel().then {
-        $0.text = item.menuName
+        $0.text = item.0
         $0.font = .sdGhothicNeo(ofSize: 12, weight: .regular)
         $0.textColor = .labelPrimary
       }
       
       let containerLabel = UILabel().then {
-        $0.text = item.containerName
+        $0.text = item.1
         $0.font = .sdGhothicNeo(ofSize: 12, weight: .regular)
         $0.textColor = .init(hexString: "#828282")
       }
