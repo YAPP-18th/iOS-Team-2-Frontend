@@ -36,6 +36,8 @@
 		AAD45CA92619CB2A00A6F4D6 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AAD45CA82619CB2A00A6F4D6 /* Colors.xcassets */; };
 		AAF5C20F263707AF000BB043 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF5C20E263707AF000BB043 /* FeedViewController.swift */; };
 		AAF5C22526370D20000BB043 /* FeedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF5C22426370D20000BB043 /* FeedViewModel.swift */; };
+		AAF5C22A26371A27000BB043 /* FeedListTableViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF5C22926371A27000BB043 /* FeedListTableViewCellViewModel.swift */; };
+		AAF5C22F26371B4D000BB043 /* FeedListSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF5C22E26371B4D000BB043 /* FeedListSection.swift */; };
 		AAF67E09262AE69600F643E1 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF67E08262AE69600F643E1 /* LocationManager.swift */; };
 		AAF68E72262F374500F643E1 /* FeedTipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF68E71262F374500F643E1 /* FeedTipView.swift */; };
 		AAF68E7A262F511F00F643E1 /* FeedListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF68E79262F511F00F643E1 /* FeedListTableViewCell.swift */; };
@@ -106,6 +108,8 @@
 		AAD45CA82619CB2A00A6F4D6 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		AAF5C20E263707AF000BB043 /* FeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
 		AAF5C22426370D20000BB043 /* FeedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewModel.swift; sourceTree = "<group>"; };
+		AAF5C22926371A27000BB043 /* FeedListTableViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedListTableViewCellViewModel.swift; sourceTree = "<group>"; };
+		AAF5C22E26371B4D000BB043 /* FeedListSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedListSection.swift; sourceTree = "<group>"; };
 		AAF67E08262AE69600F643E1 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		AAF68E71262F374500F643E1 /* FeedTipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedTipView.swift; sourceTree = "<group>"; };
 		AAF68E79262F511F00F643E1 /* FeedListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedListTableViewCell.swift; sourceTree = "<group>"; };
@@ -289,6 +293,8 @@
 				AAF6903E2635C68200F643E1 /* FeedListContainerListViewModel.swift */,
 				AAF5C20E263707AF000BB043 /* FeedViewController.swift */,
 				AAF5C22426370D20000BB043 /* FeedViewModel.swift */,
+				AAF5C22926371A27000BB043 /* FeedListTableViewCellViewModel.swift */,
+				AAF5C22E26371B4D000BB043 /* FeedListSection.swift */,
 			);
 			path = Feed;
 			sourceTree = "<group>";
@@ -632,6 +638,7 @@
 				AAD45C582619C06800A6F4D6 /* UIFont+Extensions.swift in Sources */,
 				AAC78F96262A6916009CC84E /* ViewModelType.swift in Sources */,
 				AAF6903F2635C68200F643E1 /* FeedListContainerListViewModel.swift in Sources */,
+				AAF5C22A26371A27000BB043 /* FeedListTableViewCellViewModel.swift in Sources */,
 				AAC79002262A7A1D009CC84E /* NavigationController.swift in Sources */,
 				AAF5C22526370D20000BB043 /* FeedViewModel.swift in Sources */,
 				AAF68E7F262F53C000F643E1 /* FeedListContainerListView.swift in Sources */,
@@ -641,6 +648,7 @@
 				AAC79008262A809D009CC84E /* MapViewModel.swift in Sources */,
 				AA72B7DD261B3996001E959B /* MapNavigationView.swift in Sources */,
 				AAC79015262A91A4009CC84E /* TipViewModel.swift in Sources */,
+				AAF5C22F26371B4D000BB043 /* FeedListSection.swift in Sources */,
 				AAC78FFA262A773D009CC84E /* ViewController.swift in Sources */,
 				AAC79020262AA7E3009CC84E /* TipViewController.swift in Sources */,
 				AAF67E09262AE69600F643E1 /* LocationManager.swift in Sources */,
