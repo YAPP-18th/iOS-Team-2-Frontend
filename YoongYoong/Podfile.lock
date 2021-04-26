@@ -1,5 +1,6 @@
 PODS:
   - Alamofire (5.4.1)
+  - Differentiator (4.0.1)
   - IQKeyboardManagerSwift (6.5.6)
   - Moya/Core (14.0.0):
     - Alamofire (~> 5.0)
@@ -10,6 +11,10 @@ PODS:
   - RxCocoa (5.1.1):
     - RxRelay (~> 5)
     - RxSwift (~> 5)
+  - RxDataSources (4.0.1):
+    - Differentiator (~> 4.0)
+    - RxCocoa (~> 5.0)
+    - RxSwift (~> 5.0)
   - RxRelay (5.1.1):
     - RxSwift (~> 5)
   - RxSwift (5.1.1)
@@ -21,6 +26,7 @@ DEPENDENCIES:
   - Moya/RxSwift (~> 14.0)
   - NMapsMap (= 3.10.0)
   - RxCocoa (= 5.1.1)
+  - RxDataSources (~> 4.0)
   - RxSwift (= 5.1.1)
   - SnapKit (~> 5.0.0)
   - Then
@@ -28,10 +34,12 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - Alamofire
+    - Differentiator
     - IQKeyboardManagerSwift
     - Moya
     - NMapsMap
     - RxCocoa
+    - RxDataSources
     - RxRelay
     - RxSwift
     - SnapKit
@@ -39,15 +47,17 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   Alamofire: 2291f7d21ca607c491dd17642e5d40fdcda0e65c
+  Differentiator: 886080237d9f87f322641dedbc5be257061b0602
   IQKeyboardManagerSwift: c7df9d2deb356c04522f5c4b7b6e4ce4d8ed94fe
   Moya: 5b45dacb75adb009f97fde91c204c1e565d31916
   NMapsMap: 17caab4af9a3fc5c25b79858de18bdeab1eaff87
   RxCocoa: 32065309a38d29b5b0db858819b5bf9ef038b601
+  RxDataSources: efee07fa4de48477eca0a4611e6d11e2da9c1114
   RxRelay: d77f7d771495f43c556cbc43eebd1bb54d01e8e9
   RxSwift: 81470a2074fa8780320ea5fe4102807cb7118178
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
   Then: acfe0be7e98221c6204e12f8161459606d5d822d
 
-PODFILE CHECKSUM: 76f7e8c7157eabe3a7dfb1b64d0e9d69860999c1
+PODFILE CHECKSUM: cc54845a446d7d1e3e15c7e3feaf8be43e623360
 
-COCOAPODS: 1.10.0
+COCOAPODS: 1.10.1
