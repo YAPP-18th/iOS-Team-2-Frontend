@@ -11,9 +11,9 @@ import SnapKit
 import RxSwift
 import RxCocoa
 
-class FeedTipView: UIView {
+class FeedTipView: UITableViewHeaderFooterView {
   private let bag = DisposeBag()
-  
+  let containerView = UIView()
   let yongyongImageView = UIImageView().then {
     $0.contentMode = .scaleAspectFit
     $0.image = UIImage(named: "imgYongYongTip")
@@ -30,9 +30,8 @@ class FeedTipView: UIView {
     $0.font = .sdGhothicNeo(ofSize: 16, weight: .bold)
     $0.numberOfLines = 0
   }
-  
-  override init(frame: CGRect) {
-    super.init(frame: frame)
+  override init(reuseIdentifier: String?) {
+    super.init(reuseIdentifier: reuseIdentifier)
     configuration()
     setupView()
     setupLayout()
@@ -40,6 +39,15 @@ class FeedTipView: UIView {
   
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
+  }
+  
+  override func layoutSubviews() {
+    super.layoutSubviews()
+    
+    containerView.layer.cornerRadius = 8
+    containerView.layer.masksToBounds = true
+    containerView.layer.borderWidth = 1
+    containerView.layer.borderColor = UIColor(red: 209.0 / 255.0, green: 209.0 / 255.0, blue: 214.0 / 255.0, alpha: 1.0).cgColor
   }
   
   func bind(to viewModel: FeedTipViewModel) {
@@ -50,16 +58,24 @@ class FeedTipView: UIView {
 
 extension FeedTipView {
   private func configuration() {
-     backgroundColor = .white
+    contentView.backgroundColor = .groupTableViewBackground
+    containerView.backgroundColor = .white
   }
   
   private func setupView() {
+    contentView.addSubview(containerView)
     [yongyongImageView, dateLabel, tipLabel].forEach {
-      self.addSubview($0)
+      containerView.addSubview($0)
     }
   }
   
   private func setupLayout() {
+    containerView.snp.makeConstraints {
+      $0.top.equalTo(28)
+      $0.leading.equalTo(16)
+      $0.trailing.equalTo(-22)
+      $0.bottom.equalTo(-24)
+    }
     yongyongImageView.snp.makeConstraints {
       $0.top.equalTo(12)
       $0.leading.equalTo(20)

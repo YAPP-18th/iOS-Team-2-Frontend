@@ -31,6 +31,9 @@ class TabBarViewModel: ViewModel, ViewModelType {
     case .home:
       let viewModel = MapViewModel()
       return viewModel
+    case .feed:
+      let viewModel = FeedViewModel()
+      return viewModel
     default:
       return ViewModel()
     }
