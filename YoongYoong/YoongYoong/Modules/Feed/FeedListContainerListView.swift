@@ -53,17 +53,22 @@ extension FeedListContainerListView {
     }
   }
   
-  private func updateList(_ itemList: [(String, String)]) {
+  private func updateList(_ itemList: [TitleContentItem]) {
+    self.stackView.arrangedSubviews.forEach {
+      $0.removeFromSuperview()
+      self.stackView.removeArrangedSubview($0)
+    }
+    
     itemList.forEach { item in
       let view = UIView()
       let menuLabel = UILabel().then {
-        $0.text = item.0
+        $0.text = item.title
         $0.font = .sdGhothicNeo(ofSize: 12, weight: .regular)
         $0.textColor = .labelPrimary
       }
       
       let containerLabel = UILabel().then {
-        $0.text = item.1
+        $0.text = item.content
         $0.font = .sdGhothicNeo(ofSize: 12, weight: .regular)
         $0.textColor = .init(hexString: "#828282")
       }

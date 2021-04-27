@@ -15,15 +15,25 @@ class FeedViewModel: ViewModel, ViewModelType {
   }
   
   struct Output {
-    let sample: Driver<[String]>
+    let items: BehaviorRelay<[FeedListSection]>
   }
   
+  let feedElements = BehaviorRelay<[Feed]>(value: Feed.dummyList)
+  
   func transform(input: Input) -> Output {
-    let sampleList = ["Hello1","Hello2","Hello3","Hello4","Hello5"]
+    let elements = BehaviorRelay<[FeedListSection]>(value: [])
+    
+    feedElements.map { feedList -> [FeedListSection] in
+      var elements: [FeedListSection] = []
+      let cellViewModel = feedList.map { feed -> FeedListSection.Item in
+        FeedListTableViewCellViewModel.init(with: feed)
+      }
+      elements.append(FeedListSection(items: cellViewModel))
+      return elements
+    }.bind(to: elements).disposed(by: disposeBag)
+    
     return Output(
-      sample: Observable.of(sampleList)
-        .asDriver(onErrorJustReturn: []
-        )
+      items: elements
     )
   }
 }

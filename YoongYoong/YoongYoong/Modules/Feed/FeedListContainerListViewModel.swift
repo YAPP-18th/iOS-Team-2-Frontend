@@ -10,5 +10,13 @@ import RxSwift
 import RxCocoa
 
 class FeedListContainerListViewModel: NSObject {
-  var menuList = BehaviorRelay<[(String, String)]>(value: [])
+  var menuList = BehaviorRelay<[TitleContentItem]>(value: [])
+  
+  let menus: [TitleContentItem]
+  
+  init(with menus: [TitleContentItem]) {
+    self.menus = menus
+    super.init()
+    menuList.accept(menus)
+  }
 }

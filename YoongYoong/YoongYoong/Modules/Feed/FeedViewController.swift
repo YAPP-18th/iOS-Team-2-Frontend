@@ -16,7 +16,7 @@ class FeedViewController: ViewController {
   let tableView = UITableView().then {
     $0.backgroundColor = .groupTableViewBackground
     $0.register(FeedTipView.self, forHeaderFooterViewReuseIdentifier: "FeedTipView")
-    $0.register(UITableViewCell.self, forCellReuseIdentifier: "NameCell")
+    $0.register(FeedListTableViewCell.self, forCellReuseIdentifier: "FeedListTableViewCell")
   }
   
   override func viewDidLoad() {
@@ -45,11 +45,17 @@ class FeedViewController: ViewController {
     guard let viewModel = viewModel as? FeedViewModel else { return }
     let input = FeedViewModel.Input()
     let output = viewModel.transform(input: input)
-    output.sample.drive(tableView.rx.items) { tableView, index, element in
-      guard let cell = tableView.dequeueReusableCell(withIdentifier: "NameCell") else { return UITableViewCell() }
-      cell.textLabel?.text = element
+    
+    let dataSource = RxTableViewSectionedReloadDataSource<FeedListSection>(configureCell: { dataSource, tableView, indexPath, item in
+      let cell = tableView.dequeueReusableCell(withIdentifier: "FeedListTableViewCell", for: indexPath) as! FeedListTableViewCell
+      cell.bind(to: item)
       return cell
-    }.disposed(by: disposeBag)
+    })
+    
+    output.items.asObservable()
+        .bind(to: tableView.rx.items(dataSource: dataSource))
+        .disposed(by: disposeBag)
+    
     self.tableView.rx.setDelegate(self).disposed(by: disposeBag)
     
   }
@@ -67,5 +73,9 @@ extension FeedViewController: UITableViewDelegate {
   
   func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
     return 116
+  }
+  
+  func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    return 600
   }
 }

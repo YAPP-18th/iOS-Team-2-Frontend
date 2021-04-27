@@ -9,7 +9,6 @@ import UIKit
 import RxDataSources
 
 struct FeedListSection {
-  var header: String
   var items: [Item]
 }
 

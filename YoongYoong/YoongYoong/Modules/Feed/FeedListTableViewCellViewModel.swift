@@ -10,10 +10,24 @@ import RxSwift
 import RxCocoa
 
 class FeedListTableViewCellViewModel: NSObject {
-  let profileImage = BehaviorRelay<UIImage?>(value: nil)
-  let name = BehaviorRelay<String?>(value: nil)
+  let profileImageURL = BehaviorRelay<String?>(value: nil)
+  let nickname = BehaviorRelay<String?>(value: nil)
   let storeName = BehaviorRelay<String?>(value: nil)
   let date = BehaviorRelay<String?>(value: nil)
-  let contentImage = BehaviorRelay<UIImage?>(value: nil)
-  let containerList = BehaviorRelay<[FeedListContainerListViewModel]>(value: [])
+  let contentImageURL = BehaviorRelay<String?>(value: nil)
+  let containerList = BehaviorRelay<[TitleContentItem]?>(value: nil)
+  
+  let feed: Feed
+  init(with feed: Feed) {
+    self.feed = feed
+    super.init()
+    profileImageURL.accept(feed.profileImageURL)
+    nickname.accept(feed.nickname)
+    storeName.accept(feed.storeName)
+    date.accept(feed.date)
+    contentImageURL.accept(feed.contentImageURL)
+    containerList.accept(feed.menuList)
+  }
 }
+
+

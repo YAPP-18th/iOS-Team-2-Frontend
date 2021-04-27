@@ -10,6 +10,6 @@ import RxSwift
 import RxCocoa
 
 class FeedTipViewModel: NSObject {
-  let date = BehaviorRelay<String?>(value: nil)
-  let tip = BehaviorRelay<String?>(value: nil)
+  var date = BehaviorRelay<String?>(value: nil)
+  var tip = BehaviorRelay<String?>(value: nil)
 }

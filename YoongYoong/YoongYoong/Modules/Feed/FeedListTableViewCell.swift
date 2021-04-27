@@ -8,10 +8,15 @@
 import UIKit
 import Then
 import SnapKit
+import RxSwift
+import RxCocoa
 
 class FeedListTableViewCell: UITableViewCell {
+  private let bag = DisposeBag()
+  
   let profileImageView = UIImageView().then {
     $0.contentMode = .scaleAspectFit
+    $0.backgroundColor = .lightGray
   }
   
   let nameLabel = UILabel().then {
@@ -36,6 +41,7 @@ class FeedListTableViewCell: UITableViewCell {
   
   let contentImageView = UIImageView().then {
     $0.contentMode = .scaleAspectFill
+    $0.backgroundColor = .lightGray
   }
   
   let containerTitleLabel = UILabel().then {
@@ -51,6 +57,9 @@ class FeedListTableViewCell: UITableViewCell {
   }
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
+    configuration()
+    setupView()
+    setupLayout()
   }
   
   required init?(coder: NSCoder) {
@@ -65,6 +74,15 @@ class FeedListTableViewCell: UITableViewCell {
     containerListView.layer.cornerRadius = 8
     containerListView.layer.borderWidth = 1
     containerListView.layer.borderColor = UIColor(hexString: "#ADADB1").cgColor
+  }
+  
+  func bind(to viewModel: FeedListTableViewCellViewModel) {
+//    viewModel.profileImageURL.asDriver().drive(self.profileImageView.rx.image).disposed(by: bag)
+    viewModel.nickname.asDriver().drive(self.nameLabel.rx.text).disposed(by: bag)
+    viewModel.storeName.asDriver().drive(self.storeNameLabel.rx.text).disposed(by: bag)
+    viewModel.date.asDriver().drive(self.dateLabel.rx.text).disposed(by: bag)
+    let containerViewModel = FeedListContainerListViewModel(with: viewModel.containerList.value ?? [])
+    containerListView.bind(to: containerViewModel)
   }
 }
 
@@ -128,7 +146,7 @@ extension FeedListTableViewCell {
       $0.leading.equalTo(16)
       $0.trailing.equalTo(-16)
       $0.height.equalTo(1)
-      $0.bottom.equalToSuperview()
+      $0.bottom.greaterThanOrEqualToSuperview()
     }
   }
   
