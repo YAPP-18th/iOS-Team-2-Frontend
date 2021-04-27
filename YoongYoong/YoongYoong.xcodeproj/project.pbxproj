@@ -38,6 +38,8 @@
 		AAF5C22526370D20000BB043 /* FeedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF5C22426370D20000BB043 /* FeedViewModel.swift */; };
 		AAF5C22A26371A27000BB043 /* FeedListTableViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF5C22926371A27000BB043 /* FeedListTableViewCellViewModel.swift */; };
 		AAF5C22F26371B4D000BB043 /* FeedListSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF5C22E26371B4D000BB043 /* FeedListSection.swift */; };
+		AAF5C2352637AB70000BB043 /* Feed.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF5C2342637AB70000BB043 /* Feed.swift */; };
+		AAF5C23D2637AC47000BB043 /* TitleContentItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF5C23C2637AC47000BB043 /* TitleContentItem.swift */; };
 		AAF67E09262AE69600F643E1 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF67E08262AE69600F643E1 /* LocationManager.swift */; };
 		AAF68E72262F374500F643E1 /* FeedTipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF68E71262F374500F643E1 /* FeedTipView.swift */; };
 		AAF68E7A262F511F00F643E1 /* FeedListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF68E79262F511F00F643E1 /* FeedListTableViewCell.swift */; };
@@ -110,6 +112,8 @@
 		AAF5C22426370D20000BB043 /* FeedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewModel.swift; sourceTree = "<group>"; };
 		AAF5C22926371A27000BB043 /* FeedListTableViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedListTableViewCellViewModel.swift; sourceTree = "<group>"; };
 		AAF5C22E26371B4D000BB043 /* FeedListSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedListSection.swift; sourceTree = "<group>"; };
+		AAF5C2342637AB70000BB043 /* Feed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Feed.swift; sourceTree = "<group>"; };
+		AAF5C23C2637AC47000BB043 /* TitleContentItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleContentItem.swift; sourceTree = "<group>"; };
 		AAF67E08262AE69600F643E1 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		AAF68E71262F374500F643E1 /* FeedTipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedTipView.swift; sourceTree = "<group>"; };
 		AAF68E79262F511F00F643E1 /* FeedListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedListTableViewCell.swift; sourceTree = "<group>"; };
@@ -275,6 +279,15 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		AAF5C2332637AB68000BB043 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				AAF5C2342637AB70000BB043 /* Feed.swift */,
+				AAF5C23C2637AC47000BB043 /* TitleContentItem.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		AAF67E07262AE68B00F643E1 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
@@ -334,6 +347,7 @@
 		DAB00025260F12CA00D8208F /* YoongYoong */ = {
 			isa = PBXGroup;
 			children = (
+				AAF5C2332637AB68000BB043 /* Models */,
 				AAF67E07262AE68B00F643E1 /* Managers */,
 				AAC78FE5262A6FAD009CC84E /* Modules */,
 				AA344626261B31590034E1BC /* Application */,
@@ -642,11 +656,13 @@
 				AAC79002262A7A1D009CC84E /* NavigationController.swift in Sources */,
 				AAF5C22526370D20000BB043 /* FeedViewModel.swift in Sources */,
 				AAF68E7F262F53C000F643E1 /* FeedListContainerListView.swift in Sources */,
+				AAF5C23D2637AC47000BB043 /* TitleContentItem.swift in Sources */,
 				AA6E013F261F6A0D00318E30 /* CALayer+Extensions.swift in Sources */,
 				AAC78FF5262A7150009CC84E /* Navigator.swift in Sources */,
 				AAC78FF0262A7027009CC84E /* TabBarController.swift in Sources */,
 				AAC79008262A809D009CC84E /* MapViewModel.swift in Sources */,
 				AA72B7DD261B3996001E959B /* MapNavigationView.swift in Sources */,
+				AAF5C2352637AB70000BB043 /* Feed.swift in Sources */,
 				AAC79015262A91A4009CC84E /* TipViewModel.swift in Sources */,
 				AAF5C22F26371B4D000BB043 /* FeedListSection.swift in Sources */,
 				AAC78FFA262A773D009CC84E /* ViewController.swift in Sources */,
