@@ -41,6 +41,8 @@
 		AAF5C2352637AB70000BB043 /* Feed.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF5C2342637AB70000BB043 /* Feed.swift */; };
 		AAF5C23D2637AC47000BB043 /* TitleContentItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF5C23C2637AC47000BB043 /* TitleContentItem.swift */; };
 		AAF5C2422637D7F5000BB043 /* UILabel+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF5C2412637D7F5000BB043 /* UILabel+Extensions.swift */; };
+		AAF5C25126381960000BB043 /* FeedProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF5C25026381960000BB043 /* FeedProfileViewController.swift */; };
+		AAF5C259263825C2000BB043 /* FeedProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF5C258263825C2000BB043 /* FeedProfileViewModel.swift */; };
 		AAF67E09262AE69600F643E1 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF67E08262AE69600F643E1 /* LocationManager.swift */; };
 		AAF68E72262F374500F643E1 /* FeedTipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF68E71262F374500F643E1 /* FeedTipView.swift */; };
 		AAF68E7A262F511F00F643E1 /* FeedListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF68E79262F511F00F643E1 /* FeedListTableViewCell.swift */; };
@@ -116,6 +118,8 @@
 		AAF5C2342637AB70000BB043 /* Feed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Feed.swift; sourceTree = "<group>"; };
 		AAF5C23C2637AC47000BB043 /* TitleContentItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleContentItem.swift; sourceTree = "<group>"; };
 		AAF5C2412637D7F5000BB043 /* UILabel+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Extensions.swift"; sourceTree = "<group>"; };
+		AAF5C25026381960000BB043 /* FeedProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedProfileViewController.swift; sourceTree = "<group>"; };
+		AAF5C258263825C2000BB043 /* FeedProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedProfileViewModel.swift; sourceTree = "<group>"; };
 		AAF67E08262AE69600F643E1 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		AAF68E71262F374500F643E1 /* FeedTipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedTipView.swift; sourceTree = "<group>"; };
 		AAF68E79262F511F00F643E1 /* FeedListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedListTableViewCell.swift; sourceTree = "<group>"; };
@@ -198,6 +202,7 @@
 		AAC78FE5262A6FAD009CC84E /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				AAF5C24F2638194F000BB043 /* FeedProfile */,
 				AAF68E70262F372400F643E1 /* Feed */,
 				AAC79013262A9196009CC84E /* Tip */,
 				AAC79006262A807D009CC84E /* Map */,
@@ -289,6 +294,15 @@
 				AAF5C23C2637AC47000BB043 /* TitleContentItem.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		AAF5C24F2638194F000BB043 /* FeedProfile */ = {
+			isa = PBXGroup;
+			children = (
+				AAF5C25026381960000BB043 /* FeedProfileViewController.swift */,
+				AAF5C258263825C2000BB043 /* FeedProfileViewModel.swift */,
+			);
+			path = FeedProfile;
 			sourceTree = "<group>";
 		};
 		AAF67E07262AE68B00F643E1 /* Managers */ = {
@@ -647,6 +661,7 @@
 				AAF68E72262F374500F643E1 /* FeedTipView.swift in Sources */,
 				AAC78FE8262A6FC4009CC84E /* TabBarViewModel.swift in Sources */,
 				AAF6903A2635C40C00F643E1 /* FeedTipViewModel.swift in Sources */,
+				AAF5C259263825C2000BB043 /* FeedProfileViewModel.swift in Sources */,
 				AA6E013A261F611600318E30 /* MapStoreInfoView.swift in Sources */,
 				AAC78F91262A67FD009CC84E /* Application.swift in Sources */,
 				AA344617261B2F240034E1BC /* MapViewController.swift in Sources */,
@@ -674,6 +689,7 @@
 				AAF67E09262AE69600F643E1 /* LocationManager.swift in Sources */,
 				AAF5C20F263707AF000BB043 /* FeedViewController.swift in Sources */,
 				DAB00031260F12CA00D8208F /* YoongYoong.xcdatamodeld in Sources */,
+				AAF5C25126381960000BB043 /* FeedProfileViewController.swift in Sources */,
 				AAF68E7A262F511F00F643E1 /* FeedListTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
