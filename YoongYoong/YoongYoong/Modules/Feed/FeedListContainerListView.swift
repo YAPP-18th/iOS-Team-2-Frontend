@@ -63,8 +63,8 @@ extension FeedListContainerListView {
       let view = UIView()
       let menuLabel = UILabel().then {
         $0.text = item.title
-        $0.font = .sdGhothicNeo(ofSize: 12, weight: .regular)
-        $0.textColor = .labelPrimary
+        $0.font = .krCaption2
+        $0.textColor = .systemGrayText01
       }
       
       let containerLabel = UILabel().then {

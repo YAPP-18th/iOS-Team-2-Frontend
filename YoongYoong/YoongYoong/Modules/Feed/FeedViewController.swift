@@ -14,7 +14,7 @@ import RxDataSources
 
 class FeedViewController: ViewController {
   let tableView = UITableView().then {
-    $0.backgroundColor = .groupTableViewBackground
+    $0.backgroundColor = .systemGray06
     $0.register(FeedTipView.self, forHeaderFooterViewReuseIdentifier: "FeedTipView")
     $0.register(FeedListTableViewCell.self, forCellReuseIdentifier: "FeedListTableViewCell")
   }

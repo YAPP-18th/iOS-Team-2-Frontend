@@ -21,8 +21,8 @@ class FeedTipView: UITableViewHeaderFooterView {
   
   let dateLabel = UILabel().then {
     $0.text = "21.04.24 Sat"
-    $0.font = .sdGhothicNeo(ofSize: 12, weight: .regular)
-    $0.textColor = .labelPrimary
+    $0.font = .krCaption2
+    $0.textColor = .systemGrayText01
   }
   
   let tipLabel = UILabel().then {
@@ -58,7 +58,7 @@ class FeedTipView: UITableViewHeaderFooterView {
 
 extension FeedTipView {
   private func configuration() {
-    contentView.backgroundColor = .groupTableViewBackground
+    contentView.backgroundColor = .systemGray06
     containerView.backgroundColor = .white
   }
   

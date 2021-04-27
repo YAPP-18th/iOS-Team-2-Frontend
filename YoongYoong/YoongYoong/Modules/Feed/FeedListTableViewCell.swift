@@ -21,14 +21,14 @@ class FeedListTableViewCell: UITableViewCell {
   
   let nameLabel = UILabel().then {
     $0.text = "김용기"
-    $0.font = .sdGhothicNeo(ofSize: 14, weight: .bold)
-    $0.textColor = .labelPrimary
+    $0.font = .krTitle2
+    $0.textColor = .systemGrayText01
     $0.textAlignment = .left
   }
   
   let storeNameLabel = UILabel().then {
     $0.text = "김밥천국 문정점"
-    $0.font = .sdGhothicNeo(ofSize: 12, weight: .regular)
+    $0.font = .krCaption2
     $0.textColor = .init(hexString: "#828282")
   }
   
@@ -46,8 +46,8 @@ class FeedListTableViewCell: UITableViewCell {
   
   let containerTitleLabel = UILabel().then {
     $0.text = "용기정보"
-    $0.font = .sdGhothicNeo(ofSize: 14, weight: .bold)
-    $0.textColor = .labelPrimary
+    $0.font = .krTitle2
+    $0.textColor = .systemGrayText01
   }
   
   let containerListView = FeedListContainerListView()
@@ -55,6 +55,11 @@ class FeedListTableViewCell: UITableViewCell {
   let divider = UIView().then {
     $0.backgroundColor = .init(hexString: "#E5E5EA")
   }
+  
+  let heaerImageView = UIImageView().then {
+    $0.contentMode = .scaleAspectFit
+  }
+  
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
     configuration()
@@ -100,13 +105,13 @@ extension FeedListTableViewCell {
   
   private func setupLayout() {
     profileImageView.snp.makeConstraints {
-      $0.top.equalTo(8)
+      $0.top.equalTo(25)
       $0.leading.equalTo(16)
       $0.width.height.equalTo(38)
     }
     
     nameLabel.snp.makeConstraints {
-      $0.top.equalTo(8)
+      $0.top.equalTo(25)
       $0.leading.equalTo(profileImageView.snp.trailing).offset(8)
       $0.height.equalTo(18)
     }
@@ -114,8 +119,9 @@ extension FeedListTableViewCell {
     dateLabel.snp.makeConstraints {
       $0.top.equalTo(nameLabel.snp.bottom).offset(2)
       $0.trailing.equalTo(-15)
-      $0.height.equalTo(18)
     }
+    
+    dateLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
     
     storeNameLabel.snp.makeConstraints {
       $0.top.equalTo(nameLabel.snp.bottom).offset(2)
