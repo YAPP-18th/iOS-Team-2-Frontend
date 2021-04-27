@@ -40,6 +40,7 @@
 		AAF5C22F26371B4D000BB043 /* FeedListSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF5C22E26371B4D000BB043 /* FeedListSection.swift */; };
 		AAF5C2352637AB70000BB043 /* Feed.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF5C2342637AB70000BB043 /* Feed.swift */; };
 		AAF5C23D2637AC47000BB043 /* TitleContentItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF5C23C2637AC47000BB043 /* TitleContentItem.swift */; };
+		AAF5C2422637D7F5000BB043 /* UILabel+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF5C2412637D7F5000BB043 /* UILabel+Extensions.swift */; };
 		AAF67E09262AE69600F643E1 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF67E08262AE69600F643E1 /* LocationManager.swift */; };
 		AAF68E72262F374500F643E1 /* FeedTipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF68E71262F374500F643E1 /* FeedTipView.swift */; };
 		AAF68E7A262F511F00F643E1 /* FeedListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF68E79262F511F00F643E1 /* FeedListTableViewCell.swift */; };
@@ -114,6 +115,7 @@
 		AAF5C22E26371B4D000BB043 /* FeedListSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedListSection.swift; sourceTree = "<group>"; };
 		AAF5C2342637AB70000BB043 /* Feed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Feed.swift; sourceTree = "<group>"; };
 		AAF5C23C2637AC47000BB043 /* TitleContentItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleContentItem.swift; sourceTree = "<group>"; };
+		AAF5C2412637D7F5000BB043 /* UILabel+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Extensions.swift"; sourceTree = "<group>"; };
 		AAF67E08262AE69600F643E1 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		AAF68E71262F374500F643E1 /* FeedTipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedTipView.swift; sourceTree = "<group>"; };
 		AAF68E79262F511F00F643E1 /* FeedListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedListTableViewCell.swift; sourceTree = "<group>"; };
@@ -275,6 +277,7 @@
 				AAD45C572619C06800A6F4D6 /* UIFont+Extensions.swift */,
 				AAD45C9D2619CAEC00A6F4D6 /* UIColor+Extensions.swift */,
 				AA6E013E261F6A0D00318E30 /* CALayer+Extensions.swift */,
+				AAF5C2412637D7F5000BB043 /* UILabel+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -661,6 +664,7 @@
 				AAC78FF5262A7150009CC84E /* Navigator.swift in Sources */,
 				AAC78FF0262A7027009CC84E /* TabBarController.swift in Sources */,
 				AAC79008262A809D009CC84E /* MapViewModel.swift in Sources */,
+				AAF5C2422637D7F5000BB043 /* UILabel+Extensions.swift in Sources */,
 				AA72B7DD261B3996001E959B /* MapNavigationView.swift in Sources */,
 				AAF5C2352637AB70000BB043 /* Feed.swift in Sources */,
 				AAC79015262A91A4009CC84E /* TipViewModel.swift in Sources */,
