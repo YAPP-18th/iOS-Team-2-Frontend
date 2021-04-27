@@ -17,6 +17,7 @@ class FeedListTableViewCell: UITableViewCell {
   let profileImageView = UIImageView().then {
     $0.contentMode = .scaleAspectFit
     $0.backgroundColor = .lightGray
+    $0.isUserInteractionEnabled = true
   }
   
   let nameLabel = UILabel().then {

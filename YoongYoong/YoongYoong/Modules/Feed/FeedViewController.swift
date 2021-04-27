@@ -49,6 +49,10 @@ class FeedViewController: ViewController {
     let dataSource = RxTableViewSectionedReloadDataSource<FeedListSection>(configureCell: { dataSource, tableView, indexPath, item in
       let cell = tableView.dequeueReusableCell(withIdentifier: "FeedListTableViewCell", for: indexPath) as! FeedListTableViewCell
       cell.bind(to: item)
+      let gesture = UITapGestureRecognizer()
+      cell.profileImageView.addGestureRecognizer(gesture)
+      
+      gesture.rx.event.map { _ in }.bind(to: viewModel.profileSelection).disposed(by: self.disposeBag)
       return cell
     })
     
@@ -58,6 +62,9 @@ class FeedViewController: ViewController {
     
     self.tableView.rx.setDelegate(self).disposed(by: disposeBag)
     
+    output.profile.drive(onNext: { [weak self] viewModel in
+      self?.navigator.show(segue: .feedProfile(viewModel: viewModel), sender: self, transition: .navigation())
+    }).disposed(by: disposeBag)
   }
 }
 

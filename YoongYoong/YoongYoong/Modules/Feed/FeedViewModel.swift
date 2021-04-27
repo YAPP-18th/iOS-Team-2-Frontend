@@ -16,9 +16,11 @@ class FeedViewModel: ViewModel, ViewModelType {
   
   struct Output {
     let items: BehaviorRelay<[FeedListSection]>
+    let profile: Driver<FeedProfileViewModel>
   }
   
   let feedElements = BehaviorRelay<[Feed]>(value: Feed.dummyList)
+  let profileSelection = PublishSubject<Void>()
   
   func transform(input: Input) -> Output {
     let elements = BehaviorRelay<[FeedListSection]>(value: [])
@@ -32,8 +34,14 @@ class FeedViewModel: ViewModel, ViewModelType {
       return elements
     }.bind(to: elements).disposed(by: disposeBag)
     
+    let profile = profileSelection.asDriver(onErrorJustReturn: ())
+      .map({ (user) -> FeedProfileViewModel in
+          let viewModel = FeedProfileViewModel()
+          return viewModel
+      })
     return Output(
-      items: elements
+      items: elements,
+      profile: profile
     )
   }
 }

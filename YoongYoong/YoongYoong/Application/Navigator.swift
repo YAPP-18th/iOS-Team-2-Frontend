@@ -19,6 +19,7 @@ class Navigator {
   enum Scene {
     case tabs(viewModel: TabBarViewModel)
     case tip(viewModel: TipViewModel)
+    case feedProfile(viewModel: FeedProfileViewModel)
   }
   
   enum Transition {
@@ -44,6 +45,9 @@ class Navigator {
     case.tip(let viewModel):
       let tipVC = TipViewController(viewModel: viewModel, navigator: self)
       return tipVC
+    case .feedProfile(let viewModel):
+      let feedProfileVC = FeedProfileViewController(viewModel: viewModel, navigator: self)
+      return feedProfileVC
     }
   }
   
