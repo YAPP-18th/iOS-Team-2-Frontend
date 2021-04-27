@@ -71,3 +71,83 @@ public extension UIColor {
     )
   }
 }
+
+// MARK: - zeplin
+extension UIColor {
+  @nonobjc class var brandColorGreen01: UIColor {
+    return UIColor(named: "brandColorGreen01")!
+  }
+  
+  @nonobjc class var brandColorGreen02: UIColor {
+    return UIColor(named: "brandColorGreen02")!
+  }
+  
+  @nonobjc class var brandColorGreen03: UIColor {
+    return UIColor(named: "brandColorGreen03")!
+  }
+  
+  @nonobjc class var brandColorGreen04: UIColor {
+    return UIColor(named: "brandColorGreen04")!
+  }
+  
+  @nonobjc class var brandColorGreen05: UIColor {
+    return UIColor(named: "brandColorGreen05")!
+  }
+  
+  @nonobjc class var brandColorTertiary01: UIColor {
+    return UIColor(named: "brandColorTertiary01")!
+  }
+  
+  @nonobjc class var brandColorBlue02: UIColor {
+    return UIColor(named: "brandColorBlue02")!
+  }
+  
+  @nonobjc class var brandColorBlue03: UIColor {
+    return UIColor(named: "brandColorBlue03")!
+  }
+  
+  @nonobjc class var brandColorSecondary01: UIColor {
+    return UIColor(named: "brandColorSecondary01")!
+  }
+  
+  @nonobjc class var brandColorSecondary02: UIColor {
+    return UIColor(named: "brandColorSecondary02")!
+  }
+  
+  @nonobjc class var systemGray00: UIColor {
+    return UIColor(named: "systemGray00")!
+  }
+  
+  @nonobjc class var systemGrayText01: UIColor {
+    return UIColor(named: "systemGrayText01")!
+  }
+  
+  @nonobjc class var systemGrayText02: UIColor {
+    return UIColor(named: "systemGrayText02")!
+  }
+
+  @nonobjc class var systemGray01: UIColor {
+    return UIColor(named: "systemGray01")!
+  }
+  
+  @nonobjc class var systemGray02: UIColor {
+    return UIColor(named: "systemGray02")!
+  }
+  
+  @nonobjc class var systemGray03: UIColor {
+    return UIColor(named: "systemGray03")!
+  }
+  
+  @nonobjc class var systemGray04: UIColor {
+    return UIColor(named: "systemGray04")!
+  }
+  
+  @nonobjc class var systemGray05: UIColor {
+    return UIColor(named: "systemGray05")!
+  }
+  
+  @nonobjc class var systemGray06: UIColor {
+    return UIColor(named: "systemGray06")!
+  }
+
+}

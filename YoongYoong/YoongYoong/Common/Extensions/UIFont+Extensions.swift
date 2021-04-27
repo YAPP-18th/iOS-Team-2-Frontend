@@ -86,3 +86,54 @@ extension UIFont: CustomFont {
   }
 }
 
+extension UIFont {
+
+  class var krDisplay: UIFont {
+    return UIFont(name: "AppleSDGothicNeo-Bold", size: 28.0)!
+  }
+
+  class var krHeadline: UIFont {
+    return UIFont(name: "AppleSDGothicNeo-Regular", size: 24.0)!
+  }
+
+  class var krButton1: UIFont {
+    return UIFont(name: "AppleSDGothicNeo-Bold", size: 18.0)!
+  }
+
+  class var krButton2: UIFont {
+    return UIFont(name: "AppleSDGothicNeo-Regular", size: 18.0)!
+  }
+
+  class var krBody1: UIFont {
+    return UIFont(name: "AppleSDGothicNeo-Regular", size: 17.0)!
+  }
+
+  class var krTitle1: UIFont {
+    return UIFont(name: "AppleSDGothicNeo-Bold", size: 16.0)!
+  }
+
+  class var krTitle2: UIFont {
+    return UIFont(name: "AppleSDGothicNeo-Bold", size: 14.0)!
+  }
+
+  class var krBody2: UIFont {
+    return UIFont(name: "AppleSDGothicNeo-Regular", size: 14.0)!
+  }
+
+  class var krCaption1: UIFont {
+    return UIFont(name: "AppleSDGothicNeo-Bold", size: 12.0)!
+  }
+
+  class var krTitle3: UIFont {
+    return UIFont(name: "AppleSDGothicNeo-Bold", size: 12.0)!
+  }
+
+  class var krCaption2: UIFont {
+    return UIFont(name: "AppleSDGothicNeo-Regular", size: 12.0)!
+  }
+
+  class var krBody3: UIFont {
+    return UIFont(name: "AppleSDGothicNeo-Regular", size: 12.0)!
+  }
+
+}
