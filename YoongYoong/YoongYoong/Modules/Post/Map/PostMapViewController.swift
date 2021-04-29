@@ -58,7 +58,6 @@ class PostMapViewController: ViewController {
       }).disposed(by: disposeBag)
     
     output.setting
-      .observeOn(MainScheduler.instance)
       .skip(1)
       .subscribe(onNext: { [weak self] _ in
         self?.showPermissionAlert()

@@ -12,15 +12,15 @@ import RxCocoa
 import RxSwift
 
 class PostMapViewModel: ViewModel, ViewModelType {
-  var output = Output()
+  private let output = Output()
   
   struct Input {
     let post: Observable<Void>
   }
   
   struct Output {
-    let imageSelectionView: BehaviorSubject<PostImageSelectionViewModel> = BehaviorSubject(value: PostImageSelectionViewModel())
-    let setting: BehaviorSubject<Void> = BehaviorSubject(value: ())
+    let imageSelectionView: BehaviorRelay<PostImageSelectionViewModel> = BehaviorRelay(value: PostImageSelectionViewModel())
+    let setting: BehaviorRelay<Void> = BehaviorRelay(value: ())
   }
   
   func transform(input: Input) -> Output {
@@ -31,7 +31,7 @@ class PostMapViewModel: ViewModel, ViewModelType {
           return
         }
         
-        self?.output.imageSelectionView.onNext(PostImageSelectionViewModel())
+        self?.output.imageSelectionView.accept(PostImageSelectionViewModel())
       }
     }).disposed(by: disposeBag)
     
@@ -39,7 +39,7 @@ class PostMapViewModel: ViewModel, ViewModelType {
   }
   
   private func permissionIsRequired() {
-    output.setting.onNext(())
+    output.setting.accept(())
   }
   
   private func photoLibraryAuthorization(_ completion: @escaping (Bool) -> Void) {
