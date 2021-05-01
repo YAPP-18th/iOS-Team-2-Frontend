@@ -21,6 +21,7 @@ class FeedViewController: ViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    
   }
   
   override func configuration() {
@@ -71,10 +72,9 @@ class FeedViewController: ViewController {
 extension FeedViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
     guard let feedTipView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "FeedTipView") as? FeedTipView else { return nil }
-    let viewModel = FeedTipViewModel()
-    feedTipView.bind(to: viewModel)
-    viewModel.date.accept("21.04.24 Sat")
-    viewModel.tip.accept("오늘은 냄비로 용기를 내봐용!")
+    guard let viewModel = self.viewModel as? FeedViewModel else { return nil}
+    viewModel.currentDate.bind(to: feedTipView.dateLabel.rx.text).disposed(by: disposeBag)
+    viewModel.brave.bind(to: feedTipView.tipLabel.rx.text).disposed(by: disposeBag)
     return feedTipView
   }
   

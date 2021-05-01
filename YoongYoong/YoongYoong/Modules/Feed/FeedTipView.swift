@@ -49,11 +49,6 @@ class FeedTipView: UITableViewHeaderFooterView {
     containerView.layer.borderWidth = 1
     containerView.layer.borderColor = UIColor(red: 209.0 / 255.0, green: 209.0 / 255.0, blue: 214.0 / 255.0, alpha: 1.0).cgColor
   }
-  
-  func bind(to viewModel: FeedTipViewModel) {
-    viewModel.date.asDriver().drive(self.dateLabel.rx.text).disposed(by: bag)
-    viewModel.tip.asDriver().drive(self.tipLabel.rx.text).disposed(by: bag)
-  }
 }
 
 extension FeedTipView {

@@ -8,6 +8,8 @@
 import Foundation
 
 struct BraveWord {
+  static let `default` = "가볍게 텀블러 사용은 어때용?"
+  
   private var isMonday: Bool {
     let component = Calendar.current.component(.weekday, from: Date())
     print(component)

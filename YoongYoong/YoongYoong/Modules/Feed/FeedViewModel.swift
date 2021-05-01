@@ -19,8 +19,16 @@ class FeedViewModel: ViewModel, ViewModelType {
     let profile: Driver<FeedProfileViewModel>
   }
   
+  private let dateFormatter: DateFormatter = {
+    let formatter = DateFormatter()
+    formatter.dateFormat = "yy.MM.dd EEE"
+    return formatter
+  }()
+  
   let feedElements = BehaviorRelay<[Feed]>(value: Feed.dummyList)
   let profileSelection = PublishSubject<Void>()
+  let currentDate = BehaviorRelay<String>(value: "")
+  let brave = BehaviorRelay<String>(value: BraveWord.default)
   
   func transform(input: Input) -> Output {
     let elements = BehaviorRelay<[FeedListSection]>(value: [])
@@ -39,6 +47,11 @@ class FeedViewModel: ViewModel, ViewModelType {
           let viewModel = FeedProfileViewModel()
           return viewModel
       })
+    
+    currentDate.accept(dateFormatter.string(from: Date()))
+    let braveWord = BraveWord()
+    brave.accept(braveWord.randomBrave() ?? BraveWord.default)
+    
     return Output(
       items: elements,
       profile: profile

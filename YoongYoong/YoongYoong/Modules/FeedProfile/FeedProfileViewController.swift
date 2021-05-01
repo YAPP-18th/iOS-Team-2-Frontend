@@ -26,6 +26,7 @@ class FeedProfileViewController: ViewController {
   let badgeButton = UIButton().then {
     $0.setTitle("배지 13개", for: .normal)
     $0.titleLabel?.font = .krBody3
+    $0.setTitleColor(.systemGrayText02, for: .normal)
   }
   
   let stateLabel = UILabel().then {
@@ -38,6 +39,13 @@ class FeedProfileViewController: ViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
+  }
+  
+  override func viewDidLayoutSubviews() {
+    super.viewDidLayoutSubviews()
+    
+    profileImageView.layer.cornerRadius = 25
+    profileImageView.layer.masksToBounds = true
   }
   
   override func setupView() {
@@ -58,7 +66,7 @@ class FeedProfileViewController: ViewController {
     
     nicknameLabel.snp.makeConstraints {
       $0.top.equalTo(profileImageView)
-      $0.leading.equalTo(nicknameLabel.snp.trailing).offset(14)
+      $0.leading.equalTo(profileImageView.snp.trailing).offset(14)
     }
     
     badgeButton.snp.makeConstraints {
@@ -70,7 +78,7 @@ class FeedProfileViewController: ViewController {
     
     stateLabel.snp.makeConstraints {
       $0.top.equalTo(nicknameLabel.snp.bottom)
-      $0.leading.equalTo(14)
+      $0.leading.equalTo(profileImageView.snp.trailing).offset(14)
     }
   }
   
