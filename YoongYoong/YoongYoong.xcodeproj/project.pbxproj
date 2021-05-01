@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		6AFAAC9AAB1CEE62B8A4467B /* Pods_YoongYoong.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 758DACE043760F2E75EB5FCB /* Pods_YoongYoong.framework */; };
+		AA099432263DA780002222D6 /* BraveWords.plist in Resources */ = {isa = PBXBuildFile; fileRef = AA099431263DA780002222D6 /* BraveWords.plist */; };
+		AA099437263DA8EF002222D6 /* BraveWord.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA099436263DA8EF002222D6 /* BraveWord.swift */; };
 		AA344617261B2F240034E1BC /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA344616261B2F240034E1BC /* MapViewController.swift */; };
 		AA6E013A261F611600318E30 /* MapStoreInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6E0139261F611600318E30 /* MapStoreInfoView.swift */; };
 		AA6E013F261F6A0D00318E30 /* CALayer+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6E013E261F6A0D00318E30 /* CALayer+Extensions.swift */; };
@@ -85,6 +87,8 @@
 		948D7D766C7E57695042FF1F /* Pods-YoongYoong.dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YoongYoong.dev.xcconfig"; path = "Target Support Files/Pods-YoongYoong/Pods-YoongYoong.dev.xcconfig"; sourceTree = "<group>"; };
 		9AA94A64E3F69882F456EE4D /* Pods-YoongYoong.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YoongYoong.debug.xcconfig"; path = "Target Support Files/Pods-YoongYoong/Pods-YoongYoong.debug.xcconfig"; sourceTree = "<group>"; };
 		9BB5CF0D7707EB35250D4235 /* Pods-YoongYoong-YoongYoongUITests.dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YoongYoong-YoongYoongUITests.dev.xcconfig"; path = "Target Support Files/Pods-YoongYoong-YoongYoongUITests/Pods-YoongYoong-YoongYoongUITests.dev.xcconfig"; sourceTree = "<group>"; };
+		AA099431263DA780002222D6 /* BraveWords.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = BraveWords.plist; sourceTree = "<group>"; };
+		AA099436263DA8EF002222D6 /* BraveWord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BraveWord.swift; sourceTree = "<group>"; };
 		AA344616261B2F240034E1BC /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		AA6E0139261F611600318E30 /* MapStoreInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapStoreInfoView.swift; sourceTree = "<group>"; };
 		AA6E013E261F6A0D00318E30 /* CALayer+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CALayer+Extensions.swift"; sourceTree = "<group>"; };
@@ -245,6 +249,7 @@
 				AAD45C512619BFD800A6F4D6 /* Fonts */,
 				DAB00032260F12CD00D8208F /* Assets.xcassets */,
 				AAD45CA82619CB2A00A6F4D6 /* Colors.xcassets */,
+				AA099431263DA780002222D6 /* BraveWords.plist */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -292,6 +297,7 @@
 			children = (
 				AAF5C2342637AB70000BB043 /* Feed.swift */,
 				AAF5C23C2637AC47000BB043 /* TitleContentItem.swift */,
+				AA099436263DA8EF002222D6 /* BraveWord.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -529,6 +535,7 @@
 				AAD45C7F2619C36900A6F4D6 /* SF-Pro-Text-Thin.otf in Resources */,
 				AAD45C772619C36900A6F4D6 /* SF-Pro-Text-Semibold.otf in Resources */,
 				AAD45CA92619CB2A00A6F4D6 /* Colors.xcassets in Resources */,
+				AA099432263DA780002222D6 /* BraveWords.plist in Resources */,
 				AAD45C752619C36900A6F4D6 /* SF-Pro-Text-Black.otf in Resources */,
 				AAD45C732619C36900A6F4D6 /* SF-Pro-Text-Light.otf in Resources */,
 			);
@@ -664,6 +671,7 @@
 				AAF5C259263825C2000BB043 /* FeedProfileViewModel.swift in Sources */,
 				AA6E013A261F611600318E30 /* MapStoreInfoView.swift in Sources */,
 				AAC78F91262A67FD009CC84E /* Application.swift in Sources */,
+				AA099437263DA8EF002222D6 /* BraveWord.swift in Sources */,
 				AA344617261B2F240034E1BC /* MapViewController.swift in Sources */,
 				AAD45C9E2619CAEC00A6F4D6 /* UIColor+Extensions.swift in Sources */,
 				DAB00027260F12CA00D8208F /* AppDelegate.swift in Sources */,
