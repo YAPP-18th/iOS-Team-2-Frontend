@@ -44,6 +44,23 @@
 		AAD45CA92619CB2A00A6F4D6 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AAD45CA82619CB2A00A6F4D6 /* Colors.xcassets */; };
 		AAF67E09262AE69600F643E1 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF67E08262AE69600F643E1 /* LocationManager.swift */; };
 		D6F9AC8B71CC355648D6E8B6 /* Pods_YoongYoongTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A06BD70420FBCDDEF5E50E3 /* Pods_YoongYoongTests.framework */; };
+		DA0F5AB8263E3F81003AE118 /* AlertAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0F5AB7263E3F81003AE118 /* AlertAction.swift */; };
+		DA0F5ABD263E4B25003AE118 /* MyBadgeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0F5ABC263E4B25003AE118 /* MyBadgeCollectionViewCell.swift */; };
+		DA0F5AC5263E4B68003AE118 /* MyPostCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0F5AC4263E4B68003AE118 /* MyPostCollectionViewCell.swift */; };
+		DA0F5ACA263E4B98003AE118 /* MyPackageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0F5AC9263E4B98003AE118 /* MyPackageCollectionViewCell.swift */; };
+		DA0F5AE0263E5C66003AE118 /* PackageSimpleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0F5ADF263E5C66003AE118 /* PackageSimpleModel.swift */; };
+		DA0F5AE5263E6006003AE118 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0F5AE4263E6006003AE118 /* String+Extensions.swift */; };
+		DA0F5AEA263E6170003AE118 /* MyPackageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0F5AE9263E6170003AE118 /* MyPackageTableViewCell.swift */; };
+		DA0F5AFE263E702F003AE118 /* BadgeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0F5AFD263E702F003AE118 /* BadgeModel.swift */; };
+		DA0F5B03263E70EC003AE118 /* PackageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0F5B02263E70EC003AE118 /* PackageModel.swift */; };
+		DA0F5B08263E8692003AE118 /* BadgeDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0F5B07263E8692003AE118 /* BadgeDetailView.swift */; };
+		DA0F5B0F263E9857003AE118 /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0F5B0E263E9857003AE118 /* EditProfileViewController.swift */; };
+		DA0F5B14263E9885003AE118 /* EditProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0F5B13263E9885003AE118 /* EditProfileViewModel.swift */; };
+		DA0F5B19263E9BFD003AE118 /* UITextField+Extenstions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0F5B18263E9BFD003AE118 /* UITextField+Extenstions.swift */; };
+		DAA49ADD26318B4D0029BFC5 /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA49ADC26318B4D0029BFC5 /* MyPageViewController.swift */; };
+		DAA49AE326318B780029BFC5 /* MyPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA49AE226318B780029BFC5 /* MyPageViewModel.swift */; };
+		DAA49AEE26318CA10029BFC5 /* ProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA49AED26318CA10029BFC5 /* ProfileModel.swift */; };
+		DAA49AF92631AF880029BFC5 /* MyPageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA49AF82631AF880029BFC5 /* MyPageCell.swift */; };
 		DAB00027260F12CA00D8208F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB00026260F12CA00D8208F /* AppDelegate.swift */; };
 		DAB00031260F12CA00D8208F /* YoongYoong.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DAB0002F260F12CA00D8208F /* YoongYoong.xcdatamodeld */; };
 		DAB00033260F12CD00D8208F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DAB00032260F12CD00D8208F /* Assets.xcassets */; };
@@ -121,6 +138,23 @@
 		AAF67E08262AE69600F643E1 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		AB05194427AB14D9AFFEE470 /* Pods-YoongYoongTests.dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YoongYoongTests.dev.xcconfig"; path = "Target Support Files/Pods-YoongYoongTests/Pods-YoongYoongTests.dev.xcconfig"; sourceTree = "<group>"; };
 		C4A4BE283F0F18E7064708AB /* Pods-YoongYoong.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YoongYoong.release.xcconfig"; path = "Target Support Files/Pods-YoongYoong/Pods-YoongYoong.release.xcconfig"; sourceTree = "<group>"; };
+		DA0F5AB7263E3F81003AE118 /* AlertAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertAction.swift; sourceTree = "<group>"; };
+		DA0F5ABC263E4B25003AE118 /* MyBadgeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBadgeCollectionViewCell.swift; sourceTree = "<group>"; };
+		DA0F5AC4263E4B68003AE118 /* MyPostCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPostCollectionViewCell.swift; sourceTree = "<group>"; };
+		DA0F5AC9263E4B98003AE118 /* MyPackageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPackageCollectionViewCell.swift; sourceTree = "<group>"; };
+		DA0F5ADF263E5C66003AE118 /* PackageSimpleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackageSimpleModel.swift; sourceTree = "<group>"; };
+		DA0F5AE4263E6006003AE118 /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
+		DA0F5AE9263E6170003AE118 /* MyPackageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPackageTableViewCell.swift; sourceTree = "<group>"; };
+		DA0F5AFD263E702F003AE118 /* BadgeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgeModel.swift; sourceTree = "<group>"; };
+		DA0F5B02263E70EC003AE118 /* PackageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackageModel.swift; sourceTree = "<group>"; };
+		DA0F5B07263E8692003AE118 /* BadgeDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgeDetailView.swift; sourceTree = "<group>"; };
+		DA0F5B0E263E9857003AE118 /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
+		DA0F5B13263E9885003AE118 /* EditProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewModel.swift; sourceTree = "<group>"; };
+		DA0F5B18263E9BFD003AE118 /* UITextField+Extenstions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extenstions.swift"; sourceTree = "<group>"; };
+		DAA49ADC26318B4D0029BFC5 /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
+		DAA49AE226318B780029BFC5 /* MyPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewModel.swift; sourceTree = "<group>"; };
+		DAA49AED26318CA10029BFC5 /* ProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileModel.swift; sourceTree = "<group>"; };
+		DAA49AF82631AF880029BFC5 /* MyPageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageCell.swift; sourceTree = "<group>"; };
 		DAB00023260F12CA00D8208F /* YoongYoong.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YoongYoong.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAB00026260F12CA00D8208F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DAB00030260F12CA00D8208F /* YoongYoong.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = YoongYoong.xcdatamodel; sourceTree = "<group>"; };
@@ -263,6 +297,7 @@
 		AAC78FE5262A6FAD009CC84E /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				DAA49ADB26318B3C0029BFC5 /* Mypage */,
 				AAF67E07262AE68B00F643E1 /* Managers */,
 				7EDCDB6C262320850029BE45 /* Post */,
 				AAC79013262A9196009CC84E /* Tip */,
@@ -345,6 +380,8 @@
 				AAD45C9D2619CAEC00A6F4D6 /* UIColor+Extensions.swift */,
 				AA6E013E261F6A0D00318E30 /* CALayer+Extensions.swift */,
 				DABB2CF8263033F60061EC98 /* UIView+Extensions.swift */,
+				DA0F5AE4263E6006003AE118 /* String+Extensions.swift */,
+				DA0F5B18263E9BFD003AE118 /* UITextField+Extenstions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -365,6 +402,83 @@
 				4A06BD70420FBCDDEF5E50E3 /* Pods_YoongYoongTests.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		DA0F5B0C263E9831003AE118 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				DAA49AF82631AF880029BFC5 /* MyPageCell.swift */,
+				DA0F5ABC263E4B25003AE118 /* MyBadgeCollectionViewCell.swift */,
+				DA0F5AC4263E4B68003AE118 /* MyPostCollectionViewCell.swift */,
+				DA0F5AC9263E4B98003AE118 /* MyPackageCollectionViewCell.swift */,
+				DA0F5AE9263E6170003AE118 /* MyPackageTableViewCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		DA0F5B0D263E9842003AE118 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				DAA49ADC26318B4D0029BFC5 /* MyPageViewController.swift */,
+				DA0F5B0E263E9857003AE118 /* EditProfileViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		DAA49ADB26318B3C0029BFC5 /* Mypage */ = {
+			isa = PBXGroup;
+			children = (
+				DAA49AEA26318C870029BFC5 /* Model */,
+				DAA49AF22631AF170029BFC5 /* View */,
+				DAA49AE126318B650029BFC5 /* ViewModel */,
+			);
+			path = Mypage;
+			sourceTree = "<group>";
+		};
+		DAA49AE126318B650029BFC5 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				DAA49AE226318B780029BFC5 /* MyPageViewModel.swift */,
+				DA0F5B13263E9885003AE118 /* EditProfileViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		DAA49AEA26318C870029BFC5 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				DAA49AEC26318C900029BFC5 /* Response */,
+				DAA49AEB26318C8B0029BFC5 /* Request */,
+				DAA49AED26318CA10029BFC5 /* ProfileModel.swift */,
+				DA0F5ADF263E5C66003AE118 /* PackageSimpleModel.swift */,
+				DA0F5AFD263E702F003AE118 /* BadgeModel.swift */,
+				DA0F5B02263E70EC003AE118 /* PackageModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		DAA49AEB26318C8B0029BFC5 /* Request */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Request;
+			sourceTree = "<group>";
+		};
+		DAA49AEC26318C900029BFC5 /* Response */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Response;
+			sourceTree = "<group>";
+		};
+		DAA49AF22631AF170029BFC5 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				DA0F5B0D263E9842003AE118 /* ViewController */,
+				DA0F5B0C263E9831003AE118 /* Cell */,
+				DA0F5B07263E8692003AE118 /* BadgeDetailView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		DAB0001A260F12CA00D8208F = {
@@ -426,6 +540,7 @@
 			isa = PBXGroup;
 			children = (
 				DABB2CF0263032330061EC98 /* Identifiable.swift */,
+				DA0F5AB7263E3F81003AE118 /* AlertAction.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -719,12 +834,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA0F5AFE263E702F003AE118 /* BadgeModel.swift in Sources */,
 				7E9F7B8226281D7100051D03 /* PostSearchResultView.swift in Sources */,
 				7EA4F3D826247E67001C754C /* PostSearchHistoryView.swift in Sources */,
 				AAD45C9E2619CAEC00A6F4D6 /* UIColor+Extensions.swift in Sources */,
 				DAB00027260F12CA00D8208F /* AppDelegate.swift in Sources */,
+				DA0F5AB8263E3F81003AE118 /* AlertAction.swift in Sources */,
 				AAD45C582619C06800A6F4D6 /* UIFont+Extensions.swift in Sources */,
 				7EA4F3DD2624888B001C754C /* PostSearchHistoryItemCell.swift in Sources */,
+				DAA49AE326318B780029BFC5 /* MyPageViewModel.swift in Sources */,
+				DA0F5B14263E9885003AE118 /* EditProfileViewModel.swift in Sources */,
 				7EDCDB6F262321D60029BE45 /* PostSearchViewController.swift in Sources */,
 				AAC78FE8262A6FC4009CC84E /* TabBarViewModel.swift in Sources */,
 				AA6E013A261F611600318E30 /* MapStoreInfoView.swift in Sources */,
@@ -733,16 +852,24 @@
 				DABB2D0E263050770061EC98 /* LogInViewModel.swift in Sources */,
 				DABB2CF1263032330061EC98 /* Identifiable.swift in Sources */,
 				AAD45C9E2619CAEC00A6F4D6 /* UIColor+Extensions.swift in Sources */,
+				DA0F5ACA263E4B98003AE118 /* MyPackageCollectionViewCell.swift in Sources */,
 				DAB00027260F12CA00D8208F /* AppDelegate.swift in Sources */,
+				DA0F5AE0263E5C66003AE118 /* PackageSimpleModel.swift in Sources */,
 				AAD45C582619C06800A6F4D6 /* UIFont+Extensions.swift in Sources */,
+				DA0F5B19263E9BFD003AE118 /* UITextField+Extenstions.swift in Sources */,
 				DAE3E4C526302EAD005A0A61 /* OnboardingViewController.swift in Sources */,
 				AAC78F96262A6916009CC84E /* ViewModelType.swift in Sources */,
+				DA0F5AC5263E4B68003AE118 /* MyPostCollectionViewCell.swift in Sources */,
 				DABB2CF9263033F60061EC98 /* UIView+Extensions.swift in Sources */,
+				DAA49ADD26318B4D0029BFC5 /* MyPageViewController.swift in Sources */,
 				AAC79002262A7A1D009CC84E /* NavigationController.swift in Sources */,
 				7EF2DC64263076F80002E1E3 /* PostMapViewController.swift in Sources */,
+				DAA49AEE26318CA10029BFC5 /* ProfileModel.swift in Sources */,
+				DA0F5ABD263E4B25003AE118 /* MyBadgeCollectionViewCell.swift in Sources */,
 				AA6E013F261F6A0D00318E30 /* CALayer+Extensions.swift in Sources */,
 				AAC78FF5262A7150009CC84E /* Navigator.swift in Sources */,
 				AAC78FF0262A7027009CC84E /* TabBarController.swift in Sources */,
+				DA0F5B08263E8692003AE118 /* BadgeDetailView.swift in Sources */,
 				7E608C07262E8E1A008708F7 /* PostSearchViewModel.swift in Sources */,
 				7EF2DC69263077610002E1E3 /* PostMapViewModel.swift in Sources */,
 				AAC79008262A809D009CC84E /* MapViewModel.swift in Sources */,
@@ -751,8 +878,13 @@
 				DABB2D0926304FCD0061EC98 /* LogInViewController.swift in Sources */,
 				AAC78FFA262A773D009CC84E /* ViewController.swift in Sources */,
 				AAC79020262AA7E3009CC84E /* TipViewController.swift in Sources */,
+				DA0F5AE5263E6006003AE118 /* String+Extensions.swift in Sources */,
+				DA0F5B03263E70EC003AE118 /* PackageModel.swift in Sources */,
 				AAF67E09262AE69600F643E1 /* LocationManager.swift in Sources */,
+				DA0F5AEA263E6170003AE118 /* MyPackageTableViewCell.swift in Sources */,
 				DAB00031260F12CA00D8208F /* YoongYoong.xcdatamodeld in Sources */,
+				DAA49AF92631AF880029BFC5 /* MyPageCell.swift in Sources */,
+				DA0F5B0F263E9857003AE118 /* EditProfileViewController.swift in Sources */,
 				7E9F7B8726281D8B00051D03 /* PostSearchResultItemCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

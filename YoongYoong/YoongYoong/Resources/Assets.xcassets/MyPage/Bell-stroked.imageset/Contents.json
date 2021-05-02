@@ -1,0 +1,26 @@
+{
+  "images" : [
+    {
+      "filename" : "Bell-stroked.png",
+      "idiom" : "universal",
+      "locale" : "YAPP",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "Bell-stroked@2x.png",
+      "idiom" : "universal",
+      "locale" : "YAPP",
+      "scale" : "2x"
+    },
+    {
+      "filename" : "Bell-stroked@3x.png",
+      "idiom" : "universal",
+      "locale" : "YAPP",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

@@ -18,7 +18,9 @@ enum TabBarItem: Int {
       return NavigationController(rootViewController: vc)
 //    case .feed:
 //    case .post:
-//    case .myPage:
+    case .myPage:
+      let vc = MyPageViewController(viewModel: viewModel, navigator: navigator)
+      return NavigationController(rootViewController: vc)
     case .post:
       let vc = PostSearchViewController(viewModel: viewModel, navigator: navigator)
       return NavigationController(rootViewController: vc)

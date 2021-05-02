@@ -71,3 +71,17 @@ public extension UIColor {
     )
   }
 }
+extension UIColor{
+  @nonobjc class var brandColorTertiary01: UIColor {
+      return UIColor(red: 92.0 / 255.0, green: 177.0 / 255.0, blue: 210.0 / 255.0, alpha: 1.0)
+    }
+
+    @nonobjc class var brandColorBlue02: UIColor {
+      return UIColor(red: 188.0 / 255.0, green: 233.0 / 255.0, blue: 251.0 / 255.0, alpha: 1.0)
+    }
+
+    @nonobjc class var brandColorBlue03: UIColor {
+      return UIColor(red: 219.0 / 255.0, green: 238.0 / 255.0, blue: 245.0 / 255.0, alpha: 1.0)
+    }
+
+}

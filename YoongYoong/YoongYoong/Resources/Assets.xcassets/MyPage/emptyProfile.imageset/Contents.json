@@ -1,0 +1,26 @@
+{
+  "images" : [
+    {
+      "filename" : "emptyProfile.png",
+      "idiom" : "universal",
+      "locale" : "YAPP",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "emptyProfile@2x.png",
+      "idiom" : "universal",
+      "locale" : "YAPP",
+      "scale" : "2x"
+    },
+    {
+      "filename" : "emptyProfile@3x.png",
+      "idiom" : "universal",
+      "locale" : "YAPP",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

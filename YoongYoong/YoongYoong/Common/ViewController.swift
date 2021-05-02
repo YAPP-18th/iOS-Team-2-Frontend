@@ -34,7 +34,7 @@ class ViewController: UIViewController, Navigatable {
     setupView()
     setupLayout()
     bindViewModel()
-    
+    hideKeyboardWhenTappedAround()
     NotificationCenter.default
         .rx.notification(UIApplication.didBecomeActiveNotification)
         .subscribe { [weak self] (event) in
@@ -64,7 +64,11 @@ class ViewController: UIViewController, Navigatable {
   func hideNaviController() {
     self.navigationController?.navigationBar.isHidden = true
   }
-  
+  func hideKeyboardWhenTappedAround() {
+      let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ViewController.dismissKeyboard))
+      tap.cancelsTouchesInView = false
+      view.addGestureRecognizer(tap)
+  }
   func setupNavigationBar(_ color: UIColor) {
       guard let navigationBar = self.navigationController?.navigationBar else { return }
       
@@ -96,5 +100,11 @@ class ViewController: UIViewController, Navigatable {
      }
   func didBecomeActive() {
       self.updateUI()
+  }
+}
+extension ViewController {
+  @objc
+  func dismissKeyboard() {
+    view.endEditing(true)
   }
 }
