@@ -1,0 +1,64 @@
+//
+//  ProfilePostCollectionViewCell.swift
+//  YoongYoong
+//
+//  Created by 손병근 on 2021/05/02.
+//
+
+import UIKit
+import Then
+import SnapKit
+import RxSwift
+import RxCocoa
+
+class ProfilePostCollectionViewCell: UICollectionViewCell {
+  private let bag = DisposeBag()
+  
+  let contentImageView = UIImageView().then {
+    $0.contentMode = .scaleAspectFill
+    $0.backgroundColor = .lightGray
+  }
+  
+  override init(frame: CGRect) {
+    super.init(frame: frame)
+    configuration()
+    setupView()
+    setupLayout()
+  }
+  
+  required init?(coder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
+  
+  override func layoutSubviews() {
+    super.layoutSubviews()
+    
+  }
+  
+  func bind(to viewModel: ProfilePostCollectionViewCellViewModel) {
+    
+  }
+}
+
+extension ProfilePostCollectionViewCell {
+  private func configuration() {
+    self.contentView.backgroundColor = .white
+  }
+  
+  private func setupView() {
+    self.contentView.addSubview(contentImageView)
+  }
+  
+  private func setupLayout() {
+    
+    contentImageView.snp.makeConstraints {
+      $0.top.leading.equalTo(1)
+      $0.trailing.bottom.equalTo(-1)
+    }
+  }
+  
+  private func updateView() {
+    
+  }
+}
+

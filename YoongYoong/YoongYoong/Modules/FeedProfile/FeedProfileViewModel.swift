@@ -15,11 +15,24 @@ class FeedProfileViewModel: ViewModel, ViewModelType {
   }
   
   struct Output {
-    
+    let items: BehaviorRelay<[ProfilePostListSection]>
   }
   
+  let feedElements = BehaviorRelay<[Feed]>(value: Feed.dummyList)
+  
   func transform(input: Input) -> Output {
+    let elements = BehaviorRelay<[ProfilePostListSection]>(value: [])
     
-    return Output()
+    feedElements.map { feedList -> [ProfilePostListSection] in
+      var elements: [ProfilePostListSection] = []
+      let cellViewModel = feedList.map { feed -> ProfilePostListSection.Item in
+        ProfilePostCollectionViewCellViewModel.init(with: feed)
+      }
+      elements.append(ProfilePostListSection(items: cellViewModel))
+      return elements
+    }.bind(to: elements).disposed(by: disposeBag)
+    return Output(
+      items: elements
+    )
   }
 }

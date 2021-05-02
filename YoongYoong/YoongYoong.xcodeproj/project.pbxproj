@@ -10,6 +10,9 @@
 		6AFAAC9AAB1CEE62B8A4467B /* Pods_YoongYoong.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 758DACE043760F2E75EB5FCB /* Pods_YoongYoong.framework */; };
 		AA099432263DA780002222D6 /* BraveWords.plist in Resources */ = {isa = PBXBuildFile; fileRef = AA099431263DA780002222D6 /* BraveWords.plist */; };
 		AA099437263DA8EF002222D6 /* BraveWord.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA099436263DA8EF002222D6 /* BraveWord.swift */; };
+		AA099446263ED421002222D6 /* ProfilePostListSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA099445263ED421002222D6 /* ProfilePostListSection.swift */; };
+		AA09944B263ED4EC002222D6 /* ProfilePostCollectionViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA09944A263ED4EC002222D6 /* ProfilePostCollectionViewCellViewModel.swift */; };
+		AA099450263ED783002222D6 /* ProfilePostCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA09944F263ED783002222D6 /* ProfilePostCollectionViewCell.swift */; };
 		AA344617261B2F240034E1BC /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA344616261B2F240034E1BC /* MapViewController.swift */; };
 		AA6E013A261F611600318E30 /* MapStoreInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6E0139261F611600318E30 /* MapStoreInfoView.swift */; };
 		AA6E013F261F6A0D00318E30 /* CALayer+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6E013E261F6A0D00318E30 /* CALayer+Extensions.swift */; };
@@ -88,6 +91,9 @@
 		9BB5CF0D7707EB35250D4235 /* Pods-YoongYoong-YoongYoongUITests.dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YoongYoong-YoongYoongUITests.dev.xcconfig"; path = "Target Support Files/Pods-YoongYoong-YoongYoongUITests/Pods-YoongYoong-YoongYoongUITests.dev.xcconfig"; sourceTree = "<group>"; };
 		AA099431263DA780002222D6 /* BraveWords.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = BraveWords.plist; sourceTree = "<group>"; };
 		AA099436263DA8EF002222D6 /* BraveWord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BraveWord.swift; sourceTree = "<group>"; };
+		AA099445263ED421002222D6 /* ProfilePostListSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePostListSection.swift; sourceTree = "<group>"; };
+		AA09944A263ED4EC002222D6 /* ProfilePostCollectionViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePostCollectionViewCellViewModel.swift; sourceTree = "<group>"; };
+		AA09944F263ED783002222D6 /* ProfilePostCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePostCollectionViewCell.swift; sourceTree = "<group>"; };
 		AA344616261B2F240034E1BC /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		AA6E0139261F611600318E30 /* MapStoreInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapStoreInfoView.swift; sourceTree = "<group>"; };
 		AA6E013E261F6A0D00318E30 /* CALayer+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CALayer+Extensions.swift"; sourceTree = "<group>"; };
@@ -305,6 +311,9 @@
 			children = (
 				AAF5C25026381960000BB043 /* FeedProfileViewController.swift */,
 				AAF5C258263825C2000BB043 /* FeedProfileViewModel.swift */,
+				AA099445263ED421002222D6 /* ProfilePostListSection.swift */,
+				AA09944A263ED4EC002222D6 /* ProfilePostCollectionViewCellViewModel.swift */,
+				AA09944F263ED783002222D6 /* ProfilePostCollectionViewCell.swift */,
 			);
 			path = FeedProfile;
 			sourceTree = "<group>";
@@ -663,6 +672,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AAF68E72262F374500F643E1 /* FeedTipView.swift in Sources */,
+				AA099446263ED421002222D6 /* ProfilePostListSection.swift in Sources */,
 				AAC78FE8262A6FC4009CC84E /* TabBarViewModel.swift in Sources */,
 				AAF5C259263825C2000BB043 /* FeedProfileViewModel.swift in Sources */,
 				AA6E013A261F611600318E30 /* MapStoreInfoView.swift in Sources */,
@@ -673,6 +683,7 @@
 				DAB00027260F12CA00D8208F /* AppDelegate.swift in Sources */,
 				AAD45C582619C06800A6F4D6 /* UIFont+Extensions.swift in Sources */,
 				AAC78F96262A6916009CC84E /* ViewModelType.swift in Sources */,
+				AA099450263ED783002222D6 /* ProfilePostCollectionViewCell.swift in Sources */,
 				AAF6903F2635C68200F643E1 /* FeedListContainerListViewModel.swift in Sources */,
 				AAF5C22A26371A27000BB043 /* FeedListTableViewCellViewModel.swift in Sources */,
 				AAC79002262A7A1D009CC84E /* NavigationController.swift in Sources */,
@@ -687,6 +698,7 @@
 				AA72B7DD261B3996001E959B /* MapNavigationView.swift in Sources */,
 				AAF5C2352637AB70000BB043 /* Feed.swift in Sources */,
 				AAC79015262A91A4009CC84E /* TipViewModel.swift in Sources */,
+				AA09944B263ED4EC002222D6 /* ProfilePostCollectionViewCellViewModel.swift in Sources */,
 				AAF5C22F26371B4D000BB043 /* FeedListSection.swift in Sources */,
 				AAC78FFA262A773D009CC84E /* ViewController.swift in Sources */,
 				AAC79020262AA7E3009CC84E /* TipViewController.swift in Sources */,
