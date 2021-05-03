@@ -68,7 +68,7 @@ class PostImageContainerCell: UICollectionViewCell {
   
   private func configuration() {
     removeButton.do {
-      $0.setImage(UIImage(named: "Input-Delete_filled"), for: .normal)
+      $0.setImage(UIImage(named: "Input-Delete_16px_filled"), for: .normal)
       $0.addTarget(self, action: #selector(removeButtonDidTap), for: .touchUpInside)
     }
   }

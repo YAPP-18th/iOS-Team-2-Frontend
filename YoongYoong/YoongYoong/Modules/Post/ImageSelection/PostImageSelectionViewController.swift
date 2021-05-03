@@ -118,6 +118,19 @@ class PostImageSelectionViewController: ViewController {
     
   }
   
+  func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    guard let viewModel = viewModel as? PostImageSelectionViewModel else { return }
+
+    let selectedItmes = viewModel.selected
+    for i in 0..<selectedItmes.count {
+      let indexPath = selectedItmes[i].1
+      if let cell = self.pickerColletionView.cellForItem(at: indexPath) as? PostImageSelectionViewCell {
+        cell.setNumber(i+1)
+      }
+    }
+  
+  }
+  
   override func setupView() {
     super.setupView()
     view.adds([selectedImageContainer, pickerColletionView, registButton])
