@@ -12,6 +12,7 @@ class MyPackageTableViewCell: UITableViewCell {
   private let titleLabel = UILabel()
   private let sizeLabel = UILabel()
   private let favorateBtn = UIButton()
+  
   private let disposeBag = DisposeBag()
     override func awakeFromNib() {
         super.awakeFromNib()

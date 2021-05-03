@@ -13,9 +13,10 @@ class MypageViewModel: ViewModel , ViewModelType {
     let loadView : Observable<Void>
   }
   struct Output {
+    let messageIndicator: Observable<[String]>
     let badgeUsecase: Observable<[BadgeModel]>
-    let postUsecase: Driver<[PackageModel]>
-    let packageUsecase: Driver<[PackageSectionType]>
+    let postUsecase: Observable<PostListModel>
+    let packageUsecase: Observable<[PackageSectionType]>
   }
 }
 extension MypageViewModel {
@@ -34,8 +35,23 @@ extension MypageViewModel {
               BadgeModel(imagePath: "", title: "관심도 용기", discription: "설명문내용설명문내용설명문내용설명문내용", condition: "관심을가져야합니다"),
               BadgeModel(imagePath: "", title: "관심도 용기", discription: "설명문내용설명문내용설명문내용설명문내용", condition: "관심을가져야합니다")]
     }
-    return .init(badgeUsecase: badgeUsecase,
-                 postUsecase: .empty(),
+    let postList = input.loadView.map{ _ in
+      return PostListModel(month: "2021년 3월", postCount: 15, packageCount: 	24,
+                           postList: [PostSimpleModel(profile: ProfileModel(imagePath: "", name: "김용기", message: "", userId: 0),
+                                                      postedAt: "21.03.27",
+                                                      menus: [MenuModel(menutitle: "김밥", menuCount: 2)],
+                                                      thumbNail: "",
+                                                      postDescription: "떡볶이와김밥을시켰습니다")])
+    }.share()
+    let message = input.loadView
+        .withLatestFrom(postList){ _, model -> [String] in
+      return ["용기를 내고 배지를 모아보세요",
+              "지금까지 총 \(model.packageCount)개의 용기를 냈어요!",
+      "자주 사용하는 용기를 등록하세요!"]
+    }
+    return .init(messageIndicator: message,
+                 badgeUsecase: badgeUsecase,
+                 postUsecase: postList,
                  packageUsecase: .empty())
   }
   //메인 뷰에 바인딩하는 함수

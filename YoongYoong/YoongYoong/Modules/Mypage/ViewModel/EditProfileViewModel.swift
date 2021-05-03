@@ -29,13 +29,13 @@ extension EditProfileViewModel {
     let currentProfile = input.loadView.map{_ in
       ProfileModel(imagePath: "", name: "김용기", message: "안녕하세용", userId: 0)
     }
-    let combined = Observable.combineLatest(input.nameText.share() , input.commentText.share()).map{ (name, comment) -> Bool in
+    let combined = Observable.combineLatest(input.nameText , input.commentText).map{ (name, comment) -> Bool in
       let firstCondition = name.count < 13 && !name.isEmpty
       let secondCondition = comment.count < 50 && !comment.isEmpty
       return firstCondition && secondCondition
     }
-    let nameCount = input.nameText.map{$0.count}.share()
-    let commentCount = input.commentText.map{$0.count}.share()
+    let nameCount = input.nameText.map{$0.count}
+    let commentCount = input.commentText.map{$0.count}
     return .init(changeBtnActivate: combined.asDriver(onErrorDriveWith: .empty()),
                  nameTextCount: nameCount.asDriver(onErrorDriveWith: .empty()),
                  commentTextCount: commentCount.asDriver(onErrorDriveWith: .empty()),

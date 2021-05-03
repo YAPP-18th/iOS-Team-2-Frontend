@@ -6,7 +6,7 @@
 //
 
 import Foundation
-struct PackageModel {
+struct PostSimpleModel {
   let profile : ProfileModel
   let postedAt: String
   let menus:[MenuModel]
@@ -16,4 +16,10 @@ struct PackageModel {
 struct MenuModel {
   let menutitle:String
   let menuCount: Int
+}
+extension MenuModel {
+  func toStr() -> String {
+    
+    return menuCount == 1 ? "\(self.menutitle)" : "\(self.menutitle) \(self.menuCount)"
+  }
 }

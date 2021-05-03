@@ -27,7 +27,7 @@ class MyPageViewController: ViewController {
   }
   private let editProfileBtn = UIButton()
   private let segmentView = UIView().then {
-    $0.backgroundColor = .brandSecondary
+    $0.backgroundColor = UIColor.brandColorTertiary01.withAlphaComponent(0.5)
   }
   private var collectionView: UICollectionView!
   
@@ -57,12 +57,16 @@ class MyPageViewController: ViewController {
   }
   private let yongyongCommentView = UIView().then{
     $0.backgroundColor = .white
+    $0.layer.borderWidth = 1
+    $0.layer.borderColor = UIColor.brandPrimary.cgColor
+    $0.layer.cornerRadius = 16
   }
   private let yongyongCommentLable = UILabel().then{
     $0.textColor = .black
     $0.font = .sdGhothicNeo(ofSize: 12, weight: .regular)
     $0.textAlignment = .center
   }
+  var yongCommentList : [String] = []
   private let tabView : [UIView] = [UIView(),UIView(),UIView()]
   private let tabs : [UIImageView] = [UIImageView(),
                                       UIImageView(),
@@ -72,6 +76,7 @@ class MyPageViewController: ViewController {
                                       UILabel()]
   private let tabIndicator = UIView().then{
     $0.backgroundColor = .brandTertiary
+    $0.frame.origin.x = CGFloat((UIScreen.main.bounds.width / 3.0 - 108)/2)
   }
   
   private let tabBinder = BehaviorSubject<[TabType]>(value: [.badge,.feed,.history])
@@ -81,9 +86,14 @@ class MyPageViewController: ViewController {
     setupCollectionView()
 
     super.viewDidLoad()
-    setUpNavigationBar(.white)
+    setupNavigationBar(.white)
     self.navigationItem.leftBarButtonItem = leftButtonItem
     self.navigationItem.rightBarButtonItem = rightButtonItem
+  }
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    tabIndicator.frame.origin.x = CGFloat((UIScreen.main.bounds.width / 3.0 - 108)/2)
+
   }
   override func setupLayout() {
     self.view.adds([profileView,
@@ -151,7 +161,7 @@ class MyPageViewController: ViewController {
       $0.bottom.equalToSuperview()
       $0.height.equalTo(4)
       $0.width.equalTo(108)
-      $0.height.equalTo(4)
+      $0.leading.greaterThanOrEqualToSuperview().offset(14)
     }
     yongyongView.snp.makeConstraints{
       $0.leading.trailing.equalToSuperview()
@@ -170,10 +180,10 @@ class MyPageViewController: ViewController {
       $0.centerY.equalToSuperview()
       $0.leading.equalTo(yongyong.snp.trailing).offset(19)
       $0.top.equalToSuperview().offset(14)
-      $0.width.equalTo(164)
     }
     yongyongCommentLable.snp.makeConstraints{
       $0.centerX.centerY.equalToSuperview()
+      $0.leading.equalToSuperview().offset(8)
     }
     collectionView.snp.makeConstraints{
       $0.top.equalTo(yongyongView.snp.bottom)
@@ -213,9 +223,14 @@ class MyPageViewController: ViewController {
     editProfileBtn.rx.tap.bind{[weak self] in
       let vc = EditProfileViewController(viewModel: EditProfileViewModel(), navigator: self?.navigator ?? Navigator())
       vc.hidesBottomBarWhenPushed = true
+      self?.navigationController?.pushViewController(vc, animated: true)
+    }.disposed(by: disposeBag)
+    leftButtonItem.rx.tap.bind{
+      print("알림뷰로")
     }.disposed(by: disposeBag)
     self.loadTrigger.onNext(())
   }
+  
 }
 //MARK: -Selector
 extension MyPageViewController {
@@ -264,6 +279,7 @@ extension MyPageViewController {
 }
 extension MyPageViewController : UICollectionViewDelegateFlowLayout {
   private func setupCollectionView() {
+    let offset = Int((UIScreen.main.bounds.width / 3.0 - 108)/2)
     let layout = UICollectionViewFlowLayout()
     layout.scrollDirection = .horizontal
     layout.minimumLineSpacing = 0
@@ -278,19 +294,18 @@ extension MyPageViewController : UICollectionViewDelegateFlowLayout {
     collectionView.rx.setDelegate(self)
         .disposed(by: disposeBag)
     tabIndicator.frame.size.width = 108
-    tabIndicator.frame.origin.x = 0
+    tabIndicator.frame.origin.x = CGFloat(offset)
     collectionView.rx.didScroll
       .map{[unowned self] in self.collectionView.contentOffset.x}
       .bind(onNext: { [unowned self] in
-        let itemIndex = Int($0 / UIScreen.main.bounds.width)
-        let offset = Int((UIScreen.main.bounds.width / 3.0 - 108)/2)
+        let itemIndex = Int(($0 / UIScreen.main.bounds.width).rounded())
         let indicatorWidth = 108
         UIView.animate(withDuration: 0.2) {
           setTabView(tabIndex: itemIndex)
           tabIndicator.frame.origin.x = CGFloat(itemIndex) * (CGFloat(indicatorWidth + offset * 2)) + CGFloat(offset)
-          tabIndicator.frame.size.width = 108
           self.view.layoutIfNeeded()
         }
+        self.yongyongCommentLable.text = yongCommentList[itemIndex]
       })
       .disposed(by: disposeBag)
   }

@@ -35,12 +35,31 @@ class MyPageCell : UICollectionViewCell {
       }.disposed(by:disposeBag)
     case .feed:
       print("피드")
+      out.postUsecase.map{[$0]}.bind(to: collectionView.rx.items(cellIdentifier: MyPostCollectionViewCell.identifier,
+                                                       cellType: MyPostCollectionViewCell.self)) {row, data, cell in
+        cell.bindCell(model: data)
+
+        cell.nextMonthBtn.rx.tap
+          .takeUntil(cell.rx.methodInvoked(#selector(UICollectionReusableView.prepareForReuse)))
+          .bind{
+            print("다음 달 탭")
+          }.disposed(by: cell.disposeBag)
+        cell.lastMonthBtn.rx.tap
+          .takeUntil(cell.rx.methodInvoked(#selector(UICollectionReusableView.prepareForReuse)))
+          .bind{
+            print("저번 달 탭")
+          }.disposed(by: cell.disposeBag)
+      }.disposed(by: disposeBag)
     case .history:
       print("용기 보관함")
     case .none:
       print("기타")
     }
-    
+    if let topView = UIApplication.shared.topViewController() as? MyPageViewController {
+      out.messageIndicator.bind{ [weak self] str in
+        topView.yongCommentList = str
+      }.disposed(by: disposeBag)
+    }
     loadUITrigger.onNext(())
   }
   private func layout() {
@@ -57,16 +76,29 @@ class MyPageCell : UICollectionViewCell {
       switch self.type {
       case .badge:
         return CGSize(width: width, height: width + 50)
+      case .feed:
+        return CGSize(width: UIScreen.main.bounds.width, height: UICollectionViewFlowLayout.automaticSize.height  )
       default:
         return UICollectionViewFlowLayout.automaticSize
       }
     }()
-    //layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
+    layout.estimatedItemSize = {
+      switch self.type {
+      case .badge:
+        return CGSize(width: width, height: width + 50)
+      case .feed:
+        return CGSize(width: UIScreen.main.bounds.width, height:  UIScreen.main.bounds.height)
+      default:
+        return UICollectionViewFlowLayout.automaticSize
+      }
+    }()
     layout.minimumLineSpacing = 0
     layout.sectionInset = {
       switch self.type {
       case .badge:
         return UIEdgeInsets(top: 50, left: 16, bottom: 10, right: 16)
+      case .feed:
+        return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
       default:
         return UIEdgeInsets(top: 10, left: 16, bottom: 10, right: 16)
       }
@@ -75,11 +107,19 @@ class MyPageCell : UICollectionViewCell {
     collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
     collectionView.backgroundColor = .white
     collectionView.isPagingEnabled = false
+    switch self.type {
+    case .badge:
+      collectionView.isScrollEnabled = true
+    case .feed:
+      collectionView.isScrollEnabled = false
+    default:
+      collectionView.isScrollEnabled = false
+    }
     collectionView.register(MyBadgeCollectionViewCell.self, forCellWithReuseIdentifier: MyBadgeCollectionViewCell.identifier)
     collectionView.register(MyPostCollectionViewCell.self, forCellWithReuseIdentifier: MyPostCollectionViewCell.identifier)
     collectionView.register(MyPackageCollectionViewCell.self, forCellWithReuseIdentifier: MyPackageCollectionViewCell.identifier)
     collectionView.showsHorizontalScrollIndicator = false
     collectionView.showsVerticalScrollIndicator = false
-    collectionView.bounces = false
+    collectionView.bounces = true
   }
 }
