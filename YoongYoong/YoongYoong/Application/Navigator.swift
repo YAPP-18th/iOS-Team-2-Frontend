@@ -19,8 +19,10 @@ class Navigator {
   enum Scene {
     case tabs(viewModel: TabBarViewModel)
     case tip(viewModel: TipViewModel)
+    case feedProfile(viewModel: FeedProfileViewModel)
     case onboarding(viewModel: ViewModel? = nil)
     case post(viewModel: PostSearchViewModel)
+    case selectImage(viewModel: PostImageSelectionViewModel)
   }
   
   enum Transition {
@@ -61,6 +63,12 @@ class Navigator {
     case.post(let viewModel):
       let postVC = PostSearchViewController(viewModel: viewModel, navigator: self)
       return postVC
+    case .selectImage(let viewModel):
+    let vc = PostImageSelectionViewController(viewModel: viewModel, navigator: self)
+    return vc
+    case .feedProfile(let viewModel):
+      let feedProfileVC = FeedProfileViewController(viewModel: viewModel, navigator: self)
+      return feedProfileVC
     }
   }
   

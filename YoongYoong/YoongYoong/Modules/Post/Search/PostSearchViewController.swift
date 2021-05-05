@@ -116,7 +116,7 @@ class PostSearchViewController: ViewController {
     
     view.backgroundColor = .white
     progressView.do {
-      $0.progressTintColor = .brandPrimary
+      $0.progressTintColor = .brandColorGreen01
       $0.progress = 0.5
     }
     
