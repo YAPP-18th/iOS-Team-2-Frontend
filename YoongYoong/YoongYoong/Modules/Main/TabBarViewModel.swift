@@ -34,6 +34,9 @@ class TabBarViewModel: ViewModel, ViewModelType {
     case .post:
       let viewModel = PostSearchViewModel()
       return viewModel
+    case .feed:
+      let viewModel = FeedViewModel()
+      return viewModel
     default:
       return ViewModel()
     }

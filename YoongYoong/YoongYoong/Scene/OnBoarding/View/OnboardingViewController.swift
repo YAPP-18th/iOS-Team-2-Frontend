@@ -22,7 +22,7 @@ final class OnboradingViewController : ViewController{
     $0.currentPageIndicatorTintColor = .darkGray
   }
   private let startBtn = UIButton().then{
-    $0.backgroundColor = .brandPrimary
+    $0.backgroundColor = .brandColorGreen01
     $0.setTitle("시작하기", for: .normal)
     $0.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 24, right: 0)
     $0.isHidden = true
