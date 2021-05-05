@@ -27,6 +27,7 @@
 		AAC79008262A809D009CC84E /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC79007262A809D009CC84E /* MapViewModel.swift */; };
 		AAC79015262A91A4009CC84E /* TipViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC79014262A91A4009CC84E /* TipViewModel.swift */; };
 		AAC79020262AA7E3009CC84E /* TipViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC7901F262AA7E3009CC84E /* TipViewController.swift */; };
+		AAD023EC26428F0E00F1EC2B /* UIButton+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAD023EB26428F0E00F1EC2B /* UIButton+Extensions.swift */; };
 		AAD45C582619C06800A6F4D6 /* UIFont+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAD45C572619C06800A6F4D6 /* UIFont+Extensions.swift */; };
 		AAD45C722619C36900A6F4D6 /* SF-Pro-Text-Heavy.otf in Resources */ = {isa = PBXBuildFile; fileRef = AAD45C602619C36600A6F4D6 /* SF-Pro-Text-Heavy.otf */; };
 		AAD45C732619C36900A6F4D6 /* SF-Pro-Text-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = AAD45C612619C36600A6F4D6 /* SF-Pro-Text-Light.otf */; };
@@ -108,6 +109,7 @@
 		AAC79007262A809D009CC84E /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
 		AAC79014262A91A4009CC84E /* TipViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipViewModel.swift; sourceTree = "<group>"; };
 		AAC7901F262AA7E3009CC84E /* TipViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipViewController.swift; sourceTree = "<group>"; };
+		AAD023EB26428F0E00F1EC2B /* UIButton+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extensions.swift"; sourceTree = "<group>"; };
 		AAD45C572619C06800A6F4D6 /* UIFont+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extensions.swift"; sourceTree = "<group>"; };
 		AAD45C602619C36600A6F4D6 /* SF-Pro-Text-Heavy.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Heavy.otf"; sourceTree = "<group>"; };
 		AAD45C612619C36600A6F4D6 /* SF-Pro-Text-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Light.otf"; sourceTree = "<group>"; };
@@ -292,6 +294,7 @@
 				AAD45C9D2619CAEC00A6F4D6 /* UIColor+Extensions.swift */,
 				AA6E013E261F6A0D00318E30 /* CALayer+Extensions.swift */,
 				AAF5C2412637D7F5000BB043 /* UILabel+Extensions.swift */,
+				AAD023EB26428F0E00F1EC2B /* UIButton+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -686,6 +689,7 @@
 				AA099450263ED783002222D6 /* ProfilePostCollectionViewCell.swift in Sources */,
 				AAF6903F2635C68200F643E1 /* FeedListContainerListViewModel.swift in Sources */,
 				AAF5C22A26371A27000BB043 /* FeedListTableViewCellViewModel.swift in Sources */,
+				AAD023EC26428F0E00F1EC2B /* UIButton+Extensions.swift in Sources */,
 				AAC79002262A7A1D009CC84E /* NavigationController.swift in Sources */,
 				AAF5C22526370D20000BB043 /* FeedViewModel.swift in Sources */,
 				AAF68E7F262F53C000F643E1 /* FeedListContainerListView.swift in Sources */,
