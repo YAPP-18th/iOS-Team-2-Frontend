@@ -19,6 +19,7 @@ class Navigator {
   enum Scene {
     case tabs(viewModel: TabBarViewModel)
     case tip(viewModel: TipViewModel)
+    case feedProfile(viewModel: FeedProfileViewModel)
     case onboarding(viewModel: ViewModel? = nil)
     case post(viewModel: PostSearchViewModel)
   }
@@ -61,6 +62,9 @@ class Navigator {
     case.post(let viewModel):
       let postVC = PostSearchViewController(viewModel: viewModel, navigator: self)
       return postVC
+    case .feedProfile(let viewModel):
+      let feedProfileVC = FeedProfileViewController(viewModel: viewModel, navigator: self)
+      return feedProfileVC
     }
   }
   

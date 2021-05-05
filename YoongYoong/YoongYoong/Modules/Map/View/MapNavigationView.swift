@@ -23,7 +23,9 @@ class MapNavigationView: UIView {
   
   let searchField = UITextField().then {
     $0.borderStyle = .none
-    $0.placeholder = "가게명 또는 카테고리 검색"
+    $0.font = .krBody1
+    $0.placeholder = "가게명 검색"
+    $0.textColor = .systemGrayText01
   }
   
   let searchButton = UIButton().then {
@@ -47,8 +49,8 @@ class MapNavigationView: UIView {
     searchContainerView.layer.cornerRadius = 16
     searchContainerView.layer.borderWidth = 1
     searchContainerView.layer.borderColor = searchField.isFirstResponder
-      ? UIColor.brandPrimary.cgColor
-      : UIColor(hexString: "#E5E5EA").cgColor
+      ? UIColor.brandColorGreen01.cgColor
+      : UIColor.systemGray05.cgColor
   }
   
   
