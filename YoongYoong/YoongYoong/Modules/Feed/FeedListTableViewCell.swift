@@ -13,7 +13,7 @@ import RxCocoa
 
 class FeedListTableViewCell: UITableViewCell {
   private let bag = DisposeBag()
-  
+  var height: CGFloat = 0.0
   let profileImageView = UIImageView().then {
     $0.contentMode = .scaleAspectFit
     $0.backgroundColor = .lightGray
@@ -57,8 +57,24 @@ class FeedListTableViewCell: UITableViewCell {
     $0.backgroundColor = .init(hexString: "#E5E5EA")
   }
   
-  let heaerImageView = UIImageView().then {
-    $0.contentMode = .scaleAspectFit
+  let likeContainer = UIView()
+  let likeButton = UIButton().then {
+    $0.setTitle("123", for: .normal)
+    $0.imageView?.contentMode = .scaleAspectFit
+    $0.titleLabel?.font = .krBody3
+    $0.setTitleColor(.systemGray02, for: .normal)
+    $0.setImage(UIImage(named: "icFeedLikeStroked"), for: .normal)
+    $0.centerTextAndImage(spacing: 2)
+  }
+  
+  let messagesContainer = UIView()
+  let messagesButton = UIButton().then {
+    $0.setTitle("75", for: .normal)
+    $0.titleLabel?.font = .krBody3
+    $0.imageView?.contentMode = .scaleAspectFit
+    $0.setTitleColor(.systemGray02, for: .normal)
+    $0.setImage(UIImage(named: "icFeedMessages"), for: .normal)
+    $0.centerTextAndImage(spacing: 2)
   }
   
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -89,6 +105,8 @@ class FeedListTableViewCell: UITableViewCell {
     viewModel.date.asDriver().drive(self.dateLabel.rx.text).disposed(by: bag)
     let containerViewModel = FeedListContainerListViewModel(with: viewModel.containerList.value ?? [])
     containerListView.bind(to: containerViewModel)
+    
+    self.height = Self.getHeight(viewModel: viewModel)
   }
 }
 
@@ -99,9 +117,18 @@ extension FeedListTableViewCell {
   }
   
   private func setupView() {
-    [profileImageView, nameLabel, storeNameLabel, dateLabel, contentImageView, containerTitleLabel, containerListView, divider].forEach {
+    [
+      profileImageView, nameLabel, storeNameLabel, dateLabel,
+      contentImageView,
+      containerTitleLabel, containerListView,
+      divider,
+      likeContainer, messagesContainer
+    ].forEach {
       self.contentView.addSubview($0)
     }
+    
+    likeContainer.addSubview(likeButton)
+    messagesContainer.addSubview(messagesButton)
   }
   
   private func setupLayout() {
@@ -149,15 +176,54 @@ extension FeedListTableViewCell {
     }
     
     divider.snp.makeConstraints {
-      $0.top.equalTo(containerListView.snp.bottom).offset(24)
       $0.leading.equalTo(16)
       $0.trailing.equalTo(-16)
       $0.height.equalTo(1)
-      $0.bottom.greaterThanOrEqualToSuperview()
+      $0.bottom.equalTo(likeContainer.snp.top)
     }
+    
+    likeContainer.snp.makeConstraints {
+      $0.top.equalTo(containerListView.snp.bottom).offset(21)
+      $0.leading.bottom.equalToSuperview()
+      $0.width.equalToSuperview().multipliedBy(0.5)
+      $0.height.equalTo(30)
+    }
+    
+    likeButton.snp.makeConstraints {
+      $0.centerX.centerY.equalToSuperview()
+      $0.height.equalTo(16)
+    }
+    
+    messagesContainer.snp.makeConstraints {
+      $0.top.equalTo(containerListView.snp.bottom).offset(21)
+      $0.trailing.bottom.equalToSuperview()
+      $0.width.equalToSuperview().multipliedBy(0.5)
+      $0.height.equalTo(30)
+    }
+    
+    messagesButton.snp.makeConstraints {
+      $0.centerX.centerY.equalToSuperview()
+      $0.height.equalTo(16)
+    }
+    
   }
   
   private func updateView() {
     
+  }
+  
+  static func getHeight(viewModel: FeedListTableViewCellViewModel) -> CGFloat {
+    var height: CGFloat = 0
+    let profileHeight: CGFloat = 79.0
+    let contentImageViewHeight: CGFloat = UIScreen.main.bounds.size.width
+    var containerHeight: CGFloat = 35.0 + 24.0 + 21.0
+    if let count = viewModel.containerList.value?.count {
+      containerHeight += CGFloat(18 * count)
+    }
+      
+    let likeMessagesHeight: CGFloat = 30.0
+    
+    height = profileHeight + contentImageViewHeight + containerHeight + likeMessagesHeight
+    return height
   }
 }

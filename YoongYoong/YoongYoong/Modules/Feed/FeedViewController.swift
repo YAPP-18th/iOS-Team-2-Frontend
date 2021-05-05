@@ -15,9 +15,12 @@ import RxDataSources
 class FeedViewController: ViewController {
   let tableView = UITableView().then {
     $0.backgroundColor = .systemGray06
+    $0.separatorStyle = .none
     $0.register(FeedTipView.self, forHeaderFooterViewReuseIdentifier: "FeedTipView")
     $0.register(FeedListTableViewCell.self, forCellReuseIdentifier: "FeedListTableViewCell")
   }
+  
+  var cellHeights: [IndexPath: CGFloat] = [:]
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -50,6 +53,7 @@ class FeedViewController: ViewController {
     let dataSource = RxTableViewSectionedReloadDataSource<FeedListSection>(configureCell: { dataSource, tableView, indexPath, item in
       let cell = tableView.dequeueReusableCell(withIdentifier: "FeedListTableViewCell", for: indexPath) as! FeedListTableViewCell
       cell.bind(to: item)
+      self.cellHeights[indexPath] = cell.height
       let gesture = UITapGestureRecognizer()
       cell.profileImageView.addGestureRecognizer(gesture)
       
@@ -83,6 +87,8 @@ extension FeedViewController: UITableViewDelegate {
   }
   
   func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-    return 600
+    guard let height = cellHeights[indexPath] else { return .leastNonzeroMagnitude }
+    print(height)
+    return height
   }
 }
