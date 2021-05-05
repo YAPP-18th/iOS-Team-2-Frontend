@@ -36,16 +36,16 @@ class PostImageSelectionViewCell: UICollectionViewCell {
   let selectView = UIView().then {
     $0.isOpaque = true
     $0.layer.borderWidth = 3
-    $0.layer.borderColor = UIColor.brandPrimary.cgColor
+    $0.layer.borderColor = UIColor.brandColorGreen01.cgColor
     $0.isHidden = true
   }
   
 
   let selectLabel = UILabel().then {
-    $0.backgroundColor = UIColor.brandPrimary
+    $0.backgroundColor = UIColor.brandColorGreen01
     $0.textAlignment = .center
     $0.layer.borderWidth = 2
-    $0.layer.borderColor = UIColor.brandPrimary.cgColor
+    $0.layer.borderColor = UIColor.brandColorGreen01.cgColor
     $0.clipsToBounds = true
     $0.textColor = .white
     $0.font = UIFont.sdGhothicNeo(ofSize: 12, weight: .regular)

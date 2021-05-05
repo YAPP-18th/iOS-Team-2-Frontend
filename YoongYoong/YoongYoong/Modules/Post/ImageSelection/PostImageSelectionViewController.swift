@@ -94,7 +94,7 @@ class PostImageSelectionViewController: ViewController {
                                                                 at: .right, animated: false)
         self.animateSelectedContainerView(count > 0)
         self.registButton.isEnabled = count > 0
-        self.registButton.backgroundColor = count > 0 ? UIColor.brandPrimary : #colorLiteral(red: 0.6196078431, green: 0.9137254902, blue: 0.8039215686, alpha: 1)
+        self.registButton.backgroundColor = count > 0 ? UIColor.brandColorGreen01 : UIColor.brandColorGreen02
         if count > 0 {
           self.registButton.setTitle("\(count)장 올리기", for: .normal)
         } else {
