@@ -48,6 +48,10 @@
 		AAD024212642A56600F1EC2B /* TitleContentItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAD0241E2642A56600F1EC2B /* TitleContentItem.swift */; };
 		AAD024222642A56600F1EC2B /* BraveWord.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAD0241F2642A56600F1EC2B /* BraveWord.swift */; };
 		AAD024232642A56600F1EC2B /* Feed.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAD024202642A56600F1EC2B /* Feed.swift */; };
+		AAD024282642E5FD00F1EC2B /* TipTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAD024272642E5FD00F1EC2B /* TipTableViewCell.swift */; };
+		AAD024302643BE9000F1EC2B /* Tip.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAD0242F2643BE9000F1EC2B /* Tip.swift */; };
+		AAD024352643C0D400F1EC2B /* TipTableViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAD024342643C0D400F1EC2B /* TipTableViewCellViewModel.swift */; };
+		AAD0243A2643C13C00F1EC2B /* TipSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAD024392643C13C00F1EC2B /* TipSection.swift */; };
 		AAD45C582619C06800A6F4D6 /* UIFont+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAD45C572619C06800A6F4D6 /* UIFont+Extensions.swift */; };
 		AAD45C722619C36900A6F4D6 /* SF-Pro-Text-Heavy.otf in Resources */ = {isa = PBXBuildFile; fileRef = AAD45C602619C36600A6F4D6 /* SF-Pro-Text-Heavy.otf */; };
 		AAD45C732619C36900A6F4D6 /* SF-Pro-Text-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = AAD45C612619C36600A6F4D6 /* SF-Pro-Text-Light.otf */; };
@@ -143,6 +147,10 @@
 		AAD0241E2642A56600F1EC2B /* TitleContentItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitleContentItem.swift; sourceTree = "<group>"; };
 		AAD0241F2642A56600F1EC2B /* BraveWord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BraveWord.swift; sourceTree = "<group>"; };
 		AAD024202642A56600F1EC2B /* Feed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Feed.swift; sourceTree = "<group>"; };
+		AAD024272642E5FD00F1EC2B /* TipTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipTableViewCell.swift; sourceTree = "<group>"; };
+		AAD0242F2643BE9000F1EC2B /* Tip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tip.swift; sourceTree = "<group>"; };
+		AAD024342643C0D400F1EC2B /* TipTableViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipTableViewCellViewModel.swift; sourceTree = "<group>"; };
+		AAD024392643C13C00F1EC2B /* TipSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipSection.swift; sourceTree = "<group>"; };
 		AAD45C572619C06800A6F4D6 /* UIFont+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extensions.swift"; sourceTree = "<group>"; };
 		AAD45C602619C36600A6F4D6 /* SF-Pro-Text-Heavy.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Heavy.otf"; sourceTree = "<group>"; };
 		AAD45C612619C36600A6F4D6 /* SF-Pro-Text-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Light.otf"; sourceTree = "<group>"; };
@@ -339,6 +347,10 @@
 			children = (
 				AAC79014262A91A4009CC84E /* TipViewModel.swift */,
 				AAC7901F262AA7E3009CC84E /* TipViewController.swift */,
+				AAD024272642E5FD00F1EC2B /* TipTableViewCell.swift */,
+				AAD0242F2643BE9000F1EC2B /* Tip.swift */,
+				AAD024342643C0D400F1EC2B /* TipTableViewCellViewModel.swift */,
+				AAD024392643C13C00F1EC2B /* TipSection.swift */,
 			);
 			path = Tip;
 			sourceTree = "<group>";
@@ -827,6 +839,7 @@
 				7EA4F3DD2624888B001C754C /* PostSearchHistoryItemCell.swift in Sources */,
 				7EDCDB6F262321D60029BE45 /* PostSearchViewController.swift in Sources */,
 				AAC78FE8262A6FC4009CC84E /* TabBarViewModel.swift in Sources */,
+				AAD024302643BE9000F1EC2B /* Tip.swift in Sources */,
 				AAD024102642A4FB00F1EC2B /* FeedListContainerListViewModel.swift in Sources */,
 				AA6E013A261F611600318E30 /* MapStoreInfoView.swift in Sources */,
 				AAD0240D2642A4FB00F1EC2B /* FeedListSection.swift in Sources */,
@@ -841,6 +854,7 @@
 				AAC78F96262A6916009CC84E /* ViewModelType.swift in Sources */,
 				DABB2CF9263033F60061EC98 /* UIView+Extensions.swift in Sources */,
 				AAD024122642A4FB00F1EC2B /* FeedProfileViewModel.swift in Sources */,
+				AAD0243A2643C13C00F1EC2B /* TipSection.swift in Sources */,
 				AAC79002262A7A1D009CC84E /* NavigationController.swift in Sources */,
 				7EF2DC64263076F80002E1E3 /* PostMapViewController.swift in Sources */,
 				AA6E013F261F6A0D00318E30 /* CALayer+Extensions.swift in Sources */,
@@ -858,6 +872,7 @@
 				DABB2D0926304FCD0061EC98 /* LogInViewController.swift in Sources */,
 				AAD024152642A4FB00F1EC2B /* ProfilePostCollectionViewCellViewModel.swift in Sources */,
 				AAD0240F2642A4FB00F1EC2B /* FeedViewController.swift in Sources */,
+				AAD024282642E5FD00F1EC2B /* TipTableViewCell.swift in Sources */,
 				AAD023F62642A4D200F1EC2B /* UIButton+Extensions.swift in Sources */,
 				AAD024112642A4FB00F1EC2B /* FeedListTableViewCell.swift in Sources */,
 				AAD0240B2642A4FB00F1EC2B /* FeedListTableViewCellViewModel.swift in Sources */,
@@ -867,6 +882,7 @@
 				AAF67E09262AE69600F643E1 /* LocationManager.swift in Sources */,
 				AAD024212642A56600F1EC2B /* TitleContentItem.swift in Sources */,
 				DAB00031260F12CA00D8208F /* YoongYoong.xcdatamodeld in Sources */,
+				AAD024352643C0D400F1EC2B /* TipTableViewCellViewModel.swift in Sources */,
 				7E9F7B8726281D8B00051D03 /* PostSearchResultItemCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
