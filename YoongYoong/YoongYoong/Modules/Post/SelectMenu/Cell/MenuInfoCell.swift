@@ -216,13 +216,13 @@ class MenuInfoCell: UITableViewCell {
   
   let headerView = UIView().then {
     $0.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-    $0.backgroundColor = #colorLiteral(red: 0.6196078431, green: 0.9137254902, blue: 0.8039215686, alpha: 1)
+    $0.backgroundColor = UIColor.brandColorGreen02
     $0.layer.cornerRadius = 20
     $0.layer.applySketchShadow(color: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.05), x: 0, y: 6, blur: 20, spread: 0)
   }
   let bodyView = UIView().then {
     $0.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
-    $0.backgroundColor = #colorLiteral(red: 0.8901960784, green: 0.9725490196, blue: 0.9450980392, alpha: 1)
+    $0.backgroundColor = UIColor.brandColorGreen03
     $0.layer.cornerRadius = 20
     $0.layer.applySketchShadow(color: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.12), x: 0, y: 2, blur: 10, spread: 0)
   }
@@ -232,46 +232,46 @@ class MenuInfoCell: UITableViewCell {
   private let containerTextFieldView = UIView().then {
     $0.backgroundColor = .white
     $0.layer.borderWidth = 1
-    $0.layer.borderColor = #colorLiteral(red: 0.6196078431, green: 0.9137254902, blue: 0.8039215686, alpha: 1)
+    $0.layer.borderColor = UIColor.brandColorGreen02.cgColor
     $0.layer.cornerRadius = 8
   }
   
   private let menuTextFieldView = UIView().then {
     $0.backgroundColor = .white
     $0.layer.borderWidth = 1
-    $0.layer.borderColor = #colorLiteral(red: 0.6196078431, green: 0.9137254902, blue: 0.8039215686, alpha: 1)
+    $0.layer.borderColor = UIColor.brandColorGreen02.cgColor
     $0.layer.cornerRadius = 8
   }
   
   // UILabel
   let menuCountLabel = UILabel().then {
     $0.textAlignment = .center
-    $0.font = UIFont.sdGhothicNeo(ofSize: 14, weight: .regular)
+    $0.font = .krBody2
     $0.text = "1"
   }
   
   private let containerLabel = UILabel().then {
-    $0.font = UIFont.sdGhothicNeo(ofSize: 14, weight: .bold)
+    $0.font = .krTitle2
     $0.text = "용기"
-    $0.textColor = #colorLiteral(red: 0.0862745098, green: 0.8039215686, blue: 0.5647058824, alpha: 1)
+    $0.textColor = UIColor.brandColorGreen01
   }
   
   
   private let cellTitle = UILabel().then {
-    $0.font = UIFont.sdGhothicNeo(ofSize: 12, weight: .bold)
+    $0.font = .krTitle3
     $0.textAlignment = .center
     $0.text = "구매 정보"
   }
   
   private let menuLabel = UILabel().then {
-    $0.font = UIFont.sdGhothicNeo(ofSize: 14, weight: .bold)
+    $0.font = .krTitle2
     $0.text = "메뉴"
-    $0.textColor = #colorLiteral(red: 0.0862745098, green: 0.8039215686, blue: 0.5647058824, alpha: 1)
+    $0.textColor = UIColor.brandColorGreen01
   }
   
   let containerCountLabel = UILabel().then {
     $0.textAlignment = .center
-    $0.font = UIFont.sdGhothicNeo(ofSize: 14, weight: .regular)
+    $0.font = .krBody2
     $0.text = "1"
   }
   
@@ -304,8 +304,8 @@ class MenuInfoCell: UITableViewCell {
   
   lazy var addMenuButton = UIButton().then {
     $0.setTitle("메뉴 추가하기", for: .normal)
-    $0.titleLabel?.font = UIFont.sdGhothicNeo(ofSize: 12, weight: .bold)
-    $0.setTitleColor(#colorLiteral(red: 0.0862745098, green: 0.8039215686, blue: 0.5647058824, alpha: 1), for: .normal)
+    $0.titleLabel?.font = .krTitle3
+    $0.setTitleColor(UIColor.brandColorGreen01, for: .normal)
     $0.isHidden = true
     $0.addTarget(self, action: #selector(addMenuButtonDidTap), for: .touchUpInside)
   }
@@ -314,14 +314,14 @@ class MenuInfoCell: UITableViewCell {
   let menuTextField = UITextField().then {
     $0.placeholder = "메뉴명"
     $0.borderStyle = .none
-    $0.font = UIFont.sdGhothicNeo(ofSize: 14, weight: .regular)
+    $0.font = .krBody2
     $0.backgroundColor = .white
   }
   
   
   let containerTextField = UITextField().then {
     $0.placeholder = "용기 종류"
-    $0.font = UIFont.sdGhothicNeo(ofSize: 14, weight: .regular)
+    $0.font = .krBody2
     $0.borderStyle = .none
     $0.backgroundColor = .white
   }

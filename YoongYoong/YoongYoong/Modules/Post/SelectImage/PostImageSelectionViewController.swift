@@ -116,6 +116,12 @@ class PostImageSelectionViewController: ViewController {
         self?.presentCamera()
       }).disposed(by: disposeBag)
     
+    output.selectMenuView
+      .observeOn(MainScheduler.instance)
+      .subscribe(onNext: { viewModel in
+        self.navigator.show(segue: .selectMenu(viewModel: viewModel), sender: self, transition: .navigation())
+      }).disposed(by: disposeBag)
+    
   }
   
   func scrollViewDidScroll(_ scrollView: UIScrollView) {

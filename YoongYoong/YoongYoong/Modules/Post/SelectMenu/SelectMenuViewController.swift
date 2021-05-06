@@ -13,7 +13,7 @@ class SelectMenuViewController: ViewController {
   
   private let titleLabel = UILabel().then {
     $0.text = "어떤 용기를 냈나요?"
-    $0.font = UIFont.sdGhothicNeo(ofSize: 24, weight: .regular)
+    $0.font = .krHeadline
   }
   
   private let tipButton = UIButton().then {
@@ -26,6 +26,8 @@ class SelectMenuViewController: ViewController {
     $0.backgroundColor = #colorLiteral(red: 0.6196078431, green: 0.9137254902, blue: 0.8039215686, alpha: 1)
     $0.isEnabled = false
     $0.setTitle("계속하기", for: .normal)
+    $0.titleLabel?.font = .krButton1
+    $0.layer.applySketchShadow(color: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), alpha: 0.12, x: 0, y: 2, blur: 10, spread: 0)
   }
   
   
@@ -37,7 +39,7 @@ class SelectMenuViewController: ViewController {
     super.bindViewModel()
     guard let viewModel = viewModel as? SelectMenuViewModel else { return }
     
-    let input = SelectMenuViewModel.Input(tipButtonDidTap: tipButton.rx.tap.asObservable())
+    var input = SelectMenuViewModel.Input(tipButtonDidTap: tipButton.rx.tap.asObservable(), containerTextFieldDidBeginEditing: BehaviorRelay(value: nil))
     
     let output = viewModel.transform(input: input)
     
@@ -60,7 +62,17 @@ class SelectMenuViewController: ViewController {
           cell.menuCountLabel.text = "\(info.menuCount)"
           cell.containerTextField.text = info.container
           cell.containerCountLabel.text = "\(info.containerCount)"
-
+          
+          
+          cell.containerTextField.rx.controlEvent(.editingDidBegin)
+            .map { _ in return index}
+            .bind { index in
+              
+              input.containerTextFieldDidBeginEditing.accept(index)
+              cell.containerTextField.resignFirstResponder()
+            }
+            .disposed(by: self.disposeBag)
+          
           cell.didDelete = {
             viewModel.removeCellDidTap(at: index)
           }
@@ -86,12 +98,18 @@ class SelectMenuViewController: ViewController {
       .subscribe(onNext: { [weak self] flag in
         guard let self = self else { return }
         self.nextButton.isEnabled = flag
-        self.nextButton.backgroundColor = flag ? #colorLiteral(red: 0.0862745098, green: 0.8039215686, blue: 0.5647058824, alpha: 1) : #colorLiteral(red: 0.6196078431, green: 0.9137254902, blue: 0.8039215686, alpha: 1)
+        self.nextButton.backgroundColor = flag ? .brandColorGreen01 : .brandColorGreen02
       }).disposed(by: disposeBag)
     
     nextButton.rx.tap.bind {
       print("nextButton")
     }.disposed(by: disposeBag)
+    
+    output.containerListView
+      .subscribe(onNext: { viewModel in
+        guard let viewModel = viewModel else { return }
+        self.navigator.show(segue: .selectContainer(viewModel: viewModel), sender: self, transition: .modal)
+      }).disposed(by: disposeBag)
     
   }
     
@@ -102,7 +120,7 @@ class SelectMenuViewController: ViewController {
   
   override func setupLayout() {
     super.setupLayout()
-    
+    view.backgroundColor = .white
     titleLabel.snp.makeConstraints {
       $0.left.equalTo(view.snp.left).offset(16)
       $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(40)

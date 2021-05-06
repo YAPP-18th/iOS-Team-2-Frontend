@@ -13,7 +13,7 @@ class ContainerListItemCell: UITableViewCell {
   static let cellHeight = CGFloat(40)
   
   private let titleLabel = UILabel().then {
-    $0.font = UIFont.sdGhothicNeo(ofSize: 12, weight: .regular)
+    $0.font = .krBody3
     $0.text = "냄비"
   }
   private let sizeLabel = UILabel().then {
@@ -63,7 +63,13 @@ class ContainerListItemCell: UITableViewCell {
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
     setupLayout()
-    
+    setSeletedColor()
+  }
+  
+  private func setSeletedColor() {
+    let backgroundView = UIView()
+    backgroundView.backgroundColor = .brandColorGreen04
+    self.selectedBackgroundView = backgroundView
   }
   
   required init?(coder: NSCoder) {

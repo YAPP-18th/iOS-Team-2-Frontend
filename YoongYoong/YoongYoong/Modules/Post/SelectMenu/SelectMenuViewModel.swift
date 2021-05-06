@@ -19,17 +19,25 @@ struct MenuInfo {
 class SelectMenuViewModel: ViewModel, ViewModelType {
   struct Input {
     let tipButtonDidTap: Observable<Void>
+    var containerTextFieldDidBeginEditing: BehaviorRelay<Int?>
   }
   
   struct Output {
     var info: BehaviorRelay<[MenuInfo]> = BehaviorRelay(value: [])
     let buttonEnabled: BehaviorRelay<Bool> = BehaviorRelay(value: false)
     // tip
-    // ContainerList
+    var containerListView: BehaviorRelay<SelectContainerViewModel?> = BehaviorRelay(value: nil)
   }
   var output = Output()
   
   func transform(input: Input) -> Output {
+     input.containerTextFieldDidBeginEditing
+      .skip(1)
+      .map { $0 != nil }
+      .subscribe(onNext: { _ in
+        self.output.containerListView.accept(SelectContainerViewModel())
+      }).disposed(by: disposeBag)
+    
     output.info.accept(menus)
     
     output.info

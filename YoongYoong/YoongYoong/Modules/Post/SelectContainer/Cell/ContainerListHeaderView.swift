@@ -12,7 +12,7 @@ class ContainerListHeaderView: UITableViewHeaderFooterView {
   
   let imageView = UIImageView()
   let title = UILabel().then {
-    $0.font = UIFont.sdGhothicNeo(ofSize: 14, weight: .bold)
+    $0.font = .krTitle2
   }
 
   override init(reuseIdentifier: String?) {

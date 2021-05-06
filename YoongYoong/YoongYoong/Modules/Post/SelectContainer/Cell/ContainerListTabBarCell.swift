@@ -26,7 +26,7 @@ class ContainerListTabBarCell: UICollectionViewCell {
   }
   
   private let title = UILabel().then {
-    $0.font = UIFont.sdGhothicNeo(ofSize: 14, weight: .regular)
+    $0.font = .krBody2
     $0.textAlignment = .center
     $0.textColor = .gray
   }
