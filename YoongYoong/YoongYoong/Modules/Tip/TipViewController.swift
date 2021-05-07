@@ -29,7 +29,7 @@ class TipViewController: ViewController {
   
   override func configuration() {
     super.configuration()
-    self.view.backgroundColor = .brandColorGreen03
+    self.view.backgroundColor = .white
   }
   
   override func setupView() {
@@ -69,6 +69,6 @@ class TipViewController: ViewController {
 
 extension TipViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-    return 243
+    return 157
   }
 }

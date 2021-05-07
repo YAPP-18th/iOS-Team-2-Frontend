@@ -14,13 +14,7 @@ import RxCocoa
 class TipTableViewCell: UITableViewCell {
   let bag = DisposeBag()
   
-  let shadowContainerView = UIView().then {
-    $0.backgroundColor = .white
-  }
-  
-  let backgroundImageView = UIImageView().then {
-    $0.contentMode = .scaleAspectFill
-  }
+  let containerView = UIView()
   
   let iconImageView = UIImageView().then {
     $0.contentMode = .scaleAspectFit
@@ -29,8 +23,8 @@ class TipTableViewCell: UITableViewCell {
   
   let titleLabel = UILabel().then {
     $0.text = "다회용기 실천 가이드"
-    $0.textColor = .systemGrayText01
-    $0.font = .sdGhothicNeo(ofSize: 24, weight: .bold)
+    $0.textColor = .systemGray00
+    $0.font = .krTitle1
   }
   
   let subTitleLabel = UILabel().then {
@@ -50,17 +44,7 @@ class TipTableViewCell: UITableViewCell {
     fatalError("init(coder:) has not been implemented")
   }
   
-  override func layoutSubviews() {
-    super.layoutSubviews()
-    shadowContainerView.layer.cornerRadius = 16
-    shadowContainerView.layer.applySketchShadow(color: .systemGray01, alpha: 0.2, x: 0, y: 2, blur: 10, spread: 0)
-    
-    backgroundImageView.layer.cornerRadius = 16
-    backgroundImageView.layer.masksToBounds = true
-  }
-  
   func bind(to viewModel: TipTableViewCellViewModel) {
-    viewModel.backgroundImage.asDriver().drive(self.backgroundImageView.rx.image).disposed(by: bag)
     viewModel.iconImage.asDriver().drive(self.iconImageView.rx.image).disposed(by: bag)
     viewModel.title.asDriver().drive(self.titleLabel.rx.text).disposed(by: bag)
     viewModel.subtitle.asDriver().drive(self.subTitleLabel.rx.text).disposed(by: bag)
@@ -75,38 +59,36 @@ extension TipTableViewCell {
   }
   
   private func setupView() {
-    self.contentView.addSubview(shadowContainerView)
-    shadowContainerView.addSubview(backgroundImageView)
+    self.contentView.addSubview(containerView)
     [titleLabel, subTitleLabel, iconImageView].forEach {
-      backgroundImageView.addSubview($0)
+      containerView.addSubview($0)
     }
   }
   
   private func setupLayout() {
-    shadowContainerView.snp.makeConstraints {
-      $0.leading.equalTo(16)
-      $0.trailing.equalTo(-17)
-      $0.top.equalTo(12)
-      $0.bottom.equalTo(-12)
-    }
     
-    backgroundImageView.snp.makeConstraints {
-      $0.edges.equalToSuperview()
+    containerView.snp.makeConstraints {
+      $0.centerY.equalToSuperview()
+      $0.leading.equalTo(30)
+      $0.trailing.equalTo(-31)
     }
     
     iconImageView.snp.makeConstraints {
-      $0.trailing.equalTo(-20)
-      $0.bottom.equalTo(-16)
-    }
-    
-    subTitleLabel.snp.makeConstraints {
-      $0.leading.equalTo(12)
-      $0.bottom.equalTo(-16)
+      $0.top.leading.bottom.equalToSuperview()
+      $0.width.height.equalTo(92)
     }
     
     titleLabel.snp.makeConstraints {
-      $0.leading.equalTo(12)
-      $0.bottom.equalTo(subTitleLabel.snp.top)
+      $0.top.equalTo(20)
+      $0.leading.equalTo(iconImageView.snp.trailing).offset(9)
+      $0.trailing.equalTo(-3)
     }
+    
+    subTitleLabel.snp.makeConstraints {
+      $0.top.equalTo(titleLabel.snp.bottom).offset(9)
+      $0.leading.equalTo(iconImageView.snp.trailing).offset(9)
+      $0.trailing.equalTo(-3)
+    }
+    
   }
 }
