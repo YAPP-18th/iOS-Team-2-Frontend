@@ -60,7 +60,19 @@ extension MyPostCollectionViewCell{
                                    cellType: MyPostTableViewCell.self)) { row, data, cell in
         cell.bind(model: data)
       }.disposed(by: disposeBag)
+    tableView.rx
+        .observeWeakly(CGSize.self, "contentSize")
+        .compactMap { $0?.height }
+        .distinctUntilChanged()
+        .bind { [weak self] height in
+          self?.tableView.snp.updateConstraints{
+            $0.height.equalTo(height)
+          }
+        }
+        .disposed(by: disposeBag)
+    
   }
+  
 }
 extension MyPostCollectionViewCell {
   private func layout() {
@@ -111,12 +123,7 @@ extension MyPostCollectionViewCell {
     tableView.snp.makeConstraints{
       $0.top.equalTo(monthlyInformationView.snp.bottom)
       $0.leading.trailing.bottom.equalToSuperview()
-      if cellCount == 0 {
-        $0.height.equalTo(500)
-      }
-      else {
-        $0.height.greaterThanOrEqualTo(cellCount * 130)
-      }
+        $0.height.equalTo(300)
     }
   }
 }

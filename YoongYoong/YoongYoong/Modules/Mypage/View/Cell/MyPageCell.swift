@@ -33,6 +33,7 @@ class MyPageCell : UICollectionViewCell {
       collectionView.rx.modelSelected(BadgeModel.self).bind{ [weak self] model in
         showBadgeDetailView.shared.showBadge(image: model.imagePath, title: model.title, description: model.discription, condition: model.condition)
       }.disposed(by:disposeBag)
+     
     case .feed:
       print("피드")
       out.postUsecase.map{[$0]}.bind(to: collectionView.rx.items(cellIdentifier: MyPostCollectionViewCell.identifier,
@@ -51,6 +52,12 @@ class MyPageCell : UICollectionViewCell {
           }.disposed(by: cell.disposeBag)
       }.disposed(by: disposeBag)
     case .history:
+      out.packageUsecase.map{[$0]}.bind(to: collectionView.rx.items(cellIdentifier: MyPackageCollectionViewCell.identifier,
+                                                                    cellType: MyPackageCollectionViewCell.self)) {row, data, cell in
+        cell.setupTableView()
+        cell.bindCell(model: data)
+      }.disposed(by: disposeBag)
+      
       print("용기 보관함")
     case .none:
       print("기타")
@@ -60,12 +67,15 @@ class MyPageCell : UICollectionViewCell {
         topView.yongCommentList = str
       }.disposed(by: disposeBag)
     }
+    
+   
     loadUITrigger.onNext(())
   }
   private func layout() {
     self.contentView.add(collectionView)
     collectionView.snp.makeConstraints{
       $0.top.leading.trailing.bottom.equalToSuperview()
+//      $0.height.equalTo(600)
     }
   }
   private func setUpCollectionView() {
@@ -77,7 +87,9 @@ class MyPageCell : UICollectionViewCell {
       case .badge:
         return CGSize(width: width, height: width + 50)
       case .feed:
-        return CGSize(width: UIScreen.main.bounds.width, height: UICollectionViewFlowLayout.automaticSize.height  )
+        return CGSize(width: UIScreen.main.bounds.width, height: UICollectionViewFlowLayout.automaticSize.height)
+      case .history:
+        return CGSize(width: UIScreen.main.bounds.width, height: UICollectionViewFlowLayout.automaticSize.height)
       default:
         return UICollectionViewFlowLayout.automaticSize
       }
@@ -88,6 +100,9 @@ class MyPageCell : UICollectionViewCell {
         return CGSize(width: width, height: width + 50)
       case .feed:
         return CGSize(width: UIScreen.main.bounds.width, height:  UIScreen.main.bounds.height)
+      case .history:
+        return CGSize(width: UIScreen.main.bounds.width, height:  UIScreen.main.bounds.height)
+
       default:
         return UICollectionViewFlowLayout.automaticSize
       }
@@ -99,6 +114,9 @@ class MyPageCell : UICollectionViewCell {
         return UIEdgeInsets(top: 50, left: 16, bottom: 10, right: 16)
       case .feed:
         return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+      case .history:
+        return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+
       default:
         return UIEdgeInsets(top: 10, left: 16, bottom: 10, right: 16)
       }
@@ -111,7 +129,10 @@ class MyPageCell : UICollectionViewCell {
     case .badge:
       collectionView.isScrollEnabled = true
     case .feed:
-      collectionView.isScrollEnabled = false
+      collectionView.isScrollEnabled = true
+    case .history:
+      collectionView.isScrollEnabled = true
+
     default:
       collectionView.isScrollEnabled = false
     }

@@ -13,6 +13,10 @@ class MyPageViewController: ViewController {
   private let profileView = UIView().then{
     $0.backgroundColor = .white
   }
+  private let scrollView = UIScrollView()
+  private let containerView = UIView().then{
+    $0.backgroundColor = .white
+  }
   private let userProfile = UIImageView()
   private let userName = UILabel().then {
     $0.textColor = .black
@@ -96,7 +100,16 @@ class MyPageViewController: ViewController {
 
   }
   override func setupLayout() {
-    self.view.adds([profileView,
+    self.view.add(scrollView)
+    scrollView.snp.makeConstraints{
+      $0.leading.trailing.top.bottom.equalToSuperview()
+    }
+    scrollView.add(containerView)
+    containerView.snp.makeConstraints{
+      $0.centerX.centerY.width.equalToSuperview()
+      $0.height.equalToSuperview().priority(.low)
+    }
+    containerView.adds([profileView,
                     segmentView,
                     yongyongView,
                     collectionView])
@@ -220,7 +233,7 @@ class MyPageViewController: ViewController {
       cell.bind()
 
     }.disposed(by: disposeBag)
-    editProfileBtn.rx.tap.bind{[weak self] in
+  editProfileBtn.rx.tap.bind{[weak self] in
       let vc = EditProfileViewController(viewModel: EditProfileViewModel(), navigator: self?.navigator ?? Navigator())
       vc.hidesBottomBarWhenPushed = true
       self?.navigationController?.pushViewController(vc, animated: true)
@@ -283,6 +296,8 @@ extension MyPageViewController : UICollectionViewDelegateFlowLayout {
     let layout = UICollectionViewFlowLayout()
     layout.scrollDirection = .horizontal
     layout.minimumLineSpacing = 0
+    layout.itemSize = UICollectionViewFlowLayout.automaticSize
+    layout.estimatedItemSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
     collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
     collectionView.backgroundColor = .white
     collectionView.isPagingEnabled = true

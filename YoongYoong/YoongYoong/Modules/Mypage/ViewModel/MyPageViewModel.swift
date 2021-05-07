@@ -41,7 +41,32 @@ extension MypageViewModel {
                                                       postedAt: "21.03.27",
                                                       menus: [MenuModel(menutitle: "김밥", menuCount: 2)],
                                                       thumbNail: "",
-                                                      postDescription: "떡볶이와김밥을시켰습니다")])
+                                                      postDescription: "떡볶이와김밥을시켰습니다"),
+                                      PostSimpleModel(profile: ProfileModel(imagePath: "", name: "김용기", message: "", userId: 0),
+                                                                 postedAt: "21.03.27",
+                                                                 menus: [MenuModel(menutitle: "김밥", menuCount: 2)],
+                                                                 thumbNail: "",
+                                                                 postDescription: "떡볶이와김밥을시켰습니다"),
+                                      PostSimpleModel(profile: ProfileModel(imagePath: "", name: "김용기", message: "", userId: 0),
+                                                                 postedAt: "21.03.27",
+                                                                 menus: [MenuModel(menutitle: "김밥", menuCount: 2)],
+                                                                 thumbNail: "",
+                                                                 postDescription: "떡볶이와김밥을시켰습니다"),
+                                      PostSimpleModel(profile: ProfileModel(imagePath: "", name: "김용기", message: "", userId: 0),
+                                                                 postedAt: "21.03.27",
+                                                                 menus: [MenuModel(menutitle: "김밥", menuCount: 2)],
+                                                                 thumbNail: "",
+                                                                 postDescription: "떡볶이와김밥을시켰습니다"),
+                                      PostSimpleModel(profile: ProfileModel(imagePath: "", name: "김용기", message: "", userId: 0),
+                                                                 postedAt: "21.03.27",
+                                                                 menus: [MenuModel(menutitle: "김밥", menuCount: 2)],
+                                                                 thumbNail: "",
+                                                                 postDescription: "떡볶이와김밥을시켰습니다"),
+                                      PostSimpleModel(profile: ProfileModel(imagePath: "", name: "김용기", message: "", userId: 0),
+                                                                 postedAt: "21.03.27",
+                                                                 menus: [MenuModel(menutitle: "김밥", menuCount: 2)],
+                                                                 thumbNail: "",
+                                                                 postDescription: "떡볶이와김밥을시켰습니다")])
     }.share()
     let message = input.loadView
         .withLatestFrom(postList){ _, model -> [String] in
@@ -49,15 +74,28 @@ extension MypageViewModel {
               "지금까지 총 \(model.packageCount)개의 용기를 냈어요!",
       "자주 사용하는 용기를 등록하세요!"]
     }
+    let packageUsecase = input.loadView.map{_ in
+      return [PackageSectionType(model: "자주 쓰는 용기", items: [PackageSimpleModel(identity: 0, title: "밀폐용기", size: "S", selected: true)]),
+              PackageSectionType(model: "밀폐용기", items: [PackageSimpleModel(identity: 0, title: "밀폐용기", size: "S", selected: true),
+                                                                PackageSimpleModel(identity: 0, title: "밀폐용기", size: "M", selected: false),
+                                                                PackageSimpleModel(identity: 0, title: "밀폐용기", size: "L", selected: false)]),
+              PackageSectionType(model: "냄비", items: [PackageSimpleModel(identity: 0, title: "냄비", size: "S", selected: false),
+                                                          PackageSimpleModel(identity: 0, title: "냄비", size: "M", selected: false),
+                                                          PackageSimpleModel(identity: 0, title: "냄비", size: "L", selected: false)]),
+              PackageSectionType(model: "텀블러", items: [PackageSimpleModel(identity: 0, title: "텀블러", size: "S", selected: false),
+                                                          PackageSimpleModel(identity: 0, title: "텀블러", size: "M", selected: false),
+                                                          PackageSimpleModel(identity: 0, title: "텀블러", size: "L", selected: false)]),
+      ]
+    }
+    
     return .init(messageIndicator: message,
                  badgeUsecase: badgeUsecase,
                  postUsecase: postList,
-                 packageUsecase: .empty())
+                 packageUsecase: packageUsecase)
   }
   //메인 뷰에 바인딩하는 함수
   func getProfile(inputs: Input) -> Driver<ProfileModel> {
     weak var weakSelf = self
-
     let profile = inputs.loadView.map{ _ in
       ProfileModel(imagePath: nil, name: "김용기", message: "안녕하세용", userId: 1)
     }

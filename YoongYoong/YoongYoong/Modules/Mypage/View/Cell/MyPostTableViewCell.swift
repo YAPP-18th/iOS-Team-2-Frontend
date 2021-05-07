@@ -42,7 +42,8 @@ class MyPostTableViewCell: UITableViewCell {
     }
   func bind(model: PostSimpleModel) {
     layout()
-    
+    self.selectionStyle = .none
+
     self.thumbNail.image = UIImage(named: model.thumbNail)
     self.profile.image = UIImage(named: model.profile.imagePath ?? "")
     self.name.text = model.profile.name
