@@ -30,6 +30,9 @@
 		AAC79008262A809D009CC84E /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC79007262A809D009CC84E /* MapViewModel.swift */; };
 		AAC79015262A91A4009CC84E /* TipViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC79014262A91A4009CC84E /* TipViewModel.swift */; };
 		AAC79020262AA7E3009CC84E /* TipViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC7901F262AA7E3009CC84E /* TipViewController.swift */; };
+		AACCAA7826451B64005C9FBC /* TipDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCAA7726451B64005C9FBC /* TipDetailViewController.swift */; };
+		AACCAA8326451CBE005C9FBC /* TipDetailFirstView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCAA8226451CBE005C9FBC /* TipDetailFirstView.swift */; };
+		AACCAA8826453786005C9FBC /* TipDetailFirstListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCAA8726453786005C9FBC /* TipDetailFirstListView.swift */; };
 		AAD023F62642A4D200F1EC2B /* UIButton+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAD023F42642A4D200F1EC2B /* UIButton+Extensions.swift */; };
 		AAD023F72642A4D200F1EC2B /* UILabel+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAD023F52642A4D200F1EC2B /* UILabel+Extensions.swift */; };
 		AAD0240A2642A4FB00F1EC2B /* FeedTipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAD023FC2642A4FB00F1EC2B /* FeedTipView.swift */; };
@@ -129,6 +132,9 @@
 		AAC79007262A809D009CC84E /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
 		AAC79014262A91A4009CC84E /* TipViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipViewModel.swift; sourceTree = "<group>"; };
 		AAC7901F262AA7E3009CC84E /* TipViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipViewController.swift; sourceTree = "<group>"; };
+		AACCAA7726451B64005C9FBC /* TipDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipDetailViewController.swift; sourceTree = "<group>"; };
+		AACCAA8226451CBE005C9FBC /* TipDetailFirstView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipDetailFirstView.swift; sourceTree = "<group>"; };
+		AACCAA8726453786005C9FBC /* TipDetailFirstListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipDetailFirstListView.swift; sourceTree = "<group>"; };
 		AAD023F42642A4D200F1EC2B /* UIButton+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+Extensions.swift"; sourceTree = "<group>"; };
 		AAD023F52642A4D200F1EC2B /* UILabel+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UILabel+Extensions.swift"; sourceTree = "<group>"; };
 		AAD023FC2642A4FB00F1EC2B /* FeedTipView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedTipView.swift; sourceTree = "<group>"; };
@@ -345,6 +351,7 @@
 		AAC79013262A9196009CC84E /* Tip */ = {
 			isa = PBXGroup;
 			children = (
+				AACCAA7626451B55005C9FBC /* TipDetail */,
 				AAC79014262A91A4009CC84E /* TipViewModel.swift */,
 				AAC7901F262AA7E3009CC84E /* TipViewController.swift */,
 				AAD024272642E5FD00F1EC2B /* TipTableViewCell.swift */,
@@ -353,6 +360,16 @@
 				AAD024392643C13C00F1EC2B /* TipSection.swift */,
 			);
 			path = Tip;
+			sourceTree = "<group>";
+		};
+		AACCAA7626451B55005C9FBC /* TipDetail */ = {
+			isa = PBXGroup;
+			children = (
+				AACCAA7726451B64005C9FBC /* TipDetailViewController.swift */,
+				AACCAA8226451CBE005C9FBC /* TipDetailFirstView.swift */,
+				AACCAA8726453786005C9FBC /* TipDetailFirstListView.swift */,
+			);
+			path = TipDetail;
 			sourceTree = "<group>";
 		};
 		AAD023F32642A4B600F1EC2B /* Recovered References */ = {
@@ -851,7 +868,9 @@
 				DAB00027260F12CA00D8208F /* AppDelegate.swift in Sources */,
 				AAD45C582619C06800A6F4D6 /* UIFont+Extensions.swift in Sources */,
 				DAE3E4C526302EAD005A0A61 /* OnboardingViewController.swift in Sources */,
+				AACCAA8326451CBE005C9FBC /* TipDetailFirstView.swift in Sources */,
 				AAC78F96262A6916009CC84E /* ViewModelType.swift in Sources */,
+				AACCAA8826453786005C9FBC /* TipDetailFirstListView.swift in Sources */,
 				DABB2CF9263033F60061EC98 /* UIView+Extensions.swift in Sources */,
 				AAD024122642A4FB00F1EC2B /* FeedProfileViewModel.swift in Sources */,
 				AAD0243A2643C13C00F1EC2B /* TipSection.swift in Sources */,
@@ -879,6 +898,7 @@
 				AAC78FFA262A773D009CC84E /* ViewController.swift in Sources */,
 				AAD024222642A56600F1EC2B /* BraveWord.swift in Sources */,
 				AAC79020262AA7E3009CC84E /* TipViewController.swift in Sources */,
+				AACCAA7826451B64005C9FBC /* TipDetailViewController.swift in Sources */,
 				AAF67E09262AE69600F643E1 /* LocationManager.swift in Sources */,
 				AAD024212642A56600F1EC2B /* TitleContentItem.swift in Sources */,
 				DAB00031260F12CA00D8208F /* YoongYoong.xcdatamodeld in Sources */,

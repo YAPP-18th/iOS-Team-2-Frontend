@@ -71,4 +71,11 @@ extension TipViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
     return 157
   }
+  
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    let destinationVC = TipDetailViewController(viewModel: nil, navigator: navigator)
+    destinationVC.modalPresentationStyle = .overCurrentContext
+    destinationVC.modalTransitionStyle = .crossDissolve
+    self.present(destinationVC, animated: true, completion: nil)
+  }
 }
