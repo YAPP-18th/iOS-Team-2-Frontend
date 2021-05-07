@@ -36,7 +36,7 @@ class TipDetailViewController: ViewController {
     
     tipView.snp.makeConstraints {
       $0.top.equalTo(56)
-      $0.leading.trailing.equalToSuperview()
+      $0.leading.trailing.bottom.equalToSuperview()
     }
   }
 }

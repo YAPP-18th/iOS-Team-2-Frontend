@@ -31,9 +31,8 @@ class TipDetailFirstView: UIView {
     $0.textColor = .systemGrayText02
   }
   
-  let vStackView = UIStackView().then {
-    $0.axis = .vertical
-    $0.spacing = 56
+  let vStackView = ScrollStackView().then {
+    $0.stackView.spacing = 56
   }
   
   override init(frame: CGRect) {
