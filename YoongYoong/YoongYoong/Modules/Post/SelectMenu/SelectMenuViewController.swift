@@ -39,7 +39,8 @@ class SelectMenuViewController: ViewController {
     super.bindViewModel()
     guard let viewModel = viewModel as? SelectMenuViewModel else { return }
     
-    var input = SelectMenuViewModel.Input(tipButtonDidTap: tipButton.rx.tap.asObservable(), containerTextFieldDidBeginEditing: BehaviorRelay(value: nil))
+    let input = SelectMenuViewModel.Input(tipButtonDidTap: tipButton.rx.tap.asObservable(),
+                                          containerTextFieldDidBeginEditing: BehaviorRelay(value: nil))
     
     let output = viewModel.transform(input: input)
     
@@ -58,18 +59,18 @@ class SelectMenuViewController: ViewController {
             self.tableView.scrollToRow(at: IndexPath(row: index+1, section: 0), at: .bottom, animated: true)
           }
         } else {
+          cell.cellTitle.text = "구매 정보\(index+1)"
           cell.menuTextField.text = info.menu
           cell.menuCountLabel.text = "\(info.menuCount)"
           cell.containerTextField.text = info.container
           cell.containerCountLabel.text = "\(info.containerCount)"
           
-          
           cell.containerTextField.rx.controlEvent(.editingDidBegin)
             .map { _ in return index}
             .bind { index in
-              
-              input.containerTextFieldDidBeginEditing.accept(index)
               cell.containerTextField.resignFirstResponder()
+              input.containerTextFieldDidBeginEditing.accept(index)
+              
             }
             .disposed(by: self.disposeBag)
           
@@ -149,6 +150,7 @@ class SelectMenuViewController: ViewController {
   
   override func configuration() {
     super.configuration()
+    view.backgroundColor = .white
     tableView.do {
       $0.register(MenuInfoCell.self, forCellReuseIdentifier: MenuInfoCell.reuseIdentifier)
       $0.estimatedRowHeight = MenuInfoCell.height + 20

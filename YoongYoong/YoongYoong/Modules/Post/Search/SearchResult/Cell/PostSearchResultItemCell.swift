@@ -49,8 +49,8 @@ class PostSearchResultItemCell: UITableViewCell {
   
     
     storeLabel.snp.makeConstraints{ make in
-      make.leading.equalTo(contentView.snp.leading).offset(16)
-      make.top.equalTo(contentView.snp.top).offset(13)
+      make.leading.equalTo(contentView.snp.leading).offset(18)
+      make.top.equalTo(contentView.snp.top).offset(17)
       make.height.equalTo(20)
       make.width.equalTo(208)
     }
@@ -58,7 +58,7 @@ class PostSearchResultItemCell: UITableViewCell {
     distanceLabel.snp.makeConstraints { make in
       make.width.equalTo(43)
       make.height.equalTo(16)
-      make.left.equalTo(contentView.snp.left).offset(16)
+      make.left.equalTo(contentView.snp.left).offset(18)
       make.top.equalTo(storeLabel.snp.bottom).offset(3)
     }
     
@@ -76,7 +76,7 @@ class PostSearchResultItemCell: UITableViewCell {
     
     addressContainer.snp.makeConstraints { make in
       make.top.equalTo(distanceLabel.snp.bottom).offset(11)
-      make.leading.equalTo(contentView.snp.leading).offset(16)
+      make.leading.equalTo(contentView.snp.leading).offset(18)
       make.height.equalTo(16)
       make.width.equalTo(298)
     }
@@ -88,7 +88,7 @@ class PostSearchResultItemCell: UITableViewCell {
     
     hoursContainer.snp.makeConstraints { make in
       make.top.equalTo(addressContainer.snp.bottom).offset(8)
-      make.leading.equalTo(contentView.snp.leading).offset(16)
+      make.leading.equalTo(contentView.snp.leading).offset(18)
       make.height.equalTo(16)
       make.width.equalTo(298)
     }
@@ -164,7 +164,7 @@ class PostSearchResultItemCell: UITableViewCell {
   
   private func setSeletedColor() {
     let backgroundView = UIView()
-    backgroundView.backgroundColor = #colorLiteral(red: 0.5764705882, green: 0.9568627451, blue: 0.8156862745, alpha: 0.3)
+    backgroundView.backgroundColor = .brandColorGreen04
     self.selectedBackgroundView = backgroundView
   }
   

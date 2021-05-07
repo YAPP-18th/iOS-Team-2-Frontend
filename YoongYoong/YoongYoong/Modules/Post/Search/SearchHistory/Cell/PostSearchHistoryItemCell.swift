@@ -21,6 +21,8 @@ class PostSearchHistoryItemCell: UITableViewCell {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
     setupLayout()
     setupAttribute()
+    setSeletedColor()
+
   }
   
   required init?(coder: NSCoder) {
@@ -51,5 +53,11 @@ class PostSearchHistoryItemCell: UITableViewCell {
   @objc
   private func deleteButtonDidTap() {
     didDelete()
+  }
+  
+  private func setSeletedColor() {
+    let backgroundView = UIView()
+    backgroundView.backgroundColor = .brandColorGreen04
+    self.selectedBackgroundView = backgroundView
   }
 }

@@ -167,6 +167,8 @@ class PostSearchViewController: ViewController {
       $0.isHidden = true
     }
 
+    searchResultView.tableView.rx.setDelegate(self).disposed(by: disposeBag)
+    searchHistoryView.tableView.rx.setDelegate(self).disposed(by: disposeBag)
     
   }
   
@@ -183,6 +185,12 @@ class PostSearchViewController: ViewController {
     self.dismiss(animated: true, completion: nil)
   }
   
+}
+
+extension PostSearchViewController: UITableViewDelegate {
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    tableView.deselectRow(at: indexPath, animated: false)
+  }
 }
 
 extension PostSearchViewController: UITextFieldDelegate {

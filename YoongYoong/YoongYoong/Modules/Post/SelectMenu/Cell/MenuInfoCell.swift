@@ -93,7 +93,7 @@ class MenuInfoCell: UITableViewCell {
     deleteCellButton.snp.makeConstraints {
       $0.right.equalTo(headerView.snp.right).offset(-12)
       $0.centerY.equalTo(headerView.snp.centerY)
-      $0.width.height.equalTo(16)
+      $0.width.height.equalTo(20)
     }
     
     bodyView.snp.makeConstraints {
@@ -257,7 +257,7 @@ class MenuInfoCell: UITableViewCell {
   }
   
   
-  private let cellTitle = UILabel().then {
+  let cellTitle = UILabel().then {
     $0.font = .krTitle3
     $0.textAlignment = .center
     $0.text = "구매 정보"
@@ -309,8 +309,8 @@ class MenuInfoCell: UITableViewCell {
     $0.isHidden = true
     $0.addTarget(self, action: #selector(addMenuButtonDidTap), for: .touchUpInside)
   }
-  // UITextField
   
+  // UITextField
   let menuTextField = UITextField().then {
     $0.placeholder = "메뉴명"
     $0.borderStyle = .none
