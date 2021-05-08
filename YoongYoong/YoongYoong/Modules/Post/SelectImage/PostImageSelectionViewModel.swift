@@ -11,7 +11,7 @@ import RxCocoa
 import RxSwift
 
 class PostImageSelectionViewModel: ViewModel, ViewModelType {
-  private let output = Output()
+  private var output = Output()
   private var allPhoto = [PHAsset]()
   var selected = [(PHAsset, IndexPath)]()
   
@@ -26,6 +26,7 @@ class PostImageSelectionViewModel: ViewModel, ViewModelType {
     var selectedPhotos: BehaviorRelay<[(PHAsset, IndexPath)]> = BehaviorRelay(value: [])
     let setting: BehaviorRelay<Void> = BehaviorRelay(value: ())
     let presentCamera: BehaviorRelay<Void> = BehaviorRelay(value: ())
+    var selectMenuView: Observable<SelectMenuViewModel> = Observable.of(SelectMenuViewModel())
   }
 
   func removeFromSelected(_ index: Int) {
@@ -71,6 +72,9 @@ class PostImageSelectionViewModel: ViewModel, ViewModelType {
         }
         
       }).disposed(by: disposeBag)
+    
+    output.selectMenuView = input.registButtonDidTap
+      .map { _ in return SelectMenuViewModel() }
     
     return output
   }
