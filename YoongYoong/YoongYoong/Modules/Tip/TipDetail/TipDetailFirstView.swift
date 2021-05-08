@@ -14,6 +14,8 @@ class TipDetailFirstView: UIView {
     $0.layer.masksToBounds = true
   }
   
+  let labelContainer = UIView()
+  
   let titleLabel = UILabel().then {
     $0.text = "용기 사이즈 정보"
     $0.textColor = .systemGray00
@@ -56,10 +58,16 @@ extension TipDetailFirstView {
   }
   
   private func setupView() {
-    [topIndicatorView, titleLabel, subtitleLabel, vStackView].forEach {
+    [topIndicatorView, vStackView].forEach {
       self.addSubview($0)
     }
+    
+    [titleLabel, subtitleLabel].forEach {
+      labelContainer.addSubview($0)
+    }
+    vStackView.addArrangedSubview(labelContainer)
   }
+  
   
   private func setupLayout() {
     topIndicatorView.snp.makeConstraints {
@@ -79,10 +87,11 @@ extension TipDetailFirstView {
       $0.top.equalTo(titleLabel.snp.bottom).offset(14)
       $0.leading.equalTo(32)
       $0.trailing.equalTo(-32)
+      $0.bottom.equalTo(-6)
     }
     
     vStackView.snp.makeConstraints {
-      $0.top.equalTo(subtitleLabel.snp.bottom).offset(62)
+      $0.top.equalTo(topIndicatorView.snp.bottom)
       $0.leading.trailing.bottom.equalToSuperview()
     }
   }

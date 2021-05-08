@@ -34,6 +34,8 @@
 		AACCAA8326451CBE005C9FBC /* TipDetailFirstView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCAA8226451CBE005C9FBC /* TipDetailFirstView.swift */; };
 		AACCAA8826453786005C9FBC /* TipDetailFirstListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCAA8726453786005C9FBC /* TipDetailFirstListView.swift */; };
 		AACCAA902645509C005C9FBC /* ScrollStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCAA8F2645509C005C9FBC /* ScrollStackView.swift */; };
+		AACCAA952646285D005C9FBC /* TipDetailSecondView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCAA942646285D005C9FBC /* TipDetailSecondView.swift */; };
+		AACCAA9A264628EB005C9FBC /* TipDetailSecondListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCAA99264628EB005C9FBC /* TipDetailSecondListView.swift */; };
 		AAD023F62642A4D200F1EC2B /* UIButton+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAD023F42642A4D200F1EC2B /* UIButton+Extensions.swift */; };
 		AAD023F72642A4D200F1EC2B /* UILabel+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAD023F52642A4D200F1EC2B /* UILabel+Extensions.swift */; };
 		AAD0240A2642A4FB00F1EC2B /* FeedTipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAD023FC2642A4FB00F1EC2B /* FeedTipView.swift */; };
@@ -137,6 +139,8 @@
 		AACCAA8226451CBE005C9FBC /* TipDetailFirstView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipDetailFirstView.swift; sourceTree = "<group>"; };
 		AACCAA8726453786005C9FBC /* TipDetailFirstListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipDetailFirstListView.swift; sourceTree = "<group>"; };
 		AACCAA8F2645509C005C9FBC /* ScrollStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollStackView.swift; sourceTree = "<group>"; };
+		AACCAA942646285D005C9FBC /* TipDetailSecondView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipDetailSecondView.swift; sourceTree = "<group>"; };
+		AACCAA99264628EB005C9FBC /* TipDetailSecondListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipDetailSecondListView.swift; sourceTree = "<group>"; };
 		AAD023F42642A4D200F1EC2B /* UIButton+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+Extensions.swift"; sourceTree = "<group>"; };
 		AAD023F52642A4D200F1EC2B /* UILabel+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UILabel+Extensions.swift"; sourceTree = "<group>"; };
 		AAD023FC2642A4FB00F1EC2B /* FeedTipView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedTipView.swift; sourceTree = "<group>"; };
@@ -369,7 +373,9 @@
 			children = (
 				AACCAA7726451B64005C9FBC /* TipDetailViewController.swift */,
 				AACCAA8226451CBE005C9FBC /* TipDetailFirstView.swift */,
+				AACCAA942646285D005C9FBC /* TipDetailSecondView.swift */,
 				AACCAA8726453786005C9FBC /* TipDetailFirstListView.swift */,
+				AACCAA99264628EB005C9FBC /* TipDetailSecondListView.swift */,
 			);
 			path = TipDetail;
 			sourceTree = "<group>";
@@ -864,6 +870,7 @@
 				AA6E013A261F611600318E30 /* MapStoreInfoView.swift in Sources */,
 				AAD0240D2642A4FB00F1EC2B /* FeedListSection.swift in Sources */,
 				AAC78F91262A67FD009CC84E /* Application.swift in Sources */,
+				AACCAA952646285D005C9FBC /* TipDetailSecondView.swift in Sources */,
 				AA344617261B2F240034E1BC /* MapViewController.swift in Sources */,
 				DABB2D0E263050770061EC98 /* LogInViewModel.swift in Sources */,
 				DABB2CF1263032330061EC98 /* Identifiable.swift in Sources */,
@@ -904,6 +911,7 @@
 				AAC79020262AA7E3009CC84E /* TipViewController.swift in Sources */,
 				AACCAA7826451B64005C9FBC /* TipDetailViewController.swift in Sources */,
 				AAF67E09262AE69600F643E1 /* LocationManager.swift in Sources */,
+				AACCAA9A264628EB005C9FBC /* TipDetailSecondListView.swift in Sources */,
 				AAD024212642A56600F1EC2B /* TitleContentItem.swift in Sources */,
 				DAB00031260F12CA00D8208F /* YoongYoong.xcdatamodeld in Sources */,
 				AAD024352643C0D400F1EC2B /* TipTableViewCellViewModel.swift in Sources */,
