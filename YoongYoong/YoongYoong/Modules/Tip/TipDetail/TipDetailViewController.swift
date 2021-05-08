@@ -12,7 +12,7 @@ class TipDetailViewController: ViewController {
   let dimmView = UIView().then {
     $0.backgroundColor = UIColor.darkGray.withAlphaComponent(0.7)
   }
-  let tipView = TipDetailSecondView()
+  let tipView = TipDetailThirdView()
   
   override func viewDidLoad() {
     super.viewDidLoad()

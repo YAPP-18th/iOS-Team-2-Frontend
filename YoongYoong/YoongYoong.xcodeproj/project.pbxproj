@@ -36,6 +36,8 @@
 		AACCAA902645509C005C9FBC /* ScrollStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCAA8F2645509C005C9FBC /* ScrollStackView.swift */; };
 		AACCAA952646285D005C9FBC /* TipDetailSecondView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCAA942646285D005C9FBC /* TipDetailSecondView.swift */; };
 		AACCAA9A264628EB005C9FBC /* TipDetailSecondListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCAA99264628EB005C9FBC /* TipDetailSecondListView.swift */; };
+		AACCAA9F26463A0E005C9FBC /* TipDetailThirdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCAA9E26463A0E005C9FBC /* TipDetailThirdView.swift */; };
+		AACCAAA426463A76005C9FBC /* TipDetailThirdListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCAAA326463A76005C9FBC /* TipDetailThirdListView.swift */; };
 		AAD023F62642A4D200F1EC2B /* UIButton+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAD023F42642A4D200F1EC2B /* UIButton+Extensions.swift */; };
 		AAD023F72642A4D200F1EC2B /* UILabel+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAD023F52642A4D200F1EC2B /* UILabel+Extensions.swift */; };
 		AAD0240A2642A4FB00F1EC2B /* FeedTipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAD023FC2642A4FB00F1EC2B /* FeedTipView.swift */; };
@@ -141,6 +143,8 @@
 		AACCAA8F2645509C005C9FBC /* ScrollStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollStackView.swift; sourceTree = "<group>"; };
 		AACCAA942646285D005C9FBC /* TipDetailSecondView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipDetailSecondView.swift; sourceTree = "<group>"; };
 		AACCAA99264628EB005C9FBC /* TipDetailSecondListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipDetailSecondListView.swift; sourceTree = "<group>"; };
+		AACCAA9E26463A0E005C9FBC /* TipDetailThirdView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipDetailThirdView.swift; sourceTree = "<group>"; };
+		AACCAAA326463A76005C9FBC /* TipDetailThirdListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipDetailThirdListView.swift; sourceTree = "<group>"; };
 		AAD023F42642A4D200F1EC2B /* UIButton+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+Extensions.swift"; sourceTree = "<group>"; };
 		AAD023F52642A4D200F1EC2B /* UILabel+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UILabel+Extensions.swift"; sourceTree = "<group>"; };
 		AAD023FC2642A4FB00F1EC2B /* FeedTipView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedTipView.swift; sourceTree = "<group>"; };
@@ -376,6 +380,8 @@
 				AACCAA942646285D005C9FBC /* TipDetailSecondView.swift */,
 				AACCAA8726453786005C9FBC /* TipDetailFirstListView.swift */,
 				AACCAA99264628EB005C9FBC /* TipDetailSecondListView.swift */,
+				AACCAA9E26463A0E005C9FBC /* TipDetailThirdView.swift */,
+				AACCAAA326463A76005C9FBC /* TipDetailThirdListView.swift */,
 			);
 			path = TipDetail;
 			sourceTree = "<group>";
@@ -862,6 +868,7 @@
 				AAD45C582619C06800A6F4D6 /* UIFont+Extensions.swift in Sources */,
 				AAD024132642A4FB00F1EC2B /* ProfilePostCollectionViewCell.swift in Sources */,
 				AAD0240E2642A4FB00F1EC2B /* FeedViewModel.swift in Sources */,
+				AACCAA9F26463A0E005C9FBC /* TipDetailThirdView.swift in Sources */,
 				7EA4F3DD2624888B001C754C /* PostSearchHistoryItemCell.swift in Sources */,
 				7EDCDB6F262321D60029BE45 /* PostSearchViewController.swift in Sources */,
 				AAC78FE8262A6FC4009CC84E /* TabBarViewModel.swift in Sources */,
@@ -912,6 +919,7 @@
 				AACCAA7826451B64005C9FBC /* TipDetailViewController.swift in Sources */,
 				AAF67E09262AE69600F643E1 /* LocationManager.swift in Sources */,
 				AACCAA9A264628EB005C9FBC /* TipDetailSecondListView.swift in Sources */,
+				AACCAAA426463A76005C9FBC /* TipDetailThirdListView.swift in Sources */,
 				AAD024212642A56600F1EC2B /* TitleContentItem.swift in Sources */,
 				DAB00031260F12CA00D8208F /* YoongYoong.xcdatamodeld in Sources */,
 				AAD024352643C0D400F1EC2B /* TipTableViewCellViewModel.swift in Sources */,

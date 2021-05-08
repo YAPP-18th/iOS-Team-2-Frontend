@@ -1,14 +1,13 @@
 //
-//  TipDetailSecondView.swift
+//  TipDetailThirdView.swift
 //  YoongYoong
 //
 //  Created by 손병근 on 2021/05/08.
 //
 
-
 import UIKit
 
-class TipDetailSecondView: UIView {
+class TipDetailThirdView: UIView {
   let topIndicatorView = UIView().then {
     $0.backgroundColor = .systemGray05
     $0.layer.cornerRadius = 2.5
@@ -18,15 +17,12 @@ class TipDetailSecondView: UIView {
   let labelContainer = UIView()
   
   let titleLabel = UILabel().then {
-    $0.text = "다회용기 실천 가이드"
+    $0.text = "개인 용기 이용 꿀팁"
     $0.textColor = .systemGray00
     $0.font = .krTitle1
   }
   
-  let vStackView = ScrollStackView().then {
-    $0.stackView.spacing = 49
-  }
-  
+  let vStackView = ScrollStackView()
   override init(frame: CGRect) {
     super.init(frame: frame)
     configuration()
@@ -42,7 +38,7 @@ class TipDetailSecondView: UIView {
   
 }
 
-extension TipDetailSecondView {
+extension TipDetailThirdView {
   private func configuration() {
     self.backgroundColor = .white
   }
@@ -69,7 +65,7 @@ extension TipDetailSecondView {
       $0.top.equalTo(28)
       $0.centerX.equalToSuperview()
       $0.height.equalTo(22)
-      $0.bottom.equalTo(-10)
+      $0.bottom.equalTo(-79)
     }
     vStackView.snp.makeConstraints {
       $0.top.equalTo(topIndicatorView.snp.bottom)
@@ -78,57 +74,64 @@ extension TipDetailSecondView {
   }
   
   private func updateView() {
-    let viewModelList: [TipDetailSecondListView.VIewModel] = [
+    let viewModelList: [TipDetailThirdListView.VIewModel] = [
       .init(
-        icon: UIImage(named: "icTipSecondListOne")!,
+        number: UIImage(named: "icTipThirdListNumOne")!,
+        icon: UIImage(named: "icTipThirdListOne")!,
         content: """
-        가지고 있는 개인용기 중 주로 사용할 용기를
-        자주 쓰는 용기에 등록하세요
+        기본 반찬 및 추가 소스를 위한 작은 통이나
+        섹션이 구분된 통을 구비해두면 좋아요
         """
       ),
       .init(
-        icon: UIImage(named: "icTipSecondListTwo")!,
+        number: UIImage(named: "icTipThirdListNumTwo")!,
+        icon: UIImage(named: "icTipThirdListTwo")!,
         content: """
-        지도에서 가게를 검색하고 사용할 용기를 결정해요.
-        포스트를 보며 용기의 유형과 사이즈를 가늠해봐요
-        만약 아직 포스트가 없는 가게라면
-        ‘용기별 추천’에서 힌트를 얻으세요!
+        케이크/타르트 등 디저트 종류는 뒤집어서
+        포장해보세요. 뚜껑에 디저트를 얹고 용기를
+        거꾸로 덮으면 모양이 망가지지 않아요
         """
       ),
       .init(
-        icon: UIImage(named: "icTipSecondListThree")!,
+        number: UIImage(named: "icTipThirdListNumThree")!,
+        icon: UIImage(named: "icTipThirdListThree")!,
         content: """
-        결정한 용기를 들고 가게로 이동해요.
-        (tip: 배달 어플 사용 시, 요청사항에 개인용기 사용을
-        이야기하고 예상 픽업시간 10분전에 도착하세요)
+        기름기가 많은 음식은 유선지를 미리 깔아두세요
         """
       ),
       .init(
-        icon: UIImage(named: "icTipSecondListFour")!,
+        number: UIImage(named: "icTipThirdListNumFour")!,
+        icon: UIImage(named: "icTipThirdListFour")!,
         content: """
-        용기가 여러 개라면 어떤 용기에 어떤 것을
-        담아야하는지 가게에 꼭 미리 설명하세요
-        (tip: 반찬이나 소스는 이미 일회용기에 포장된 경우가
-        많아요. 모든 걸 개인용기에 담기를 강요하지 마세요)
+        개인용기와 함께 에코백을 들고다니면 이동이 더 수월해요
         """
       ),
       .init(
-        icon: UIImage(named: "icTipSecondListFive")!,
+        number: UIImage(named: "icTipThirdListNumFive")!,
+        icon: UIImage(named: "icTipThirdListFive")!,
         content: """
-        용기 속 내용물이 흔들리지 않게
-        에코백에 넣어오면 좋아요
+        뜨거운 음식은 유리나 스텐인레스에 담고 플라스틱
+        밀폐용기의 경우 착색 가능성이 높으니
+        색이 진한 음식이나 식재료는 피하면 좋아요
         """
       ),
+      
     ]
     
     viewModelList.forEach {
-      let view = TipDetailSecondListView()
+      let view = TipDetailThirdListView()
       view.viewModel = $0
       self.vStackView.addArrangedSubview(view)
+      view.snp.makeConstraints {
+        $0.height.equalTo(226)
+      }
     }
     
-    self.vStackView.addArrangedSubview(UIView())
+    let v = UIView()
+    
+    self.vStackView.addArrangedSubview(v)
+    v.snp.makeConstraints {
+      $0.height.equalTo(50)
+    }
   }
 }
-
-
