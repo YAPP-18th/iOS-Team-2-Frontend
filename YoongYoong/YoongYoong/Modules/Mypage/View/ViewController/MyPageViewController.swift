@@ -53,7 +53,7 @@ class MyPageViewController: ViewController {
   }
   private let yongyongView = UIView()
     .then{
-      $0.backgroundColor = .brandSecondary
+      $0.backgroundColor = .brandColorGreen02
     }
   private let yongyong = UIImageView().then{
     $0.image = UIImage(named: "")
@@ -62,7 +62,7 @@ class MyPageViewController: ViewController {
   private let yongyongCommentView = UIView().then{
     $0.backgroundColor = .white
     $0.layer.borderWidth = 1
-    $0.layer.borderColor = UIColor.brandPrimary.cgColor
+    $0.layer.borderColor = UIColor.brandColorGreen02.cgColor
     $0.layer.cornerRadius = 16
   }
   private let yongyongCommentLable = UILabel().then{
@@ -79,7 +79,7 @@ class MyPageViewController: ViewController {
                                       UILabel(),
                                       UILabel()]
   private let tabIndicator = UIView().then{
-    $0.backgroundColor = .brandTertiary
+    $0.backgroundColor = .brandColorGreen03
     $0.frame.origin.x = CGFloat((UIScreen.main.bounds.width / 3.0 - 108)/2)
   }
   

@@ -28,7 +28,7 @@ class MapViewController: ViewController {
   let postButton = UIButton().then {
     $0.setTitleColor(.white, for: .normal)
     $0.setTitle("이 가게 포스트 쓰기", for: .normal)
-    $0.backgroundColor = .brandPrimary
+    $0.backgroundColor = .brandColorGreen01
   }
   
   let storeInfoView = MapStoreInfoView()
@@ -50,7 +50,7 @@ class MapViewController: ViewController {
     let output = viewModel.transform(input: input)
     
     output.tip.drive(onNext: { [weak self] viewModel in
-      self?.navigator.show(segue: .tip(viewModel: viewModel), sender: self, transition: .navigation())
+      self?.navigator.show(segue: .tip(viewModel: viewModel), sender: self, transition: .navigation(.left))
     }).disposed(by: disposeBag)
     
     output.location.drive (onNext: { [weak self] location in

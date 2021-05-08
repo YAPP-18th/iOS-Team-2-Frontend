@@ -12,7 +12,7 @@ import RxCocoa
 class MyPostCollectionViewCell: UICollectionViewCell {
   let disposeBag = DisposeBag()
   private let monthlyInformationView = UIView().then{
-    $0.backgroundColor = UIColor.brandPrimary.withAlphaComponent(0.5)
+    $0.backgroundColor = UIColor.brandColorGreen01.withAlphaComponent(0.5)
   }
   private let timeStampLabel = UILabel().then{
     $0.font = .sdGhothicNeo(ofSize: 12, weight: .bold)

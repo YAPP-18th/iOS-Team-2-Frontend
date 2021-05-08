@@ -151,7 +151,7 @@ class BaseAlert: UIView {
     $0.translatesAutoresizingMaskIntoConstraints = false
     $0.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
     $0.backgroundColor = UIColor.white
-    $0.setTitleColor(UIColor.brandPrimary, for: .normal)
+    $0.setTitleColor(UIColor.brandColorGreen01, for: .normal)
     $0.setTitle("", for: .normal)
     return $0
   }(UIButton(frame: .zero))
@@ -160,7 +160,7 @@ class BaseAlert: UIView {
     $0.translatesAutoresizingMaskIntoConstraints = false
     $0.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
     $0.backgroundColor = UIColor.white
-    $0.setTitleColor(UIColor.brandPrimary, for: .normal)
+    $0.setTitleColor(UIColor.brandColorGreen01, for: .normal)
     $0.setTitle("", for: .normal)
     return $0
   }(UIButton(frame: .zero))

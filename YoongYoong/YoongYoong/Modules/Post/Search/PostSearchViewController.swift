@@ -34,7 +34,10 @@ class PostSearchViewController: ViewController {
     guard let viewModel = viewModel as? PostSearchViewModel else { return }
 
  
-    let input = PostSearchViewModel.Input()
+    let input = PostSearchViewModel.Input(searchHistoryItemDidTap: searchHistoryView.tableView.rx.itemSelected.asObservable(),
+                                          searchResultItemDidTap: searchResultView.tableView.rx.itemSelected.asObservable() ,
+                                          removeAllButtonDidTap: searchHistoryView.removeAllButton.rx.tap.asObservable())
+    
 
     let output = viewModel.transform(input: input)
 
@@ -43,13 +46,22 @@ class PostSearchViewController: ViewController {
               cellIdentifier: PostSearchHistoryItemCell.reuseIdentifier,
               cellType: PostSearchHistoryItemCell.self)) { _ , item , cell  in
         cell.textLabel?.text = item
-
+        cell.didDelete = {}
+        
       }.disposed(by: disposeBag)
     
     output.searchResult
       .bind(to: searchResultView.tableView.rx.items(cellIdentifier: PostSearchResultItemCell.reuseIdentifier, cellType: PostSearchResultItemCell.self)) { _, _, cell  in
-        cell.setSeletedColor()
-      }
+        // TODO: cell 설정
+        
+      }.disposed(by: disposeBag)
+    
+    output.postMapView
+      .observeOn(MainScheduler.instance)
+      .subscribe(onNext: { viewModel in
+        
+        self.navigator.show(segue: .postMap(viewModel: viewModel), sender: self, transition: .navigation())
+      }).disposed(by: disposeBag)
     
   }
   
@@ -116,7 +128,7 @@ class PostSearchViewController: ViewController {
     
     view.backgroundColor = .white
     progressView.do {
-      $0.progressTintColor = .brandPrimary
+      $0.progressTintColor = .brandColorGreen01
       $0.progress = 0.5
     }
     
@@ -155,6 +167,8 @@ class PostSearchViewController: ViewController {
       $0.isHidden = true
     }
 
+    searchResultView.tableView.rx.setDelegate(self).disposed(by: disposeBag)
+    searchHistoryView.tableView.rx.setDelegate(self).disposed(by: disposeBag)
     
   }
   
@@ -171,6 +185,12 @@ class PostSearchViewController: ViewController {
     self.dismiss(animated: true, completion: nil)
   }
   
+}
+
+extension PostSearchViewController: UITableViewDelegate {
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    tableView.deselectRow(at: indexPath, animated: false)
+  }
 }
 
 extension PostSearchViewController: UITextFieldDelegate {

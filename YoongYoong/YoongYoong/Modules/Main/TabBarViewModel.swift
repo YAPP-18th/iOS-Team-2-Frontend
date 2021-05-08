@@ -36,6 +36,9 @@ class TabBarViewModel: ViewModel, ViewModelType {
       return viewModel
     case .myPage:
       return MypageViewModel()
+    case .feed:
+      let viewModel = FeedViewModel()
+      return viewModel
     default:
       return ViewModel()
     }

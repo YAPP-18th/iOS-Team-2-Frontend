@@ -100,7 +100,7 @@ class EditProfileViewController : ViewController {
     let output = viewModel.transform(input: inputs)
     output.changeBtnActivate.drive{[weak self] result in
       self?.submitBtn.isEnabled = result
-      self?.submitBtn.backgroundColor = result ? .brandSecondary : .brandColorBlue02
+      self?.submitBtn.backgroundColor = result ? .brandColorGreen02 : .brandColorBlue02
     }.disposed(by: disposeBag)
     output.commentTextCount.drive{ [weak self] count in
       self?.commentTextCounter.text = "\(count)/50"
@@ -120,7 +120,7 @@ class EditProfileViewController : ViewController {
         $0.translatesAutoresizingMaskIntoConstraints = false
       $0.font = .sdGhothicNeo(ofSize: 14, weight: .bold)
         $0.text =  "프로필 편집"
-      $0.textColor = .brandPrimary
+      $0.textColor = .brandColorGreen01
         return $0
     }(UILabel(frame: .zero))
     navigationItem.leftBarButtonItem = leftBarBtn

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>normal</key>
+	<array>
+		<string>가볍게 텀블러 사용은 어때용?</string>
+		<string>오늘은 밀폐용기로 포장해보자용</string>
+		<string>냄비에 라면말고 떡볶이 포장은 어때용?</string>
+		<string>색다르게 프라이팬에 피자 포장 해보자용</string>
+		<string>보온도시락으로 따뜻하게 포장 어때용?</string>
+		<string>오늘 어떤 용기를 냈는지 궁금하다용!</string>
+		<string>용기낸 건 포스트로 자랑해보자용</string>
+		<string>집 근처 가게에서부터 용기를 내자용</string>
+		<string>다른 사람은 어떤 용기를 썼는지 둘러보자용</string>
+		<string>어떤 용기 사용할지 검색으로 결정해용</string>
+		<string>당신의 용기덕분에 지구가 깨끗해져용</string>
+		<string>일회용품은 NO! 개인용기를 사용해용</string>
+		<string>먼저 용기를 내면 세상이 바뀔거예용</string>
+	</array>
+	<key>monday</key>
+	<string>월요병은 개인용기에 떡볶이로 풀어보자용!</string>
+	<key>weekend</key>
+	<string>주말엔 개인용기에 치킨이지용~</string>
+</dict>
+</plist>
