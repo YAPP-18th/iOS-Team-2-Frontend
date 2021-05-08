@@ -74,7 +74,14 @@ extension TipViewController: UITableViewDelegate {
   
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     let destinationVC = TipDetailViewController(viewModel: nil, navigator: navigator)
-    destinationVC.modalPresentationStyle = .overCurrentContext
+    if indexPath.row == 0 {
+      destinationVC.tipView = TipDetailFirstView()
+    } else if indexPath.row == 1 {
+      destinationVC.tipView = TipDetailSecondView()
+    } else {
+      destinationVC.tipView = TipDetailThirdView()
+    }
+    destinationVC.modalPresentationStyle = .overFullScreen
     destinationVC.modalTransitionStyle = .crossDissolve
     self.present(destinationVC, animated: true, completion: nil)
   }

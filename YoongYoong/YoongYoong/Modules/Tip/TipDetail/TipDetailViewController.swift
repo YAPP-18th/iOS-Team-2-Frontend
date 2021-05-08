@@ -11,8 +11,10 @@ class TipDetailViewController: ViewController {
   
   let dimmView = UIView().then {
     $0.backgroundColor = UIColor.darkGray.withAlphaComponent(0.7)
+    $0.isUserInteractionEnabled = true
   }
-  let tipView = TipDetailThirdView()
+  
+  var tipView: UIView!
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -38,5 +40,13 @@ class TipDetailViewController: ViewController {
       $0.top.equalTo(56)
       $0.leading.trailing.bottom.equalToSuperview()
     }
+    
+    
+    let gesture = UITapGestureRecognizer(target: self, action: #selector(closeTip))
+    self.dimmView.addGestureRecognizer(gesture)
+  }
+  
+  @objc func closeTip() {
+    self.dismiss(animated: true, completion: nil)
   }
 }
