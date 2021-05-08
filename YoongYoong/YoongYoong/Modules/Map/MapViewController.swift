@@ -50,7 +50,7 @@ class MapViewController: ViewController {
     let output = viewModel.transform(input: input)
     
     output.tip.drive(onNext: { [weak self] viewModel in
-      self?.navigator.show(segue: .tip(viewModel: viewModel), sender: self, transition: .navigation())
+      self?.navigator.show(segue: .tip(viewModel: viewModel), sender: self, transition: .navigation(.left))
     }).disposed(by: disposeBag)
     
     output.location.drive (onNext: { [weak self] location in

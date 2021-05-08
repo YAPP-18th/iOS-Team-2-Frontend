@@ -61,7 +61,7 @@ class FeedListTableViewCell: UITableViewCell {
   let likeButton = UIButton().then {
     $0.setTitle("123", for: .normal)
     $0.imageView?.contentMode = .scaleAspectFit
-    $0.titleLabel?.font = .krBody3
+    $0.titleLabel?.font = .sdGhothicNeo(ofSize: 12, weight: .regular)
     $0.setTitleColor(.systemGray02, for: .normal)
     $0.setImage(UIImage(named: "icFeedLikeStroked"), for: .normal)
     $0.centerTextAndImage(spacing: 2)
