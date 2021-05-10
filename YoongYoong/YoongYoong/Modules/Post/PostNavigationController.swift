@@ -8,8 +8,8 @@
 import UIKit
 import SnapKit
 
-enum Post: Int{
-  case search = 1, map,selectImage, selectMenu, post
+enum Post: Int, CaseIterable{
+  case search = 1, map, selectImage, selectMenu, post
   
   static func title(_ rawValue: Int) -> String? {
     switch Post(rawValue: rawValue) {
@@ -31,7 +31,7 @@ enum Post: Int{
 }
 
 class PostNavigationController: UINavigationController {
-  static let postDepth: Float = 5.0
+  static let postDepth: Float = Float(Post.allCases.count)
   
   let progressView = UIProgressView().then {
     $0.progressTintColor = .brandColorGreen01
