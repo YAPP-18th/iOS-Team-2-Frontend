@@ -48,7 +48,11 @@ public extension UIColor {
     )
   }
 }
-
+extension UIColor{
+  @nonobjc class var brandColorTertiary01: UIColor {
+      return UIColor(red: 92.0 / 255.0, green: 177.0 / 255.0, blue: 210.0 / 255.0, alpha: 1.0)
+    }
+}
 // MARK: - zeplin
 extension UIColor {
   @nonobjc class var brandColorGreen01: UIColor {
@@ -69,10 +73,6 @@ extension UIColor {
   
   @nonobjc class var brandColorGreen05: UIColor {
     return UIColor(named: "brandColorGreen05")!
-  }
-  
-  @nonobjc class var brandColorTertiary01: UIColor {
-    return UIColor(named: "brandColorTertiary01")!
   }
   
   @nonobjc class var brandColorBlue02: UIColor {

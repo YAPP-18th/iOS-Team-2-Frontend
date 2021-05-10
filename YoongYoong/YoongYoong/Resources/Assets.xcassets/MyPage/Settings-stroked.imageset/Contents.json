@@ -1,0 +1,26 @@
+{
+  "images" : [
+    {
+      "filename" : "Settings-stroked.png",
+      "idiom" : "universal",
+      "locale" : "YAPP",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "Settings-stroked@2x.png",
+      "idiom" : "universal",
+      "locale" : "YAPP",
+      "scale" : "2x"
+    },
+    {
+      "filename" : "Settings-stroked@3x.png",
+      "idiom" : "universal",
+      "locale" : "YAPP",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
