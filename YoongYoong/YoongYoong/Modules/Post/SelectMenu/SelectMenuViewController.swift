@@ -23,7 +23,7 @@ class SelectMenuViewController: ViewController {
   private let tableView = UITableView()
   private let nextButton = UIButton().then {
     $0.layer.cornerRadius = 30.0
-    $0.backgroundColor = #colorLiteral(red: 0.6196078431, green: 0.9137254902, blue: 0.8039215686, alpha: 1)
+    $0.backgroundColor = .brandColorGreen01
     $0.isEnabled = true
     $0.setTitle("계속하기", for: .normal)
     $0.titleLabel?.font = .krButton1
@@ -110,8 +110,17 @@ class SelectMenuViewController: ViewController {
     output.containerListView
       .subscribe(onNext: { viewModel in
         guard let viewModel = viewModel else { return }
-        self.navigator.show(segue: .selectContainer(viewModel: viewModel), sender: self, transition: .modal)
+        self.present(SelectContainerViewController(viewModel: viewModel, navigator: self.navigator), animated: true, completion: nil)
       }).disposed(by: disposeBag)
+    
+    tipButton.rx.tap.bind {
+      let tipVC = TipDetailViewController(viewModel: nil, navigator: self.navigator)
+      tipVC.tipView = TipDetailFirstView()
+      tipVC.tipView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+      tipVC.tipView.layer.cornerRadius = 15
+      tipVC.dimmView.isHidden = true
+      self.present(tipVC, animated: true, completion: nil)
+    }.disposed(by: disposeBag)
     
   }
     
