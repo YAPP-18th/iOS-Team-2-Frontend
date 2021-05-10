@@ -13,7 +13,6 @@ import Then
 
 class PostSearchViewController: ViewController {
   
-  let progressView = UIProgressView()
   let titleLabel = UILabel()
   let searchBarContainer = UIView()
   let searchTextField = UITextField()
@@ -123,14 +122,8 @@ class PostSearchViewController: ViewController {
   
   override func configuration() {
     super.configuration()
-    // 임시 dismiss 버튼
-    self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(closeButtonDidTap))
-    
+
     view.backgroundColor = .white
-    progressView.do {
-      $0.progressTintColor = .brandColorGreen01
-      $0.progress = 0.5
-    }
     
     titleLabel.do {
       $0.text = "어디에서 용기를 냈나요?"

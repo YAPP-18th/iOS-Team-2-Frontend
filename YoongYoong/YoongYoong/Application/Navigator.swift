@@ -36,6 +36,7 @@ class Navigator {
     
     case root(in: UIWindow)
     case navigation(_ direction: Direction = .right)
+    case post
     case customModal
     case modal
     case modalFullScreen
@@ -124,6 +125,13 @@ class Navigator {
       // present modally
       DispatchQueue.main.async {
         let nav = NavigationController(rootViewController: target)
+        sender.present(nav, animated: true, completion: nil)
+      }
+      
+    case .post:
+      DispatchQueue.main.async {
+        let nav = PostNavigationController(rootViewController: target)
+        nav.modalPresentationStyle = .fullScreen
         sender.present(nav, animated: true, completion: nil)
       }
       

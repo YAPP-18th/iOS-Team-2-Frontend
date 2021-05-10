@@ -19,6 +19,7 @@ class PostImageSelectionViewController: ViewController {
     $0.setTitleColor(.white, for: .normal)
     $0.backgroundColor = #colorLiteral(red: 0.6196078431, green: 0.9137254902, blue: 0.8039215686, alpha: 1)
     $0.layer.cornerRadius = 30
+    $0.isEnabled = false
   }
   
   

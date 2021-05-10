@@ -15,6 +15,7 @@
 		7E32AC652636F6F200E694EB /* PostImageSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E32AC602636F6F200E694EB /* PostImageSelectionViewController.swift */; };
 		7E3710CF264124C10054B744 /* SelectContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E3710CE264124C10054B744 /* SelectContainerViewController.swift */; };
 		7E3710D1264124CA0054B744 /* SelectContainerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E3710D0264124CA0054B744 /* SelectContainerViewModel.swift */; };
+		7E5D68AA2646389B0014E23A /* PostNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E5D68A92646389B0014E23A /* PostNavigationController.swift */; };
 		7E608C07262E8E1A008708F7 /* PostSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E608C06262E8E1A008708F7 /* PostSearchViewModel.swift */; };
 		7E67D131264127D7003C9E7A /* ContainerListItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E67D130264127D7003C9E7A /* ContainerListItemCell.swift */; };
 		7E9F7B8226281D7100051D03 /* PostSearchResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E9F7B8126281D7100051D03 /* PostSearchResultView.swift */; };
@@ -119,6 +120,7 @@
 		7E32AC602636F6F200E694EB /* PostImageSelectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostImageSelectionViewController.swift; sourceTree = "<group>"; };
 		7E3710CE264124C10054B744 /* SelectContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectContainerViewController.swift; sourceTree = "<group>"; };
 		7E3710D0264124CA0054B744 /* SelectContainerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectContainerViewModel.swift; sourceTree = "<group>"; };
+		7E5D68A92646389B0014E23A /* PostNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostNavigationController.swift; sourceTree = "<group>"; };
 		7E608C06262E8E1A008708F7 /* PostSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostSearchViewModel.swift; sourceTree = "<group>"; };
 		7E67D130264127D7003C9E7A /* ContainerListItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerListItemCell.swift; sourceTree = "<group>"; };
 		7E9F7B8126281D7100051D03 /* PostSearchResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostSearchResultView.swift; sourceTree = "<group>"; };
@@ -369,6 +371,7 @@
 		7EDCDB6C262320850029BE45 /* Post */ = {
 			isa = PBXGroup;
 			children = (
+				7E5D68A92646389B0014E23A /* PostNavigationController.swift */,
 				7E209973262DB53900A43E70 /* Search */,
 				7E438BAE26307619000C53BD /* Map */,
 				7E32AC582636F6F200E694EB /* SelectImage */,
@@ -984,6 +987,7 @@
 				AAD024212642A56600F1EC2B /* TitleContentItem.swift in Sources */,
 				DAB00031260F12CA00D8208F /* YoongYoong.xcdatamodeld in Sources */,
 				7E9F7B8726281D8B00051D03 /* PostSearchResultItemCell.swift in Sources */,
+				7E5D68AA2646389B0014E23A /* PostNavigationController.swift in Sources */,
 				7EC9BA002641531D007565C6 /* ContainerListHeaderView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

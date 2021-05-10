@@ -114,7 +114,7 @@ extension TabBarController: UITabBarControllerDelegate {
       return true
     }
     
-    self.navigator.show(segue: .post(viewModel: postViewModel), sender: self, transition: .modalFullScreen)
+    self.navigator.show(segue: .post(viewModel: postViewModel), sender: self, transition: .post)
 
     return false
   }
