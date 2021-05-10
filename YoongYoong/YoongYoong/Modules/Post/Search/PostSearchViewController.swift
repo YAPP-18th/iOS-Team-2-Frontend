@@ -13,14 +13,16 @@ import Then
 
 class PostSearchViewController: ViewController {
   
-  let titleLabel = UILabel()
-  let searchBarContainer = UIView()
-  let searchTextField = UITextField()
-  let searchButton = UIButton()
-  
-  let listContainer = UIView()
-  let searchHistoryView = PostSearchHistoryView()
-  let searchResultView = PostSearchResultView()
+  private let imageView = UIImageView().then {
+    $0.image = UIImage(named: "postYongyong")
+  }
+  private let titleLabel = UILabel()
+  private let searchBarContainer = UIView()
+  private let searchTextField = UITextField()
+  private let searchButton = UIButton()
+  private let listContainer = UIView()
+  private let searchHistoryView = PostSearchHistoryView()
+  private let searchResultView = PostSearchResultView()
     
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -66,6 +68,7 @@ class PostSearchViewController: ViewController {
   
   override func setupView() {
     super.setupView()
+    view.addSubview(imageView)
     view.addSubview(titleLabel)
     searchBarContainer.addSubview(searchTextField)
     searchBarContainer.addSubview(searchButton)
@@ -78,6 +81,11 @@ class PostSearchViewController: ViewController {
   
   override func setupLayout() {
     super.setupLayout()
+    
+    imageView.snp.makeConstraints {
+      $0.width.height.equalTo(172)
+      $0.center.equalTo(view.snp.center)
+    }
     
     titleLabel.snp.makeConstraints{ make in
       make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(40)
@@ -141,7 +149,6 @@ class PostSearchViewController: ViewController {
       $0.delegate = self
       $0.placeholder = "검색어를 입력하세요"
       $0.clearButtonMode = .whileEditing
-      $0.becomeFirstResponder()
       $0.font = UIFont.sdGhothicNeo(ofSize: 16, weight: .regular)
     }
     
@@ -188,8 +195,15 @@ extension PostSearchViewController: UITableViewDelegate {
 
 extension PostSearchViewController: UITextFieldDelegate {
   func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+    imageView.isHidden = true
     searchResultView.isHidden = true
     searchHistoryView.isHidden = false
     return true
+  }
+  
+  func textFieldDidEndEditing(_ textField: UITextField) {
+    imageView.isHidden = false
+    searchResultView.isHidden = true
+    searchHistoryView.isHidden = true
   }
 }
