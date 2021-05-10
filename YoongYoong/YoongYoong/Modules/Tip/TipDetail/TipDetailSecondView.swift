@@ -66,13 +66,13 @@ extension TipDetailSecondView {
     }
     
     titleLabel.snp.makeConstraints {
-      $0.top.equalTo(28)
+      $0.top.equalTo(14)
       $0.centerX.equalToSuperview()
       $0.height.equalTo(22)
       $0.bottom.equalTo(-10)
     }
     vStackView.snp.makeConstraints {
-      $0.top.equalTo(topIndicatorView.snp.bottom)
+      $0.top.equalTo(topIndicatorView.snp.bottom).offset(14)
       $0.leading.trailing.bottom.equalToSuperview()
     }
   }
