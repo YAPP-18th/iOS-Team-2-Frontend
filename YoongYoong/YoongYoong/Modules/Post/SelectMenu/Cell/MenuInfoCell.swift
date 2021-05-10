@@ -304,6 +304,7 @@ class MenuInfoCell: UITableViewCell {
   
   lazy var addMenuButton = UIButton().then {
     $0.setTitle("메뉴 추가하기", for: .normal)
+    $0.addUnderBar(.brandColorGreen01)
     $0.titleLabel?.font = .krTitle3
     $0.setTitleColor(UIColor.brandColorGreen01, for: .normal)
     $0.isHidden = true
