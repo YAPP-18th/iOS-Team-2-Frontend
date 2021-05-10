@@ -16,6 +16,7 @@ class PostImageSelectionViewController: ViewController {
   private var pickerColletionView: UICollectionView!
   private let registButton = UIButton().then {
     $0.setTitle("선택", for: .normal)
+    $0.titleLabel?.font = .krButton1
     $0.setTitleColor(.white, for: .normal)
     $0.backgroundColor = #colorLiteral(red: 0.6196078431, green: 0.9137254902, blue: 0.8039215686, alpha: 1)
     $0.layer.cornerRadius = 30
