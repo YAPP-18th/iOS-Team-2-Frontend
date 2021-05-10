@@ -24,7 +24,7 @@ class SelectMenuViewController: ViewController {
   private let nextButton = UIButton().then {
     $0.layer.cornerRadius = 30.0
     $0.backgroundColor = #colorLiteral(red: 0.6196078431, green: 0.9137254902, blue: 0.8039215686, alpha: 1)
-    $0.isEnabled = false
+    $0.isEnabled = true
     $0.setTitle("계속하기", for: .normal)
     $0.titleLabel?.font = .krButton1
     $0.layer.applySketchShadow(color: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), alpha: 0.12, x: 0, y: 2, blur: 10, spread: 0)
@@ -98,12 +98,13 @@ class SelectMenuViewController: ViewController {
       .observeOn(MainScheduler.instance)
       .subscribe(onNext: { [weak self] flag in
         guard let self = self else { return }
-        self.nextButton.isEnabled = flag
-        self.nextButton.backgroundColor = flag ? .brandColorGreen01 : .brandColorGreen02
+//        self.nextButton.isEnabled = flag
+//        self.nextButton.backgroundColor = flag ? .brandColorGreen01 : .brandColorGreen02
       }).disposed(by: disposeBag)
     
     nextButton.rx.tap.bind {
-      print("nextButton")
+      self.navigator.show(segue: .addReview(viewModel: PostReviewViewModel()), sender: self, transition: .navigation())
+      
     }.disposed(by: disposeBag)
     
     output.containerListView

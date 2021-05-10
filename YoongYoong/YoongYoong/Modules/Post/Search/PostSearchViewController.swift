@@ -80,13 +80,13 @@ class PostSearchViewController: ViewController {
     super.setupLayout()
     
     titleLabel.snp.makeConstraints{ make in
-      make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(16)
+      make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(40)
       make.left.equalTo(view.snp.left).offset(16)
     }
     
     searchBarContainer.snp.makeConstraints { make in
-      make.width.equalTo(view.snp.width).multipliedBy(0.93)
-      make.top.equalTo(titleLabel.snp.bottom).offset(32)
+      make.width.equalTo(342)
+      make.top.equalTo(titleLabel.snp.bottom).offset(16)
       make.height.equalTo(40)
       make.centerX.equalTo(view)
     }
