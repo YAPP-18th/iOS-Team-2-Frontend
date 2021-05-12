@@ -92,7 +92,7 @@ final class OnboradingViewController : ViewController{
       self?.skip()
     }.disposed(by: disposeBag)
     startBtn.rx.tap.bind{ [weak self] in
-      let vm = LogInViewModel()
+      let vm = LoginViewModel()
       self?.navigator.show(segue: .onboarding(viewModel: vm), sender: self, transition: .navigation(.right))
     }.disposed(by: disposeBag)
   }

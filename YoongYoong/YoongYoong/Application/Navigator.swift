@@ -18,6 +18,7 @@ class Navigator {
   
   enum Scene {
     case tabs(viewModel: TabBarViewModel)
+    case login(viewModel: LoginViewModel)
     case tip(viewModel: TipViewModel)
     case feedProfile(viewModel: FeedProfileViewModel)
     case onboarding(viewModel: ViewModel? = nil)
@@ -49,12 +50,15 @@ class Navigator {
     case .tabs(let viewModel):
       let rootVC = TabBarController(viewModel: viewModel, navigator: self)
       return rootVC
+    case .login(let viewModel):
+      let loginVC = LoginViewController(viewModel: viewModel, navigator: self)
+      return loginVC
     case.tip(let viewModel):
       let tipVC = TipViewController(viewModel: viewModel, navigator: self)
       return tipVC
     case .onboarding(let viewModel) :
       if let vm = viewModel {
-        let vc = LogInViewController(viewModel: vm, navigator: self)
+        let vc = LoginViewController(viewModel: vm, navigator: self)
         return vc
       }
       else {
