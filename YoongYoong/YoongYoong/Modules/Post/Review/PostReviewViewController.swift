@@ -33,18 +33,19 @@ class PostReviewViewController: ViewController {
   }
   private let discountButton = UIButton().then {
     $0.setImage(UIImage(named: "discountInactive"), for: .normal)
+    $0.setImage(UIImage(named: "discountActive"), for: .selected)
   }
   private let smileButton = UIButton().then {
     $0.setImage(UIImage(named: "smileInactive"), for: .normal)
+    $0.setImage(UIImage(named: "smileActive"), for: .selected)
   }
   private let likeButton = UIButton().then {
     $0.setImage(UIImage(named: "likeInactive"), for: .normal)
+    $0.setImage(UIImage(named: "likeActive"), for: .selected)
   }
-  // 위 버튼 선택시 활성화
+  
   private let uploadButton = UIButton().then {
     $0.layer.cornerRadius = 30.0
-    $0.backgroundColor = #colorLiteral(red: 0.6196078431, green: 0.9137254902, blue: 0.8039215686, alpha: 1)
-    $0.isEnabled = true
     $0.setTitle("업로드", for: .normal)
     $0.titleLabel?.font = .krButton1
     $0.layer.applySketchShadow(color: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), alpha: 0.12, x: 0, y: 2, blur: 10, spread: 0)
@@ -68,9 +69,8 @@ class PostReviewViewController: ViewController {
     $0.font = .krCaption2
     $0.textColor = .systemGrayText02
     $0.textAlignment = .center
-    
-    
   }
+  
   private let textView = UITextView().then {
     $0.textContainerInset = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
     $0.layer.cornerRadius = 12
@@ -82,12 +82,12 @@ class PostReviewViewController: ViewController {
   }
   private let textCountLabel = UILabel().then {
     $0.text = "0"
-    $0.font = .sfProText(ofSize: 12, weight: .regular)
+    $0.font = .sdGhothicNeo(ofSize: 12, weight: .regular)
     $0.textColor = .systemGrayText02
   }
   private let limitLabel = UILabel().then {
     $0.text = "/ 150"
-    $0.font = .sfProText(ofSize: 12, weight: .regular)
+    $0.font = .sdGhothicNeo(ofSize: 12, weight: .regular)
     $0.textColor = .systemGrayText02
   }
   override func viewDidLoad() {
@@ -100,7 +100,53 @@ class PostReviewViewController: ViewController {
     
     guard let viewModel = viewModel as? PostReviewViewModel else { return }
     
+
+    let discountButtonDidTap = BehaviorRelay<Bool>(value: false)
+    let smileButtonDidTap = BehaviorRelay<Bool>(value: false)
+    let likeButtonDidTap = BehaviorRelay<Bool>(value: false)
     
+    discountButton.rx.tap
+      .scan(false) { toggle, _ in
+        !toggle
+      }.bind { [weak self] toggle in
+        guard let self = self else { return }
+        self.discountButton.rx.isSelected.onNext(toggle)
+        discountButtonDidTap.accept(toggle)
+      }.disposed(by: disposeBag)
+    
+    smileButton.rx.tap
+      .scan(false) { toggle, _ in
+        !toggle
+      }.bind { [weak self] toggle in
+        guard let self = self else { return }
+        self.smileButton.rx.isSelected.onNext(toggle)
+        smileButtonDidTap.accept(toggle)
+      }.disposed(by: disposeBag)
+    
+    likeButton.rx.tap
+      .scan(false) { toggle, _ in
+        !toggle
+      }.bind { [weak self] toggle in
+        guard let self = self else { return }
+        self.likeButton.rx.isSelected.onNext(toggle)
+        likeButtonDidTap.accept(toggle)
+      }.disposed(by: disposeBag)
+    
+ 
+    let input = PostReviewViewModel.Input(discountButtonDidTap: discountButtonDidTap,
+                                          smileButtonDidTap: smileButtonDidTap,
+                                          likeButtonDidTap: likeButtonDidTap, uploadButtonDidTap: uploadButton.rx.tap.asObservable())
+  
+    
+    let output = viewModel.transform(input: input)
+    
+    output.uploadButtonIsEnabled
+      .bind { [weak self] in
+        guard let self = self else { return }
+        self.uploadButton.isEnabled = $0
+        self.uploadButton.backgroundColor = $0 ? .brandColorGreen01 : .brandColorGreen03
+      }.disposed(by: disposeBag)
+ 
     
   }
   
@@ -183,6 +229,8 @@ class PostReviewViewController: ViewController {
     super.configuration()
     view.backgroundColor = .white
     textView.rx.setDelegate(self).disposed(by: disposeBag)
+    
+
   }
   
 }
