@@ -17,6 +17,7 @@ class RegistrationTermsViewController: ViewController {
   
   let checkAllButton = UIButton().then {
     $0.setImage(UIImage(named: "icRegUnchecked"), for: .normal)
+    $0.adjustsImageWhenHighlighted = false
   }
   
   let checkAllLabel = UILabel().then {
@@ -27,6 +28,18 @@ class RegistrationTermsViewController: ViewController {
   
   let divider = UIView().then {
     $0.backgroundColor = .systemGray05
+  }
+  
+  let vStackView = UIStackView().then {
+    $0.axis = .vertical
+    $0.spacing = 16
+  }
+  
+  let nextButton = UIButton().then {
+    $0.backgroundColor = .brandColorGreen02
+    $0.setTitle("다음", for: .normal)
+    $0.setTitleColor(.white, for: .normal)
+    $0.layer.cornerRadius = 22
   }
   
   override func viewDidLoad() {
@@ -57,7 +70,7 @@ class RegistrationTermsViewController: ViewController {
   
   override func setupView() {
     super.setupView()
-    [titleLabel, checkAllButton, checkAllLabel,divider].forEach {
+    [titleLabel, checkAllButton, checkAllLabel, divider, vStackView, nextButton].forEach {
       self.view.addSubview($0)
     }
   }
@@ -87,5 +100,29 @@ class RegistrationTermsViewController: ViewController {
       $0.height.equalTo(1)
     }
     
+    vStackView.snp.makeConstraints {
+      $0.top.equalTo(divider.snp.bottom).offset(8)
+      $0.leading.trailing.equalToSuperview()
+    }
+    
+    let viewModelList: [TermsCheckItem.ViewModel] = [
+      .init(isChecked: true, title: "(필수) 서비스 이용약관", detail: ""),
+      .init(isChecked: false, title: "(필수) 개인정보 처리방침", detail: ""),
+      .init(isChecked: true, title: "(필수) 위치 기반 서비스", detail: ""),
+      .init(isChecked: false, title: "(선택) 마케팅 정보 수신 동의", detail: "")
+    ]
+    
+    for viewModel in viewModelList {
+      let checkItem = TermsCheckItem()
+      checkItem.viewModel = viewModel
+      self.vStackView.addArrangedSubview(checkItem)
+    }
+    
+    nextButton.snp.makeConstraints {
+      $0.bottom.equalTo(self.view.safeAreaLayoutGuide).offset(-46)
+      $0.leading.equalTo(24)
+      $0.trailing.equalTo(-24)
+      $0.height.equalTo(44)
+    }
   }
 }
