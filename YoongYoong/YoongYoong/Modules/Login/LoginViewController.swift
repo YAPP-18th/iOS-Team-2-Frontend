@@ -97,6 +97,25 @@ class LoginViewController: ViewController {
     super.viewDidLoad()
   }
   
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    self.navigationController?.setNavigationBarHidden(true, animated: animated)
+  }
+  
+  override func bindViewModel() {
+    super.bindViewModel()
+    guard let viewModel = self.viewModel as? LoginViewModel else { return }
+    let input = LoginViewModel.Input(
+      registration: self.registButton.rx.tap.asObservable()
+    )
+    
+    let output = viewModel.transform(input: input)
+    
+    output.registration.drive(onNext: { viewModel in
+      self.navigator.show(segue: .registrationTerms(viewModel: viewModel), sender: self, transition: .navigation(.right))
+    }).disposed(by: disposeBag)
+  }
+  
   override func configuration() {
     super.configuration()
     self.view.backgroundColor = .white

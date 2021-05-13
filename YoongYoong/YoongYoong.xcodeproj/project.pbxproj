@@ -74,6 +74,9 @@
 		AACCAB062646485C005C9FBC /* UIApplication+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAFB3C6D264021380065E3C4 /* UIApplication+Extensions.swift */; };
 		AACCAC41264C3B54005C9FBC /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCAC40264C3B54005C9FBC /* LoginViewController.swift */; };
 		AACCAD2E264D76F1005C9FBC /* NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCAD2D264D76F1005C9FBC /* NavigationBar.swift */; };
+		AACCAD35264D79E1005C9FBC /* RegistrationTermsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCAD34264D79E1005C9FBC /* RegistrationTermsViewController.swift */; };
+		AACCAD3D264D7E19005C9FBC /* RegistrationTermsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCAD3C264D7E19005C9FBC /* RegistrationTermsViewModel.swift */; };
+		AACCAD42264D850D005C9FBC /* TermsCheckItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCAD41264D850D005C9FBC /* TermsCheckItem.swift */; };
 		AAD023F62642A4D200F1EC2B /* UIButton+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAD023F42642A4D200F1EC2B /* UIButton+Extensions.swift */; };
 		AAD023F72642A4D200F1EC2B /* UILabel+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAD023F52642A4D200F1EC2B /* UILabel+Extensions.swift */; };
 		AAD0240A2642A4FB00F1EC2B /* FeedTipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAD023FC2642A4FB00F1EC2B /* FeedTipView.swift */; };
@@ -213,6 +216,9 @@
 		AACCAAF3264646E1005C9FBC /* AlertAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertAction.swift; sourceTree = "<group>"; };
 		AACCAC40264C3B54005C9FBC /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		AACCAD2D264D76F1005C9FBC /* NavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBar.swift; sourceTree = "<group>"; };
+		AACCAD34264D79E1005C9FBC /* RegistrationTermsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationTermsViewController.swift; sourceTree = "<group>"; };
+		AACCAD3C264D7E19005C9FBC /* RegistrationTermsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationTermsViewModel.swift; sourceTree = "<group>"; };
+		AACCAD41264D850D005C9FBC /* TermsCheckItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsCheckItem.swift; sourceTree = "<group>"; };
 		AAD023F42642A4D200F1EC2B /* UIButton+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+Extensions.swift"; sourceTree = "<group>"; };
 		AAD023F52642A4D200F1EC2B /* UILabel+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UILabel+Extensions.swift"; sourceTree = "<group>"; };
 		AAD023FC2642A4FB00F1EC2B /* FeedTipView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedTipView.swift; sourceTree = "<group>"; };
@@ -476,6 +482,7 @@
 		AAC78FE5262A6FAD009CC84E /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				AACCAD32264D79B3005C9FBC /* Registration */,
 				AACCAC3F264C3B4C005C9FBC /* Login */,
 				AACCAAB726464669005C9FBC /* Mypage */,
 				AAD023FB2642A4FB00F1EC2B /* Feed */,
@@ -607,6 +614,24 @@
 				AACCAC40264C3B54005C9FBC /* LoginViewController.swift */,
 			);
 			path = Login;
+			sourceTree = "<group>";
+		};
+		AACCAD32264D79B3005C9FBC /* Registration */ = {
+			isa = PBXGroup;
+			children = (
+				AACCAD33264D79C4005C9FBC /* RegistrationTerms */,
+			);
+			path = Registration;
+			sourceTree = "<group>";
+		};
+		AACCAD33264D79C4005C9FBC /* RegistrationTerms */ = {
+			isa = PBXGroup;
+			children = (
+				AACCAD34264D79E1005C9FBC /* RegistrationTermsViewController.swift */,
+				AACCAD3C264D7E19005C9FBC /* RegistrationTermsViewModel.swift */,
+				AACCAD41264D850D005C9FBC /* TermsCheckItem.swift */,
+			);
+			path = RegistrationTerms;
 			sourceTree = "<group>";
 		};
 		AAD023F32642A4B600F1EC2B /* Recovered References */ = {
@@ -1097,6 +1122,7 @@
 				7EA8B42D264009E3003974D7 /* SelectMenuViewController.swift in Sources */,
 				AAD024132642A4FB00F1EC2B /* ProfilePostCollectionViewCell.swift in Sources */,
 				AACCAB062646485C005C9FBC /* UIApplication+Extensions.swift in Sources */,
+				AACCAD35264D79E1005C9FBC /* RegistrationTermsViewController.swift in Sources */,
 				AAD0240E2642A4FB00F1EC2B /* FeedViewModel.swift in Sources */,
 				AACCAA9F26463A0E005C9FBC /* TipDetailThirdView.swift in Sources */,
 				7EA4F3DD2624888B001C754C /* PostSearchHistoryItemCell.swift in Sources */,
@@ -1116,6 +1142,7 @@
 				7E32AC642636F6F200E694EB /* PostImageSelectionViewModel.swift in Sources */,
 				DABB2D0E263050770061EC98 /* LoginViewModel.swift in Sources */,
 				DABB2CF1263032330061EC98 /* Identifiable.swift in Sources */,
+				AACCAD3D264D7E19005C9FBC /* RegistrationTermsViewModel.swift in Sources */,
 				AAD45C9E2619CAEC00A6F4D6 /* UIColor+Extensions.swift in Sources */,
 				DAB00027260F12CA00D8208F /* AppDelegate.swift in Sources */,
 				AACCAADE2646466A005C9FBC /* BadgeDetailView.swift in Sources */,
@@ -1136,6 +1163,7 @@
 				AAC79002262A7A1D009CC84E /* NavigationController.swift in Sources */,
 				7EF2DC64263076F80002E1E3 /* PostMapViewController.swift in Sources */,
 				AACCAAD62646466A005C9FBC /* MyPackageFilterCollectionViewCell.swift in Sources */,
+				AACCAD42264D850D005C9FBC /* TermsCheckItem.swift in Sources */,
 				7E3710D1264124CA0054B744 /* SelectContainerViewModel.swift in Sources */,
 				AA6E013F261F6A0D00318E30 /* CALayer+Extensions.swift in Sources */,
 				7E32AC612636F6F200E694EB /* PostImageSelectionViewCell.swift in Sources */,
