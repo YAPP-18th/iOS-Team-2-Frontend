@@ -22,6 +22,7 @@ class ContainerListTabBarCell: UICollectionViewCell {
   override var isSelected: Bool {
     didSet {
       title.textColor = isSelected ? .black : .gray
+      indicator.isHidden = isSelected ? false : true
     }
   }
   
@@ -31,17 +32,30 @@ class ContainerListTabBarCell: UICollectionViewCell {
     $0.textColor = .gray
   }
   
+  let indicator = UIView().then {
+    $0.backgroundColor = .black
+    $0.isHidden = true
+  }
+  
   func setTitle(_ title: String?) { self.title.text = title }
   
   override init(frame: CGRect) {
     super.init(frame: frame)
     
     contentView.add(title)
+    contentView.add(indicator)
     title.snp.makeConstraints {
       $0.leading.equalToSuperview().offset(16)
       $0.trailing.equalToSuperview().offset(-16)
       $0.top.equalToSuperview().offset(8)
       $0.bottom.equalToSuperview().offset(-8)
+    }
+    
+    indicator.snp.makeConstraints {
+      $0.width.equalTo(title.snp.width)
+      $0.centerX.equalTo(contentView.snp.centerX)
+      $0.height.equalTo(2)
+      $0.bottom.equalTo(contentView.snp.bottom)
     }
     
   }

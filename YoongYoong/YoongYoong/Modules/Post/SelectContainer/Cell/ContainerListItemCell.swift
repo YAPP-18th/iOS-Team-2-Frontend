@@ -22,8 +22,9 @@ class ContainerListItemCell: UITableViewCell {
     $0.text = "L"
 
   }
-  private lazy var favoriteButton = UIButton().then {
+  lazy var favoriteButton = UIButton().then {
     $0.setImage(UIImage(named: "star.green"), for: .normal)
+    $0.setImage(UIImage(named: "star.fill.green"), for: .selected)
     $0.addTarget(self, action: #selector(favoriteButtonDidTap), for: .touchUpInside)
   }
   
