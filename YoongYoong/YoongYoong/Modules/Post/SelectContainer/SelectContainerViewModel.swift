@@ -10,6 +10,10 @@ import RxSwift
 import RxCocoa
 import RxDataSources
 
+protocol SelectContainerDelegate: AnyObject {
+  func containerTitle(_ title: String, _ size: String)
+}
+
 class SelectContainerViewModel: ViewModel, ViewModelType {
   struct Input {
     let favoriteDidTap: PublishSubject<IndexPath>
@@ -20,6 +24,8 @@ class SelectContainerViewModel: ViewModel, ViewModelType {
     let containers: Observable<[ContainerSection]>
     let dismiss: PublishRelay<Void>
   }
+  
+  weak var delegate: SelectContainerDelegate?
 
   func transform(input: Input) -> Output {
     var dummy: [ContainerSection] = [
@@ -65,10 +71,8 @@ class SelectContainerViewModel: ViewModel, ViewModelType {
     let dismiss = PublishRelay<Void>()
     
     input.itemSelected
-      .subscribe(onNext: {
-        print($0)
-        //TODO: Delegate
-        
+      .subscribe(onNext: { [weak self] in
+        self?.delegate?.containerTitle(dummy[$0.section].items[$0.row].title, dummy[$0.section].items[$0.row].size)
         dismiss.accept(())
       }).disposed(by: disposeBag)
     

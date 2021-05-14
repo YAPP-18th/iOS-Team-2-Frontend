@@ -12,7 +12,7 @@ import RxCocoa
 struct MenuInfo {
   var menu: String?
   var menuCount = 1
-  var container: String? = "냄비"
+  var container: String?
   var containerCount = 1
   var last: Bool
 }
@@ -35,6 +35,7 @@ class SelectMenuViewModel: ViewModel, ViewModelType {
     let containerListView: PublishRelay<SelectContainerViewModel>
   }
   
+  let containerIsSelected = PublishSubject<String>()
   
   func transform(input: Input) -> Output {
     var menus: [MenuInfo] = [.init(last: false), .init(last: true)]
@@ -43,9 +44,12 @@ class SelectMenuViewModel: ViewModel, ViewModelType {
     let containerListViewOutput = PublishRelay<SelectContainerViewModel>()
     
     input.containerTextFieldDidBeginEditing
-      .bind { index in
-        containerListViewOutput.accept(SelectContainerViewModel())
-      }.disposed(by: disposeBag)
+      .subscribe(onNext: { [weak self] index in
+        guard let self = self else { return }
+        let viewModel = SelectContainerViewModel()
+        viewModel.delegate = self
+        containerListViewOutput.accept(viewModel)
+      }).disposed(by: disposeBag)
     
     
     input.addMenuButtonDidTap
@@ -90,6 +94,16 @@ class SelectMenuViewModel: ViewModel, ViewModelType {
       .bind(to: buttonEnabledOutput)
       .disposed(by: disposeBag)
     
+    var title = ""
+    containerIsSelected
+      .map{ title = $0 }
+      .withLatestFrom(input.containerTextFieldDidBeginEditing)
+      .subscribe(onNext: { index in
+        menus[index].container = title
+        menuInfoOutput.onNext(menus)
+      }).disposed(by: disposeBag)
+      
+    
     
     return Output(menuInfo: menuInfoOutput,
                   buttonEnabled: buttonEnabledOutput,
@@ -106,4 +120,10 @@ class SelectMenuViewModel: ViewModel, ViewModelType {
     return true
   }
   
+}
+
+extension SelectMenuViewModel: SelectContainerDelegate {
+  func containerTitle(_ title: String, _ size: String) {
+    containerIsSelected.onNext("\(title), \(size)")
+  }
 }
