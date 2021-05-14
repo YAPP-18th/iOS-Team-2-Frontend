@@ -29,6 +29,7 @@
 		7EA8B43126400AEC003974D7 /* MenuInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EA8B43026400AEC003974D7 /* MenuInfoCell.swift */; };
 		7EC4DC5826416CCF00E51FC2 /* ContainerListTabBarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EC4DC5726416CCF00E51FC2 /* ContainerListTabBarCell.swift */; };
 		7EC9BA002641531D007565C6 /* ContainerListHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EC9B9FF2641531D007565C6 /* ContainerListHeaderView.swift */; };
+		7ED49A35264E480900E1F518 /* ContainerListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ED49A34264E480900E1F518 /* ContainerListModel.swift */; };
 		7EDCDB6F262321D60029BE45 /* PostSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EDCDB6E262321D60029BE45 /* PostSearchViewController.swift */; };
 		7EF2DC64263076F80002E1E3 /* PostMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF2DC63263076F80002E1E3 /* PostMapViewController.swift */; };
 		7EF2DC69263077610002E1E3 /* PostMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF2DC68263077610002E1E3 /* PostMapViewModel.swift */; };
@@ -169,6 +170,7 @@
 		7EA8B43026400AEC003974D7 /* MenuInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuInfoCell.swift; sourceTree = "<group>"; };
 		7EC4DC5726416CCF00E51FC2 /* ContainerListTabBarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerListTabBarCell.swift; sourceTree = "<group>"; };
 		7EC9B9FF2641531D007565C6 /* ContainerListHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerListHeaderView.swift; sourceTree = "<group>"; };
+		7ED49A34264E480900E1F518 /* ContainerListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerListModel.swift; sourceTree = "<group>"; };
 		7EDCDB6E262321D60029BE45 /* PostSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostSearchViewController.swift; sourceTree = "<group>"; };
 		7EF2DC63263076F80002E1E3 /* PostMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostMapViewController.swift; sourceTree = "<group>"; };
 		7EF2DC68263077610002E1E3 /* PostMapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostMapViewModel.swift; sourceTree = "<group>"; };
@@ -360,6 +362,7 @@
 		7E3710CD264124690054B744 /* SelectContainer */ = {
 			isa = PBXGroup;
 			children = (
+				7ED49A33264E47F100E1F518 /* Model */,
 				7E3710CE264124C10054B744 /* SelectContainerViewController.swift */,
 				7E3710D0264124CA0054B744 /* SelectContainerViewModel.swift */,
 				7E3710D5264127880054B744 /* Cell */,
@@ -445,6 +448,14 @@
 				7EA8B43026400AEC003974D7 /* MenuInfoCell.swift */,
 			);
 			path = Cell;
+			sourceTree = "<group>";
+		};
+		7ED49A33264E47F100E1F518 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				7ED49A34264E480900E1F518 /* ContainerListModel.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		7EDCDB6C262320850029BE45 /* Post */ = {
@@ -1150,6 +1161,7 @@
 				AACCAAD12646466A005C9FBC /* BadgeModel.swift in Sources */,
 				AAC78FF0262A7027009CC84E /* TabBarController.swift in Sources */,
 				AAD023F72642A4D200F1EC2B /* UILabel+Extensions.swift in Sources */,
+				7ED49A35264E480900E1F518 /* ContainerListModel.swift in Sources */,
 				7E608C07262E8E1A008708F7 /* PostSearchViewModel.swift in Sources */,
 				AACCAAD02646466A005C9FBC /* PackageSimpleModel.swift in Sources */,
 				7EF2DC69263077610002E1E3 /* PostMapViewModel.swift in Sources */,

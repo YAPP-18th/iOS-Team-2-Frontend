@@ -8,49 +8,9 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import RxDataSources
 
-enum Container: Int, CaseIterable {
-  case favorite = 0, airtight ,pot, tumbler, lunchBox, fryingPan
 
-  static func sectionTitle(_ rawValue: Int) -> String {
-    switch Container.init(rawValue: rawValue) {
-    case .favorite:
-      return "자주 쓰는 용기"
-    case .airtight:
-      return "밀폐 용기"
-    case .pot:
-      return "냄비"
-    case .tumbler:
-      return "텀블러"
-    case .lunchBox:
-      return "보온 도시락"
-    case .fryingPan:
-      return "프라이팬"
-    default:
-      return ""
-    }
-  }
-  
-  static func sectionImage(_ rawValue: Int) -> UIImage? {
-    switch Container.init(rawValue: rawValue) {
-    case .favorite:
-      return UIImage(named: "packagefavorate")
-    case .airtight:
-      return UIImage(named: "packageLock")
-    case .pot:
-      return UIImage(named: "packagePot")
-    case .tumbler:
-      return UIImage(named: "packageTumbler")
-    case .lunchBox:
-      return UIImage(named: "packageLunchbox")
-    case .fryingPan:
-      return UIImage(named: "packageFryingPan")
-    default:
-      return nil
-    }
-  }
-  
-}
 class SelectContainerViewController: ViewController {
   
   let topIndicatorView = UIView().then {
@@ -83,6 +43,36 @@ class SelectContainerViewController: ViewController {
   
   override func bindViewModel() {
     super.bindViewModel()
+    
+    guard let viewModel = viewModel as? SelectContainerViewModel else { return }
+    
+    
+    let input = SelectContainerViewModel.Input(favoriteDidTap: PublishSubject<IndexPath>(), itemSelected: tableView.rx.itemSelected.asObservable())
+    
+    let output = viewModel.transform(input: input)
+    
+    let datasource = RxTableViewSectionedReloadDataSource<ContainerSection>(configureCell: { datasource, tv, indexPath, item in
+      guard let cell = tv.dequeueReusableCell(withIdentifier: ContainerListItemCell.reuseIdentifier, for: indexPath) as? ContainerListItemCell else { return UITableViewCell()}
+      
+      cell.configureCell(item)
+      cell.bind()
+      cell.isFavoirite
+        .map { indexPath }
+        .bind(to: input.favoriteDidTap)
+        .disposed(by: self.disposeBag)
+      
+      return cell
+    })
+    
+    output.containers
+      .bind(to: tableView.rx.items(dataSource: datasource))
+      .disposed(by: disposeBag)
+    
+    output.dismiss
+      .subscribe(onNext: { [weak self] in
+        self?.dismiss(animated: true, completion: nil)
+      }).disposed(by: disposeBag)
+    
   }
   
   override func setupView() {
@@ -131,9 +121,9 @@ class SelectContainerViewController: ViewController {
       $0.register(ContainerListHeaderView.self, forHeaderFooterViewReuseIdentifier: ContainerListHeaderView.reuseIdentifier)
       $0.separatorStyle = .none
       $0.rowHeight = ContainerListItemCell.cellHeight
-      $0.delegate = self
-      $0.dataSource = self
     }
+    
+   tableView.rx.setDelegate(self).disposed(by: disposeBag)
     
   }
   
@@ -176,27 +166,6 @@ extension SelectContainerViewController: UITableViewDelegate {
   }
 }
 
-extension SelectContainerViewController: UITableViewDataSource {
-  func numberOfSections(in tableView: UITableView) -> Int {
-    return Container.allCases.count
-  }
-  
-  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    if section == 0 { return 5 }
-    return 3
-  }
-  
-  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    guard let cell = tableView.dequeueReusableCell(withIdentifier: ContainerListItemCell.reuseIdentifier) as? ContainerListItemCell else {
-      return UITableViewCell()
-    }
-    cell.favoriteDidTap = {}
-    return cell
-  }
-  
-  
-}
-
 // MARK: - CollectionView
 extension SelectContainerViewController: UICollectionViewDelegate {
   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -209,7 +178,7 @@ extension SelectContainerViewController: UICollectionViewDelegate {
 
 extension SelectContainerViewController: UICollectionViewDataSource {
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    return 6
+    return Container.allCases.count
   }
   
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
