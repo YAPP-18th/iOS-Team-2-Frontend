@@ -18,6 +18,11 @@ class Navigator {
   
   enum Scene {
     case tabs(viewModel: TabBarViewModel)
+    case login(viewModel: LoginViewModel)
+    case registrationTerms(viewModel: RegistrationTermsViewModel)
+    case registrationEmail(viewModel: RegistrationEmailViewModel)
+    case registrationPassword(viewModel: RegistrationPasswordViewModel)
+    case registrationProfile(viewModel: RegistrationProfileViewModel)
     case tip(viewModel: TipViewModel)
     case feedProfile(viewModel: FeedProfileViewModel)
     case onboarding(viewModel: ViewModel? = nil)
@@ -51,12 +56,27 @@ class Navigator {
     case .tabs(let viewModel):
       let rootVC = TabBarController(viewModel: viewModel, navigator: self)
       return rootVC
+    case .login(let viewModel):
+      let loginVC = LoginViewController(viewModel: viewModel, navigator: self)
+      return loginVC
+    case .registrationTerms(let viewModel):
+      let regTermsVC = RegistrationTermsViewController(viewModel: viewModel, navigator: self)
+      return regTermsVC
+    case .registrationEmail(let viewModel):
+      let regEmailVC = RegistrationEmailViewController(viewModel: viewModel, navigator: self)
+      return regEmailVC
+    case .registrationPassword(let viewModel):
+      let regPasswordVC = RegistrationPasswordViewController(viewModel: viewModel, navigator: self)
+      return regPasswordVC
+    case .registrationProfile(let viewModel):
+      let regProfileVC = RegistrationProfileViewController(viewModel: viewModel, navigator: self)
+      return regProfileVC
     case.tip(let viewModel):
       let tipVC = TipViewController(viewModel: viewModel, navigator: self)
       return tipVC
     case .onboarding(let viewModel) :
       if let vm = viewModel {
-        let vc = LogInViewController(viewModel: vm, navigator: self)
+        let vc = LoginViewController(viewModel: vm, navigator: self)
         return vc
       }
       else {

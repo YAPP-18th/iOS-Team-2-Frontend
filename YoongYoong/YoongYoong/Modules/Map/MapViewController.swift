@@ -53,6 +53,10 @@ class MapViewController: ViewController {
       self?.navigator.show(segue: .tip(viewModel: viewModel), sender: self, transition: .navigation(.left))
     }).disposed(by: disposeBag)
     
+    output.login.drive(onNext: { [weak self] viewModel in
+      self?.navigator.show(segue: .login(viewModel: viewModel), sender: self, transition: .modalFullScreen)
+    }).disposed(by: disposeBag)
+    
     output.location.drive (onNext: { [weak self] location in
       guard let self = self else { return }
       let position = NMFCameraPosition(

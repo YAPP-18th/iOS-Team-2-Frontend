@@ -76,6 +76,20 @@
 		AACCAAFE2646484C005C9FBC /* UITextField+Extenstions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0F5B18263E9BFD003AE118 /* UITextField+Extenstions.swift */; };
 		AACCAB0226464855005C9FBC /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0F5AE4263E6006003AE118 /* String+Extensions.swift */; };
 		AACCAB062646485C005C9FBC /* UIApplication+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAFB3C6D264021380065E3C4 /* UIApplication+Extensions.swift */; };
+		AACCAC41264C3B54005C9FBC /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCAC40264C3B54005C9FBC /* LoginViewController.swift */; };
+		AACCAD2E264D76F1005C9FBC /* NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCAD2D264D76F1005C9FBC /* NavigationBar.swift */; };
+		AACCAD35264D79E1005C9FBC /* RegistrationTermsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCAD34264D79E1005C9FBC /* RegistrationTermsViewController.swift */; };
+		AACCAD3D264D7E19005C9FBC /* RegistrationTermsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCAD3C264D7E19005C9FBC /* RegistrationTermsViewModel.swift */; };
+		AACCAD42264D850D005C9FBC /* TermsCheckItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCAD41264D850D005C9FBC /* TermsCheckItem.swift */; };
+		AACCAD47264D861E005C9FBC /* NSMutableAttributedString+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCAD46264D861E005C9FBC /* NSMutableAttributedString+Extensions.swift */; };
+		AACCAD5E264F455D005C9FBC /* RegistrationEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCAD5D264F455D005C9FBC /* RegistrationEmailViewController.swift */; };
+		AACCAD66264F4833005C9FBC /* RegistrationEmailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCAD65264F4833005C9FBC /* RegistrationEmailViewModel.swift */; };
+		AACCAD6B264F4867005C9FBC /* PasswordField.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCAD6A264F4867005C9FBC /* PasswordField.swift */; };
+		AACCAD71264F5446005C9FBC /* RegistrationPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCAD70264F5446005C9FBC /* RegistrationPasswordViewController.swift */; };
+		AACCAD79264F5725005C9FBC /* RegistrationPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCAD78264F5725005C9FBC /* RegistrationPasswordViewModel.swift */; };
+		AACCAD7F264F5C89005C9FBC /* RegistrationProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCAD7E264F5C89005C9FBC /* RegistrationProfileViewController.swift */; };
+		AACCAD87264F63A7005C9FBC /* RegistrationProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCAD86264F63A7005C9FBC /* RegistrationProfileViewModel.swift */; };
+		AACCAD8C264F68EC005C9FBC /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCAD8B264F68EC005C9FBC /* Button.swift */; };
 		AAD023F62642A4D200F1EC2B /* UIButton+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAD023F42642A4D200F1EC2B /* UIButton+Extensions.swift */; };
 		AAD023F72642A4D200F1EC2B /* UILabel+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAD023F52642A4D200F1EC2B /* UILabel+Extensions.swift */; };
 		AAD0240A2642A4FB00F1EC2B /* FeedTipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAD023FC2642A4FB00F1EC2B /* FeedTipView.swift */; };
@@ -120,8 +134,7 @@
 		DAB0004C260F12CE00D8208F /* YoongYoongUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB0004B260F12CE00D8208F /* YoongYoongUITests.swift */; };
 		DABB2CF1263032330061EC98 /* Identifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DABB2CF0263032330061EC98 /* Identifiable.swift */; };
 		DABB2CF9263033F60061EC98 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DABB2CF8263033F60061EC98 /* UIView+Extensions.swift */; };
-		DABB2D0926304FCD0061EC98 /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DABB2D0826304FCD0061EC98 /* LogInViewController.swift */; };
-		DABB2D0E263050770061EC98 /* LogInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DABB2D0D263050770061EC98 /* LogInViewModel.swift */; };
+		DABB2D0E263050770061EC98 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DABB2D0D263050770061EC98 /* LoginViewModel.swift */; };
 		DAE3E4C526302EAD005A0A61 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE3E4C426302EAD005A0A61 /* OnboardingViewController.swift */; };
 		DBBE82F53A75CC8AAF58B667 /* Pods_YoongYoong_YoongYoongUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 238ACAD42E9502C9F4DB3139 /* Pods_YoongYoong_YoongYoongUITests.framework */; };
 /* End PBXBuildFile section */
@@ -218,6 +231,20 @@
 		AACCAACC26464669005C9FBC /* MyPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
 		AACCAACD26464669005C9FBC /* BadgeDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BadgeDetailView.swift; sourceTree = "<group>"; };
 		AACCAAF3264646E1005C9FBC /* AlertAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertAction.swift; sourceTree = "<group>"; };
+		AACCAC40264C3B54005C9FBC /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		AACCAD2D264D76F1005C9FBC /* NavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBar.swift; sourceTree = "<group>"; };
+		AACCAD34264D79E1005C9FBC /* RegistrationTermsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationTermsViewController.swift; sourceTree = "<group>"; };
+		AACCAD3C264D7E19005C9FBC /* RegistrationTermsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationTermsViewModel.swift; sourceTree = "<group>"; };
+		AACCAD41264D850D005C9FBC /* TermsCheckItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsCheckItem.swift; sourceTree = "<group>"; };
+		AACCAD46264D861E005C9FBC /* NSMutableAttributedString+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSMutableAttributedString+Extensions.swift"; sourceTree = "<group>"; };
+		AACCAD5D264F455D005C9FBC /* RegistrationEmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationEmailViewController.swift; sourceTree = "<group>"; };
+		AACCAD65264F4833005C9FBC /* RegistrationEmailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationEmailViewModel.swift; sourceTree = "<group>"; };
+		AACCAD6A264F4867005C9FBC /* PasswordField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordField.swift; sourceTree = "<group>"; };
+		AACCAD70264F5446005C9FBC /* RegistrationPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationPasswordViewController.swift; sourceTree = "<group>"; };
+		AACCAD78264F5725005C9FBC /* RegistrationPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationPasswordViewModel.swift; sourceTree = "<group>"; };
+		AACCAD7E264F5C89005C9FBC /* RegistrationProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationProfileViewController.swift; sourceTree = "<group>"; };
+		AACCAD86264F63A7005C9FBC /* RegistrationProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationProfileViewModel.swift; sourceTree = "<group>"; };
+		AACCAD8B264F68EC005C9FBC /* Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
 		AAD023F42642A4D200F1EC2B /* UIButton+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+Extensions.swift"; sourceTree = "<group>"; };
 		AAD023F52642A4D200F1EC2B /* UILabel+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UILabel+Extensions.swift"; sourceTree = "<group>"; };
 		AAD023FC2642A4FB00F1EC2B /* FeedTipView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedTipView.swift; sourceTree = "<group>"; };
@@ -275,8 +302,7 @@
 		DAB0004D260F12CE00D8208F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DABB2CF0263032330061EC98 /* Identifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Identifiable.swift; sourceTree = "<group>"; };
 		DABB2CF8263033F60061EC98 /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
-		DABB2D0826304FCD0061EC98 /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
-		DABB2D0D263050770061EC98 /* LogInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewModel.swift; sourceTree = "<group>"; };
+		DABB2D0D263050770061EC98 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		DAE3E4C426302EAD005A0A61 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		DAFB3C6D264021380065E3C4 /* UIApplication+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+Extensions.swift"; sourceTree = "<group>"; };
 		F1BA7E9CFA81CCA931C8F5E2 /* Pods-YoongYoong-YoongYoongUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YoongYoong-YoongYoongUITests.release.xcconfig"; path = "Target Support Files/Pods-YoongYoong-YoongYoongUITests/Pods-YoongYoong-YoongYoongUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -502,6 +528,8 @@
 		AAC78FE5262A6FAD009CC84E /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				AACCAD32264D79B3005C9FBC /* Registration */,
+				AACCAC3F264C3B4C005C9FBC /* Login */,
 				AACCAAB726464669005C9FBC /* Mypage */,
 				AAD023FB2642A4FB00F1EC2B /* Feed */,
 				AAD024042642A4FB00F1EC2B /* FeedProfile */,
@@ -625,6 +653,63 @@
 			path = ViewController;
 			sourceTree = "<group>";
 		};
+		AACCAC3F264C3B4C005C9FBC /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				DABB2D0D263050770061EC98 /* LoginViewModel.swift */,
+				AACCAC40264C3B54005C9FBC /* LoginViewController.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		AACCAD32264D79B3005C9FBC /* Registration */ = {
+			isa = PBXGroup;
+			children = (
+				AACCAD7D264F5C71005C9FBC /* RegistrationProfile */,
+				AACCAD6F264F5430005C9FBC /* RegistrationPassword */,
+				AACCAD5C264F454B005C9FBC /* RegistrationEmail */,
+				AACCAD33264D79C4005C9FBC /* RegistrationTerms */,
+			);
+			path = Registration;
+			sourceTree = "<group>";
+		};
+		AACCAD33264D79C4005C9FBC /* RegistrationTerms */ = {
+			isa = PBXGroup;
+			children = (
+				AACCAD34264D79E1005C9FBC /* RegistrationTermsViewController.swift */,
+				AACCAD3C264D7E19005C9FBC /* RegistrationTermsViewModel.swift */,
+				AACCAD41264D850D005C9FBC /* TermsCheckItem.swift */,
+			);
+			path = RegistrationTerms;
+			sourceTree = "<group>";
+		};
+		AACCAD5C264F454B005C9FBC /* RegistrationEmail */ = {
+			isa = PBXGroup;
+			children = (
+				AACCAD5D264F455D005C9FBC /* RegistrationEmailViewController.swift */,
+				AACCAD65264F4833005C9FBC /* RegistrationEmailViewModel.swift */,
+			);
+			path = RegistrationEmail;
+			sourceTree = "<group>";
+		};
+		AACCAD6F264F5430005C9FBC /* RegistrationPassword */ = {
+			isa = PBXGroup;
+			children = (
+				AACCAD70264F5446005C9FBC /* RegistrationPasswordViewController.swift */,
+				AACCAD78264F5725005C9FBC /* RegistrationPasswordViewModel.swift */,
+			);
+			path = RegistrationPassword;
+			sourceTree = "<group>";
+		};
+		AACCAD7D264F5C71005C9FBC /* RegistrationProfile */ = {
+			isa = PBXGroup;
+			children = (
+				AACCAD7E264F5C89005C9FBC /* RegistrationProfileViewController.swift */,
+				AACCAD86264F63A7005C9FBC /* RegistrationProfileViewModel.swift */,
+			);
+			path = RegistrationProfile;
+			sourceTree = "<group>";
+		};
 		AAD023F32642A4B600F1EC2B /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
@@ -724,6 +809,7 @@
 				DA0F5AE4263E6006003AE118 /* String+Extensions.swift */,
 				DA0F5B18263E9BFD003AE118 /* UITextField+Extenstions.swift */,
 				DAFB3C6D264021380065E3C4 /* UIApplication+Extensions.swift */,
+				AACCAD46264D861E005C9FBC /* NSMutableAttributedString+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -809,6 +895,9 @@
 				AACCAAF3264646E1005C9FBC /* AlertAction.swift */,
 				DABB2CF0263032330061EC98 /* Identifiable.swift */,
 				AACCAA8F2645509C005C9FBC /* ScrollStackView.swift */,
+				AACCAD2D264D76F1005C9FBC /* NavigationBar.swift */,
+				AACCAD6A264F4867005C9FBC /* PasswordField.swift */,
+				AACCAD8B264F68EC005C9FBC /* Button.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -825,7 +914,6 @@
 			isa = PBXGroup;
 			children = (
 				DAE3E4CC26303031005A0A61 /* View */,
-				DABB2D0D263050770061EC98 /* LogInViewModel.swift */,
 			);
 			path = OnBoarding;
 			sourceTree = "<group>";
@@ -834,7 +922,6 @@
 			isa = PBXGroup;
 			children = (
 				DAE3E4C426302EAD005A0A61 /* OnboardingViewController.swift */,
-				DABB2D0826304FCD0061EC98 /* LogInViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1115,8 +1202,10 @@
 				7EA8B42D264009E3003974D7 /* SelectMenuViewController.swift in Sources */,
 				AAD024132642A4FB00F1EC2B /* ProfilePostCollectionViewCell.swift in Sources */,
 				AACCAB062646485C005C9FBC /* UIApplication+Extensions.swift in Sources */,
+				AACCAD35264D79E1005C9FBC /* RegistrationTermsViewController.swift in Sources */,
 				AAD0240E2642A4FB00F1EC2B /* FeedViewModel.swift in Sources */,
 				AACCAA9F26463A0E005C9FBC /* TipDetailThirdView.swift in Sources */,
+				AACCAD7F264F5C89005C9FBC /* RegistrationProfileViewController.swift in Sources */,
 				7EA4F3DD2624888B001C754C /* PostSearchHistoryItemCell.swift in Sources */,
 				7EDCDB6F262321D60029BE45 /* PostSearchViewController.swift in Sources */,
 				7E32AC652636F6F200E694EB /* PostImageSelectionViewController.swift in Sources */,
@@ -1132,9 +1221,11 @@
 				AACCAA952646285D005C9FBC /* TipDetailSecondView.swift in Sources */,
 				AA344617261B2F240034E1BC /* MapViewController.swift in Sources */,
 				7E32AC642636F6F200E694EB /* PostImageSelectionViewModel.swift in Sources */,
-				DABB2D0E263050770061EC98 /* LogInViewModel.swift in Sources */,
+				DABB2D0E263050770061EC98 /* LoginViewModel.swift in Sources */,
 				DABB2CF1263032330061EC98 /* Identifiable.swift in Sources */,
+				AACCAD3D264D7E19005C9FBC /* RegistrationTermsViewModel.swift in Sources */,
 				AAD45C9E2619CAEC00A6F4D6 /* UIColor+Extensions.swift in Sources */,
+				AACCAD8C264F68EC005C9FBC /* Button.swift in Sources */,
 				DAB00027260F12CA00D8208F /* AppDelegate.swift in Sources */,
 				AACCAADE2646466A005C9FBC /* BadgeDetailView.swift in Sources */,
 				7E32AC622636F6F200E694EB /* PostImageContainer.swift in Sources */,
@@ -1145,6 +1236,7 @@
 				AACCAA8326451CBE005C9FBC /* TipDetailFirstView.swift in Sources */,
 				AAC78F96262A6916009CC84E /* ViewModelType.swift in Sources */,
 				AACCAA8826453786005C9FBC /* TipDetailFirstListView.swift in Sources */,
+				AACCAD71264F5446005C9FBC /* RegistrationPasswordViewController.swift in Sources */,
 				AACCAAD52646466A005C9FBC /* MyPostCollectionViewCell.swift in Sources */,
 				DABB2CF9263033F60061EC98 /* UIView+Extensions.swift in Sources */,
 				7E3710CF264124C10054B744 /* SelectContainerViewController.swift in Sources */,
@@ -1154,13 +1246,17 @@
 				AAC79002262A7A1D009CC84E /* NavigationController.swift in Sources */,
 				7EF2DC64263076F80002E1E3 /* PostMapViewController.swift in Sources */,
 				AACCAAD62646466A005C9FBC /* MyPackageFilterCollectionViewCell.swift in Sources */,
+				AACCAD42264D850D005C9FBC /* TermsCheckItem.swift in Sources */,
 				7E3710D1264124CA0054B744 /* SelectContainerViewModel.swift in Sources */,
 				AA6E013F261F6A0D00318E30 /* CALayer+Extensions.swift in Sources */,
 				7E32AC612636F6F200E694EB /* PostImageSelectionViewCell.swift in Sources */,
 				AAC78FF5262A7150009CC84E /* Navigator.swift in Sources */,
+				AACCAD2E264D76F1005C9FBC /* NavigationBar.swift in Sources */,
 				AACCAAD12646466A005C9FBC /* BadgeModel.swift in Sources */,
 				AAC78FF0262A7027009CC84E /* TabBarController.swift in Sources */,
 				AAD023F72642A4D200F1EC2B /* UILabel+Extensions.swift in Sources */,
+				AACCAD6B264F4867005C9FBC /* PasswordField.swift in Sources */,
+				AACCAD5E264F455D005C9FBC /* RegistrationEmailViewController.swift in Sources */,
 				7ED49A35264E480900E1F518 /* ContainerListModel.swift in Sources */,
 				7E608C07262E8E1A008708F7 /* PostSearchViewModel.swift in Sources */,
 				AACCAAD02646466A005C9FBC /* PackageSimpleModel.swift in Sources */,
@@ -1169,6 +1265,7 @@
 				AACCAAD22646466A005C9FBC /* PostSimpleModel.swift in Sources */,
 				7EA8B43126400AEC003974D7 /* MenuInfoCell.swift in Sources */,
 				AAC79008262A809D009CC84E /* MapViewModel.swift in Sources */,
+				AACCAD79264F5725005C9FBC /* RegistrationPasswordViewModel.swift in Sources */,
 				AACCAACF2646466A005C9FBC /* MyPageViewModel.swift in Sources */,
 				7E32AC632636F6F200E694EB /* PostImageContainerCell.swift in Sources */,
 				AA72B7DD261B3996001E959B /* MapNavigationView.swift in Sources */,
@@ -1177,9 +1274,10 @@
 				AACCAA902645509C005C9FBC /* ScrollStackView.swift in Sources */,
 				AAD024142642A4FB00F1EC2B /* FeedProfileViewController.swift in Sources */,
 				AACCAAD32646466A005C9FBC /* PostUsecase.swift in Sources */,
+				AACCAD66264F4833005C9FBC /* RegistrationEmailViewModel.swift in Sources */,
 				AAC79015262A91A4009CC84E /* TipViewModel.swift in Sources */,
 				AAD024162642A4FB00F1EC2B /* ProfilePostListSection.swift in Sources */,
-				DABB2D0926304FCD0061EC98 /* LogInViewController.swift in Sources */,
+				AACCAD87264F63A7005C9FBC /* RegistrationProfileViewModel.swift in Sources */,
 				AACCAADB2646466A005C9FBC /* MyPackageCollectionViewCell.swift in Sources */,
 				AAD024152642A4FB00F1EC2B /* ProfilePostCollectionViewCellViewModel.swift in Sources */,
 				AAD0240F2642A4FB00F1EC2B /* FeedViewController.swift in Sources */,
@@ -1192,12 +1290,14 @@
 				AAC78FFA262A773D009CC84E /* ViewController.swift in Sources */,
 				AAD024222642A56600F1EC2B /* BraveWord.swift in Sources */,
 				AAC79020262AA7E3009CC84E /* TipViewController.swift in Sources */,
+				AACCAC41264C3B54005C9FBC /* LoginViewController.swift in Sources */,
 				AACCAA7826451B64005C9FBC /* TipDetailViewController.swift in Sources */,
 				AACCAAF4264646E1005C9FBC /* AlertAction.swift in Sources */,
 				AAF67E09262AE69600F643E1 /* LocationManager.swift in Sources */,
 				AACCAADC2646466A005C9FBC /* EditProfileViewController.swift in Sources */,
 				AACCAA9A264628EB005C9FBC /* TipDetailSecondListView.swift in Sources */,
 				AACCAAA426463A76005C9FBC /* TipDetailThirdListView.swift in Sources */,
+				AACCAD47264D861E005C9FBC /* NSMutableAttributedString+Extensions.swift in Sources */,
 				AAD024212642A56600F1EC2B /* TitleContentItem.swift in Sources */,
 				DAB00031260F12CA00D8208F /* YoongYoong.xcdatamodeld in Sources */,
 				7E42939E2648FF19005D7710 /* PostReviewViewController.swift in Sources */,
@@ -1375,7 +1475,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 7Y3Y9M4N4F;
 				INFOPLIST_FILE = YoongYoong/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1399,7 +1499,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 7Y3Y9M4N4F;
 				INFOPLIST_FILE = YoongYoong/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1566,7 +1666,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 7Y3Y9M4N4F;
 				INFOPLIST_FILE = YoongYoong/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
