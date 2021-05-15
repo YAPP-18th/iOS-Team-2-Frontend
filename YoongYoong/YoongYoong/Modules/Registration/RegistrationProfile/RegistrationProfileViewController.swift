@@ -96,11 +96,8 @@ class RegistrationProfileViewController: ViewController {
     $0.textColor = .systemGrayText02
   }
   
-  let nextButton = UIButton().then {
-    $0.backgroundColor = .brandColorGreen02
+  let saveButton = Button().then {
     $0.setTitle("저장하기", for: .normal)
-    $0.setTitleColor(.white, for: .normal)
-    $0.layer.cornerRadius = 22
   }
   
   let laterButton = UIButton().then {
@@ -131,6 +128,7 @@ class RegistrationProfileViewController: ViewController {
   override func configuration() {
     super.configuration()
     self.navigationItem.title = "프로필 만들기"
+    self.saveButton.isEnabled = false
   }
   
   override func setupView() {
@@ -140,7 +138,7 @@ class RegistrationProfileViewController: ViewController {
       nicknameField, nicknameLengthLabel, nicknameSlashLabel, nicknameMaxLengthLabel, nicknameDivider,
       warningImageView, warningLabel,
       introduceContainer, introduceLengthLabel, introduceSlashLabel, introduceMaxLengthLabel,
-      nextButton, laterButton
+      saveButton, laterButton
     ].forEach {
       self.view.addSubview($0)
     }
@@ -236,7 +234,7 @@ class RegistrationProfileViewController: ViewController {
       $0.centerX.equalToSuperview()
     }
     
-    nextButton.snp.makeConstraints {
+    saveButton.snp.makeConstraints {
       $0.bottom.equalTo(laterButton.snp.top).offset(-16)
       $0.leading.equalTo(24)
       $0.trailing.equalTo(-24)

@@ -49,11 +49,8 @@ class RegistrationPasswordViewController: ViewController {
     $0.font = .krCaption2
   }
   
-  let nextButton = UIButton().then {
-    $0.backgroundColor = .brandColorGreen02
+  let nextButton = Button().then {
     $0.setTitle("다음", for: .normal)
-    $0.setTitleColor(.white, for: .normal)
-    $0.layer.cornerRadius = 22
   }
   
   override func viewDidLoad() {
@@ -77,6 +74,8 @@ class RegistrationPasswordViewController: ViewController {
   
   override func configuration() {
     super.configuration()
+    self.navigationItem.title = "비밀번호 입력하기"
+    nextButton.isEnabled = true
   }
   
   override func setupView() {

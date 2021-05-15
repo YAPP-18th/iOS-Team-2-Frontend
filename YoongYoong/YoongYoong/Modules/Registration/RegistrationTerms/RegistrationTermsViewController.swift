@@ -35,11 +35,8 @@ class RegistrationTermsViewController: ViewController {
     $0.spacing = 16
   }
   
-  let nextButton = UIButton().then {
-    $0.backgroundColor = .brandColorGreen02
+  let nextButton = Button().then {
     $0.setTitle("다음", for: .normal)
-    $0.setTitleColor(.white, for: .normal)
-    $0.layer.cornerRadius = 22
   }
   
   override func viewDidLoad() {
@@ -76,6 +73,7 @@ class RegistrationTermsViewController: ViewController {
     )
     
     self.navigationItem.title = "약관 및 정책"
+    self.nextButton.isEnabled = true
   }
   
   @objc func backButtonTapped() {

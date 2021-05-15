@@ -36,11 +36,8 @@ class RegistrationEmailViewController: ViewController {
     $0.font = .krCaption2
   }
   
-  let nextButton = UIButton().then {
-    $0.backgroundColor = .brandColorGreen02
+  let nextButton = Button().then {
     $0.setTitle("다음", for: .normal)
-    $0.setTitleColor(.white, for: .normal)
-    $0.layer.cornerRadius = 22
   }
   
   
@@ -66,6 +63,7 @@ class RegistrationEmailViewController: ViewController {
   override func configuration() {
     super.configuration()
     self.navigationItem.title = "이메일로 가입하기"
+    self.nextButton.isEnabled = true
   }
   
   override func setupView() {

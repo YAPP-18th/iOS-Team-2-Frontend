@@ -85,6 +85,7 @@
 		AACCAD79264F5725005C9FBC /* RegistrationPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCAD78264F5725005C9FBC /* RegistrationPasswordViewModel.swift */; };
 		AACCAD7F264F5C89005C9FBC /* RegistrationProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCAD7E264F5C89005C9FBC /* RegistrationProfileViewController.swift */; };
 		AACCAD87264F63A7005C9FBC /* RegistrationProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCAD86264F63A7005C9FBC /* RegistrationProfileViewModel.swift */; };
+		AACCAD8C264F68EC005C9FBC /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCAD8B264F68EC005C9FBC /* Button.swift */; };
 		AAD023F62642A4D200F1EC2B /* UIButton+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAD023F42642A4D200F1EC2B /* UIButton+Extensions.swift */; };
 		AAD023F72642A4D200F1EC2B /* UILabel+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAD023F52642A4D200F1EC2B /* UILabel+Extensions.swift */; };
 		AAD0240A2642A4FB00F1EC2B /* FeedTipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAD023FC2642A4FB00F1EC2B /* FeedTipView.swift */; };
@@ -235,6 +236,7 @@
 		AACCAD78264F5725005C9FBC /* RegistrationPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationPasswordViewModel.swift; sourceTree = "<group>"; };
 		AACCAD7E264F5C89005C9FBC /* RegistrationProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationProfileViewController.swift; sourceTree = "<group>"; };
 		AACCAD86264F63A7005C9FBC /* RegistrationProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationProfileViewModel.swift; sourceTree = "<group>"; };
+		AACCAD8B264F68EC005C9FBC /* Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
 		AAD023F42642A4D200F1EC2B /* UIButton+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+Extensions.swift"; sourceTree = "<group>"; };
 		AAD023F52642A4D200F1EC2B /* UILabel+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UILabel+Extensions.swift"; sourceTree = "<group>"; };
 		AAD023FC2642A4FB00F1EC2B /* FeedTipView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedTipView.swift; sourceTree = "<group>"; };
@@ -867,6 +869,7 @@
 				AACCAA8F2645509C005C9FBC /* ScrollStackView.swift */,
 				AACCAD2D264D76F1005C9FBC /* NavigationBar.swift */,
 				AACCAD6A264F4867005C9FBC /* PasswordField.swift */,
+				AACCAD8B264F68EC005C9FBC /* Button.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -1193,6 +1196,7 @@
 				DABB2CF1263032330061EC98 /* Identifiable.swift in Sources */,
 				AACCAD3D264D7E19005C9FBC /* RegistrationTermsViewModel.swift in Sources */,
 				AAD45C9E2619CAEC00A6F4D6 /* UIColor+Extensions.swift in Sources */,
+				AACCAD8C264F68EC005C9FBC /* Button.swift in Sources */,
 				DAB00027260F12CA00D8208F /* AppDelegate.swift in Sources */,
 				AACCAADE2646466A005C9FBC /* BadgeDetailView.swift in Sources */,
 				7E32AC622636F6F200E694EB /* PostImageContainer.swift in Sources */,

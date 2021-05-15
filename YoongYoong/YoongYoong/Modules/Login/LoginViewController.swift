@@ -38,12 +38,8 @@ class LoginViewController: ViewController {
     $0.backgroundColor = .systemGray05
   }
   
-  let loginButton = UIButton().then {
-    $0.layer.cornerRadius = 22
-    $0.backgroundColor = .brandColorGreen02
+  let loginButton = Button().then {
     $0.setTitle("로그인", for: .normal)
-    $0.titleLabel?.font = .krButton1
-    $0.setTitleColor(.brandColorGreen03, for: .normal)
   }
   
   let findPasswordButton = UIButton().then {
@@ -113,6 +109,7 @@ class LoginViewController: ViewController {
   override func configuration() {
     super.configuration()
     self.view.backgroundColor = .white
+    self.loginButton.isEnabled = false
   }
   
   override func setupView() {
