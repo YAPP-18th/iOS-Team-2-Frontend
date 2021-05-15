@@ -32,13 +32,7 @@ class LoginViewController: ViewController {
     $0.backgroundColor = .systemGray05
   }
   
-  let passwordField = UITextField().then {
-    $0.borderStyle = .none
-    $0.placeholder = "비밀번호"
-    $0.font = .krBody2
-    $0.textColor = .systemGray01
-    $0.isSecureTextEntry = true
-  }
+  let passwordField = PasswordField()
   
   let passwordDivider = UIView().then {
     $0.backgroundColor = .systemGray05

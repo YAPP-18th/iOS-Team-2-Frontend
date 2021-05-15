@@ -78,6 +78,9 @@
 		AACCAD3D264D7E19005C9FBC /* RegistrationTermsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCAD3C264D7E19005C9FBC /* RegistrationTermsViewModel.swift */; };
 		AACCAD42264D850D005C9FBC /* TermsCheckItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCAD41264D850D005C9FBC /* TermsCheckItem.swift */; };
 		AACCAD47264D861E005C9FBC /* NSMutableAttributedString+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCAD46264D861E005C9FBC /* NSMutableAttributedString+Extensions.swift */; };
+		AACCAD5E264F455D005C9FBC /* RegistrationEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCAD5D264F455D005C9FBC /* RegistrationEmailViewController.swift */; };
+		AACCAD66264F4833005C9FBC /* RegistrationEmailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCAD65264F4833005C9FBC /* RegistrationEmailViewModel.swift */; };
+		AACCAD6B264F4867005C9FBC /* PasswordField.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCAD6A264F4867005C9FBC /* PasswordField.swift */; };
 		AAD023F62642A4D200F1EC2B /* UIButton+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAD023F42642A4D200F1EC2B /* UIButton+Extensions.swift */; };
 		AAD023F72642A4D200F1EC2B /* UILabel+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAD023F52642A4D200F1EC2B /* UILabel+Extensions.swift */; };
 		AAD0240A2642A4FB00F1EC2B /* FeedTipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAD023FC2642A4FB00F1EC2B /* FeedTipView.swift */; };
@@ -221,6 +224,9 @@
 		AACCAD3C264D7E19005C9FBC /* RegistrationTermsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationTermsViewModel.swift; sourceTree = "<group>"; };
 		AACCAD41264D850D005C9FBC /* TermsCheckItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsCheckItem.swift; sourceTree = "<group>"; };
 		AACCAD46264D861E005C9FBC /* NSMutableAttributedString+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSMutableAttributedString+Extensions.swift"; sourceTree = "<group>"; };
+		AACCAD5D264F455D005C9FBC /* RegistrationEmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationEmailViewController.swift; sourceTree = "<group>"; };
+		AACCAD65264F4833005C9FBC /* RegistrationEmailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationEmailViewModel.swift; sourceTree = "<group>"; };
+		AACCAD6A264F4867005C9FBC /* PasswordField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordField.swift; sourceTree = "<group>"; };
 		AAD023F42642A4D200F1EC2B /* UIButton+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+Extensions.swift"; sourceTree = "<group>"; };
 		AAD023F52642A4D200F1EC2B /* UILabel+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UILabel+Extensions.swift"; sourceTree = "<group>"; };
 		AAD023FC2642A4FB00F1EC2B /* FeedTipView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedTipView.swift; sourceTree = "<group>"; };
@@ -621,6 +627,7 @@
 		AACCAD32264D79B3005C9FBC /* Registration */ = {
 			isa = PBXGroup;
 			children = (
+				AACCAD5C264F454B005C9FBC /* RegistrationEmail */,
 				AACCAD33264D79C4005C9FBC /* RegistrationTerms */,
 			);
 			path = Registration;
@@ -634,6 +641,15 @@
 				AACCAD41264D850D005C9FBC /* TermsCheckItem.swift */,
 			);
 			path = RegistrationTerms;
+			sourceTree = "<group>";
+		};
+		AACCAD5C264F454B005C9FBC /* RegistrationEmail */ = {
+			isa = PBXGroup;
+			children = (
+				AACCAD5D264F455D005C9FBC /* RegistrationEmailViewController.swift */,
+				AACCAD65264F4833005C9FBC /* RegistrationEmailViewModel.swift */,
+			);
+			path = RegistrationEmail;
 			sourceTree = "<group>";
 		};
 		AAD023F32642A4B600F1EC2B /* Recovered References */ = {
@@ -822,6 +838,7 @@
 				DABB2CF0263032330061EC98 /* Identifiable.swift */,
 				AACCAA8F2645509C005C9FBC /* ScrollStackView.swift */,
 				AACCAD2D264D76F1005C9FBC /* NavigationBar.swift */,
+				AACCAD6A264F4867005C9FBC /* PasswordField.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -1175,6 +1192,8 @@
 				AACCAAD12646466A005C9FBC /* BadgeModel.swift in Sources */,
 				AAC78FF0262A7027009CC84E /* TabBarController.swift in Sources */,
 				AAD023F72642A4D200F1EC2B /* UILabel+Extensions.swift in Sources */,
+				AACCAD6B264F4867005C9FBC /* PasswordField.swift in Sources */,
+				AACCAD5E264F455D005C9FBC /* RegistrationEmailViewController.swift in Sources */,
 				7E608C07262E8E1A008708F7 /* PostSearchViewModel.swift in Sources */,
 				AACCAAD02646466A005C9FBC /* PackageSimpleModel.swift in Sources */,
 				7EF2DC69263077610002E1E3 /* PostMapViewModel.swift in Sources */,
@@ -1190,6 +1209,7 @@
 				AACCAA902645509C005C9FBC /* ScrollStackView.swift in Sources */,
 				AAD024142642A4FB00F1EC2B /* FeedProfileViewController.swift in Sources */,
 				AACCAAD32646466A005C9FBC /* PostUsecase.swift in Sources */,
+				AACCAD66264F4833005C9FBC /* RegistrationEmailViewModel.swift in Sources */,
 				AAC79015262A91A4009CC84E /* TipViewModel.swift in Sources */,
 				AAD024162642A4FB00F1EC2B /* ProfilePostListSection.swift in Sources */,
 				AACCAADB2646466A005C9FBC /* MyPackageCollectionViewCell.swift in Sources */,
