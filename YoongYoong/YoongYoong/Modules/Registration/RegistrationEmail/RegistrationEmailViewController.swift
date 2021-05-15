@@ -31,6 +31,7 @@ class RegistrationEmailViewController: ViewController {
   }
   
   let warningLabel = UILabel().then {
+    $0.text = "이미 등록된 이메일입니다."
     $0.textColor = .brandColorSecondary01
     $0.font = .krCaption2
   }
@@ -46,6 +47,20 @@ class RegistrationEmailViewController: ViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
+  }
+  
+  override func bindViewModel() {
+    super.bindViewModel()
+    guard let viewModel = self.viewModel as? RegistrationEmailViewModel else { return }
+    let input = RegistrationEmailViewModel.Input(
+      next: self.nextButton.rx.tap.asObservable()
+    )
+    
+    let output = viewModel.transform(input: input)
+    
+    output.registrationPassword.drive(onNext: { viewModel in
+      self.navigator.show(segue: .registrationPassword(viewModel: viewModel), sender: self, transition: .navigation(.right))
+    }).disposed(by: disposeBag)
   }
   
   override func configuration() {
@@ -89,7 +104,7 @@ class RegistrationEmailViewController: ViewController {
     }
     
     warningImageView.snp.makeConstraints {
-      $0.top.equalTo(6)
+      $0.top.equalTo(divider.snp.bottom).offset(6)
       $0.leading.equalTo(24)
       $0.width.height.equalTo(16)
     }

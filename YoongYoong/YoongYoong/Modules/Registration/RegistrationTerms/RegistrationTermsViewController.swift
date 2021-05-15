@@ -46,6 +46,20 @@ class RegistrationTermsViewController: ViewController {
     super.viewDidLoad()
   }
   
+  override func bindViewModel() {
+    super.bindViewModel()
+    guard let viewModel = self.viewModel as? RegistrationTermsViewModel else { return }
+    let input = RegistrationTermsViewModel.Input(
+      next: self.nextButton.rx.tap.asObservable()
+    )
+    
+    let output = viewModel.transform(input: input)
+    
+    output.registrationEmail.drive(onNext: { viewModel in
+      self.navigator.show(segue: .registrationEmail(viewModel: viewModel), sender: self, transition: .navigation(.right))
+    }).disposed(by: disposeBag)
+  }
+  
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     self.navigationController?.setNavigationBarHidden(false, animated: animated)

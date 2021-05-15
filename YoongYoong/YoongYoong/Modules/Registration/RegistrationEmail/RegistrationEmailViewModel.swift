@@ -11,12 +11,18 @@ import RxCocoa
 
 class RegistrationEmailViewModel : ViewModel, ViewModelType {
   struct Input {
-    
+    let next: Observable<Void>
   }
   struct Output {
-    
+    let registrationPassword: Driver<RegistrationPasswordViewModel>
   }
   func transform(input: Input) -> Output {
-    return .init()
+    let registrationPassword = input.next.asDriver(onErrorJustReturn: ()).map { () -> RegistrationPasswordViewModel in
+      let viewModel = RegistrationPasswordViewModel()
+      return viewModel
+    }
+    return .init(
+      registrationPassword: registrationPassword
+    )
   }
 }
