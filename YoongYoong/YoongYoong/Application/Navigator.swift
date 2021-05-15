@@ -26,6 +26,7 @@ class Navigator {
     case registrationProfile(viewModel: RegistrationProfileViewModel)
     case tip(viewModel: TipViewModel)
     case feedProfile(viewModel: FeedProfileViewModel)
+    case feedDetail(viewModel: FeedDetailViewModel)
     case onboarding(viewModel: ViewModel? = nil)
     case post(viewModel: PostSearchViewModel)
     case postMap(viewModel: PostMapViewModel)
@@ -122,6 +123,9 @@ class Navigator {
       let settingVC = SettingViewController(viewModel: viewModel, navigator: self)
       settingVC.hidesBottomBarWhenPushed = true
       return settingVC
+    case .feedDetail(let viewModel):
+      let feedDetailVC = FeedDetailViewController(viewModel: viewModel, navigator: self)
+      return feedDetailVC
     }
    
   }

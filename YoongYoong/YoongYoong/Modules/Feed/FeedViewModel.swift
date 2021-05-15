@@ -11,12 +11,13 @@ import RxSwift
 
 class FeedViewModel: ViewModel, ViewModelType {
   struct Input {
-    
+    let feedSelected: Observable<IndexPath>
   }
   
   struct Output {
     let items: BehaviorRelay<[FeedListSection]>
     let profile: Driver<FeedProfileViewModel>
+    let detail: Driver<FeedDetailViewModel>
   }
   
   private let dateFormatter: DateFormatter = {
@@ -52,9 +53,14 @@ class FeedViewModel: ViewModel, ViewModelType {
     let braveWord = BraveWord()
     brave.accept(braveWord.randomBrave() ?? BraveWord.default)
     
+    let detail = input.feedSelected.asDriver(onErrorJustReturn: IndexPath(item: 0, section: 0)).map { _ -> FeedDetailViewModel in
+      return FeedDetailViewModel()
+    }
+    
     return Output(
       items: elements,
-      profile: profile
+      profile: profile,
+      detail: detail
     )
   }
 }

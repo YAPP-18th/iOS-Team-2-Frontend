@@ -83,6 +83,13 @@
 		AACCAAFE2646484C005C9FBC /* UITextField+Extenstions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0F5B18263E9BFD003AE118 /* UITextField+Extenstions.swift */; };
 		AACCAB0226464855005C9FBC /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0F5AE4263E6006003AE118 /* String+Extensions.swift */; };
 		AACCAB062646485C005C9FBC /* UIApplication+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAFB3C6D264021380065E3C4 /* UIApplication+Extensions.swift */; };
+		AACCAD98264F6DEE005C9FBC /* FeedDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCAD97264F6DEE005C9FBC /* FeedDetailViewController.swift */; };
+		AACCADA0264F6FA3005C9FBC /* FeedDetailMessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCAD9F264F6FA3005C9FBC /* FeedDetailMessageTableViewCell.swift */; };
+		AACCADA5264F72AF005C9FBC /* FeedDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCADA4264F72AF005C9FBC /* FeedDetailViewModel.swift */; };
+		AACCADAA264F7586005C9FBC /* FeedDetailMessageSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCADA9264F7586005C9FBC /* FeedDetailMessageSection.swift */; };
+		AACCADAF264F75A8005C9FBC /* FeedDetailMessageTableViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCADAE264F75A8005C9FBC /* FeedDetailMessageTableViewCellViewModel.swift */; };
+		AACCADB4264F75F2005C9FBC /* FeedMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCADB3264F75F2005C9FBC /* FeedMessage.swift */; };
+		AACCADB9264F79ED005C9FBC /* DynamicHeightTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCADB8264F79ED005C9FBC /* DynamicHeightTableView.swift */; };
 		AACCAD2E264D76F1005C9FBC /* NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCAD2D264D76F1005C9FBC /* NavigationBar.swift */; };
 		AACCAD35264D79E1005C9FBC /* RegistrationTermsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCAD34264D79E1005C9FBC /* RegistrationTermsViewController.swift */; };
 		AACCAD3D264D7E19005C9FBC /* RegistrationTermsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCAD3C264D7E19005C9FBC /* RegistrationTermsViewModel.swift */; };
@@ -267,6 +274,13 @@
 		AACCAACC26464669005C9FBC /* MyPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
 		AACCAACD26464669005C9FBC /* BadgeDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BadgeDetailView.swift; sourceTree = "<group>"; };
 		AACCAAF3264646E1005C9FBC /* AlertAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertAction.swift; sourceTree = "<group>"; };
+		AACCAD97264F6DEE005C9FBC /* FeedDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedDetailViewController.swift; sourceTree = "<group>"; };
+		AACCAD9F264F6FA3005C9FBC /* FeedDetailMessageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedDetailMessageTableViewCell.swift; sourceTree = "<group>"; };
+		AACCADA4264F72AF005C9FBC /* FeedDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedDetailViewModel.swift; sourceTree = "<group>"; };
+		AACCADA9264F7586005C9FBC /* FeedDetailMessageSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedDetailMessageSection.swift; sourceTree = "<group>"; };
+		AACCADAE264F75A8005C9FBC /* FeedDetailMessageTableViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedDetailMessageTableViewCellViewModel.swift; sourceTree = "<group>"; };
+		AACCADB3264F75F2005C9FBC /* FeedMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedMessage.swift; sourceTree = "<group>"; };
+		AACCADB8264F79ED005C9FBC /* DynamicHeightTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicHeightTableView.swift; sourceTree = "<group>"; };
 		AACCAD2D264D76F1005C9FBC /* NavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBar.swift; sourceTree = "<group>"; };
 		AACCAD34264D79E1005C9FBC /* RegistrationTermsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationTermsViewController.swift; sourceTree = "<group>"; };
 		AACCAD3C264D7E19005C9FBC /* RegistrationTermsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationTermsViewModel.swift; sourceTree = "<group>"; };
@@ -605,6 +619,7 @@
 		AAC78FE5262A6FAD009CC84E /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				AACCAD96264F6DE3005C9FBC /* FeedDetail */,
 				AA53BE59265C1243004A39E2 /* Splash */,
 				AACCAD32264D79B3005C9FBC /* Registration */,
 				AACCAC3F264C3B4C005C9FBC /* Login */,
@@ -740,6 +755,18 @@
 			path = ViewController;
 			sourceTree = "<group>";
 		};
+		AACCAD96264F6DE3005C9FBC /* FeedDetail */ = {
+			isa = PBXGroup;
+			children = (
+				AACCAD97264F6DEE005C9FBC /* FeedDetailViewController.swift */,
+				AACCAD9F264F6FA3005C9FBC /* FeedDetailMessageTableViewCell.swift */,
+				AACCADA4264F72AF005C9FBC /* FeedDetailViewModel.swift */,
+				AACCADA9264F7586005C9FBC /* FeedDetailMessageSection.swift */,
+				AACCADAE264F75A8005C9FBC /* FeedDetailMessageTableViewCellViewModel.swift */,
+			);
+			path = FeedDetail;
+			sourceTree = "<group>";
+		};
 		AACCAC3F264C3B4C005C9FBC /* Login */ = {
 			isa = PBXGroup;
 			children = (
@@ -841,6 +868,7 @@
 				AAD0241E2642A56600F1EC2B /* TitleContentItem.swift */,
 				AAD0241F2642A56600F1EC2B /* BraveWord.swift */,
 				AAD024202642A56600F1EC2B /* Feed.swift */,
+				AACCADB3264F75F2005C9FBC /* FeedMessage.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1037,6 +1065,7 @@
 				AACCAAF3264646E1005C9FBC /* AlertAction.swift */,
 				DABB2CF0263032330061EC98 /* Identifiable.swift */,
 				AACCAA8F2645509C005C9FBC /* ScrollStackView.swift */,
+				AACCADB8264F79ED005C9FBC /* DynamicHeightTableView.swift */,
 				AACCAD2D264D76F1005C9FBC /* NavigationBar.swift */,
 				AACCAD6A264F4867005C9FBC /* PasswordField.swift */,
 				AACCAD8B264F68EC005C9FBC /* Button.swift */,
@@ -1369,6 +1398,7 @@
 				AAD0240D2642A4FB00F1EC2B /* FeedListSection.swift in Sources */,
 				DABDB0F5264F84CD00653739 /* TermViewController.swift in Sources */,
 				AACCAADA2646466A005C9FBC /* MyBadgeCollectionViewCell.swift in Sources */,
+				AACCADB9264F79ED005C9FBC /* DynamicHeightTableView.swift in Sources */,
 				AAC78F91262A67FD009CC84E /* Application.swift in Sources */,
 				AACCAADD2646466A005C9FBC /* MyPageViewController.swift in Sources */,
 				AACCAA952646285D005C9FBC /* TipDetailSecondView.swift in Sources */,
@@ -1400,11 +1430,14 @@
 				AACCAAD52646466A005C9FBC /* MyPostCollectionViewCell.swift in Sources */,
 				DA579E752658B75700E724A4 /* PlaceRouter.swift in Sources */,
 				DABB2CF9263033F60061EC98 /* UIView+Extensions.swift in Sources */,
+				AACCADA0264F6FA3005C9FBC /* FeedDetailMessageTableViewCell.swift in Sources */,
+				AACCADAA264F7586005C9FBC /* FeedDetailMessageSection.swift in Sources */,
 				7E3710CF264124C10054B744 /* SelectContainerViewController.swift in Sources */,
 				AAD024122642A4FB00F1EC2B /* FeedProfileViewModel.swift in Sources */,
 				AAD0243A2643C13C00F1EC2B /* TipSection.swift in Sources */,
 				AACCAAD42646466A005C9FBC /* ProfileModel.swift in Sources */,
 				AAC79002262A7A1D009CC84E /* NavigationController.swift in Sources */,
+				AACCADAF264F75A8005C9FBC /* FeedDetailMessageTableViewCellViewModel.swift in Sources */,
 				7EF2DC64263076F80002E1E3 /* PostMapViewController.swift in Sources */,
 				AACCAAD62646466A005C9FBC /* MyPackageFilterCollectionViewCell.swift in Sources */,
 				AACCAD42264D850D005C9FBC /* TermsCheckItem.swift in Sources */,
@@ -1451,10 +1484,13 @@
 				AACCAADB2646466A005C9FBC /* MyPackageCollectionViewCell.swift in Sources */,
 				AAD024152642A4FB00F1EC2B /* ProfilePostCollectionViewCellViewModel.swift in Sources */,
 				AAD0240F2642A4FB00F1EC2B /* FeedViewController.swift in Sources */,
+				AACCAD98264F6DEE005C9FBC /* FeedDetailViewController.swift in Sources */,
 				DA1284D12658956300764A2D /* AuthResponse.swift in Sources */,
 				DA579E7A2658B76B00E724A4 /* PostRouter.swift in Sources */,
 				AACCAAD82646466A005C9FBC /* MyPostTableViewCell.swift in Sources */,
+				AACCADB4264F75F2005C9FBC /* FeedMessage.swift in Sources */,
 				AACCAAD92646466A005C9FBC /* MyPageCell.swift in Sources */,
+				AACCADA5264F72AF005C9FBC /* FeedDetailViewModel.swift in Sources */,
 				DACA9636264B93FD00E95165 /* SingleImagePicker.swift in Sources */,
 				AAD024282642E5FD00F1EC2B /* TipTableViewCell.swift in Sources */,
 				AAD023F62642A4D200F1EC2B /* UIButton+Extensions.swift in Sources */,
