@@ -136,7 +136,7 @@ class PostImageSelectionViewCell: UICollectionViewCell {
     
     cameraImageView.snp.makeConstraints {
       $0.center.equalTo(contentView)
-      $0.width.height.equalTo(contentView.snp.width).multipliedBy(0.5)
+      $0.width.height.equalTo(30)
     }
     
   }

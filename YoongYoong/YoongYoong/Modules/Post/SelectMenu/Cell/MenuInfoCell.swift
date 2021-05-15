@@ -6,16 +6,35 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 class MenuInfoCell: UITableViewCell {
   
   static let reuseIdentifier = String(describing: MenuInfoCell.self)
   static let height = CGFloat(154)
   
+  private var didDelete: () -> () = {}
+  private var menuCountChanged: (Int) -> () = {_ in}
+  private var containerCountChanged: (Int) -> () = {_ in}
+  private var addMenuDidTap: () -> () = {}
+  private var changeContainer: () -> () = {}
+  
+  // MARK: - Rx
+  var menuCount = PublishSubject<Int>()
+  var containerCount = PublishSubject<Int>()
+  var deleteCell = PublishSubject<Void>()
+  var addMenuCell = PublishSubject<Void>()
+  var menuText  = PublishSubject<String>()
+  var showContainerListView = PublishSubject<Void>()
+  
+  private var disposeBag = DisposeBag()
+  
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
     setupView()
     setupLayout()
+    setSeletedColor()
   }
   
   required init?(coder: NSCoder) {
@@ -24,11 +43,69 @@ class MenuInfoCell: UITableViewCell {
   
   override func prepareForReuse() {
     super.prepareForReuse()
-    addMenuButton.isHidden = true
-    headerView.isHidden = false
-    bodyView.isHidden = false
+    disposeBag = DisposeBag()
   }
   
+  // MARK: - Setup Cell
+  func bind() {
+    let changingMenuCount = PublishSubject<Int>()
+    menuCountChanged = { changingMenuCount.onNext($0)}
+    menuCount = changingMenuCount
+    
+    let changingContainerCount = PublishSubject<Int>()
+    containerCountChanged = { changingContainerCount.onNext($0)}
+    containerCount = changingContainerCount
+    
+    let deletingCell = PublishSubject<Void>()
+    didDelete = { deletingCell.onNext(())}
+    deleteCell = deletingCell
+    
+    let adding = PublishSubject<Void>()
+    addMenuDidTap = {adding.onNext(())}
+    addMenuCell = adding
+    
+    let menuTextEditingDidEnd = PublishSubject<String>()
+    self.menuText = menuTextEditingDidEnd
+    menuTextField.rx.controlEvent(.editingDidEnd)
+      .map{ self.menuTextField.text! }
+      .bind(to: menuTextEditingDidEnd)
+      .disposed(by: disposeBag)
+      
+    
+    let changingContainer = PublishSubject<Void>()
+    changeContainer = { changingContainer.onNext(()) }
+    showContainerListView = changingContainer
+  }
+  
+  func setLastCell() {
+    self.addMenuButton.isHidden = false
+    self.headerView.isHidden = true
+    self.bodyView.isHidden = true
+  }
+  
+  func setCellData(_ data: MenuInfo, _ i: Int) {
+    self.addMenuButton.isHidden = true
+    self.headerView.isHidden = false
+    self.bodyView.isHidden = false
+    
+    cellTitle.text = "구매 정보\(i)"
+    menuCountLabel.text = "\(data.menuCount)"
+    containerCountLabel.text = "\(data.containerCount)"
+    menuTextField.text = "\(data.menu ?? "")"
+    
+    
+    containerTextField.textColor = data.container == nil ? #colorLiteral(red: 0.7803921569, green: 0.7803921569, blue: 0.8039215686, alpha: 1) : .black
+    containerTextField.text = "\(data.container ?? "용기 종류")"
+  }
+  
+  func setSeletedColor() {
+    let backgroundView = UIView()
+    backgroundView.backgroundColor = .white
+    self.selectedBackgroundView = backgroundView
+  }
+
+  
+  // MARK: - Actions
   @objc
   private func deleteButtonDidTap() {
     didDelete()
@@ -36,21 +113,21 @@ class MenuInfoCell: UITableViewCell {
   
   @objc
   private func menuPlusButtonDidTap() {
-    menuPlusDidTap()
+    menuCountChanged(+1)
   }
   @objc
   private func menuMinusButtonDidTap() {
-    menuMinusDidTap()
+    menuCountChanged(-1)
   }
   
   @objc
   private func containerPlusButtonDidTap() {
-    containerPlusDidTap()
+    containerCountChanged(+1)
     
   }
   @objc
   private func containerMinusButtonDidTap() {
-    containerMinusDidTap()
+    containerCountChanged(-1)
   }
   
   @objc
@@ -58,14 +135,12 @@ class MenuInfoCell: UITableViewCell {
     addMenuDidTap()
   }
   
+  @objc
+  private func containerTextFieldDidTap(_ sender: UITapGestureRecognizer) {
+    changeContainer()
+  }
   
-  var didDelete: () -> () = {}
-  var menuPlusDidTap: () -> () = {}
-  var menuMinusDidTap: () -> () = {}
-  var containerPlusDidTap: () -> () = {}
-  var containerMinusDidTap: () -> () = {}
-  var addMenuDidTap: () -> () = {}
-  
+  // MARK: - Setup View
   private func setupView() {
     menuTextFieldView.add(menuTextField)
     containerTextFieldView.add(containerTextField)
@@ -203,24 +278,18 @@ class MenuInfoCell: UITableViewCell {
   }
   
   private func configuration() {}
-  
-  func setSeletedColor() {
-    let backgroundView = UIView()
-    backgroundView.backgroundColor = .white
-    self.selectedBackgroundView = backgroundView
-  }
+
   
   // MARK: - Views
   
   // - UIView
-  
-  let headerView = UIView().then {
+  private let headerView = UIView().then {
     $0.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
     $0.backgroundColor = UIColor.brandColorGreen02
     $0.layer.cornerRadius = 20
     $0.layer.applySketchShadow(color: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.05), x: 0, y: 6, blur: 20, spread: 0)
   }
-  let bodyView = UIView().then {
+  private let bodyView = UIView().then {
     $0.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
     $0.backgroundColor = UIColor.brandColorGreen03
     $0.layer.cornerRadius = 20
@@ -244,7 +313,7 @@ class MenuInfoCell: UITableViewCell {
   }
   
   // UILabel
-  let menuCountLabel = UILabel().then {
+  private let menuCountLabel = UILabel().then {
     $0.textAlignment = .center
     $0.font = .krBody2
     $0.text = "1"
@@ -257,7 +326,7 @@ class MenuInfoCell: UITableViewCell {
   }
   
   
-  let cellTitle = UILabel().then {
+  private let cellTitle = UILabel().then {
     $0.font = .krTitle3
     $0.textAlignment = .center
     $0.text = "구매 정보"
@@ -269,7 +338,7 @@ class MenuInfoCell: UITableViewCell {
     $0.textColor = UIColor.brandColorGreen01
   }
   
-  let containerCountLabel = UILabel().then {
+  private let containerCountLabel = UILabel().then {
     $0.textAlignment = .center
     $0.font = .krBody2
     $0.text = "1"
@@ -277,33 +346,34 @@ class MenuInfoCell: UITableViewCell {
   
   
   // UIButton
-  lazy var deleteCellButton = UIButton().then {
+  private lazy var deleteCellButton = UIButton().then {
     $0.addTarget(self, action: #selector(deleteButtonDidTap), for: .touchUpInside)
     $0.setImage(UIImage(named: "closeButtonGreen"), for: .normal)
   }
   
-  lazy var menuPlusButton = UIButton().then {
+  private lazy var menuPlusButton = UIButton().then {
     $0.setImage(UIImage(named: "plus.circle.blue"), for: .normal)
     $0.addTarget(self, action: #selector(menuPlusButtonDidTap), for: .touchUpInside)
     
   }
-  lazy var menuMinusButton = UIButton().then {
+  private lazy var menuMinusButton = UIButton().then {
     $0.setImage(UIImage(named: "minus.circle.blue"), for: .normal)
     $0.addTarget(self, action: #selector(menuMinusButtonDidTap), for: .touchUpInside)
   }
   
-  lazy var containerPlusButton = UIButton().then {
+  private lazy var containerPlusButton = UIButton().then {
     $0.setImage(UIImage(named: "plus.circle.blue"), for: .normal)
     $0.addTarget(self, action: #selector(containerPlusButtonDidTap), for: .touchUpInside)
     
   }
-  lazy var containerMinusButton = UIButton().then {
+  private lazy var containerMinusButton = UIButton().then {
     $0.setImage(UIImage(named: "minus.circle.blue"), for: .normal)
     $0.addTarget(self, action: #selector(containerMinusButtonDidTap), for: .touchUpInside)
   }
   
-  lazy var addMenuButton = UIButton().then {
+  private lazy var addMenuButton = UIButton().then {
     $0.setTitle("메뉴 추가하기", for: .normal)
+    $0.addUnderBar(.brandColorGreen01)
     $0.titleLabel?.font = .krTitle3
     $0.setTitleColor(UIColor.brandColorGreen01, for: .normal)
     $0.isHidden = true
@@ -311,7 +381,7 @@ class MenuInfoCell: UITableViewCell {
   }
   
   // UITextField
-  let menuTextField = UITextField().then {
+  private let menuTextField = UITextField().then {
     $0.placeholder = "메뉴명"
     $0.borderStyle = .none
     $0.font = .krBody2
@@ -319,11 +389,14 @@ class MenuInfoCell: UITableViewCell {
   }
   
   
-  let containerTextField = UITextField().then {
-    $0.placeholder = "용기 종류"
+  private lazy var containerTextField = UILabel().then {
+    $0.text = "용기 종류"
     $0.font = .krBody2
-    $0.borderStyle = .none
     $0.backgroundColor = .white
+    $0.textColor = #colorLiteral(red: 0.7803921569, green: 0.7803921569, blue: 0.8039215686, alpha: 1)
+    $0.isUserInteractionEnabled = true
+    let tapGesture = UITapGestureRecognizer(target: self, action: #selector(containerTextFieldDidTap(_:)))
+    $0.addGestureRecognizer(tapGesture)
   }
   
 }

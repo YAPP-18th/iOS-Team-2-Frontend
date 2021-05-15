@@ -10,15 +10,20 @@ import UIKit
 class MapStoreInfoView: UIView {
   
   let nameLabel = UILabel().then {
+    $0.font = .krTitle2
     $0.text = "점포명"
   }
   
   let distanceLabel = UILabel().then {
+    $0.font = .krCaption2
     $0.text = "100m"
+    $0.textColor = .systemGrayText02
   }
   
   let postCountLabel = UILabel().then {
+    $0.font = .krCaption2
     $0.text = "|   포스트 20개"
+    $0.textColor = .systemGrayText02
   }
   
   let locationContainerView = UIView()
@@ -29,6 +34,7 @@ class MapStoreInfoView: UIView {
   }
   
   let locationLabel = UILabel().then {
+    $0.font = .krCaption2
     $0.text = "서울 송파구 송파대로 106-17"
   }
   
@@ -40,6 +46,7 @@ class MapStoreInfoView: UIView {
   }
   
   let timeLabel = UILabel().then {
+    $0.font = .krCaption2
     $0.text = "매일 00:00 - 24:00"
   }
   

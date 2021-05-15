@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 class ContainerListItemCell: UITableViewCell {
   
@@ -22,9 +24,23 @@ class ContainerListItemCell: UITableViewCell {
     $0.text = "L"
 
   }
-  private lazy var favoriteButton = UIButton().then {
+  lazy var favoriteButton = UIButton().then {
     $0.setImage(UIImage(named: "star.green"), for: .normal)
+    $0.setImage(UIImage(named: "star.fill.green"), for: .selected)
     $0.addTarget(self, action: #selector(favoriteButtonDidTap), for: .touchUpInside)
+  }
+  
+  func configureCell(_ item: ContainerCellModel) {
+    titleLabel.text = item.title
+    sizeLabel.text = item.size
+    favoriteButton.isSelected = item.selected
+  }
+  
+  var isFavoirite = PublishSubject<Void>()
+  func bind() {
+    let changingFavoriteStatus = PublishSubject<Void>()
+    favoriteDidTap = { changingFavoriteStatus.onNext(())}
+    isFavoirite = changingFavoriteStatus
   }
   
   var favoriteDidTap: () -> () = {}

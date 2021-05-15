@@ -13,15 +13,16 @@ import Then
 
 class PostSearchViewController: ViewController {
   
-  let progressView = UIProgressView()
-  let titleLabel = UILabel()
-  let searchBarContainer = UIView()
-  let searchTextField = UITextField()
-  let searchButton = UIButton()
-  
-  let listContainer = UIView()
-  let searchHistoryView = PostSearchHistoryView()
-  let searchResultView = PostSearchResultView()
+  private let imageView = UIImageView().then {
+    $0.image = UIImage(named: "postYongyong")
+  }
+  private let titleLabel = UILabel()
+  private let searchBarContainer = UIView()
+  private let searchTextField = UITextField()
+  private let searchButton = UIButton()
+  private let listContainer = UIView()
+  private let searchHistoryView = PostSearchHistoryView()
+  private let searchResultView = PostSearchResultView()
     
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -67,6 +68,7 @@ class PostSearchViewController: ViewController {
   
   override func setupView() {
     super.setupView()
+    view.addSubview(imageView)
     view.addSubview(titleLabel)
     searchBarContainer.addSubview(searchTextField)
     searchBarContainer.addSubview(searchButton)
@@ -80,14 +82,19 @@ class PostSearchViewController: ViewController {
   override func setupLayout() {
     super.setupLayout()
     
+    imageView.snp.makeConstraints {
+      $0.width.height.equalTo(172)
+      $0.center.equalTo(view.snp.center)
+    }
+    
     titleLabel.snp.makeConstraints{ make in
-      make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(16)
+      make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(40)
       make.left.equalTo(view.snp.left).offset(16)
     }
     
     searchBarContainer.snp.makeConstraints { make in
-      make.width.equalTo(view.snp.width).multipliedBy(0.93)
-      make.top.equalTo(titleLabel.snp.bottom).offset(32)
+      make.width.equalTo(342)
+      make.top.equalTo(titleLabel.snp.bottom).offset(16)
       make.height.equalTo(40)
       make.centerX.equalTo(view)
     }
@@ -123,14 +130,8 @@ class PostSearchViewController: ViewController {
   
   override func configuration() {
     super.configuration()
-    // 임시 dismiss 버튼
-    self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(closeButtonDidTap))
-    
+
     view.backgroundColor = .white
-    progressView.do {
-      $0.progressTintColor = .brandColorGreen01
-      $0.progress = 0.5
-    }
     
     titleLabel.do {
       $0.text = "어디에서 용기를 냈나요?"
@@ -148,7 +149,6 @@ class PostSearchViewController: ViewController {
       $0.delegate = self
       $0.placeholder = "검색어를 입력하세요"
       $0.clearButtonMode = .whileEditing
-      $0.becomeFirstResponder()
       $0.font = UIFont.sdGhothicNeo(ofSize: 16, weight: .regular)
     }
     
@@ -195,8 +195,15 @@ extension PostSearchViewController: UITableViewDelegate {
 
 extension PostSearchViewController: UITextFieldDelegate {
   func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+    imageView.isHidden = true
     searchResultView.isHidden = true
     searchHistoryView.isHidden = false
     return true
+  }
+  
+  func textFieldDidEndEditing(_ textField: UITextField) {
+    imageView.isHidden = false
+    searchResultView.isHidden = true
+    searchHistoryView.isHidden = true
   }
 }

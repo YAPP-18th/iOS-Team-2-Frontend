@@ -31,6 +31,7 @@ class Navigator {
     case selectImage(viewModel: PostImageSelectionViewModel)
     case selectMenu(viewModel: SelectMenuViewModel)
     case selectContainer(viewModel: SelectContainerViewModel)
+    case addReview(viewModel: PostReviewViewModel)
   }
   
   enum Transition {
@@ -41,6 +42,7 @@ class Navigator {
     
     case root(in: UIWindow)
     case navigation(_ direction: Direction = .right)
+    case post
     case customModal
     case modal
     case modalFullScreen
@@ -90,15 +92,17 @@ class Navigator {
       let postMapVC = PostMapViewController(viewModel: viewModel, navigator: self)
       return postMapVC
     case .selectImage(let viewModel):
-    let vc = PostImageSelectionViewController(viewModel: viewModel, navigator: self)
-    return vc
+      let vc = PostImageSelectionViewController(viewModel: viewModel, navigator: self)
+      return vc
     case .selectMenu(let viewModel):
-    let selectMenuVc = SelectMenuViewController(viewModel: viewModel, navigator: self)
-    return selectMenuVc
+      let selectMenuVc = SelectMenuViewController(viewModel: viewModel, navigator: self)
+      return selectMenuVc
     case .selectContainer(let viewModel):
-    let selectContainerVC = SelectContainerViewController(viewModel: viewModel, navigator: self)
-    return selectContainerVC
-      
+      let selectContainerVC = SelectContainerViewController(viewModel: viewModel, navigator: self)
+      return selectContainerVC
+    case .addReview(let viewModel):
+      let reviewVC = PostReviewViewController(viewModel: viewModel, navigator: self)
+      return reviewVC
     case .feedProfile(let viewModel):
       let feedProfileVC = FeedProfileViewController(viewModel: viewModel, navigator: self)
       return feedProfileVC
@@ -144,6 +148,13 @@ class Navigator {
       // present modally
       DispatchQueue.main.async {
         let nav = NavigationController(rootViewController: target)
+        sender.present(nav, animated: true, completion: nil)
+      }
+      
+    case .post:
+      DispatchQueue.main.async {
+        let nav = PostNavigationController(rootViewController: target)
+        nav.modalPresentationStyle = .fullScreen
         sender.present(nav, animated: true, completion: nil)
       }
       
