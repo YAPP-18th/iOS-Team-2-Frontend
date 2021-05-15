@@ -10,6 +10,7 @@ import RxSwift
 import RxCocoa
 
 class LoginViewModel : ViewModel, ViewModelType {
+  
   struct Input {
     let registration: Observable<Void>
   }

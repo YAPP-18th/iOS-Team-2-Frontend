@@ -6,3 +6,14 @@
 //
 
 import Foundation
+class SettingViewModel : ViewModel, ViewModelType {
+  struct Input {
+    
+  }
+  struct Output {
+    
+  }
+  func transform(input: Input) -> Output {
+    return .init()
+  }
+}

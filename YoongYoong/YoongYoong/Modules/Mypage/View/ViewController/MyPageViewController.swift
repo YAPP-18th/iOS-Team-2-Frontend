@@ -238,10 +238,14 @@ class MyPageViewController: ViewController {
       vc.hidesBottomBarWhenPushed = true
       self?.navigationController?.pushViewController(vc, animated: true)
     }.disposed(by: disposeBag)
-    leftButtonItem.rx.tap.bind{
-      print("알림뷰로")
+    leftButtonItem.rx.tap.bind{ [weak self] in
+      self?.navigator.show(segue: .alertList(viewModel: AlertViewModel()), sender: self, transition: .navigation())
+    }.disposed(by: disposeBag)
+    rightButtonItem.rx.tap.bind{ [weak self] in
+      self?.navigator.show(segue: .settingList(viewModel: SettingViewModel()), sender: self, transition: .navigation())
     }.disposed(by: disposeBag)
     self.loadTrigger.onNext(())
+    
   }
   
 }

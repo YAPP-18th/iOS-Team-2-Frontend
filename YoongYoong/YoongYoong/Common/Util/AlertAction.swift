@@ -36,12 +36,6 @@ extension AlertAction {
     
     denyButton.isHidden = false
     
-    grantButton.layer.maskedCorners = [.layerMaxXMaxYCorner]
-    grantButton.layer.cornerRadius = 10
-    
-    denyButton.layer.maskedCorners = [.layerMinXMaxYCorner]
-    denyButton.layer.cornerRadius = 10
-    
     buttonAction = okAction
     cancelAction = cancelBtnAction
     titleLabel.text = title
@@ -112,7 +106,6 @@ extension AlertAction {
           self.alertView.alpha = 0
           self.blackView.alpha = 0
         }, completion: { _ in
-          self.denyAction()
           self.cancelAction?()
           self.blackView.removeFromSuperview()
           self.alertView.removeFromSuperview()
@@ -133,7 +126,6 @@ class BaseAlert: UIView {
   
   let alertView: UIView = {
     $0.backgroundColor = UIColor.white
-    $0.layer.cornerRadius = 10
     $0.translatesAutoresizingMaskIntoConstraints = false
     return $0
   }(UIView(frame: .zero))
@@ -149,19 +141,24 @@ class BaseAlert: UIView {
   
   let grantButton: UIButton = {
     $0.translatesAutoresizingMaskIntoConstraints = false
-    $0.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+    $0.titleLabel?.font = .sdGhothicNeo(ofSize: 18, weight: .bold)
     $0.backgroundColor = UIColor.white
     $0.setTitleColor(UIColor.brandColorGreen01, for: .normal)
     $0.setTitle("", for: .normal)
+    $0.layer.borderWidth = 0.5
+    $0.layer.borderColor = UIColor.init(white: 60, alpha: 0.36).cgColor
+
     return $0
   }(UIButton(frame: .zero))
   
   let denyButton: UIButton = {
     $0.translatesAutoresizingMaskIntoConstraints = false
-    $0.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+    $0.titleLabel?.font = .sdGhothicNeo(ofSize: 18, weight: .regular)
     $0.backgroundColor = UIColor.white
     $0.setTitleColor(UIColor.brandColorGreen01, for: .normal)
     $0.setTitle("", for: .normal)
+    $0.layer.borderWidth = 0.5
+    $0.layer.borderColor = UIColor.init(white: 60, alpha: 0.36).cgColor
     return $0
   }(UIButton(frame: .zero))
   
@@ -171,8 +168,6 @@ class BaseAlert: UIView {
     $0.addArrangedSubview(grantButton)
     $0.distribution = .fillEqually
     $0.axis = .horizontal
-    $0.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
-    $0.layer.cornerRadius = 10
     return $0
   }(UIStackView(frame: .zero))
   

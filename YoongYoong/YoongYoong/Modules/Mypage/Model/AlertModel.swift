@@ -6,3 +6,9 @@
 //
 
 import Foundation
+struct AlertModel {
+  let id: Int
+  let profile: String
+  let aletTitle: String
+  var read: Bool
+}

@@ -6,3 +6,9 @@
 //
 
 import Foundation
+import RxSwift
+class ManageEmailViewController : ViewController {
+  override func viewDidLoad() {
+    super.viewDidLoad()
+  }
+}
