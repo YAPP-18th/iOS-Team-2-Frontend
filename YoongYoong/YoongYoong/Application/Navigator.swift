@@ -22,6 +22,7 @@ class Navigator {
     case registrationTerms(viewModel: RegistrationTermsViewModel)
     case registrationEmail(viewModel: RegistrationEmailViewModel)
     case registrationPassword(viewModel: RegistrationPasswordViewModel)
+    case registrationProfile(viewModel: RegistrationProfileViewModel)
     case tip(viewModel: TipViewModel)
     case feedProfile(viewModel: FeedProfileViewModel)
     case onboarding(viewModel: ViewModel? = nil)
@@ -65,6 +66,9 @@ class Navigator {
     case .registrationPassword(let viewModel):
       let regPasswordVC = RegistrationPasswordViewController(viewModel: viewModel, navigator: self)
       return regPasswordVC
+    case .registrationProfile(let viewModel):
+      let regProfileVC = RegistrationProfileViewController(viewModel: viewModel, navigator: self)
+      return regProfileVC
     case.tip(let viewModel):
       let tipVC = TipViewController(viewModel: viewModel, navigator: self)
       return tipVC

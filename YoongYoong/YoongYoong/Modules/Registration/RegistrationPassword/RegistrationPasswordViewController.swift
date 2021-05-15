@@ -60,6 +60,19 @@ class RegistrationPasswordViewController: ViewController {
     super.viewDidLoad()
   }
   
+  override func bindViewModel() {
+    super.bindViewModel()
+    guard let viewModel = self.viewModel as? RegistrationPasswordViewModel else { return }
+    let input = RegistrationPasswordViewModel.Input(
+      next: self.nextButton.rx.tap.asObservable()
+    )
+    
+    let output = viewModel.transform(input: input)
+    
+    output.registrationProfile.drive(onNext: { viewModel in
+      self.navigator.show(segue: .registrationProfile(viewModel: viewModel), sender: self, transition: .navigation(.right))
+    }).disposed(by: disposeBag)
+  }
   
   
   override func configuration() {

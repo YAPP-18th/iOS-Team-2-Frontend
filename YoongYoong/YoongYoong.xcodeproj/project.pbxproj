@@ -83,6 +83,8 @@
 		AACCAD6B264F4867005C9FBC /* PasswordField.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCAD6A264F4867005C9FBC /* PasswordField.swift */; };
 		AACCAD71264F5446005C9FBC /* RegistrationPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCAD70264F5446005C9FBC /* RegistrationPasswordViewController.swift */; };
 		AACCAD79264F5725005C9FBC /* RegistrationPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCAD78264F5725005C9FBC /* RegistrationPasswordViewModel.swift */; };
+		AACCAD7F264F5C89005C9FBC /* RegistrationProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCAD7E264F5C89005C9FBC /* RegistrationProfileViewController.swift */; };
+		AACCAD87264F63A7005C9FBC /* RegistrationProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCAD86264F63A7005C9FBC /* RegistrationProfileViewModel.swift */; };
 		AAD023F62642A4D200F1EC2B /* UIButton+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAD023F42642A4D200F1EC2B /* UIButton+Extensions.swift */; };
 		AAD023F72642A4D200F1EC2B /* UILabel+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAD023F52642A4D200F1EC2B /* UILabel+Extensions.swift */; };
 		AAD0240A2642A4FB00F1EC2B /* FeedTipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAD023FC2642A4FB00F1EC2B /* FeedTipView.swift */; };
@@ -231,6 +233,8 @@
 		AACCAD6A264F4867005C9FBC /* PasswordField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordField.swift; sourceTree = "<group>"; };
 		AACCAD70264F5446005C9FBC /* RegistrationPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationPasswordViewController.swift; sourceTree = "<group>"; };
 		AACCAD78264F5725005C9FBC /* RegistrationPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationPasswordViewModel.swift; sourceTree = "<group>"; };
+		AACCAD7E264F5C89005C9FBC /* RegistrationProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationProfileViewController.swift; sourceTree = "<group>"; };
+		AACCAD86264F63A7005C9FBC /* RegistrationProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationProfileViewModel.swift; sourceTree = "<group>"; };
 		AAD023F42642A4D200F1EC2B /* UIButton+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+Extensions.swift"; sourceTree = "<group>"; };
 		AAD023F52642A4D200F1EC2B /* UILabel+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UILabel+Extensions.swift"; sourceTree = "<group>"; };
 		AAD023FC2642A4FB00F1EC2B /* FeedTipView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedTipView.swift; sourceTree = "<group>"; };
@@ -631,6 +635,7 @@
 		AACCAD32264D79B3005C9FBC /* Registration */ = {
 			isa = PBXGroup;
 			children = (
+				AACCAD7D264F5C71005C9FBC /* RegistrationProfile */,
 				AACCAD6F264F5430005C9FBC /* RegistrationPassword */,
 				AACCAD5C264F454B005C9FBC /* RegistrationEmail */,
 				AACCAD33264D79C4005C9FBC /* RegistrationTerms */,
@@ -664,6 +669,15 @@
 				AACCAD78264F5725005C9FBC /* RegistrationPasswordViewModel.swift */,
 			);
 			path = RegistrationPassword;
+			sourceTree = "<group>";
+		};
+		AACCAD7D264F5C71005C9FBC /* RegistrationProfile */ = {
+			isa = PBXGroup;
+			children = (
+				AACCAD7E264F5C89005C9FBC /* RegistrationProfileViewController.swift */,
+				AACCAD86264F63A7005C9FBC /* RegistrationProfileViewModel.swift */,
+			);
+			path = RegistrationProfile;
 			sourceTree = "<group>";
 		};
 		AAD023F32642A4B600F1EC2B /* Recovered References */ = {
@@ -1159,6 +1173,7 @@
 				AACCAD35264D79E1005C9FBC /* RegistrationTermsViewController.swift in Sources */,
 				AAD0240E2642A4FB00F1EC2B /* FeedViewModel.swift in Sources */,
 				AACCAA9F26463A0E005C9FBC /* TipDetailThirdView.swift in Sources */,
+				AACCAD7F264F5C89005C9FBC /* RegistrationProfileViewController.swift in Sources */,
 				7EA4F3DD2624888B001C754C /* PostSearchHistoryItemCell.swift in Sources */,
 				7EDCDB6F262321D60029BE45 /* PostSearchViewController.swift in Sources */,
 				7E32AC652636F6F200E694EB /* PostImageSelectionViewController.swift in Sources */,
@@ -1228,6 +1243,7 @@
 				AACCAD66264F4833005C9FBC /* RegistrationEmailViewModel.swift in Sources */,
 				AAC79015262A91A4009CC84E /* TipViewModel.swift in Sources */,
 				AAD024162642A4FB00F1EC2B /* ProfilePostListSection.swift in Sources */,
+				AACCAD87264F63A7005C9FBC /* RegistrationProfileViewModel.swift in Sources */,
 				AACCAADB2646466A005C9FBC /* MyPackageCollectionViewCell.swift in Sources */,
 				AAD024152642A4FB00F1EC2B /* ProfilePostCollectionViewCellViewModel.swift in Sources */,
 				AAD0240F2642A4FB00F1EC2B /* FeedViewController.swift in Sources */,
