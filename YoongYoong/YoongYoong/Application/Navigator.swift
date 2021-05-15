@@ -20,6 +20,7 @@ class Navigator {
     case tabs(viewModel: TabBarViewModel)
     case tip(viewModel: TipViewModel)
     case feedProfile(viewModel: FeedProfileViewModel)
+    case feedDetail(viewModel: FeedDetailViewModel)
     case onboarding(viewModel: ViewModel? = nil)
     case post(viewModel: PostSearchViewModel)
     case postMap(viewModel: PostMapViewModel)
@@ -82,6 +83,9 @@ class Navigator {
     case .feedProfile(let viewModel):
       let feedProfileVC = FeedProfileViewController(viewModel: viewModel, navigator: self)
       return feedProfileVC
+    case .feedDetail(let viewModel):
+      let feedDetailVC = FeedDetailViewController(viewModel: viewModel, navigator: self)
+      return feedDetailVC
     }
   }
   

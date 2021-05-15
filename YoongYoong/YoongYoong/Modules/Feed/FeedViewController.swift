@@ -47,7 +47,7 @@ class FeedViewController: ViewController {
   override func bindViewModel() {
     super.bindViewModel()
     guard let viewModel = viewModel as? FeedViewModel else { return }
-    let input = FeedViewModel.Input()
+    let input = FeedViewModel.Input(feedSelected: self.tableView.rx.itemSelected.asObservable())
     let output = viewModel.transform(input: input)
     
     let dataSource = RxTableViewSectionedReloadDataSource<FeedListSection>(configureCell: { dataSource, tableView, indexPath, item in
@@ -69,6 +69,10 @@ class FeedViewController: ViewController {
     
     output.profile.drive(onNext: { [weak self] viewModel in
       self?.navigator.show(segue: .feedProfile(viewModel: viewModel), sender: self, transition: .navigation())
+    }).disposed(by: disposeBag)
+    
+    output.detail.drive(onNext: { [weak self] viewModel in
+      self?.navigator.show(segue: .feedDetail(viewModel: viewModel), sender: self, transition: .navigation(.right))
     }).disposed(by: disposeBag)
   }
 }
