@@ -8,11 +8,16 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import RxDataSources
 
-
-let sections = ["자주 쓰는 용기", "밀폐용기", "냄비", "텀블러", "보온 도시락", "프라이팬"]
 
 class SelectContainerViewController: ViewController {
+  
+  let topIndicatorView = UIView().then {
+    $0.backgroundColor = .systemGray05
+    $0.layer.cornerRadius = 2.5
+    $0.layer.masksToBounds = true
+  }
   
   private let layout = UICollectionViewFlowLayout().then {
     $0.scrollDirection = .horizontal
@@ -24,11 +29,13 @@ class SelectContainerViewController: ViewController {
     $0.showsHorizontalScrollIndicator = false
     $0.delegate = self
     $0.dataSource = self
-    $0.delegate?.collectionView?($0, didSelectItemAt: IndexPath(row: 0, section: 0))
     $0.selectItem(at: IndexPath(row: 0, section: 0), animated: false, scrollPosition: .left)
   }
   private let indicator = UIView().then { $0.backgroundColor = .black }
   private let tableView = UITableView()
+  private let grayLine = UIView().then {
+    $0.backgroundColor = .systemGray05
+  }
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -36,86 +43,117 @@ class SelectContainerViewController: ViewController {
   
   override func bindViewModel() {
     super.bindViewModel()
+    
+    guard let viewModel = viewModel as? SelectContainerViewModel else { return }
+    
+    
+    let input = SelectContainerViewModel.Input(favoriteDidTap: PublishSubject<IndexPath>(), itemSelected: tableView.rx.itemSelected.asObservable())
+    
+    let output = viewModel.transform(input: input)
+    
+    let datasource = RxTableViewSectionedReloadDataSource<ContainerSection>(configureCell: { datasource, tv, indexPath, item in
+      guard let cell = tv.dequeueReusableCell(withIdentifier: ContainerListItemCell.reuseIdentifier, for: indexPath) as? ContainerListItemCell else { return UITableViewCell()}
+      
+      cell.configureCell(item)
+      cell.bind()
+      cell.isFavoirite
+        .map { indexPath }
+        .bind(to: input.favoriteDidTap)
+        .disposed(by: self.disposeBag)
+      
+      return cell
+    })
+    
+    output.containers
+      .bind(to: tableView.rx.items(dataSource: datasource))
+      .disposed(by: disposeBag)
+    
+    output.dismiss
+      .subscribe(onNext: { [weak self] in
+        self?.dismiss(animated: true, completion: nil)
+      }).disposed(by: disposeBag)
+    
   }
   
   override func setupView() {
     super.setupView()
-    view.adds([containerListTabBar, tableView, indicator])
+    view.adds([topIndicatorView,containerListTabBar, grayLine, tableView, indicator])
   }
   
   override func setupLayout() {
     super.setupLayout()
     
+    topIndicatorView.snp.makeConstraints {
+      $0.width.equalTo(58)
+      $0.height.equalTo(5)
+      $0.centerX.equalTo(view)
+      $0.top.equalTo(view).offset(14)
+    }
+    
     containerListTabBar.snp.makeConstraints {
-      $0.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+      $0.top.equalTo(topIndicatorView.snp.bottom).offset(30)
       $0.left.right.equalTo(view)
       $0.height.equalTo(50)
     }
     
+    grayLine.snp.makeConstraints {
+      $0.top.equalTo(containerListTabBar.snp.bottom)
+      $0.left.right.equalTo(view)
+      $0.height.equalTo(8)
+    }
+    
     tableView.snp.makeConstraints {
-      $0.top.equalTo(containerListTabBar.snp.bottom).offset(8)
+      $0.top.equalTo(grayLine.snp.bottom)
       $0.left.right.bottom.equalTo(view)
     }
-  
-    indicator.snp.makeConstraints {
-      $0.width.equalTo(25)
-      $0.bottom.equalTo(containerListTabBar.snp.bottom)
-      $0.height.equalTo(2)
-      $0.centerX.equalTo(60)
-    }
+
     
   }
   
   override func configuration() {
     super.configuration()
-    view.backgroundColor = #colorLiteral(red: 0.8980392157, green: 0.8980392157, blue: 0.9176470588, alpha: 1)
+    view.backgroundColor = .white
+    view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+    view.layer.cornerRadius = 15
+    
     tableView.do {
       $0.register(ContainerListItemCell.self, forCellReuseIdentifier: ContainerListItemCell.reuseIdentifier)
       $0.register(ContainerListHeaderView.self, forHeaderFooterViewReuseIdentifier: ContainerListHeaderView.reuseIdentifier)
       $0.separatorStyle = .none
       $0.rowHeight = ContainerListItemCell.cellHeight
-      $0.delegate = self
-      $0.dataSource = self
     }
     
+   tableView.rx.setDelegate(self).disposed(by: disposeBag)
+    
   }
-  var flag = false
+  
+  private var currentTopSection = 0
+  private var flag = false
 
 }
 
 // MARK: - TableView
 extension SelectContainerViewController: UITableViewDelegate {
   func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-    flag = true
-  }
-  
-  func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-    guard let indexPaths = tableView.indexPathsForVisibleRows else { return }
-    guard let topSection = indexPaths.min(), let cell = containerListTabBar.cellForItem(at: IndexPath(row: topSection.section, section: 0)) as? ContainerListTabBarCell else { return }
-
-    if flag {
-      containerListTabBar.selectItem(at: IndexPath(row: topSection.section, section: 0), animated: true, scrollPosition: .centeredHorizontally)
-      self.animateIndicator(cell, IndexPath(row: topSection.section, section: 0))
+    if scrollView is UITableView {
+      flag = true
     }
-
   }
   
-  func tableView(_ tableView: UITableView, didEndDisplayingHeaderView view: UIView, forSection section: Int) {
-      guard let indexPaths = tableView.indexPathsForVisibleRows else { return }
-      guard let topSection = indexPaths.min(), let cell = containerListTabBar.cellForItem(at: IndexPath(row: topSection.section, section: 0)) as? ContainerListTabBarCell else { return }
+  func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    if flag == true {
+      guard let indexPaths = tableView.indexPathsForVisibleRows, let topSection = indexPaths.map({$0.section}).min(), currentTopSection != topSection else { return }
 
-      if flag {
-        containerListTabBar.selectItem(at: IndexPath(row: topSection.section, section: 0), animated: true, scrollPosition: .centeredHorizontally)
-      
-        self.animateIndicator(cell, IndexPath(row: topSection.section, section: 0))
-      }
-
+      currentTopSection = topSection
+      containerListTabBar.selectItem(at: IndexPath(row: topSection, section: 0), animated: true, scrollPosition: .centeredHorizontally)
+    }
   }
+ 
   
   func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
     guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: ContainerListHeaderView.reuseIdentifier) as? ContainerListHeaderView else { return UIView()}
-    header.imageView.image = #imageLiteral(resourceName: "star.green")
-    header.title.text = sections[section]
+    header.imageView.image = Container.sectionImage(section)
+    header.title.text = Container.sectionTitle(section)
     return header
   }
   
@@ -128,66 +166,38 @@ extension SelectContainerViewController: UITableViewDelegate {
   }
 }
 
-extension SelectContainerViewController: UITableViewDataSource {
-  func numberOfSections(in tableView: UITableView) -> Int {
-    return sections.count
-  }
-  
-  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return 9
-  }
-  
-  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    guard let cell = tableView.dequeueReusableCell(withIdentifier: ContainerListItemCell.reuseIdentifier) as? ContainerListItemCell else {
-      return UITableViewCell()
-    }
-    cell.favoriteDidTap = {
-      
-    }
-    return cell
-  }
-}
-
 // MARK: - CollectionView
 extension SelectContainerViewController: UICollectionViewDelegate {
-  private func animateIndicator(_ cell: ContainerListTabBarCell, _ indexPath: IndexPath) {
-    indicator.snp.removeConstraints()
-    indicator.snp.makeConstraints {
-      $0.centerX.equalTo(cell)
-      $0.width.equalTo(25)
-      $0.bottom.equalTo(containerListTabBar.snp.bottom)
-      $0.height.equalTo(2)
-    }
-    UIView.animate(withDuration: 0.3, animations: view.layoutIfNeeded )
-    containerListTabBar.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
-  }
-  
   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-    guard let cell = collectionView.cellForItem(at: indexPath) as? ContainerListTabBarCell else { return }
-    flag = false
-    animateIndicator(cell, indexPath)
+    containerListTabBar.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
     tableView.scrollToRow(at: IndexPath(row: 0, section: indexPath.row), at: .top, animated: true)
+    currentTopSection = indexPath.row
+    flag = false
   }
-  
 }
 
 extension SelectContainerViewController: UICollectionViewDataSource {
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    return 6
+    return Container.allCases.count
   }
   
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ContainerListTabBarCell.reuseIdentifier, for: indexPath) as? ContainerListTabBarCell else {
       return UICollectionViewCell()
     }
-    cell.setTitle(sections[indexPath.row])
+    cell.setTitle(Container.sectionTitle(indexPath.row))
     return cell
   }
   
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+    return CGFloat(0.0)
+
+  }
 }
 
 extension SelectContainerViewController: UICollectionViewDelegateFlowLayout {
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-    return ContainerListTabBarCell.cellSize(availableHeight: 40, title: sections[indexPath.row])
+    return ContainerListTabBarCell.cellSize(availableHeight: 50, title: Container.sectionTitle(indexPath.row))
+
   }
 }

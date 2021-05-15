@@ -23,7 +23,7 @@ class SelectMenuViewController: ViewController {
   private let tableView = UITableView()
   private let nextButton = UIButton().then {
     $0.layer.cornerRadius = 30.0
-    $0.backgroundColor = #colorLiteral(red: 0.6196078431, green: 0.9137254902, blue: 0.8039215686, alpha: 1)
+    $0.backgroundColor = .brandColorGreen03
     $0.isEnabled = false
     $0.setTitle("계속하기", for: .normal)
     $0.titleLabel?.font = .krButton1
@@ -40,77 +40,88 @@ class SelectMenuViewController: ViewController {
     guard let viewModel = viewModel as? SelectMenuViewModel else { return }
     
     let input = SelectMenuViewModel.Input(tipButtonDidTap: tipButton.rx.tap.asObservable(),
-                                          containerTextFieldDidBeginEditing: BehaviorRelay(value: nil))
+                                          containerTextFieldDidBeginEditing: PublishRelay<Int>(),
+                                          addMenuButtonDidTap: PublishRelay<Void>(),
+                                          removeCell: PublishRelay<Int>(),
+                                          menuCountChanged: PublishSubject<(count: Int,index: Int)>(),
+                                          containerCountChanged: PublishSubject<(count: Int,index: Int)>(),
+                                          menuText: PublishSubject<(txt: String?, index: Int)>())
     
     let output = viewModel.transform(input: input)
     
-    output.info
+    output.menuInfo
       .observeOn(MainScheduler.instance)
       .bind(to: tableView.rx.items(cellIdentifier: MenuInfoCell.reuseIdentifier, cellType: MenuInfoCell.self)) { [weak self] index, info, cell in
         guard let self = self else { return }
-        cell.setSeletedColor()
-        if index == viewModel.menus.count-1 {
-          cell.addMenuButton.isHidden = false
-          cell.headerView.isHidden = true
-          cell.bodyView.isHidden = true
-          
-          cell.addMenuDidTap = {
-            viewModel.addMenu()
-            self.tableView.scrollToRow(at: IndexPath(row: index+1, section: 0), at: .bottom, animated: true)
-          }
+        
+        cell.bind()
+        
+        if info.last == true {
+          cell.setLastCell()
+          cell.addMenuCell
+            .bind { [weak self] in
+              guard let self = self else { return }
+              input.addMenuButtonDidTap.accept(())
+              self.tableView.scrollToRow(at: IndexPath(row: index, section: 0), at: .middle, animated: true)
+            }.disposed(by: self.disposeBag)
+            
         } else {
-          cell.cellTitle.text = "구매 정보\(index+1)"
-          cell.menuTextField.text = info.menu
-          cell.menuCountLabel.text = "\(info.menuCount)"
-          cell.containerTextField.text = info.container
-          cell.containerCountLabel.text = "\(info.containerCount)"
-          
-          cell.containerTextField.rx.controlEvent(.editingDidBegin)
-            .map { _ in return index}
-            .bind { index in
-              cell.containerTextField.resignFirstResponder()
+          cell.setCellData(info, index+1)
+          cell.showContainerListView
+            .bind {
               input.containerTextFieldDidBeginEditing.accept(index)
-              
             }
             .disposed(by: self.disposeBag)
           
-          cell.didDelete = {
-            viewModel.removeCellDidTap(at: index)
-          }
-          cell.menuMinusDidTap = {
-            viewModel.decreaseMenuCount(at: index)
-          }
-          cell.menuPlusDidTap = {
-            viewModel.increaseMenuCount(at: index)
-          }
-          cell.containerMinusDidTap = {
-            viewModel.decreaseContainerCount(at: index)
-          }
-          cell.containerPlusDidTap = {
-            viewModel.increaseContainerCount(at: index)
-          }
+          cell.deleteCell
+            .map {index}
+            .bind(to: input.removeCell)
+            .disposed(by: self.disposeBag)
+
+          cell.menuText
+            .map {($0, index)}
+            .bind(to: input.menuText)
+            .disposed(by: self.disposeBag)
+          
+          cell.menuCount
+            .map { ($0, index) }
+            .bind(to: input.menuCountChanged)
+            .disposed(by: self.disposeBag)
+          
+          cell.containerCount
+            .map { ($0, index) }
+            .bind(to: input.containerCountChanged)
+            .disposed(by: self.disposeBag)
+          
         }
 
- 
       }.disposed(by: disposeBag)
     
     output.buttonEnabled
-      .observeOn(MainScheduler.instance)
-      .subscribe(onNext: { [weak self] flag in
+      .subscribe(onNext: { [weak self] bool in
         guard let self = self else { return }
-        self.nextButton.isEnabled = flag
-        self.nextButton.backgroundColor = flag ? .brandColorGreen01 : .brandColorGreen02
+        self.nextButton.isEnabled = bool
+        self.nextButton.backgroundColor = bool ? .brandColorGreen01 : .brandColorGreen03
       }).disposed(by: disposeBag)
-    
-    nextButton.rx.tap.bind {
-      print("nextButton")
-    }.disposed(by: disposeBag)
     
     output.containerListView
-      .subscribe(onNext: { viewModel in
-        guard let viewModel = viewModel else { return }
-        self.navigator.show(segue: .selectContainer(viewModel: viewModel), sender: self, transition: .modal)
+      .subscribe(onNext: { [weak self] viewModel in
+        guard let self = self else { return }
+        self.present(SelectContainerViewController(viewModel: viewModel, navigator: self.navigator), animated: true, completion: nil)
       }).disposed(by: disposeBag)
+    
+    tipButton.rx.tap.bind {
+      let tipVC = TipDetailViewController(viewModel: nil, navigator: self.navigator)
+      tipVC.tipView = TipDetailFirstView()
+      tipVC.tipView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+      tipVC.tipView.layer.cornerRadius = 15
+      tipVC.dimmView.isHidden = true
+      self.present(tipVC, animated: true, completion: nil)
+    }.disposed(by: disposeBag)
+    
+    nextButton.rx.tap.bind {
+      self.navigator.show(segue: .addReview(viewModel: PostReviewViewModel()), sender: self, transition: .navigation())
+    }.disposed(by: disposeBag)
     
   }
     
@@ -157,17 +168,8 @@ class SelectMenuViewController: ViewController {
       $0.separatorStyle = .none
       $0.rowHeight = MenuInfoCell.height
     }
-    
-    tableView.rx.setDelegate(self).disposed(by: disposeBag)
-    
+        
   }
-  
-}
-
-extension SelectMenuViewController: UITableViewDelegate {
-  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-  }
-  
   
 }
 

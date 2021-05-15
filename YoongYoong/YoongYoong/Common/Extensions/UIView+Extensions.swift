@@ -21,4 +21,15 @@ extension UIView {
         closure?(subviews)
         return subviews
     }
+  
+  func addUnderBar(_ color: UIColor) {
+    let underbar = UIView().then{
+      $0.backgroundColor = color
+    }
+    self.add(underbar)
+    underbar.snp.makeConstraints{
+      $0.leading.trailing.bottom.equalToSuperview()
+      $0.height.equalTo(1)
+    }
+  }
 }
