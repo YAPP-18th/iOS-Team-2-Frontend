@@ -22,7 +22,7 @@ class RegistrationProfileViewController: ViewController {
   }
   
   let nicknameField = UITextField().then {
-    $0.placeholder = "닉네임"
+    $0.attributedPlaceholder = NSMutableAttributedString().string("닉네ㅣㅁ", font: .krBody2, color: .systemGrayText02)
     $0.font = .krBody2
     $0.textColor = .systemGray01
   }
@@ -71,6 +71,7 @@ class RegistrationProfileViewController: ViewController {
   
   let introduceTextView = UITextView().then {
     $0.text = "자신을 소개해주세요!"
+    $0.backgroundColor = .systemGray00
     $0.font = .krBody2
     $0.textColor = .systemGrayText01
   }
@@ -127,6 +128,7 @@ class RegistrationProfileViewController: ViewController {
   
   override func configuration() {
     super.configuration()
+    self.view.backgroundColor = .systemGray00
     self.navigationItem.title = "프로필 만들기"
     self.saveButton.isEnabled = false
   }

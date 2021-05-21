@@ -66,7 +66,6 @@ class TermsCheckItem: UIView {
 
 extension TermsCheckItem {
   private func configuration() {
-    backgroundColor = .white
     checkButton.rx.tap.subscribe(onNext: { [weak self] in
       self?.toggleCheck()
     }).disposed(by: disposeBag)
