@@ -12,7 +12,7 @@ import RxCocoa
 class PasswordField: UIView {
   let textField = UITextField().then {
       $0.borderStyle = .none
-      $0.placeholder = "비밀번호"
+      $0.attributedPlaceholder = NSMutableAttributedString().string("비밀번호", font: .krBody2, color: .systemGray04)
       $0.font = .krBody2
       $0.textColor = .systemGray01
   }

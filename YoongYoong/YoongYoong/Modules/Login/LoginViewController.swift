@@ -21,9 +21,9 @@ class LoginViewController: ViewController {
   
   let emailField = UITextField().then {
     $0.borderStyle = .none
-    $0.placeholder = "이메일"
     $0.font = .krBody2
     $0.textColor = .systemGray01
+    $0.attributedPlaceholder = NSMutableAttributedString().string("이메일", font: .krBody2, color: .systemGray04)
     $0.autocapitalizationType = .none
     $0.autocorrectionType = .no
   }
@@ -108,7 +108,7 @@ class LoginViewController: ViewController {
   
   override func configuration() {
     super.configuration()
-    self.view.backgroundColor = .white
+    self.view.backgroundColor = .systemGray00
     self.loginButton.isEnabled = false
   }
   
