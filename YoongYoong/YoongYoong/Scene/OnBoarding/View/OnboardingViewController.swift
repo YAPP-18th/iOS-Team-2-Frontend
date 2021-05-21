@@ -10,11 +10,20 @@ import UIKit
 import RxSwift
 import RxCocoa
 final class OnboradingViewController : ViewController{
-  private var collectionView: UICollectionView!
+  private lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout()).then {
+    if let layout = $0.collectionViewLayout as? UICollectionViewFlowLayout {
+      layout.scrollDirection = .horizontal
+    }
+    $0.isPagingEnabled = true
+    $0.register(boardCollectionViewCell.self, forCellWithReuseIdentifier: boardCollectionViewCell.identifier)
+    $0.showsHorizontalScrollIndicator = false
+    $0.showsVerticalScrollIndicator = false
+    $0.bounces = false
+  }
   private var skipBtn = UIButton().then{
     $0.setTitle("건너뛰기", for: .normal)
-    $0.setTitleColor(.darkGray, for: .normal)
-    $0.backgroundColor = .white
+    $0.titleLabel?.font = .krButton1
+    $0.setTitleColor(.systemGray02, for: .normal)
   }
   private var pageController = UIPageControl().then{
     $0.numberOfPages = 5
@@ -32,35 +41,34 @@ final class OnboradingViewController : ViewController{
   private var first = false
 
   override func viewDidLoad() {
-    setUpCollectionView()
     hideNaviController()
     super.viewDidLoad()
     setUpMainView()
     
   }
   override func setupLayout() {
-    self.view.backgroundColor = .white
+    self.view.backgroundColor = .systemGray00
     self.view.adds([collectionView,
                     skipBtn,
                     pageController,
                     startBtn])
-    collectionView.snp.makeConstraints{
-      $0.width.equalTo(self.view.safeAreaLayoutGuide)
-      $0.centerX.equalTo(self.view.safeAreaLayoutGuide)
-      $0.top.equalTo(self.view.safeAreaLayoutGuide)
-    }
-    pageController.snp.makeConstraints{
-      $0.top.equalTo(collectionView.snp.bottom)
-      $0.centerX.equalTo(self.view.safeAreaLayoutGuide)
-      $0.height.equalTo(8)
-    }
     skipBtn.snp.makeConstraints{
       $0.centerX.equalTo(self.view.safeAreaLayoutGuide)
       $0.height.equalTo(26)
       $0.width.equalTo(110)
-      $0.bottom.equalTo(self.view.safeAreaLayoutGuide).offset(-89)
-      $0.top.equalTo(pageController.snp.bottom).offset(36)
+      $0.bottom.equalTo(self.view.safeAreaLayoutGuide).offset(-56)
     }
+    
+    pageController.snp.makeConstraints{
+      $0.bottom.equalTo(skipBtn.snp.top).offset(-19)
+      $0.centerX.equalToSuperview()
+    }
+    
+    collectionView.snp.makeConstraints{
+      $0.top.leading.trailing.equalTo(self.view.safeAreaLayoutGuide)
+      $0.bottom.equalTo(pageController.snp.top)
+    }
+    
     startBtn.snp.makeConstraints{
       $0.centerX.equalTo(self.view.safeAreaLayoutGuide)
       $0.height.equalTo(0)
@@ -75,10 +83,10 @@ final class OnboradingViewController : ViewController{
                                       ("용기를 낸 보상으로 배지를 드려요!\n", "onboarding4"),
                                       ("용용이와 함께 용기내러 가볼까요?\n", "onboarding5")]
     //비동기일 필요는 없지만,, 델리게이트 쓰기 귀찮아서,,
+    collectionView.rx.setDelegate(self).disposed(by: self.disposeBag)
     Observable.just(boards)
       .bind(to: collectionView.rx.items(cellIdentifier: boardCollectionViewCell.identifier,
                                         cellType: boardCollectionViewCell.self)) {row, data, cell in
-        cell.layout()
         cell.infoLabel.text = data.0
         cell.infoImage.image = UIImage(named: data.1)
       }.disposed(by: disposeBag)
@@ -99,20 +107,6 @@ final class OnboradingViewController : ViewController{
   
 }
 extension OnboradingViewController {
-  private func setUpCollectionView() {
-    let layout = UICollectionViewFlowLayout()
-    layout.scrollDirection = .horizontal
-    layout.itemSize = UICollectionViewFlowLayout.automaticSize
-    layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
-    layout.minimumLineSpacing = 0
-    collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-    collectionView.backgroundColor = .white
-    collectionView.isPagingEnabled = true
-    collectionView.register(boardCollectionViewCell.self, forCellWithReuseIdentifier: boardCollectionViewCell.identifier)
-    collectionView.showsHorizontalScrollIndicator = false
-    collectionView.showsVerticalScrollIndicator = false
-    collectionView.bounces = false
-  }
   private func showBtnWithAnimation(trigger: Bool) {
     skipBtn.isHidden = trigger
     if trigger {
@@ -158,29 +152,53 @@ extension OnboradingViewController {
   }
 }
 
+extension OnboradingViewController: UICollectionViewDelegateFlowLayout {
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    return collectionView.frame.size
+  }
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+    return 0
+  }
+  
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+    return 0
+  }
+}
+
 class boardCollectionViewCell: UICollectionViewCell {
   var infoLabel = UILabel().then{
-    $0.textColor = .black
-    $0.font = .sdGhothicNeo(ofSize: 24, weight: .regular)
+    $0.textColor = .systemGrayText01
+    $0.font = .krHeadline
     $0.numberOfLines = 2
+    $0.adjustsFontSizeToFitWidth = true
+    $0.minimumScaleFactor = 0.5
     $0.textAlignment = .center
   }
-  var infoImage = UIImageView()
+  var infoImage = UIImageView().then {
+    $0.contentMode = .scaleAspectFit
+  }
+  
+  override init(frame: CGRect) {
+    super.init(frame: frame)
+    layout()
+  }
+  
+  required init?(coder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
   
   func layout() {
+    self.contentView.backgroundColor = .systemGray00
     self.contentView.adds([infoLabel, infoImage])
     infoLabel.snp.makeConstraints{
       $0.top.equalToSuperview().offset(76)
-      $0.centerX.equalToSuperview()
-      $0.leading.trailing.equalToSuperview()
-      $0.height.equalTo(76)
+      $0.leading.equalTo(37)
+      $0.trailing.equalTo(-37)
     }
+    infoLabel.setContentHuggingPriority(.required, for: .vertical)
     infoImage.snp.makeConstraints{
-      $0.centerX.equalToSuperview()
-      $0.leading.trailing.equalToSuperview()
-      $0.top.equalTo(infoLabel.snp.bottom).offset(52)
-      $0.width.height.equalTo(UIScreen.main.bounds.width)
-      $0.bottom.equalToSuperview()
+      $0.top.equalTo(infoLabel.snp.bottom).offset(32)
+      $0.centerX.bottom.equalToSuperview()
     }
   }
 }
