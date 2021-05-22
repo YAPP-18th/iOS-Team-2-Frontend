@@ -60,6 +60,8 @@ extension MyPostCollectionViewCell{
                                    cellType: MyPostTableViewCell.self)) { row, data, cell in
         cell.bind(model: data)
       }.disposed(by: disposeBag)
+    Observable.zip(tableView.rx.itemSelected,
+                   tableView.rx.modelSelected(PostSimpleModel.self))
     tableView.rx
         .observeWeakly(CGSize.self, "contentSize")
         .compactMap { $0?.height }

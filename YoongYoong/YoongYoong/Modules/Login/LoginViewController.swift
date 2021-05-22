@@ -6,7 +6,8 @@
 //
 
 import UIKit
-
+import Moya
+import RxSwift
 class LoginViewController: ViewController {
   let scrollView = ScrollStackView().then {
     $0.showsVerticalScrollIndicator = false
@@ -95,12 +96,24 @@ class LoginViewController: ViewController {
   override func bindViewModel() {
     super.bindViewModel()
     guard let viewModel = self.viewModel as? LoginViewModel else { return }
+    let loginParam = Observable.combineLatest(emailField.rx.text.orEmpty.asObservable(),
+                                              passwordField.textField.rx.text.orEmpty.asObservable())
     let input = LoginViewModel.Input(
-      registration: self.registButton.rx.tap.asObservable()
+      param: loginParam,
+      registration: self.registButton.rx.tap.asObservable(),
+      login: self.loginButton.rx.tap.asObservable()
     )
     
     let output = viewModel.transform(input: input)
-    
+    output.loginResult
+      .bind{ [weak self] result , token in
+        AlertAction.shared.showAlertView(title: "로그인되었습니다", grantMessage: "확인", denyMessage: "취소")
+        let viewModel = TabBarViewModel()
+        self?.navigator.show(segue: .tabs(viewModel: viewModel), sender: self, transition: .modalFullScreen)
+        if let token = token {
+          LoginManager.shared.makeLoginStatus(accessToken: token)
+        }
+      }.disposed(by: disposeBag)
     output.registration.drive(onNext: { viewModel in
       self.navigator.show(segue: .registrationTerms(viewModel: viewModel), sender: self, transition: .navigation(.right))
     }).disposed(by: disposeBag)
@@ -109,7 +122,7 @@ class LoginViewController: ViewController {
   override func configuration() {
     super.configuration()
     self.view.backgroundColor = .white
-    self.loginButton.isEnabled = false
+    self.loginButton.isEnabled = true
   }
   
   override func setupView() {
