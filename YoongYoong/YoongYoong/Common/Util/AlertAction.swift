@@ -29,8 +29,8 @@ extension AlertAction {
     title: String,
     grantMessage: String,
     denyMessage: String,
-    okAction: PopupDialogButtonAction?,
-    cancelBtnAction: PopupDialogButtonAction?
+    okAction: PopupDialogButtonAction? = nil,
+    cancelBtnAction: PopupDialogButtonAction? = nil
   ) {
     initializeMainView()
     

@@ -126,6 +126,14 @@
 		AAD45CA92619CB2A00A6F4D6 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AAD45CA82619CB2A00A6F4D6 /* Colors.xcassets */; };
 		AAF67E09262AE69600F643E1 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF67E08262AE69600F643E1 /* LocationManager.swift */; };
 		D6F9AC8B71CC355648D6E8B6 /* Pods_YoongYoongTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A06BD70420FBCDDEF5E50E3 /* Pods_YoongYoongTests.framework */; };
+		DA1284BC2658941600764A2D /* Moya+RxSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1284BB2658941600764A2D /* Moya+RxSwift.swift */; };
+		DA1284C1265894E500764A2D /* NetworkLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1284C0265894E500764A2D /* NetworkLogger.swift */; };
+		DA1284C72658952600764A2D /* AuthRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1284C62658952600764A2D /* AuthRouter.swift */; };
+		DA1284D12658956300764A2D /* AuthResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1284D02658956300764A2D /* AuthResponse.swift */; };
+		DA1284D62658957A00764A2D /* AuthRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1284D52658957A00764A2D /* AuthRequest.swift */; };
+		DA1284DC265899A600764A2D /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1284DB265899A600764A2D /* AuthService.swift */; };
+		DA1284E126589B9500764A2D /* UserDefaultStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1284E026589B9500764A2D /* UserDefaultStorage.swift */; };
+		DA1284E626589C3400764A2D /* LogInManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1284E526589C3400764A2D /* LogInManager.swift */; };
 		DAB00027260F12CA00D8208F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB00026260F12CA00D8208F /* AppDelegate.swift */; };
 		DAB00031260F12CA00D8208F /* YoongYoong.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DAB0002F260F12CA00D8208F /* YoongYoong.xcdatamodeld */; };
 		DAB00033260F12CD00D8208F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DAB00032260F12CD00D8208F /* Assets.xcassets */; };
@@ -301,6 +309,14 @@
 		C4A4BE283F0F18E7064708AB /* Pods-YoongYoong.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YoongYoong.release.xcconfig"; path = "Target Support Files/Pods-YoongYoong/Pods-YoongYoong.release.xcconfig"; sourceTree = "<group>"; };
 		DA0F5AE4263E6006003AE118 /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 		DA0F5B18263E9BFD003AE118 /* UITextField+Extenstions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extenstions.swift"; sourceTree = "<group>"; };
+		DA1284BB2658941600764A2D /* Moya+RxSwift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Moya+RxSwift.swift"; sourceTree = "<group>"; };
+		DA1284C0265894E500764A2D /* NetworkLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkLogger.swift; sourceTree = "<group>"; };
+		DA1284C62658952600764A2D /* AuthRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRouter.swift; sourceTree = "<group>"; };
+		DA1284D02658956300764A2D /* AuthResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthResponse.swift; sourceTree = "<group>"; };
+		DA1284D52658957A00764A2D /* AuthRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRequest.swift; sourceTree = "<group>"; };
+		DA1284DB265899A600764A2D /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
+		DA1284E026589B9500764A2D /* UserDefaultStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultStorage.swift; sourceTree = "<group>"; };
+		DA1284E526589C3400764A2D /* LogInManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInManager.swift; sourceTree = "<group>"; };
 		DAB00023260F12CA00D8208F /* YoongYoong.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YoongYoong.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAB00026260F12CA00D8208F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DAB00030260F12CA00D8208F /* YoongYoong.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = YoongYoong.xcdatamodel; sourceTree = "<group>"; };
@@ -529,6 +545,7 @@
 				DAB00026260F12CA00D8208F /* AppDelegate.swift */,
 				AAC78F90262A67FD009CC84E /* Application.swift */,
 				AAC78FF4262A7150009CC84E /* Navigator.swift */,
+				DA1284E026589B9500764A2D /* UserDefaultStorage.swift */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -852,6 +869,7 @@
 			isa = PBXGroup;
 			children = (
 				AAF67E08262AE69600F643E1 /* LocationManager.swift */,
+				DA1284E526589C3400764A2D /* LogInManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -864,6 +882,51 @@
 				4A06BD70420FBCDDEF5E50E3 /* Pods_YoongYoongTests.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		DA1284B7265893FC00764A2D /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				DA1284DA2658998F00764A2D /* Service */,
+				DA1284CF2658954E00764A2D /* Response */,
+				DA1284CE2658954500764A2D /* Request */,
+				DA1284C52658950600764A2D /* Router */,
+				DA1284BB2658941600764A2D /* Moya+RxSwift.swift */,
+				DA1284C0265894E500764A2D /* NetworkLogger.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		DA1284C52658950600764A2D /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				DA1284C62658952600764A2D /* AuthRouter.swift */,
+			);
+			path = Router;
+			sourceTree = "<group>";
+		};
+		DA1284CE2658954500764A2D /* Request */ = {
+			isa = PBXGroup;
+			children = (
+				DA1284D52658957A00764A2D /* AuthRequest.swift */,
+			);
+			path = Request;
+			sourceTree = "<group>";
+		};
+		DA1284CF2658954E00764A2D /* Response */ = {
+			isa = PBXGroup;
+			children = (
+				DA1284D02658956300764A2D /* AuthResponse.swift */,
+			);
+			path = Response;
+			sourceTree = "<group>";
+		};
+		DA1284DA2658998F00764A2D /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				DA1284DB265899A600764A2D /* AuthService.swift */,
+			);
+			path = Service;
 			sourceTree = "<group>";
 		};
 		DAB0001A260F12CA00D8208F = {
@@ -892,6 +955,7 @@
 		DAB00025260F12CA00D8208F /* YoongYoong */ = {
 			isa = PBXGroup;
 			children = (
+				DA1284B7265893FC00764A2D /* Network */,
 				AAD0241D2642A56600F1EC2B /* Models */,
 				AAC78FE5262A6FAD009CC84E /* Modules */,
 				AA344626261B31590034E1BC /* Application */,
@@ -1225,6 +1289,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AAD0240A2642A4FB00F1EC2B /* FeedTipView.swift in Sources */,
+				DA1284BC2658941600764A2D /* Moya+RxSwift.swift in Sources */,
 				7E9F7B8226281D7100051D03 /* PostSearchResultView.swift in Sources */,
 				7EA4F3D826247E67001C754C /* PostSearchHistoryView.swift in Sources */,
 				7E67D131264127D7003C9E7A /* ContainerListItemCell.swift in Sources */,
@@ -1234,6 +1299,7 @@
 				AAD024232642A56600F1EC2B /* Feed.swift in Sources */,
 				DAB00027260F12CA00D8208F /* AppDelegate.swift in Sources */,
 				AACCAAD72646466A005C9FBC /* MyPackageTableViewCell.swift in Sources */,
+				DA1284E626589C3400764A2D /* LogInManager.swift in Sources */,
 				AAD45C582619C06800A6F4D6 /* UIFont+Extensions.swift in Sources */,
 				7EA8B42D264009E3003974D7 /* SelectMenuViewController.swift in Sources */,
 				AAD024132642A4FB00F1EC2B /* ProfilePostCollectionViewCell.swift in Sources */,
@@ -1261,9 +1327,11 @@
 				AACCAADD2646466A005C9FBC /* MyPageViewController.swift in Sources */,
 				AACCAA952646285D005C9FBC /* TipDetailSecondView.swift in Sources */,
 				AA344617261B2F240034E1BC /* MapViewController.swift in Sources */,
+				DA1284C72658952600764A2D /* AuthRouter.swift in Sources */,
 				DACA9643264BAA1000E95165 /* AlertListViewController.swift in Sources */,
 				7E32AC642636F6F200E694EB /* PostImageSelectionViewModel.swift in Sources */,
-				DABB2D0E263050770061EC98 /* LoginViewModel.swift in Sources */,
+				DA1284C1265894E500764A2D /* NetworkLogger.swift in Sources */,
+				DABB2D0E263050770061EC98 /* LogInViewModel.swift in Sources */,
 				DABB2CF1263032330061EC98 /* Identifiable.swift in Sources */,
 				AACCAD3D264D7E19005C9FBC /* RegistrationTermsViewModel.swift in Sources */,
 				AAD45C9E2619CAEC00A6F4D6 /* UIColor+Extensions.swift in Sources */,
@@ -1314,6 +1382,7 @@
 				AACCAACF2646466A005C9FBC /* MyPageViewModel.swift in Sources */,
 				7E32AC632636F6F200E694EB /* PostImageContainerCell.swift in Sources */,
 				AA72B7DD261B3996001E959B /* MapNavigationView.swift in Sources */,
+				DA1284E126589B9500764A2D /* UserDefaultStorage.swift in Sources */,
 				AAD0240C2642A4FB00F1EC2B /* FeedListContainerListView.swift in Sources */,
 				AACCAACE2646466A005C9FBC /* EditProfileViewModel.swift in Sources */,
 				AACCAA902645509C005C9FBC /* ScrollStackView.swift in Sources */,
@@ -1321,11 +1390,15 @@
 				AACCAAD32646466A005C9FBC /* PostUsecase.swift in Sources */,
 				AACCAD66264F4833005C9FBC /* RegistrationEmailViewModel.swift in Sources */,
 				AAC79015262A91A4009CC84E /* TipViewModel.swift in Sources */,
+				DA1284DC265899A600764A2D /* AuthService.swift in Sources */,
 				AAD024162642A4FB00F1EC2B /* ProfilePostListSection.swift in Sources */,
 				AACCAD87264F63A7005C9FBC /* RegistrationProfileViewModel.swift in Sources */,
+				DABB2D0926304FCD0061EC98 /* LogInViewController.swift in Sources */,
+				DA1284D62658957A00764A2D /* AuthRequest.swift in Sources */,
 				AACCAADB2646466A005C9FBC /* MyPackageCollectionViewCell.swift in Sources */,
 				AAD024152642A4FB00F1EC2B /* ProfilePostCollectionViewCellViewModel.swift in Sources */,
 				AAD0240F2642A4FB00F1EC2B /* FeedViewController.swift in Sources */,
+				DA1284D12658956300764A2D /* AuthResponse.swift in Sources */,
 				AACCAAD82646466A005C9FBC /* MyPostTableViewCell.swift in Sources */,
 				AACCAAD92646466A005C9FBC /* MyPageCell.swift in Sources */,
 				DACA9636264B93FD00E95165 /* SingleImagePicker.swift in Sources */,
@@ -1523,7 +1596,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = 7Y3Y9M4N4F;
 				INFOPLIST_FILE = YoongYoong/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1548,7 +1621,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = 7Y3Y9M4N4F;
 				INFOPLIST_FILE = YoongYoong/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1714,9 +1787,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = 7Y3Y9M4N4F;
 				INFOPLIST_FILE = YoongYoong/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1727,7 +1800,7 @@
 				NMAP_CLIENT_ID = jzyxx74dem;
 				PRODUCT_BUNDLE_IDENTIFIER = "kr.co.yapp18.iOS2.yongyong.YoongYoong-Dev";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "YongYong-Dev";
+				PROVISIONING_PROFILE_SPECIFIER = "YongYong Dev";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
