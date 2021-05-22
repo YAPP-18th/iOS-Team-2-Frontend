@@ -47,7 +47,8 @@ class ViewController: UIViewController, Navigatable {
   }
   
   func configuration() {
-    
+    navigationItem.backButtonTitle = ""
+    self.view.backgroundColor = .systemGray00
   }
   
   func setupView() {

@@ -13,7 +13,8 @@ import RxCocoa
 import RxDataSources
 
 class FeedViewController: ViewController {
-  let tableView = UITableView().then {
+  
+  let tableView = UITableView(frame: .zero, style: .grouped).then {
     $0.backgroundColor = .systemGray06
     $0.separatorStyle = .none
     $0.register(FeedTipView.self, forHeaderFooterViewReuseIdentifier: "FeedTipView")
@@ -27,9 +28,14 @@ class FeedViewController: ViewController {
     
   }
   
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    self.navigationController?.setNavigationBarHidden(true, animated: animated)
+  }
+  
   override func configuration() {
     super.configuration()
-    self.view.backgroundColor = .white
+    self.view.backgroundColor = .systemGray06
   }
   
   override func setupView() {

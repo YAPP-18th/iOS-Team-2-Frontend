@@ -64,7 +64,7 @@ class LoginViewController: ViewController {
     $0.setTitle("로그인 없이 둘러볼게요", for: .normal)
     $0.setTitleColor(.brandColorGreen01, for: .normal)
     $0.titleLabel?.font = .krButton1
-    $0.backgroundColor = .white
+    $0.backgroundColor = .systemGray03
     $0.layer.cornerRadius = 22
     $0.layer.borderColor = UIColor.systemGray05.cgColor
     $0.layer.borderWidth = 1
