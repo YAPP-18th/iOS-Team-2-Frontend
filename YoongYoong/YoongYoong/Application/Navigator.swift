@@ -32,6 +32,9 @@ class Navigator {
     case selectMenu(viewModel: SelectMenuViewModel)
     case selectContainer(viewModel: SelectContainerViewModel)
     case addReview(viewModel: PostReviewViewModel)
+    case alertList(viewModel: AlertViewModel)
+    case settingList(viewModel: SettingViewModel)
+    
   }
   
   enum Transition {
@@ -48,6 +51,7 @@ class Navigator {
     case modalFullScreen
     case detail
     case alert
+    case setting
     case custom
   }
   
@@ -106,7 +110,16 @@ class Navigator {
     case .feedProfile(let viewModel):
       let feedProfileVC = FeedProfileViewController(viewModel: viewModel, navigator: self)
       return feedProfileVC
+    case .alertList(viewModel: let viewModel):
+      let alertListVC = AlertListViewController(viewModel: viewModel, navigator: self)
+      alertListVC.hidesBottomBarWhenPushed = true
+      return alertListVC
+    case .settingList(viewModel: let viewModel):
+      let settingVC = SettingViewController(viewModel: viewModel, navigator: self)
+      settingVC.hidesBottomBarWhenPushed = true
+      return settingVC
     }
+   
   }
   
   func show(segue: Scene, sender: UIViewController?, transition: Transition) {

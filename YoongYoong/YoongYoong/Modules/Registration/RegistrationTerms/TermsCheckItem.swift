@@ -35,7 +35,7 @@ class TermsCheckItem: UIView {
   }
   
   let detailButton = UIButton().then {
-    let attributedString = NSMutableAttributedString().underlined("자세히", font: .krBody3, color: .systemGrayText02)
+    let attributedString = NSMutableAttributedString().underlined("자세히", font: .krBody3, color: .systemGrayText01)
     $0.setAttributedTitle(attributedString, for: .normal)
   }
   

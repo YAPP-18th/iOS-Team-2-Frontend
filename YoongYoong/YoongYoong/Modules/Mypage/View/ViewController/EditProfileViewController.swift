@@ -11,8 +11,23 @@ import RxCocoa
 import Moya
 
 class EditProfileViewController : ViewController {
-  private let profileBtn = UIButton()
-  
+  private let profileBtn = UIButton().then{
+    $0.layer.cornerRadius = 43
+    $0.backgroundColor = .gray
+    $0.translatesAutoresizingMaskIntoConstraints = false
+    let image = UIImage(named: "iconUserAvater")
+    //$0.setImage(image, for: .normal)
+    $0.setBackgroundImage(image, for: .normal)
+    let profileSubImg = UIImageView().then {
+      $0.image = UIImage(named: "protilePicture")
+    }
+    $0.add(profileSubImg)
+    profileSubImg.snp.makeConstraints{
+      $0.trailing.bottom.equalToSuperview()
+      $0.width.height.equalTo(24)
+    }
+  }
+  private var profileImagePicker: SingleImagePicker!
   private let nameTextField = UITextField().then{
     $0.placeholder = "이름을 입력해주세요"
     $0.addUnderBar()
@@ -28,9 +43,9 @@ class EditProfileViewController : ViewController {
     $0.textColor = .black
     $0.layer.cornerRadius = 8
     $0.layer.borderWidth = 1
+    $0.placeholder = "한 줄로 자신을 소개해주세요!"
     $0.layer.borderColor = UIColor.lightGray.cgColor
     $0.translatesAutoresizingMaskIntoConstraints = false
-
   }
   private let commentTextCounter = UILabel().then{
     $0.font = .sdGhothicNeo(ofSize: 14, weight: .regular)
@@ -48,8 +63,8 @@ class EditProfileViewController : ViewController {
   }
   override func viewDidLoad() {
     self.view.backgroundColor = .white
-    setupNavigationItem()
     super.viewDidLoad()
+    setupSimpleNavigationItem(title: "프로필 편집")
     
   }
   override func setupLayout() {
@@ -63,7 +78,7 @@ class EditProfileViewController : ViewController {
     profileBtn.snp.makeConstraints{
       $0.centerX.equalToSuperview()
       $0.top.equalTo(self.view.safeAreaLayoutGuide).offset(115)
-      $0.width.height.equalTo(85)
+      $0.width.height.equalTo(86)
     }
     nameTextField.snp.makeConstraints{
       $0.top.equalTo(profileBtn.snp.bottom).offset(24)
@@ -88,7 +103,9 @@ class EditProfileViewController : ViewController {
       $0.leading.trailing.bottom.equalToSuperview()
       $0.height.equalTo(88)
     }
-  
+  }
+  override func setupView() {
+    self.profileImagePicker = SingleImagePicker(presentationController: self, delegate: self)
   }
   override func bindViewModel() {
     guard let viewModel = viewModel as? EditProfileViewModel else { return }
@@ -108,26 +125,17 @@ class EditProfileViewController : ViewController {
     output.nameTextCount.drive{ [weak self] count in
       self?.nameTextCounter.text = "\(count)/12"
     }.disposed(by: disposeBag)
+    profileBtn.rx.tap.bind{ [weak self] in
+      self?.profileImagePicker.present(from: self?.view ?? UIView())
+    }.disposed(by: disposeBag)
   }
-  private func setupNavigationItem() {
-    let leftBarBtn = UIBarButtonItem(
-        image: UIImage(named: "iConBack"),
-        style: .plain,
-        target: self,
-        action: #selector(popViewController)
-    )
-    let titleLabel: UILabel = {
-        $0.translatesAutoresizingMaskIntoConstraints = false
-      $0.font = .sdGhothicNeo(ofSize: 14, weight: .bold)
-        $0.text =  "프로필 편집"
-      $0.textColor = .brandColorGreen01
-        return $0
-    }(UILabel(frame: .zero))
-    navigationItem.leftBarButtonItem = leftBarBtn
-    navigationItem.titleView = titleLabel
+  
 }
-  @objc
-  private func popViewController() {
-    self.navigationController?.popViewController(animated: true)
+extension EditProfileViewController : SingleImagePickerDelegate {
+  func didSelect(image: UIImage?) {
+      if let image = image {
+        self.profileBtn.setImage(image, for: .normal)
+        self.profileBtn.imageView?.layer.cornerRadius = 43
+      }
   }
 }

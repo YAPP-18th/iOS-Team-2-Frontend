@@ -54,6 +54,7 @@ class MyPageCell : UICollectionViewCell {
     case .history:
       out.packageUsecase.map{[$0]}.bind(to: collectionView.rx.items(cellIdentifier: MyPackageCollectionViewCell.identifier,
                                                                     cellType: MyPackageCollectionViewCell.self)) {row, data, cell in
+        cell.setupCollectionView()
         cell.setupTableView()
         cell.bindCell(model: data)
       }.disposed(by: disposeBag)

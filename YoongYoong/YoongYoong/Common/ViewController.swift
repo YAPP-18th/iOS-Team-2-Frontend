@@ -19,6 +19,9 @@ class ViewController: UIViewController, Navigatable {
     self.navigator = navigator
     super.init(nibName: nil, bundle: nil)
   }
+  deinit {
+    print("deinit")
+  }
   
   let isLoading = BehaviorRelay(value: false)
   let error = PublishSubject<Error>()
@@ -29,10 +32,10 @@ class ViewController: UIViewController, Navigatable {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    
     configuration()
     setupView()
     setupLayout()
+    
     bindViewModel()
     hideKeyboardWhenTappedAround()
     NotificationCenter.default
@@ -76,6 +79,25 @@ class ViewController: UIViewController, Navigatable {
       navigationBar.backgroundColor = color
       navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
       navigationBar.shadowImage = UIImage()
+    
+  }
+  func setupSimpleNavigationItem(title : String) {
+      let leftButtonItem = UIBarButtonItem(
+        image: UIImage(named:"iConBack")?.withRenderingMode(.alwaysOriginal),
+          style: .plain,
+          target: self,
+          action: #selector(popviewController)
+      )
+      let titleLabel: UILabel = {
+          $0.translatesAutoresizingMaskIntoConstraints = false
+          $0.text = title
+          $0.font = .systemFont(ofSize: 17, weight: .semibold)
+        $0.textColor = #colorLiteral(red: 0.08600000292, green: 0.80400002, blue: 0.5649999976, alpha: 1)
+          return $0
+      }(UILabel(frame: .zero))
+      
+      navigationItem.leftBarButtonItem = leftButtonItem
+      navigationItem.titleView = titleLabel
   }
   func setupStatusBar(_ color: UIColor) {
          if #available(iOS 13.0, *) {
@@ -106,5 +128,9 @@ extension ViewController {
   @objc
   func dismissKeyboard() {
     view.endEditing(true)
+  }
+  @objc
+  func popviewController() {
+    self.navigationController?.popViewController(animated: true)
   }
 }
