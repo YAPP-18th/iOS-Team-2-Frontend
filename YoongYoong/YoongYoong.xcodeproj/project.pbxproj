@@ -76,12 +76,10 @@
 		AACCAAFE2646484C005C9FBC /* UITextField+Extenstions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0F5B18263E9BFD003AE118 /* UITextField+Extenstions.swift */; };
 		AACCAB0226464855005C9FBC /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0F5AE4263E6006003AE118 /* String+Extensions.swift */; };
 		AACCAB062646485C005C9FBC /* UIApplication+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAFB3C6D264021380065E3C4 /* UIApplication+Extensions.swift */; };
-		AACCAC41264C3B54005C9FBC /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCAC40264C3B54005C9FBC /* LoginViewController.swift */; };
 		AACCAD2E264D76F1005C9FBC /* NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCAD2D264D76F1005C9FBC /* NavigationBar.swift */; };
 		AACCAD35264D79E1005C9FBC /* RegistrationTermsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCAD34264D79E1005C9FBC /* RegistrationTermsViewController.swift */; };
 		AACCAD3D264D7E19005C9FBC /* RegistrationTermsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCAD3C264D7E19005C9FBC /* RegistrationTermsViewModel.swift */; };
 		AACCAD42264D850D005C9FBC /* TermsCheckItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCAD41264D850D005C9FBC /* TermsCheckItem.swift */; };
-		AACCAD47264D861E005C9FBC /* NSMutableAttributedString+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCAD46264D861E005C9FBC /* NSMutableAttributedString+Extensions.swift */; };
 		AACCAD5E264F455D005C9FBC /* RegistrationEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCAD5D264F455D005C9FBC /* RegistrationEmailViewController.swift */; };
 		AACCAD66264F4833005C9FBC /* RegistrationEmailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCAD65264F4833005C9FBC /* RegistrationEmailViewModel.swift */; };
 		AACCAD6B264F4867005C9FBC /* PasswordField.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCAD6A264F4867005C9FBC /* PasswordField.swift */; };
@@ -134,6 +132,11 @@
 		DA1284DC265899A600764A2D /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1284DB265899A600764A2D /* AuthService.swift */; };
 		DA1284E126589B9500764A2D /* UserDefaultStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1284E026589B9500764A2D /* UserDefaultStorage.swift */; };
 		DA1284E626589C3400764A2D /* LogInManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1284E526589C3400764A2D /* LogInManager.swift */; };
+		DA579E652658A8CE00E724A4 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA579E642658A8CE00E724A4 /* LoginViewController.swift */; };
+		DA579E6D2658A91E00E724A4 /* NSMutableAttributedString+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA579E6C2658A91E00E724A4 /* NSMutableAttributedString+Extensions.swift */; };
+		DA579E752658B75700E724A4 /* PlaceRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA579E742658B75700E724A4 /* PlaceRouter.swift */; };
+		DA579E7A2658B76B00E724A4 /* PostRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA579E792658B76B00E724A4 /* PostRouter.swift */; };
+		DA579E7F2658BF5000E724A4 /* PlaceReqest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA579E7E2658BF5000E724A4 /* PlaceReqest.swift */; };
 		DAB00027260F12CA00D8208F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB00026260F12CA00D8208F /* AppDelegate.swift */; };
 		DAB00031260F12CA00D8208F /* YoongYoong.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DAB0002F260F12CA00D8208F /* YoongYoong.xcdatamodeld */; };
 		DAB00033260F12CD00D8208F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DAB00032260F12CD00D8208F /* Assets.xcassets */; };
@@ -142,8 +145,6 @@
 		DAB0004C260F12CE00D8208F /* YoongYoongUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB0004B260F12CE00D8208F /* YoongYoongUITests.swift */; };
 		DABB2CF1263032330061EC98 /* Identifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DABB2CF0263032330061EC98 /* Identifiable.swift */; };
 		DABB2CF9263033F60061EC98 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DABB2CF8263033F60061EC98 /* UIView+Extensions.swift */; };
-
-		DABB2D0926304FCD0061EC98 /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DABB2D0826304FCD0061EC98 /* LogInViewController.swift */; };
 		DABB2D0E263050770061EC98 /* LogInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DABB2D0D263050770061EC98 /* LogInViewModel.swift */; };
 		DABDB0EB264F6C4F00653739 /* CheckTermsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DABDB0EA264F6C4F00653739 /* CheckTermsViewController.swift */; };
 		DABDB0F0264F72CE00653739 /* UITextView + Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DABDB0EF264F72CE00653739 /* UITextView + Extensions.swift */; };
@@ -252,12 +253,10 @@
 		AACCAACC26464669005C9FBC /* MyPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
 		AACCAACD26464669005C9FBC /* BadgeDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BadgeDetailView.swift; sourceTree = "<group>"; };
 		AACCAAF3264646E1005C9FBC /* AlertAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertAction.swift; sourceTree = "<group>"; };
-		AACCAC40264C3B54005C9FBC /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		AACCAD2D264D76F1005C9FBC /* NavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBar.swift; sourceTree = "<group>"; };
 		AACCAD34264D79E1005C9FBC /* RegistrationTermsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationTermsViewController.swift; sourceTree = "<group>"; };
 		AACCAD3C264D7E19005C9FBC /* RegistrationTermsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationTermsViewModel.swift; sourceTree = "<group>"; };
 		AACCAD41264D850D005C9FBC /* TermsCheckItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsCheckItem.swift; sourceTree = "<group>"; };
-		AACCAD46264D861E005C9FBC /* NSMutableAttributedString+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSMutableAttributedString+Extensions.swift"; sourceTree = "<group>"; };
 		AACCAD5D264F455D005C9FBC /* RegistrationEmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationEmailViewController.swift; sourceTree = "<group>"; };
 		AACCAD65264F4833005C9FBC /* RegistrationEmailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationEmailViewModel.swift; sourceTree = "<group>"; };
 		AACCAD6A264F4867005C9FBC /* PasswordField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordField.swift; sourceTree = "<group>"; };
@@ -317,6 +316,11 @@
 		DA1284DB265899A600764A2D /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		DA1284E026589B9500764A2D /* UserDefaultStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultStorage.swift; sourceTree = "<group>"; };
 		DA1284E526589C3400764A2D /* LogInManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInManager.swift; sourceTree = "<group>"; };
+		DA579E642658A8CE00E724A4 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		DA579E6C2658A91E00E724A4 /* NSMutableAttributedString+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSMutableAttributedString+Extensions.swift"; sourceTree = "<group>"; };
+		DA579E742658B75700E724A4 /* PlaceRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceRouter.swift; sourceTree = "<group>"; };
+		DA579E792658B76B00E724A4 /* PostRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostRouter.swift; sourceTree = "<group>"; };
+		DA579E7E2658BF5000E724A4 /* PlaceReqest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceReqest.swift; sourceTree = "<group>"; };
 		DAB00023260F12CA00D8208F /* YoongYoong.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YoongYoong.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAB00026260F12CA00D8208F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DAB00030260F12CA00D8208F /* YoongYoong.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = YoongYoong.xcdatamodel; sourceTree = "<group>"; };
@@ -331,7 +335,6 @@
 		DAB0004D260F12CE00D8208F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DABB2CF0263032330061EC98 /* Identifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Identifiable.swift; sourceTree = "<group>"; };
 		DABB2CF8263033F60061EC98 /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
-		DABB2D0826304FCD0061EC98 /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 		DABB2D0D263050770061EC98 /* LogInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewModel.swift; sourceTree = "<group>"; };
 		DABDB0EA264F6C4F00653739 /* CheckTermsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckTermsViewController.swift; sourceTree = "<group>"; };
 		DABDB0EF264F72CE00653739 /* UITextView + Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView + Extensions.swift"; sourceTree = "<group>"; };
@@ -707,8 +710,8 @@
 		AACCAC3F264C3B4C005C9FBC /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				DABB2D0D263050770061EC98 /* LoginViewModel.swift */,
-				AACCAC40264C3B54005C9FBC /* LoginViewController.swift */,
+				DA579E642658A8CE00E724A4 /* LoginViewController.swift */,
+				DABB2D0D263050770061EC98 /* LogInViewModel.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -857,6 +860,7 @@
 				AAD45C9D2619CAEC00A6F4D6 /* UIColor+Extensions.swift */,
 				AA6E013E261F6A0D00318E30 /* CALayer+Extensions.swift */,
 				DABB2CF8263033F60061EC98 /* UIView+Extensions.swift */,
+				DA579E6C2658A91E00E724A4 /* NSMutableAttributedString+Extensions.swift */,
 				DA0F5AE4263E6006003AE118 /* String+Extensions.swift */,
 				DA0F5B18263E9BFD003AE118 /* UITextField+Extenstions.swift */,
 				DAFB3C6D264021380065E3C4 /* UIApplication+Extensions.swift */,
@@ -901,6 +905,8 @@
 			isa = PBXGroup;
 			children = (
 				DA1284C62658952600764A2D /* AuthRouter.swift */,
+				DA579E742658B75700E724A4 /* PlaceRouter.swift */,
+				DA579E792658B76B00E724A4 /* PostRouter.swift */,
 			);
 			path = Router;
 			sourceTree = "<group>";
@@ -909,6 +915,7 @@
 			isa = PBXGroup;
 			children = (
 				DA1284D52658957A00764A2D /* AuthRequest.swift */,
+				DA579E7E2658BF5000E724A4 /* PlaceReqest.swift */,
 			);
 			path = Request;
 			sourceTree = "<group>";
@@ -1291,6 +1298,7 @@
 				AAD0240A2642A4FB00F1EC2B /* FeedTipView.swift in Sources */,
 				DA1284BC2658941600764A2D /* Moya+RxSwift.swift in Sources */,
 				7E9F7B8226281D7100051D03 /* PostSearchResultView.swift in Sources */,
+				DA579E6D2658A91E00E724A4 /* NSMutableAttributedString+Extensions.swift in Sources */,
 				7EA4F3D826247E67001C754C /* PostSearchHistoryView.swift in Sources */,
 				7E67D131264127D7003C9E7A /* ContainerListItemCell.swift in Sources */,
 				7E4293A02648FF22005D7710 /* PostReviewViewModel.swift in Sources */,
@@ -1349,6 +1357,7 @@
 				AACCAD71264F5446005C9FBC /* RegistrationPasswordViewController.swift in Sources */,
 				DACA9648264BAAE400E95165 /* AlertTableViewCell.swift in Sources */,
 				AACCAAD52646466A005C9FBC /* MyPostCollectionViewCell.swift in Sources */,
+				DA579E752658B75700E724A4 /* PlaceRouter.swift in Sources */,
 				DABB2CF9263033F60061EC98 /* UIView+Extensions.swift in Sources */,
 				7E3710CF264124C10054B744 /* SelectContainerViewController.swift in Sources */,
 				AAD024122642A4FB00F1EC2B /* FeedProfileViewModel.swift in Sources */,
@@ -1360,6 +1369,7 @@
 				AACCAD42264D850D005C9FBC /* TermsCheckItem.swift in Sources */,
 				7E3710D1264124CA0054B744 /* SelectContainerViewModel.swift in Sources */,
 				AA6E013F261F6A0D00318E30 /* CALayer+Extensions.swift in Sources */,
+				DA579E652658A8CE00E724A4 /* LoginViewController.swift in Sources */,
 				DACA9657264BC5BB00E95165 /* SettingViewModel.swift in Sources */,
 				7E32AC612636F6F200E694EB /* PostImageSelectionViewCell.swift in Sources */,
 				AAC78FF5262A7150009CC84E /* Navigator.swift in Sources */,
@@ -1378,6 +1388,7 @@
 				AACCAAD22646466A005C9FBC /* PostSimpleModel.swift in Sources */,
 				7EA8B43126400AEC003974D7 /* MenuInfoCell.swift in Sources */,
 				AAC79008262A809D009CC84E /* MapViewModel.swift in Sources */,
+				DA579E7F2658BF5000E724A4 /* PlaceReqest.swift in Sources */,
 				AACCAD79264F5725005C9FBC /* RegistrationPasswordViewModel.swift in Sources */,
 				AACCAACF2646466A005C9FBC /* MyPageViewModel.swift in Sources */,
 				7E32AC632636F6F200E694EB /* PostImageContainerCell.swift in Sources */,
@@ -1393,12 +1404,12 @@
 				DA1284DC265899A600764A2D /* AuthService.swift in Sources */,
 				AAD024162642A4FB00F1EC2B /* ProfilePostListSection.swift in Sources */,
 				AACCAD87264F63A7005C9FBC /* RegistrationProfileViewModel.swift in Sources */,
-				DABB2D0926304FCD0061EC98 /* LogInViewController.swift in Sources */,
 				DA1284D62658957A00764A2D /* AuthRequest.swift in Sources */,
 				AACCAADB2646466A005C9FBC /* MyPackageCollectionViewCell.swift in Sources */,
 				AAD024152642A4FB00F1EC2B /* ProfilePostCollectionViewCellViewModel.swift in Sources */,
 				AAD0240F2642A4FB00F1EC2B /* FeedViewController.swift in Sources */,
 				DA1284D12658956300764A2D /* AuthResponse.swift in Sources */,
+				DA579E7A2658B76B00E724A4 /* PostRouter.swift in Sources */,
 				AACCAAD82646466A005C9FBC /* MyPostTableViewCell.swift in Sources */,
 				AACCAAD92646466A005C9FBC /* MyPageCell.swift in Sources */,
 				DACA9636264B93FD00E95165 /* SingleImagePicker.swift in Sources */,
@@ -1409,7 +1420,6 @@
 				AAC78FFA262A773D009CC84E /* ViewController.swift in Sources */,
 				AAD024222642A56600F1EC2B /* BraveWord.swift in Sources */,
 				AAC79020262AA7E3009CC84E /* TipViewController.swift in Sources */,
-				AACCAC41264C3B54005C9FBC /* LoginViewController.swift in Sources */,
 				DACA964D264BAD8700E95165 /* AlertModel.swift in Sources */,
 				AACCAA7826451B64005C9FBC /* TipDetailViewController.swift in Sources */,
 				AACCAAF4264646E1005C9FBC /* AlertAction.swift in Sources */,
@@ -1417,7 +1427,6 @@
 				AACCAADC2646466A005C9FBC /* EditProfileViewController.swift in Sources */,
 				AACCAA9A264628EB005C9FBC /* TipDetailSecondListView.swift in Sources */,
 				AACCAAA426463A76005C9FBC /* TipDetailThirdListView.swift in Sources */,
-				AACCAD47264D861E005C9FBC /* NSMutableAttributedString+Extensions.swift in Sources */,
 				AAD024212642A56600F1EC2B /* TitleContentItem.swift in Sources */,
 				DACA9680264F693300E95165 /* ManageEmailViewController.swift in Sources */,
 				DAB00031260F12CA00D8208F /* YoongYoong.xcdatamodeld in Sources */,
@@ -1787,7 +1796,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = 7Y3Y9M4N4F;
@@ -1800,7 +1809,7 @@
 				NMAP_CLIENT_ID = jzyxx74dem;
 				PRODUCT_BUNDLE_IDENTIFIER = "kr.co.yapp18.iOS2.yongyong.YoongYoong-Dev";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "YongYong Dev";
+				PROVISIONING_PROFILE_SPECIFIER = "YongYong-Dev";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

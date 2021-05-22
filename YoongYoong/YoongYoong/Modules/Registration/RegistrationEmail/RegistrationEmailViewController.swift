@@ -50,7 +50,11 @@ class RegistrationEmailViewController: ViewController {
     super.bindViewModel()
     guard let viewModel = self.viewModel as? RegistrationEmailViewModel else { return }
     let input = RegistrationEmailViewModel.Input(
-      next: self.nextButton.rx.tap.asObservable()
+      next: self.nextButton.rx.tap.asObservable(),
+      emailCheck: emailField.rx.controlEvent(.editingDidEnd)
+        .map{[weak self] in
+          self?.emailField.text ?? ""
+        }.asObservable()
     )
     
     let output = viewModel.transform(input: input)
@@ -58,6 +62,11 @@ class RegistrationEmailViewController: ViewController {
     output.registrationPassword.drive(onNext: { viewModel in
       self.navigator.show(segue: .registrationPassword(viewModel: viewModel), sender: self, transition: .navigation(.right))
     }).disposed(by: disposeBag)
+    output.checkEmailResult
+      .drive {[weak self] in
+        self?.warningImageView.isHidden = $0
+        self?.warningLabel.isHidden = $0
+      }.disposed(by: disposeBag)
   }
   
   override func configuration() {

@@ -49,11 +49,11 @@ extension AuthRouter: TargetType {
     switch self {
     case .register(let param):
       let multipart = MultipartFormData(provider: .data(Data()), name: "profileImage")
-      return .uploadCompositeMultipart([multipart], urlParameters: try! param.asDictionary())
+      return .uploadCompositeMultipart([multipart], urlParameters: try! param.asParameters())
     case .login(let param):
       return .requestJSONEncodable(param)
     case .emailCheck(let param):
-      return .requestParameters(parameters: try! param.asDictionary(), encoding: URLEncoding.default)
+      return .requestParameters(parameters: try! param.asParameters(), encoding: URLEncoding.default)
     }
   }
   

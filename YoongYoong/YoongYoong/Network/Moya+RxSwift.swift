@@ -38,7 +38,7 @@ extension PrimitiveSequence where Trait == SingleTrait, Element == Response {
     }
 }
 extension Encodable{
-  func asDictionary() throws -> [String: Any] {
+  func asParameters() throws -> [String: Any] {
       let data = try JSONEncoder().encode(self)
       guard let dictionary = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any] else {
           throw NSError()

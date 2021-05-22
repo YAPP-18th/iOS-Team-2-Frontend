@@ -9,21 +9,21 @@ import Foundation
 import Moya
 import RxSwift
 
-protocol SignupRequestServiceType: class {
+protocol AuthorizeServiceType: class {
   
   func checkEmailDuplicate(_ param: CheckEmailDuplicateRequest) -> Observable<Bool>
   func signup(_ param: SignupRequest) -> Observable<Response>
   func login(_ param : LoginRequest) -> Observable<Response>
 }
 
-class SignupRequestService: SignupRequestServiceType {
+class AuthorizeService: AuthorizeServiceType {
   private let provider: MoyaProvider<AuthRouter>
   init(provider: MoyaProvider<AuthRouter>) {
     self.provider = provider
   }
 }
 
-extension SignupRequestService {
+extension AuthorizeService {
   func checkEmailDuplicate(_ param: CheckEmailDuplicateRequest) -> Observable<Bool> {
     return provider.rx.request(.emailCheck(param: param))
       .asObservable()
