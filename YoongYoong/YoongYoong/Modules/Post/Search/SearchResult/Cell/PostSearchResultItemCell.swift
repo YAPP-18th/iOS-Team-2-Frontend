@@ -30,6 +30,12 @@ class PostSearchResultItemCell: UITableViewCell {
     setSeletedColor()
   }
   
+  func setupCellData(_ place: Place) {
+    self.storeLabel.text = place.name
+    self.addressLabel.text = place.address
+    self.distanceLabel.text = "\(place.distance)m"
+  }
+  
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }

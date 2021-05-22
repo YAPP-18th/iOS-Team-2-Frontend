@@ -23,44 +23,74 @@ class PostSearchViewController: ViewController {
   private let listContainer = UIView()
   private let searchHistoryView = PostSearchHistoryView()
   private let searchResultView = PostSearchResultView()
+  private let resultEmptyView = UIView()
     
   override func viewDidLoad() {
     super.viewDidLoad()
     
   }
   
+  let tableViewReachedBottomTrigger = PublishRelay<Bool>()
   override func bindViewModel() {
     super.bindViewModel()
     
     guard let viewModel = viewModel as? PostSearchViewModel else { return }
+    let tableViewReachedBottom = tableViewReachedBottomTrigger
+      .distinctUntilChanged()
+    let searchText = PublishSubject<String>()
+    searchButton.rx.tap
+      .subscribe(onNext: { [weak self] in
+        guard let self = self else { return }
+        guard let text = self.searchTextField.text, text.count
+                > 0 else { return }
+        searchText.onNext(text)
+        self.searchButtonDidTap()
+      }).disposed(by: disposeBag)
+    let input = PostSearchViewModel.Input(searchButtonDidTap: searchText,
+                                          resultTableViewReachedBottom: tableViewReachedBottom,
+                                          removeSearchHistoryItem: PublishSubject<Int>(),
+                                          removeAllButtonDidTap: searchHistoryView.removeAllButton.rx.tap.asObservable(),
+                                          searchHistoryItemDidTap: searchHistoryView.tableView.rx.itemSelected.asObservable(),
+                                          searchResultItemDidTap: searchResultView.tableView.rx.itemSelected.asObservable())
 
- 
-    let input = PostSearchViewModel.Input(searchHistoryItemDidTap: searchHistoryView.tableView.rx.itemSelected.asObservable(),
-                                          searchResultItemDidTap: searchResultView.tableView.rx.itemSelected.asObservable() ,
-                                          removeAllButtonDidTap: searchHistoryView.removeAllButton.rx.tap.asObservable())
-    
 
     let output = viewModel.transform(input: input)
-
+    
     output.searchHistory
       .bind(to: searchHistoryView.tableView.rx.items(
               cellIdentifier: PostSearchHistoryItemCell.reuseIdentifier,
-              cellType: PostSearchHistoryItemCell.self)) { _ , item , cell  in
+              cellType: PostSearchHistoryItemCell.self)) { [weak self] index , item , cell  in
+        guard let self = self else { return }
         cell.textLabel?.text = item
-        cell.didDelete = {}
-        
+        cell.binding()
+        cell.deleteCell
+          .map{ index }
+          .bind(to: input.removeSearchHistoryItem)
+          .disposed(by: self.disposeBag)
       }.disposed(by: disposeBag)
     
+    output.searchHistorySelected
+      .subscribe(onNext: { [weak self] text in
+        self?.searchTextField.text = text
+        self?.searchButtonDidTap()
+      }).disposed(by: disposeBag)
+    
     output.searchResult
-      .bind(to: searchResultView.tableView.rx.items(cellIdentifier: PostSearchResultItemCell.reuseIdentifier, cellType: PostSearchResultItemCell.self)) { _, _, cell  in
-        // TODO: cell 설정
-        
+      .bind(to: searchResultView.tableView.rx.items(cellIdentifier: PostSearchResultItemCell.reuseIdentifier, cellType: PostSearchResultItemCell.self)) { index, item, cell  in
+        cell.setupCellData(item)
       }.disposed(by: disposeBag)
+
+    
+    output.searchResult
+      .skip(1)
+      .map { $0.isEmpty }
+      .subscribe(onNext: { [weak self] in
+        self?.searchResultView.tableViewIsEmpty($0)
+      }).disposed(by: disposeBag)
     
     output.postMapView
       .observeOn(MainScheduler.instance)
       .subscribe(onNext: { viewModel in
-        
         self.navigator.show(segue: .postMap(viewModel: viewModel), sender: self, transition: .navigation())
       }).disposed(by: disposeBag)
     
@@ -147,13 +177,10 @@ class PostSearchViewController: ViewController {
     searchTextField.do {
       $0.borderStyle = .none
       $0.delegate = self
+      $0.clearsOnBeginEditing = true
       $0.placeholder = "검색어를 입력하세요"
       $0.clearButtonMode = .whileEditing
       $0.font = UIFont.sdGhothicNeo(ofSize: 16, weight: .regular)
-    }
-    
-    searchButton.do {
-      $0.addTarget(self, action: #selector(searchButtonDidTap), for: .touchUpInside)
     }
     
     searchButton.do {
@@ -172,17 +199,26 @@ class PostSearchViewController: ViewController {
     
   }
   
-  @objc
+  func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    let contentOffsetY = scrollView.contentOffset.y
+    let frameHeigth = scrollView.frame.size.height
+    let contentHeight = scrollView.contentSize.height
+    
+    if contentOffsetY >= (contentHeight - frameHeigth) {
+      tableViewReachedBottomTrigger.accept(true)
+    } else {
+      tableViewReachedBottomTrigger.accept(false)
+    }
+    
+  }
+
+  override func hideKeyboardWhenTappedAround() {}
+  
   private func searchButtonDidTap() {
-    // TODO: view -> viewModel
     searchTextField.resignFirstResponder()
+    imageView.isHidden = true
     searchResultView.isHidden = false
     searchHistoryView.isHidden = true
-  }
-  
-  @objc
-  private func closeButtonDidTap() {
-    self.dismiss(animated: true, completion: nil)
   }
   
 }
@@ -191,6 +227,8 @@ extension PostSearchViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     tableView.deselectRow(at: indexPath, animated: false)
   }
+  
+  
 }
 
 extension PostSearchViewController: UITextFieldDelegate {

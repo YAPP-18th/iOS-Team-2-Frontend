@@ -19,16 +19,20 @@
 		7E4293A02648FF22005D7710 /* PostReviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E42939F2648FF22005D7710 /* PostReviewViewModel.swift */; };
 		7E5D68AA2646389B0014E23A /* PostNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E5D68A92646389B0014E23A /* PostNavigationController.swift */; };
 		7E608C07262E8E1A008708F7 /* PostSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E608C06262E8E1A008708F7 /* PostSearchViewModel.swift */; };
+		7E625F2B2654C9A900687EB2 /* PostSearchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E625F2A2654C9A900687EB2 /* PostSearchModel.swift */; };
 		7E67D131264127D7003C9E7A /* ContainerListItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E67D130264127D7003C9E7A /* ContainerListItemCell.swift */; };
+		7E7F80AD2653F8380035EDED /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E7F80AC2653F8380035EDED /* Store.swift */; };
 		7E9F7B8226281D7100051D03 /* PostSearchResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E9F7B8126281D7100051D03 /* PostSearchResultView.swift */; };
 		7E9F7B8726281D8B00051D03 /* PostSearchResultItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E9F7B8626281D8B00051D03 /* PostSearchResultItemCell.swift */; };
 		7EA4F3D826247E67001C754C /* PostSearchHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EA4F3D726247E67001C754C /* PostSearchHistoryView.swift */; };
 		7EA4F3DD2624888B001C754C /* PostSearchHistoryItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EA4F3DC2624888B001C754C /* PostSearchHistoryItemCell.swift */; };
+		7EA88B6E2654017C00D7CEEF /* SearchAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EA88B6D2654017C00D7CEEF /* SearchAPI.swift */; };
 		7EA8B42D264009E3003974D7 /* SelectMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EA8B42C264009E3003974D7 /* SelectMenuViewController.swift */; };
 		7EA8B42F264009EE003974D7 /* SelectMenuViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EA8B42E264009EE003974D7 /* SelectMenuViewModel.swift */; };
 		7EA8B43126400AEC003974D7 /* MenuInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EA8B43026400AEC003974D7 /* MenuInfoCell.swift */; };
 		7EC4DC5826416CCF00E51FC2 /* ContainerListTabBarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EC4DC5726416CCF00E51FC2 /* ContainerListTabBarCell.swift */; };
 		7EC9BA002641531D007565C6 /* ContainerListHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EC9B9FF2641531D007565C6 /* ContainerListHeaderView.swift */; };
+		7ED3422B26552F9D0070DED5 /* SearchAPIProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ED3422A26552F9D0070DED5 /* SearchAPIProvider.swift */; };
 		7ED49A35264E480900E1F518 /* ContainerListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ED49A34264E480900E1F518 /* ContainerListModel.swift */; };
 		7EDCDB6F262321D60029BE45 /* PostSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EDCDB6E262321D60029BE45 /* PostSearchViewController.swift */; };
 		7EF2DC64263076F80002E1E3 /* PostMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF2DC63263076F80002E1E3 /* PostMapViewController.swift */; };
@@ -173,16 +177,20 @@
 		7E42939F2648FF22005D7710 /* PostReviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostReviewViewModel.swift; sourceTree = "<group>"; };
 		7E5D68A92646389B0014E23A /* PostNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostNavigationController.swift; sourceTree = "<group>"; };
 		7E608C06262E8E1A008708F7 /* PostSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostSearchViewModel.swift; sourceTree = "<group>"; };
+		7E625F2A2654C9A900687EB2 /* PostSearchModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostSearchModel.swift; sourceTree = "<group>"; };
 		7E67D130264127D7003C9E7A /* ContainerListItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerListItemCell.swift; sourceTree = "<group>"; };
+		7E7F80AC2653F8380035EDED /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
 		7E9F7B8126281D7100051D03 /* PostSearchResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostSearchResultView.swift; sourceTree = "<group>"; };
 		7E9F7B8626281D8B00051D03 /* PostSearchResultItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostSearchResultItemCell.swift; sourceTree = "<group>"; };
 		7EA4F3D726247E67001C754C /* PostSearchHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostSearchHistoryView.swift; sourceTree = "<group>"; };
 		7EA4F3DC2624888B001C754C /* PostSearchHistoryItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostSearchHistoryItemCell.swift; sourceTree = "<group>"; };
+		7EA88B6D2654017C00D7CEEF /* SearchAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchAPI.swift; sourceTree = "<group>"; };
 		7EA8B42C264009E3003974D7 /* SelectMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectMenuViewController.swift; sourceTree = "<group>"; };
 		7EA8B42E264009EE003974D7 /* SelectMenuViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectMenuViewModel.swift; sourceTree = "<group>"; };
 		7EA8B43026400AEC003974D7 /* MenuInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuInfoCell.swift; sourceTree = "<group>"; };
 		7EC4DC5726416CCF00E51FC2 /* ContainerListTabBarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerListTabBarCell.swift; sourceTree = "<group>"; };
 		7EC9B9FF2641531D007565C6 /* ContainerListHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerListHeaderView.swift; sourceTree = "<group>"; };
+		7ED3422A26552F9D0070DED5 /* SearchAPIProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchAPIProvider.swift; sourceTree = "<group>"; };
 		7ED49A34264E480900E1F518 /* ContainerListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerListModel.swift; sourceTree = "<group>"; };
 		7EDCDB6E262321D60029BE45 /* PostSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostSearchViewController.swift; sourceTree = "<group>"; };
 		7EF2DC63263076F80002E1E3 /* PostMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostMapViewController.swift; sourceTree = "<group>"; };
@@ -342,6 +350,7 @@
 			children = (
 				7EDCDB6E262321D60029BE45 /* PostSearchViewController.swift */,
 				7E608C06262E8E1A008708F7 /* PostSearchViewModel.swift */,
+				7E625F2A2654C9A900687EB2 /* PostSearchModel.swift */,
 				7E487566262ACCFD001014BC /* SearchHistory */,
 				7E48756A262ACD0A001014BC /* SearchResult */,
 			);
@@ -458,6 +467,14 @@
 			path = Cell;
 			sourceTree = "<group>";
 		};
+		7E7F80AB2653F80E0035EDED /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				7E7F80AC2653F8380035EDED /* Store.swift */,
+			);
+			path = Entities;
+			sourceTree = "<group>";
+		};
 		7EA8B42B26400902003974D7 /* SelectMenu */ = {
 			isa = PBXGroup;
 			children = (
@@ -488,12 +505,15 @@
 			isa = PBXGroup;
 			children = (
 				7E5D68A92646389B0014E23A /* PostNavigationController.swift */,
+				7E7F80AB2653F80E0035EDED /* Entities */,
 				7E209973262DB53900A43E70 /* Search */,
 				7E438BAE26307619000C53BD /* Map */,
 				7E32AC582636F6F200E694EB /* SelectImage */,
 				7EA8B42B26400902003974D7 /* SelectMenu */,
 				7E3710CD264124690054B744 /* SelectContainer */,
 				7E42939C2648FED9005D7710 /* Review */,
+				7EA88B6D2654017C00D7CEEF /* SearchAPI.swift */,
+				7ED3422A26552F9D0070DED5 /* SearchAPIProvider.swift */,
 			);
 			path = Post;
 			sourceTree = "<group>";
@@ -1200,6 +1220,7 @@
 				AACCAAD72646466A005C9FBC /* MyPackageTableViewCell.swift in Sources */,
 				AAD45C582619C06800A6F4D6 /* UIFont+Extensions.swift in Sources */,
 				7EA8B42D264009E3003974D7 /* SelectMenuViewController.swift in Sources */,
+				7EA88B6E2654017C00D7CEEF /* SearchAPI.swift in Sources */,
 				AAD024132642A4FB00F1EC2B /* ProfilePostCollectionViewCell.swift in Sources */,
 				AACCAB062646485C005C9FBC /* UIApplication+Extensions.swift in Sources */,
 				AACCAD35264D79E1005C9FBC /* RegistrationTermsViewController.swift in Sources */,
@@ -1225,6 +1246,7 @@
 				DABB2CF1263032330061EC98 /* Identifiable.swift in Sources */,
 				AACCAD3D264D7E19005C9FBC /* RegistrationTermsViewModel.swift in Sources */,
 				AAD45C9E2619CAEC00A6F4D6 /* UIColor+Extensions.swift in Sources */,
+				7ED3422B26552F9D0070DED5 /* SearchAPIProvider.swift in Sources */,
 				AACCAD8C264F68EC005C9FBC /* Button.swift in Sources */,
 				DAB00027260F12CA00D8208F /* AppDelegate.swift in Sources */,
 				AACCAADE2646466A005C9FBC /* BadgeDetailView.swift in Sources */,
@@ -1277,6 +1299,7 @@
 				AACCAD66264F4833005C9FBC /* RegistrationEmailViewModel.swift in Sources */,
 				AAC79015262A91A4009CC84E /* TipViewModel.swift in Sources */,
 				AAD024162642A4FB00F1EC2B /* ProfilePostListSection.swift in Sources */,
+				7E625F2B2654C9A900687EB2 /* PostSearchModel.swift in Sources */,
 				AACCAD87264F63A7005C9FBC /* RegistrationProfileViewModel.swift in Sources */,
 				AACCAADB2646466A005C9FBC /* MyPackageCollectionViewCell.swift in Sources */,
 				AAD024152642A4FB00F1EC2B /* ProfilePostCollectionViewCellViewModel.swift in Sources */,
@@ -1300,6 +1323,7 @@
 				AACCAD47264D861E005C9FBC /* NSMutableAttributedString+Extensions.swift in Sources */,
 				AAD024212642A56600F1EC2B /* TitleContentItem.swift in Sources */,
 				DAB00031260F12CA00D8208F /* YoongYoong.xcdatamodeld in Sources */,
+				7E7F80AD2653F8380035EDED /* Store.swift in Sources */,
 				7E42939E2648FF19005D7710 /* PostReviewViewController.swift in Sources */,
 				AAD024352643C0D400F1EC2B /* TipTableViewCellViewModel.swift in Sources */,
 				7E9F7B8726281D8B00051D03 /* PostSearchResultItemCell.swift in Sources */,
@@ -1478,6 +1502,7 @@
 				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 7Y3Y9M4N4F;
 				INFOPLIST_FILE = YoongYoong/Info.plist;
+				KAKAO_REST_API_KEY = a30bb297576560dd0618e9d8e05bedb8;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1502,6 +1527,7 @@
 				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 7Y3Y9M4N4F;
 				INFOPLIST_FILE = YoongYoong/Info.plist;
+				KAKAO_REST_API_KEY = a30bb297576560dd0618e9d8e05bedb8;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1669,6 +1695,7 @@
 				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 7Y3Y9M4N4F;
 				INFOPLIST_FILE = YoongYoong/Info.plist;
+				KAKAO_REST_API_KEY = a30bb297576560dd0618e9d8e05bedb8;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
