@@ -10,7 +10,6 @@ import UIKit
 
 class TipDetailSecondView: UIView {
   let topIndicatorView = UIView().then {
-    $0.backgroundColor = .systemGray05
     $0.layer.cornerRadius = 2.5
     $0.layer.masksToBounds = true
   }
@@ -19,7 +18,7 @@ class TipDetailSecondView: UIView {
   
   let titleLabel = UILabel().then {
     $0.text = "다회용기 실천 가이드"
-    $0.textColor = .systemGray00
+    $0.textColor = .systemGrayText01
     $0.font = .krTitle1
   }
   
@@ -39,12 +38,24 @@ class TipDetailSecondView: UIView {
     fatalError("init(coder:) has not been implemented")
   }
   
+  override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+    super.traitCollectionDidChange(previousTraitCollection)
+    if isDarkMode {
+      topIndicatorView.backgroundColor = .systemGray03
+    } else {
+      topIndicatorView.backgroundColor = .systemGray05
+    }
+  }
   
 }
 
 extension TipDetailSecondView {
   private func configuration() {
-    self.backgroundColor = .white
+    if isDarkMode {
+      topIndicatorView.backgroundColor = .systemGray03
+    } else {
+      topIndicatorView.backgroundColor = .systemGray05
+    }
   }
   
   private func setupView() {

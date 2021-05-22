@@ -9,7 +9,6 @@ import UIKit
 
 class TipDetailFirstView: UIView {
   let topIndicatorView = UIView().then {
-    $0.backgroundColor = .systemGray05
     $0.layer.cornerRadius = 2.5
     $0.layer.masksToBounds = true
   }
@@ -18,7 +17,7 @@ class TipDetailFirstView: UIView {
   
   let titleLabel = UILabel().then {
     $0.text = "용기 사이즈 정보"
-    $0.textColor = .systemGray00
+    $0.textColor = .systemGrayText01
     $0.font = .krTitle1
   }
   
@@ -49,12 +48,24 @@ class TipDetailFirstView: UIView {
     fatalError("init(coder:) has not been implemented")
   }
   
+  override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+    super.traitCollectionDidChange(previousTraitCollection)
+    if isDarkMode {
+      topIndicatorView.backgroundColor = .systemGray03
+    } else {
+      topIndicatorView.backgroundColor = .systemGray05
+    }
+  }
   
 }
 
 extension TipDetailFirstView {
   private func configuration() {
-    self.backgroundColor = .white
+    if isDarkMode {
+      topIndicatorView.backgroundColor = .systemGray03
+    } else {
+      topIndicatorView.backgroundColor = .systemGray05
+    }
   }
   
   private func setupView() {
