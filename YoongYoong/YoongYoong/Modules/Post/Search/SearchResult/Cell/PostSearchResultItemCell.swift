@@ -10,7 +10,7 @@ import UIKit
 class PostSearchResultItemCell: UITableViewCell {
     
   static let reuseIdentifier = String(describing: PostSearchResultItemCell.self)
-  static let height = CGFloat(128)
+  static let height = CGFloat(100)
   
   private let storeLabel = UILabel()
   private let addressContainer = UIStackView()
@@ -33,7 +33,7 @@ class PostSearchResultItemCell: UITableViewCell {
   func setupCellData(_ place: Place) {
     self.storeLabel.text = place.name
     self.addressLabel.text = place.address
-    self.distanceLabel.text = "\(place.distance)m"
+    self.distanceLabel.text = place.distance.convertDistance()
   }
   
   required init?(coder: NSCoder) {
@@ -49,9 +49,9 @@ class PostSearchResultItemCell: UITableViewCell {
     addressContainer.addArrangedSubview(addressIcon)
     addressContainer.addArrangedSubview(addressLabel)
     
-    contentView.addSubview(hoursContainer)
-    hoursContainer.addArrangedSubview(hoursIcon)
-    hoursContainer.addArrangedSubview(hoursLabel)
+//    contentView.addSubview(hoursContainer)
+//    hoursContainer.addArrangedSubview(hoursIcon)
+//    hoursContainer.addArrangedSubview(hoursLabel)
   
     
     storeLabel.snp.makeConstraints{ make in
@@ -81,7 +81,7 @@ class PostSearchResultItemCell: UITableViewCell {
     }
     
     addressContainer.snp.makeConstraints { make in
-      make.top.equalTo(distanceLabel.snp.bottom).offset(11)
+      make.top.equalTo(distanceLabel.snp.bottom).offset(8)
       make.leading.equalTo(contentView.snp.leading).offset(18)
       make.height.equalTo(16)
       make.width.equalTo(298)
@@ -92,17 +92,17 @@ class PostSearchResultItemCell: UITableViewCell {
       make.width.equalTo(16)
     }
     
-    hoursContainer.snp.makeConstraints { make in
-      make.top.equalTo(addressContainer.snp.bottom).offset(8)
-      make.leading.equalTo(contentView.snp.leading).offset(18)
-      make.height.equalTo(16)
-      make.width.equalTo(298)
-    }
-    
-    hoursIcon.snp.makeConstraints { make in
-      make.height.equalTo(16)
-      make.width.equalTo(16)
-    }
+//    hoursContainer.snp.makeConstraints { make in
+//      make.top.equalTo(addressContainer.snp.bottom).offset(8)
+//      make.leading.equalTo(contentView.snp.leading).offset(18)
+//      make.height.equalTo(16)
+//      make.width.equalTo(298)
+//    }
+//
+//    hoursIcon.snp.makeConstraints { make in
+//      make.height.equalTo(16)
+//      make.width.equalTo(16)
+//    }
 
    
   }
@@ -111,7 +111,6 @@ class PostSearchResultItemCell: UITableViewCell {
     storeLabel.do {
       $0.font = UIFont.sdGhothicNeo(ofSize: 14, weight: .bold)
       $0.textColor = #colorLiteral(red: 0.06666666667, green: 0.06666666667, blue: 0.06666666667, alpha: 1)
-      $0.text = "김밥천국"
     }
     
     addressContainer.do {
@@ -127,31 +126,28 @@ class PostSearchResultItemCell: UITableViewCell {
     addressLabel.do {
       $0.font = UIFont.sdGhothicNeo(ofSize: 12, weight: .regular)
       $0.textColor = #colorLiteral(red: 0.06666666667, green: 0.06666666667, blue: 0.06666666667, alpha: 1)
-      $0.text = "서울시 송파구 송파대로 106-17"
     }
-    
-    hoursContainer.do {
-      $0.spacing = 8
-      $0.axis = .horizontal
-      $0.distribution = .fill
-    }
-    
-    hoursIcon.do {
-      $0.image = #imageLiteral(resourceName: "clockStroked")
-    }
-    
-    hoursLabel.do {
-      $0.font = UIFont.sdGhothicNeo(ofSize: 12, weight: .regular)
-      $0.textColor = #colorLiteral(red: 0.06666666667, green: 0.06666666667, blue: 0.06666666667, alpha: 1)
-      $0.text = "매일 00:00 - 24:00"
-    }
-    
+//
+//    hoursContainer.do {
+//      $0.spacing = 8
+//      $0.axis = .horizontal
+//      $0.distribution = .fill
+//    }
+//
+//    hoursIcon.do {
+//      $0.image = #imageLiteral(resourceName: "clockStroked")
+//    }
+//
+//    hoursLabel.do {
+//      $0.font = UIFont.sdGhothicNeo(ofSize: 12, weight: .regular)
+//      $0.textColor = #colorLiteral(red: 0.06666666667, green: 0.06666666667, blue: 0.06666666667, alpha: 1)
+//      $0.text = "매일 00:00 - 24:00"
+//    }
+//
     distanceLabel.do {
       $0.font = UIFont.sdGhothicNeo(ofSize: 12, weight: .regular)
       $0.textColor = #colorLiteral(red: 0.5490196078, green: 0.5529411765, blue: 0.5725490196, alpha: 1)
       $0.textAlignment = .left
-      $0.text = "600m"
-
     }
     
     postLabel.do {

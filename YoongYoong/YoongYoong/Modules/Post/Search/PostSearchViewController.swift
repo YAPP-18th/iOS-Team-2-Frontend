@@ -46,7 +46,9 @@ class PostSearchViewController: ViewController {
         searchText.onNext(text)
         self.searchButtonDidTap()
       }).disposed(by: disposeBag)
-    let input = PostSearchViewModel.Input(searchButtonDidTap: searchText,
+    
+    let input = PostSearchViewModel.Input(searchTextFieldDidBeginEditing: searchTextField.rx.controlEvent(.editingDidBegin).asObservable() ,
+                                          searchButtonDidTap: searchText,
                                           resultTableViewReachedBottom: tableViewReachedBottom,
                                           removeSearchHistoryItem: PublishSubject<Int>(),
                                           removeAllButtonDidTap: searchHistoryView.removeAllButton.rx.tap.asObservable(),

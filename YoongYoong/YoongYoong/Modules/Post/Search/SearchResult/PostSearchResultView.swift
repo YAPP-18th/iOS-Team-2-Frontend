@@ -16,6 +16,15 @@ class PostSearchResultView: UIView {
   private let emptyImageView = UIImageView()
   private let emptyLabel = UILabel()
   
+  override var isHidden: Bool {
+    didSet {
+      if isHidden {
+        tableView.isHidden = true
+        emptyView.isHidden = true
+      }
+    }
+  }
+  
   override init(frame: CGRect) {
     super.init(frame: frame)
     setupView()

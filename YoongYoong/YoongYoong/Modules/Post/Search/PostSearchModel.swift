@@ -12,18 +12,17 @@ import Moya
 
 class PostSearchModel {
   
-  // TODO: repo
-  private let provider: SearchAPIProvider
+  private let provider: SearchService
+  private var searchHistory = [String]()
   
-  init(_ provider: SearchAPIProvider = .init()) {
+  init(_ provider: SearchService = .init()) {
     self.provider = provider
+    searchHistory = self.loadSearchHistory().reversed()
   }
   
-  private var logs = [String]()
   private var page = 1
   private var isEnd = false
   
-  // TODO: Pagination
   func search(_ text: String, _ coordinate: CLLocationCoordinate2D?, nextPage: Bool) -> Observable<Result<[Place], SearchAPIError>>  {
     guard let coordinate = coordinate else { return .just(.failure(.error("coordinate error")))}
     
@@ -32,7 +31,6 @@ class PostSearchModel {
     } else {
       page = 1
       isEnd = false
-      logs.append(text)
     }
     if isEnd { return .just(.success([])) }
 
@@ -53,16 +51,47 @@ class PostSearchModel {
   }
   
   // 검색어
-  func remove(_ index: Int, removeAll: Bool) -> Observable<Result<Void, Error>>{
-    return .just(.success(()))
-  }
-  func save(_ text: String) -> Observable<Result<Void, Error>>{
-    return .just(.success(()))
-  }
-  func load() -> Observable<Result<[String], Error>> {
-    return .just(.success([]))
+  func searchItem(at index: Int) -> String {
+    return searchHistory[(searchHistory.count-1)-index]
   }
   
+  func remove(_ index: Int?, _ completion: @escaping ([String]) -> ()) {
+    if index == nil {
+      searchHistory.removeAll()
+    } else {
+      searchHistory.remove(at: (searchHistory.count-1)-index!)
+    }
+    completion(searchHistory.reversed())
+    UserDefaultHelper.set(searchHistory, forKey: .searchHistory)
+  }
   
+  func add(_ text: String, _ completion: @escaping ([String]) -> ()) {
+    if searchHistory.contains(text) {
+      var index = 0
+      for i in 0..<searchHistory.count {
+        if searchHistory[i] == text {
+          index = i
+        }
+      }
+      searchHistory.remove(at: index)
+      searchHistory.append(text)
+      
+    } else {
+      if searchHistory.count < 5 {
+        searchHistory.append(text)
+      } else {
+        searchHistory.remove(at: 0)
+        searchHistory.append(text)
+      }
+    }
+    completion(searchHistory.reversed())
+    UserDefaultHelper.set(searchHistory, forKey: .searchHistory)
+
+  }
   
+  func loadSearchHistory() -> [String] {
+    guard let history = UserDefaultStorage.searchHistory else { return [] }
+    return history
+  }
+
 }

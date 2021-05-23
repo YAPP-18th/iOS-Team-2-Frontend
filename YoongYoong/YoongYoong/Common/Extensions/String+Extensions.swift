@@ -26,4 +26,17 @@ extension String {
     }
   }
   
+  func convertDistance() -> String {
+    guard self.count >= 4 else { return self+"m"}
+    
+    let distance = Double(Int(self)!)/1000.0
+    
+    let formatter = LengthFormatter()
+    formatter.numberFormatter.roundingMode = .floor
+    formatter.numberFormatter.maximumSignificantDigits = 2
+    formatter.numberFormatter.minimumSignificantDigits = 2
+    return formatter.string(fromValue: distance, unit: .kilometer)
+    
+  }
+  
 }
