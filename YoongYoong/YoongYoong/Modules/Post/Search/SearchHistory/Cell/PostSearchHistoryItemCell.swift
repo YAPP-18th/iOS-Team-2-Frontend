@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RxSwift
 import SnapKit
 import Then
 
@@ -16,17 +17,24 @@ class PostSearchHistoryItemCell: UITableViewCell {
   
   let deleteButton = UIButton()
   var didDelete: () -> () = {}
+  var deleteCell = PublishSubject<Void>()
   
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
     setupLayout()
     setupAttribute()
     setSeletedColor()
-
   }
   
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
+  }
+  
+  
+  func binding() {
+    let deleting = PublishSubject<Void>()
+    didDelete = {deleting.onNext(())}
+    deleteCell = deleting
   }
   
   private func setupLayout() {
