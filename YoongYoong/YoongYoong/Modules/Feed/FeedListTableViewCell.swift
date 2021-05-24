@@ -113,7 +113,7 @@ class FeedListTableViewCell: UITableViewCell {
 extension FeedListTableViewCell {
   private func configuration() {
     self.selectionStyle = .none
-    self.contentView.backgroundColor = .white
+    self.contentView.backgroundColor = .systemGray00
   }
   
   private func setupView() {

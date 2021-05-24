@@ -23,7 +23,7 @@ class TipTableViewCell: UITableViewCell {
   
   let titleLabel = UILabel().then {
     $0.text = "다회용기 실천 가이드"
-    $0.textColor = .systemGray00
+    $0.textColor = .systemGrayText01
     $0.font = .krTitle1
   }
   

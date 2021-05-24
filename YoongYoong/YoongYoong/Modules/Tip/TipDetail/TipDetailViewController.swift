@@ -10,7 +10,7 @@ import UIKit
 class TipDetailViewController: ViewController {
   
   let dimmView = UIView().then {
-    $0.backgroundColor = UIColor.darkGray.withAlphaComponent(0.7)
+    $0.backgroundColor = UIColor(red: 18, green: 18, blue: 18).withAlphaComponent(0.7)
     $0.isUserInteractionEnabled = true
   }
   
@@ -19,9 +19,22 @@ class TipDetailViewController: ViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
   }
-  
+  override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+    super.traitCollectionDidChange(previousTraitCollection)
+    if self.isDarkMode {
+      self.tipView.backgroundColor = .systemGray05
+    } else {
+      self.tipView.backgroundColor = .systemGray00
+    }
+  }
   override func configuration() {
     super.configuration()
+    if self.isDarkMode {
+      self.tipView.backgroundColor = .systemGray05
+    } else {
+      self.tipView.backgroundColor = .systemGray00
+    }
+    
   }
   
   override func setupView() {

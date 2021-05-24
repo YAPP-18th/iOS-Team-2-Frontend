@@ -28,6 +28,7 @@ class FeedTipView: UITableViewHeaderFooterView {
   let tipLabel = UILabel().then {
     $0.text = "오늘은 냄비로 용기를 내봐용!"
     $0.font = .sdGhothicNeo(ofSize: 16, weight: .bold)
+    $0.textColor = .systemGrayText01
     $0.numberOfLines = 0
   }
   override init(reuseIdentifier: String?) {
@@ -47,14 +48,14 @@ class FeedTipView: UITableViewHeaderFooterView {
     containerView.layer.cornerRadius = 8
     containerView.layer.masksToBounds = true
     containerView.layer.borderWidth = 1
-    containerView.layer.borderColor = UIColor(red: 209.0 / 255.0, green: 209.0 / 255.0, blue: 214.0 / 255.0, alpha: 1.0).cgColor
+    containerView.layer.borderColor = UIColor.systemGray04.cgColor
   }
 }
 
 extension FeedTipView {
   private func configuration() {
     contentView.backgroundColor = .systemGray06
-    containerView.backgroundColor = .white
+    containerView.backgroundColor = .systemGray00
   }
   
   private func setupView() {

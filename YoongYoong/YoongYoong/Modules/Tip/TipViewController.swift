@@ -29,7 +29,6 @@ class TipViewController: ViewController {
   
   override func configuration() {
     super.configuration()
-    self.view.backgroundColor = .white
   }
   
   override func setupView() {

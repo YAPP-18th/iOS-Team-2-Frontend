@@ -50,7 +50,8 @@ class ViewController: UIViewController, Navigatable {
   }
   
   func configuration() {
-    
+    navigationItem.backButtonTitle = ""
+    self.view.backgroundColor = .systemGray00
   }
   
   func setupView() {
@@ -132,5 +133,14 @@ extension ViewController {
   @objc
   func popviewController() {
     self.navigationController?.popViewController(animated: true)
+  }
+  
+  var isDarkMode: Bool {
+    if #available(iOS 13.0, *) {
+      return self.traitCollection.userInterfaceStyle == .dark
+    }
+    else {
+      return false
+    }
   }
 }
