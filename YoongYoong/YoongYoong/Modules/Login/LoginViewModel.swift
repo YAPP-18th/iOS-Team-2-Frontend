@@ -15,6 +15,7 @@ class LoginViewModel : ViewModel, ViewModelType {
     let param : Observable<(String,String)>
     let registration: Observable<Void>
     let login: Observable<Void>
+    let guest: Observable<Void>
   }
   struct Output {
     let loginResult: Observable<(Bool ,String?)>
@@ -28,12 +29,18 @@ class LoginViewModel : ViewModel, ViewModelType {
         self?.service.login(.init(email: $0.0, password: $0.1)) ?? .empty()
       }
       .map{ ((200...300).contains($0.statusCode) ,try? $0.map(String.self , atKeyPath: "token") ?? nil)}
+    
+    let guestLogin = input.guest
+      .flatMap(self!.service.guest)
+      .map{ ((200...300).contains($0.statusCode) ,try? $0.map(String.self , atKeyPath: "token") ?? nil)}
+    
     let registration = input.registration.asDriver(onErrorJustReturn: ()).map { () -> RegistrationTermsViewModel in
       let viewModel = RegistrationTermsViewModel()
       return viewModel
     }
+    
     return .init(
-      loginResult: registrationResult,
+      loginResult: Observable.merge(registrationResult,guestLogin),
       registration: registration
     )
   }

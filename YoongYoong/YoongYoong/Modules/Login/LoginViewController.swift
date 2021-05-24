@@ -101,7 +101,8 @@ class LoginViewController: ViewController {
     let input = LoginViewModel.Input(
       param: loginParam,
       registration: self.registButton.rx.tap.asObservable(),
-      login: self.loginButton.rx.tap.asObservable()
+      login: self.loginButton.rx.tap.asObservable(),
+      guest: self.skipLoginButton.rx.tap.asObservable()
     )
     
     let output = viewModel.transform(input: input)
