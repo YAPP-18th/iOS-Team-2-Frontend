@@ -17,6 +17,7 @@ class Navigator {
   static var shared = Navigator()
   
   enum Scene {
+    case splash(viewModel: SplashViewModel)
     case tabs(viewModel: TabBarViewModel)
     case login(viewModel: LoginViewModel)
     case registrationTerms(viewModel: RegistrationTermsViewModel)
@@ -57,6 +58,9 @@ class Navigator {
   
   func get(segue: Scene) -> UIViewController? {
     switch segue {
+    case .splash(let viewModel):
+      let splashVC = SplashViewController(viewModel: viewModel, navigator: self)
+      return splashVC
     case .tabs(let viewModel):
       let rootVC = TabBarController(viewModel: viewModel, navigator: self)
       return rootVC

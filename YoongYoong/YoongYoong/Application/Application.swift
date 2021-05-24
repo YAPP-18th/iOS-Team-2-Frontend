@@ -20,12 +20,6 @@ final class Application: NSObject {
     guard let window = window else { return }
     self.window = window
     //최초접속인경우 온보딩 보여줍니다.
-    if !UserDefaults.standard.bool(forDefines: .hasTutorial) {
-      self.navigator.show(segue: .onboarding(viewModel: nil), sender: nil, transition: .root(in: window))
-    }
-    else {
-      let viewModel = TabBarViewModel()
-      self.navigator.show(segue: .tabs(viewModel: viewModel), sender: nil, transition: .root(in: window))
-    }
+    self.navigator.show(segue: .splash(viewModel: SplashViewModel()), sender: nil, transition: .root(in: window))
   }
 }
