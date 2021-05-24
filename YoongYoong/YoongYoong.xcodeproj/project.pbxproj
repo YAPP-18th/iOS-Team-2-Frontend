@@ -38,6 +38,7 @@
 		7EF2DC64263076F80002E1E3 /* PostMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF2DC63263076F80002E1E3 /* PostMapViewController.swift */; };
 		7EF2DC69263077610002E1E3 /* PostMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF2DC68263077610002E1E3 /* PostMapViewModel.swift */; };
 		AA344617261B2F240034E1BC /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA344616261B2F240034E1BC /* MapViewController.swift */; };
+		AA53BE55265C0F07004A39E2 /* UserDefault+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA53BE54265C0F07004A39E2 /* UserDefault+Extensions.swift */; };
 		AA6E013A261F611600318E30 /* MapStoreInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6E0139261F611600318E30 /* MapStoreInfoView.swift */; };
 		AA6E013F261F6A0D00318E30 /* CALayer+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6E013E261F6A0D00318E30 /* CALayer+Extensions.swift */; };
 		AA72B7DD261B3996001E959B /* MapNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA72B7DC261B3996001E959B /* MapNavigationView.swift */; };
@@ -222,6 +223,7 @@
 		9BB5CF0D7707EB35250D4235 /* Pods-YoongYoong-YoongYoongUITests.dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YoongYoong-YoongYoongUITests.dev.xcconfig"; path = "Target Support Files/Pods-YoongYoong-YoongYoongUITests/Pods-YoongYoong-YoongYoongUITests.dev.xcconfig"; sourceTree = "<group>"; };
 		AA099431263DA780002222D6 /* BraveWords.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = BraveWords.plist; sourceTree = "<group>"; };
 		AA344616261B2F240034E1BC /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		AA53BE54265C0F07004A39E2 /* UserDefault+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefault+Extensions.swift"; sourceTree = "<group>"; };
 		AA6E0139261F611600318E30 /* MapStoreInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapStoreInfoView.swift; sourceTree = "<group>"; };
 		AA6E013E261F6A0D00318E30 /* CALayer+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CALayer+Extensions.swift"; sourceTree = "<group>"; };
 		AA72B7DC261B3996001E959B /* MapNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapNavigationView.swift; sourceTree = "<group>"; };
@@ -882,6 +884,7 @@
 				DA0F5B18263E9BFD003AE118 /* UITextField+Extenstions.swift */,
 				DAFB3C6D264021380065E3C4 /* UIApplication+Extensions.swift */,
 				DABDB0EF264F72CE00653739 /* UITextView + Extensions.swift */,
+				AA53BE54265C0F07004A39E2 /* UserDefault+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1408,6 +1411,7 @@
 				DABDB0F0264F72CE00653739 /* UITextView + Extensions.swift in Sources */,
 				AACCAAFE2646484C005C9FBC /* UITextField+Extenstions.swift in Sources */,
 				AACCAAD22646466A005C9FBC /* PostSimpleModel.swift in Sources */,
+				AA53BE55265C0F07004A39E2 /* UserDefault+Extensions.swift in Sources */,
 				7EA8B43126400AEC003974D7 /* MenuInfoCell.swift in Sources */,
 				AAC79008262A809D009CC84E /* MapViewModel.swift in Sources */,
 				DA579E7F2658BF5000E724A4 /* PlaceReqest.swift in Sources */,

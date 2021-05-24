@@ -16,11 +16,11 @@ final class Application: NSObject {
     super.init()
   }
   var window: UIWindow?
-  func presentInitialScreen(in window: UIWindow?, isFirst : Bool = false) {
+  func presentInitialScreen(in window: UIWindow?) {
     guard let window = window else { return }
     self.window = window
     //최초접속인경우 온보딩 보여줍니다.
-    if isFirst {
+    if !UserDefaults.standard.bool(forDefines: .hasTutorial) {
       self.navigator.show(segue: .onboarding(viewModel: nil), sender: nil, transition: .root(in: window))
     }
     else {
