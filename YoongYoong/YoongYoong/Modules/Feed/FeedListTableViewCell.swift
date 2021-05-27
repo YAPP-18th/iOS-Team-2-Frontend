@@ -13,7 +13,6 @@ import RxCocoa
 
 class FeedListTableViewCell: UITableViewCell {
   private let bag = DisposeBag()
-  var height: CGFloat = 0.0
   let profileImageView = UIImageView().then {
     $0.contentMode = .scaleAspectFit
     $0.backgroundColor = .lightGray
@@ -105,8 +104,6 @@ class FeedListTableViewCell: UITableViewCell {
     viewModel.date.asDriver().drive(self.dateLabel.rx.text).disposed(by: bag)
     let containerViewModel = FeedListContainerListViewModel(with: viewModel.containerList.value ?? [])
     containerListView.bind(to: containerViewModel)
-    
-    self.height = Self.getHeight(viewModel: viewModel)
   }
 }
 
