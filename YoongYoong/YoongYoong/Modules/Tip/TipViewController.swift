@@ -24,7 +24,7 @@ class TipViewController: ViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    
+
   }
   
   override func configuration() {
@@ -80,8 +80,11 @@ extension TipViewController: UITableViewDelegate {
     } else {
       destinationVC.tipView = TipDetailThirdView()
     }
+    
+    destinationVC.backgroungImage = self.view.toImage()
+    
     destinationVC.modalPresentationStyle = .overFullScreen
     destinationVC.modalTransitionStyle = .crossDissolve
-    self.present(destinationVC, animated: true, completion: nil)
+    self.present(destinationVC, animated: false, completion: nil)
   }
 }
