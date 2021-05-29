@@ -123,8 +123,8 @@ class PostSearchViewModel: ViewModel, ViewModelType {
     Observable.combineLatest(searchResult, input.searchResultItemDidTap)
       .sample(input.searchResultItemDidTap)
       .map { places, indexPath -> PostMapViewModel in
+        PostData.shared.place = places[indexPath.row]
         let viewModel = PostMapViewModel()
-        viewModel.place = places[indexPath.row]
         return viewModel
       }.bind(to: postMapViewModel)
       .disposed(by: disposeBag)

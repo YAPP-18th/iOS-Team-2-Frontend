@@ -12,16 +12,42 @@ import Moya
 
 class PostSearchModel {
   
-  private let provider: SearchService
+  private let searchService: SearchService
+  private let placeService: PlaceService
   private var searchHistory = [String]()
   
-  init(_ provider: SearchService = .init()) {
-    self.provider = provider
+  init(_ searchService: SearchService = .init(), _ placeService: PlaceService = .init()) {
+    self.searchService = searchService
+    self.placeService = placeService
     searchHistory = self.loadSearchHistory().reversed()
+//    getAllReviewCounts()    
   }
   
   private var page = 1
   private var isEnd = false
+  private var reviewCounts = [PlaceReviewCount]()
+  
+  private func getAllReviewCounts() {
+    placeService.requestReviewCount()
+      .filterSuccessfulStatusCodes()
+      .map { try? JSONDecoder().decode(AllPlaceReviewCountResponse.self, from: $0.data) }
+      .filter { $0 != nil }
+      .subscribe(onNext: { [weak self] in
+        guard let self = self else { return }
+        self.reviewCounts = $0!.data
+        print($0!.count)
+      }).disposed(by: DisposeBag())
+
+  }
+  
+  private func reviewCount(_ name: String, _ location: String) -> Int? {
+    for reviewCount in reviewCounts {
+      if reviewCount.name == name && reviewCount.location == location {
+        return reviewCount.reviewCount
+      }
+    }
+    return nil
+  }
   
   func search(_ text: String, _ coordinate: CLLocationCoordinate2D?, nextPage: Bool) -> Observable<Result<[Place], SearchAPIError>>  {
     guard let coordinate = coordinate else { return .just(.failure(.error("위치 접근 권한")))}
@@ -34,20 +60,21 @@ class PostSearchModel {
     }
     if isEnd { return .just(.success([])) }
     
-    return provider.searchResults(text: text,
+    return searchService.searchResults(text: text,
                                   lat:  String(coordinate.latitude),
                                   long: String(coordinate.longitude),
-                                  page: page).map{ result -> Result<[Place], SearchAPIError> in
+                                  page: page).map{ [weak self] result -> Result<[Place], SearchAPIError> in
                                     switch result {
+                                    // TODO: Get Post Count
                                     case .success(let response):
-                                      // TODO: Get Post Count
-                                      self.isEnd = response.meta.isEnd
+                                      self?.isEnd = response.meta.isEnd
                                       let places = response.documents.map { Place(name: $0.name,
                                                                                   roadAddress: $0.roadAddress,
                                                                                   address: $0.address,
                                                                                   distance: $0.distance,
                                                                                   latitude: $0.latitude,
-                                                                                  longtitude: $0.longtitude)}
+                                                                                  longtitude: $0.longtitude,
+                                                                                  reviewCount: self?.reviewCount($0.name, $0.address) ?? 0)}
                                       return .success(places)
                                     case .failure(let error):
                                       
