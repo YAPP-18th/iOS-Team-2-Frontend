@@ -24,7 +24,7 @@ extension MypageViewModel {
   func transform(input: Input) -> Output {
     weak var weakSelf = self
     let badgeUsecase = input.loadView.map{ _ -> [BadgeModel] in
-      if LoginManager.shared.isLogin() {
+      if LoginManager.shared.isLogin {
         return [BadgeModel(imagePath: "", title: "관심도 용기", discription: "설명문내용설명문내용설명문내용설명문내용", condition: "관심을가져야합니다"),
                 BadgeModel(imagePath: "", title: "관심도 용기", discription: "설명문내용설명문내용설명문내용설명문내용", condition: "관심을가져야합니다"),
                 BadgeModel(imagePath: "", title: "관심도 용기", discription: "설명문내용설명문내용설명문내용설명문내용", condition: "관심을가져야합니다"),
@@ -41,7 +41,7 @@ extension MypageViewModel {
       }
     }
     let postList = input.loadView.map{ _ -> PostListModel in
-      if LoginManager.shared.isLogin() {
+      if LoginManager.shared.isLogin {
         
         return PostListModel(month: "2021년 3월", postCount: 15, packageCount: 	24,
                              postList: [PostSimpleModel(feedId: 0, profile: ProfileModel(imagePath: "", name: "김용기", message: "", userId: 0),
@@ -86,7 +86,7 @@ extension MypageViewModel {
                 "자주 사용하는 용기를 등록하세요!"]
       }
     let packageUsecase = input.loadView.map{_ -> [PackageSectionType] in
-      if LoginManager.shared.isLogin() {
+      if LoginManager.shared.isLogin {
         
         return [PackageSectionType(model: "자주 쓰는 용기", items: [PackageSimpleModel(identity: 0, title: "밀폐용기", size: "S", selected: true)]),
                 PackageSectionType(model: "밀폐용기", items: [PackageSimpleModel(identity: 0, title: "밀폐용기", size: "S", selected: true),
