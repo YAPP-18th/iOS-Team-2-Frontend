@@ -24,8 +24,6 @@ class FeedViewController: ViewController {
   let dataSource = RxTableViewSectionedReloadDataSource<FeedListSection>(configureCell: { dataSource, tableView, indexPath, item in
     let cell = tableView.dequeueReusableCell(withIdentifier: "FeedListTableViewCell", for: indexPath) as! FeedListTableViewCell
     cell.bind(to: item)
-    let gesture = UITapGestureRecognizer()
-    cell.profileImageView.addGestureRecognizer(gesture)
     return cell
   })
   
@@ -59,10 +57,8 @@ class FeedViewController: ViewController {
   override func bindViewModel() {
     super.bindViewModel()
     guard let viewModel = viewModel as? FeedViewModel else { return }
-    let input = FeedViewModel.Input(feedSelected: self.tableView.rx.itemSelected.asObservable())
+    let input = FeedViewModel.Input(feedSelected: self.tableView.rx.itemSelected.map { self.dataSource[$0.section].items[$0.row] }.asObservable())
     let output = viewModel.transform(input: input)
-    
-    
     
     output.items.asObservable()
         .bind(to: tableView.rx.items(dataSource: dataSource))
@@ -70,11 +66,11 @@ class FeedViewController: ViewController {
     
     self.tableView.rx.setDelegate(self).disposed(by: disposeBag)
     
-    output.profile.drive(onNext: { [weak self] viewModel in
+    output.profile.bind(onNext: { [weak self] viewModel in
       self?.navigator.show(segue: .feedProfile(viewModel: viewModel), sender: self, transition: .navigation())
     }).disposed(by: disposeBag)
     
-    output.detail.drive(onNext: { [weak self] viewModel in
+    output.detail.bind(onNext: { [weak self] viewModel in
       self?.navigator.show(segue: .feedDetail(viewModel: viewModel), sender: self, transition: .navigation(.right))
     }).disposed(by: disposeBag)
   }

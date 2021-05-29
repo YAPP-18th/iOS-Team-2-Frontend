@@ -10,13 +10,20 @@ import Then
 import SnapKit
 import RxSwift
 import RxCocoa
+import RxDataSources
 
 class FeedListTableViewCell: UITableViewCell {
   private let bag = DisposeBag()
-  let profileImageView = UIImageView().then {
+  
+  let dataSource = RxCollectionViewSectionedReloadDataSource<FeedContentImageSection> { _, collectionView, indexPath, viewModel in
+    guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FeedContentCollectionViewCell.identifier, for: indexPath) as? FeedContentCollectionViewCell else { return .init() }
+    cell.bind(to: viewModel)
+    return cell
+  }
+  
+  let profileButton = UIButton().then {
     $0.contentMode = .scaleAspectFit
     $0.backgroundColor = .lightGray
-    $0.isUserInteractionEnabled = true
   }
   
   let nameLabel = UILabel().then {
@@ -39,9 +46,12 @@ class FeedListTableViewCell: UITableViewCell {
     $0.textAlignment = .right
   }
   
-  let contentImageView = UIImageView().then {
-    $0.contentMode = .scaleAspectFill
-    $0.backgroundColor = .lightGray
+  let contentImageCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout()).then {
+    if let layout = $0.collectionViewLayout as? UICollectionViewFlowLayout {
+      layout.scrollDirection = .horizontal
+    }
+    $0.register(FeedContentCollectionViewCell.self, forCellWithReuseIdentifier: FeedContentCollectionViewCell.identifier)
+    $0.isPagingEnabled = true
   }
   
   let containerTitleLabel = UILabel().then {
@@ -91,8 +101,8 @@ class FeedListTableViewCell: UITableViewCell {
   
   override func layoutSubviews() {
     super.layoutSubviews()
-    profileImageView.layer.cornerRadius = 19
-    profileImageView.layer.masksToBounds = true
+    profileButton.layer.cornerRadius = 19
+    profileButton.layer.masksToBounds = true
     
     containerListView.layer.cornerRadius = 8
     containerListView.layer.borderWidth = 1
@@ -100,12 +110,34 @@ class FeedListTableViewCell: UITableViewCell {
   }
   
   func bind(to viewModel: FeedListTableViewCellViewModel) {
-//    viewModel.profileImageURL.asDriver().drive(self.profileImageView.rx.image).disposed(by: bag)
     viewModel.nickname.asDriver().drive(self.nameLabel.rx.text).disposed(by: bag)
     viewModel.storeName.asDriver().drive(self.storeNameLabel.rx.text).disposed(by: bag)
     viewModel.date.asDriver().drive(self.dateLabel.rx.text).disposed(by: bag)
-    let containerViewModel = FeedListContainerListViewModel(with: viewModel.containerList.value ?? [])
+    let containerViewModel = FeedListContainerListViewModel(with: viewModel.containerList.value)
+    viewModel.profileImageURL.subscribe (onNext: { url in
+      guard let url = url else { return }
+      ImageDownloadManager.shared.downloadImage(url: url).bind(to: self.profileButton.rx.image(for: .normal)).disposed(by: self.bag)
+    }).disposed(by: bag)
+    contentImageCollectionView.dataSource = nil
+    viewModel.contentImageURL.map { list -> [FeedContentImageSection] in
+      var elements: [FeedContentImageSection] = []
+      let cellViewModel = list.map { url -> FeedContentImageSection.Item in
+        FeedContentCollectionViewCellViewModel.init(imageURL: url)
+      }
+      elements.append(FeedContentImageSection(items: cellViewModel))
+      return elements
+    }.bind(to: contentImageCollectionView.rx.items(dataSource: dataSource)).disposed(by: bag)
+    viewModel.likecount.bind(to: likeButton.rx.title(for: .normal)).disposed(by: bag)
+    viewModel.messageCount.bind(to: messagesButton.rx.title(for: .normal)).disposed(by: bag)
     containerListView.bind(to: containerViewModel)
+    profileButton.rx.tap
+      .map { _ in viewModel.feed.user }
+      .bind(to: viewModel.userSelection)
+      .disposed(by: self.bag)
+  }
+  
+  @objc func profileTapped() {
+
   }
 }
 
@@ -113,12 +145,13 @@ extension FeedListTableViewCell {
   private func configuration() {
     self.selectionStyle = .none
     self.contentView.backgroundColor = .systemGray00
+    self.contentImageCollectionView.rx.setDelegate(self).disposed(by: bag)
   }
   
   private func setupView() {
     [
-      profileImageView, nameLabel, storeNameLabel, dateLabel,
-      contentImageView,
+      profileButton, nameLabel, storeNameLabel, dateLabel,
+      contentImageCollectionView,
       containerTitleLabel, containerListView,
       divider,
       likeContainer, messagesContainer
@@ -131,7 +164,7 @@ extension FeedListTableViewCell {
   }
   
   private func setupLayout() {
-    profileImageView.snp.makeConstraints {
+    profileButton.snp.makeConstraints {
       $0.top.equalTo(25)
       $0.leading.equalTo(16)
       $0.width.height.equalTo(38)
@@ -139,7 +172,7 @@ extension FeedListTableViewCell {
     
     nameLabel.snp.makeConstraints {
       $0.top.equalTo(25)
-      $0.leading.equalTo(profileImageView.snp.trailing).offset(8)
+      $0.leading.equalTo(profileButton.snp.trailing).offset(8)
       $0.height.equalTo(18)
     }
     
@@ -152,19 +185,19 @@ extension FeedListTableViewCell {
     
     storeNameLabel.snp.makeConstraints {
       $0.top.equalTo(nameLabel.snp.bottom).offset(2)
-      $0.leading.equalTo(profileImageView.snp.trailing).offset(8)
+      $0.leading.equalTo(profileButton.snp.trailing).offset(8)
       $0.trailing.equalTo(dateLabel.snp.leading).offset(-20)
       $0.height.equalTo(18)
     }
     
-    contentImageView.snp.makeConstraints {
+    contentImageCollectionView.snp.makeConstraints {
       $0.top.equalTo(storeNameLabel.snp.bottom).offset(16)
       $0.leading.trailing.equalToSuperview()
-      $0.height.equalTo(contentImageView.snp.width)
+      $0.height.equalTo(contentImageCollectionView.snp.width)
     }
     
     containerTitleLabel.snp.makeConstraints {
-      $0.top.equalTo(contentImageView.snp.bottom).offset(16)
+      $0.top.equalTo(contentImageCollectionView.snp.bottom).offset(16)
       $0.leading.equalTo(16)
     }
     
@@ -214,13 +247,27 @@ extension FeedListTableViewCell {
     let profileHeight: CGFloat = 79.0
     let contentImageViewHeight: CGFloat = UIScreen.main.bounds.size.width
     var containerHeight: CGFloat = 35.0 + 24.0 + 21.0
-    if let count = viewModel.containerList.value?.count {
-      containerHeight += CGFloat(18 * count)
-    }
+    let count = viewModel.containerList.value.count
+    containerHeight += CGFloat(18 * count)
+    
       
     let likeMessagesHeight: CGFloat = 30.0
     
     height = profileHeight + contentImageViewHeight + containerHeight + likeMessagesHeight
     return height
+  }
+}
+
+extension FeedListTableViewCell: UICollectionViewDelegateFlowLayout {
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+    return 0
+  }
+  
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+    return 0
+  }
+  
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    return collectionView.frame.size
   }
 }

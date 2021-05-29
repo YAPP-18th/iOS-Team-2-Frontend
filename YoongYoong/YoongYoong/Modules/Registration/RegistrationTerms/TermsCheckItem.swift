@@ -9,20 +9,20 @@ import UIKit
 import RxSwift
 import RxCocoa
 
+class TermsCheckItemViewModel: NSObject {
+  let title = BehaviorRelay<String?>(value: nil)
+  let detail = BehaviorRelay<String?>(value: nil)
+  
+  var check = BehaviorRelay<Bool>(value: false)
+  init(title: String, detail: String) {
+    super.init()
+    self.title.accept(title)
+    self.detail.accept(detail)
+  }
+}
+
 class TermsCheckItem: UIView {
   let disposeBag = DisposeBag()
-  
-  struct ViewModel {
-    var isChecked: Bool
-    var title: String
-    var detail: String //Todo: 이후 웹뷰 링크 등으로 수정예정
-  }
-  
-  var viewModel: ViewModel? {
-    didSet {
-      self.updateView()
-    }
-  }
   
   let checkButton = UIButton(type: .custom).then {
     $0.setImage(UIImage(named: "icRegUnchecked"), for: .normal)
@@ -58,17 +58,19 @@ class TermsCheckItem: UIView {
     setupLayout()
   }
   
-  private func toggleCheck() {
-    guard let vm = self.viewModel else { return }
-    self.viewModel?.isChecked = !vm.isChecked
+  func bind(to viewModel: TermsCheckItemViewModel) {
+    viewModel.title.bind(to: checkLabel.rx.text).disposed(by: self.disposeBag)
+    viewModel.check.subscribe(onNext: { isChecked in
+      let isCheckedImage = isChecked ? UIImage(named: "icRegChecked") : UIImage(named: "icRegUnchecked")
+      self.checkButton.setImage(isCheckedImage, for: .normal)
+    }).disposed(by: self.disposeBag)
+    self.checkButton.rx.tap.map { !viewModel.check.value }.bind(to: viewModel.check).disposed(by: self.disposeBag)
   }
 }
 
 extension TermsCheckItem {
   private func configuration() {
-    checkButton.rx.tap.subscribe(onNext: { [weak self] in
-      self?.toggleCheck()
-    }).disposed(by: disposeBag)
+    
   }
   
   private func setupView() {
@@ -99,9 +101,6 @@ extension TermsCheckItem {
   }
   
   private func updateView() {
-    guard let vm = self.viewModel else { return }
-    let isCheckedImage = vm.isChecked ? UIImage(named: "icRegChecked") : UIImage(named: "icRegUnchecked")
-    self.checkButton.setImage(isCheckedImage, for: .normal)
-    self.checkLabel.text = vm.title
+    
   }
 }

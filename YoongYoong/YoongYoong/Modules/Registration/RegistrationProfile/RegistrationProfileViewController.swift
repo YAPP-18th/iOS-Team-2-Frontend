@@ -130,6 +130,7 @@ class RegistrationProfileViewController: ViewController {
     super.configuration()
     self.view.backgroundColor = .systemGray00
     self.navigationItem.title = "프로필 만들기"
+    self.setupBackButton()
     self.saveButton.isEnabled = false
   }
   

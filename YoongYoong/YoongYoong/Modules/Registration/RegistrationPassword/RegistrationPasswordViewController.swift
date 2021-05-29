@@ -76,6 +76,7 @@ class RegistrationPasswordViewController: ViewController {
     super.configuration()
     self.view.backgroundColor = .systemGray00
     self.navigationItem.title = "비밀번호 입력하기"
+    self.setupBackButton()
     nextButton.isEnabled = true
   }
   

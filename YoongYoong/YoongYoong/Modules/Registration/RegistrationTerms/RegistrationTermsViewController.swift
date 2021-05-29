@@ -6,8 +6,17 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 class RegistrationTermsViewController: ViewController {
+  
+  let viewModels: [TermsCheckItemViewModel] = [
+    TermsCheckItemViewModel(title: "(필수) 서비스 이용약관", detail: ""),
+    TermsCheckItemViewModel(title: "(필수) 서비스 이용약관", detail: ""),
+    TermsCheckItemViewModel(title: "(필수) 서비스 이용약관", detail: ""),
+    TermsCheckItemViewModel(title: "(필수) 서비스 이용약관", detail: ""),
+  ]
   
   let titleLabel = UILabel().then {
     $0.text = "환영합니다!"
@@ -47,7 +56,7 @@ class RegistrationTermsViewController: ViewController {
     super.bindViewModel()
     guard let viewModel = self.viewModel as? RegistrationTermsViewModel else { return }
     let input = RegistrationTermsViewModel.Input(
-      next: self.nextButton.rx.tap.asObservable()
+      next: nextButton.rx.tap.asObservable()
     )
     
     let output = viewModel.transform(input: input)
@@ -55,6 +64,8 @@ class RegistrationTermsViewController: ViewController {
     output.registrationEmail.drive(onNext: { viewModel in
       self.navigator.show(segue: .registrationEmail(viewModel: viewModel), sender: self, transition: .navigation(.right))
     }).disposed(by: disposeBag)
+    
+    
   }
   
   override func viewWillAppear(_ animated: Bool) {
@@ -64,22 +75,12 @@ class RegistrationTermsViewController: ViewController {
   override func configuration() {
     super.configuration()
     self.view.backgroundColor = .systemGray00
-    self.navigationItem.leftBarButtonItem = UIBarButtonItem(
-      image: UIImage(named: "icBtnNavBack")?
-        .withRenderingMode(.alwaysOriginal),
-      style: .plain,
-      target: self,
-      action: #selector(backButtonTapped)
-    )
+    self.setupBackButton()
     
     self.navigationItem.title = "약관 및 정책"
     self.nextButton.isEnabled = true
   }
-  
-  @objc func backButtonTapped() {
-    
-  }
-  
+
   override func setupView() {
     super.setupView()
     [titleLabel, checkAllButton, checkAllLabel, divider, vStackView, nextButton].forEach {
@@ -117,16 +118,11 @@ class RegistrationTermsViewController: ViewController {
       $0.leading.trailing.equalToSuperview()
     }
     
-    let viewModelList: [TermsCheckItem.ViewModel] = [
-      .init(isChecked: true, title: "(필수) 서비스 이용약관", detail: ""),
-      .init(isChecked: false, title: "(필수) 개인정보 처리방침", detail: ""),
-      .init(isChecked: true, title: "(필수) 위치 기반 서비스", detail: ""),
-      .init(isChecked: false, title: "(선택) 마케팅 정보 수신 동의", detail: "")
-    ]
     
-    for viewModel in viewModelList {
+    
+    for viewModel in self.viewModels {
       let checkItem = TermsCheckItem()
-      checkItem.viewModel = viewModel
+      checkItem.bind(to: viewModel)
       self.vStackView.addArrangedSubview(checkItem)
     }
     

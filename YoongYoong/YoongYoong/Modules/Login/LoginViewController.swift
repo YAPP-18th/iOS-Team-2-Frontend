@@ -8,6 +8,8 @@
 import UIKit
 import Moya
 import RxSwift
+import AuthenticationServices
+
 class LoginViewController: ViewController {
   let scrollView = ScrollStackView().then {
     $0.showsVerticalScrollIndicator = false
@@ -112,19 +114,27 @@ class LoginViewController: ViewController {
         let viewModel = TabBarViewModel()
         self?.navigator.show(segue: .tabs(viewModel: viewModel), sender: self, transition: .modalFullScreen)
         if let token = response?.token {
-          LoginManager.shared.makeLoginStatus(status: .logined, accessToken: token)
+          AlertAction.shared.showAlertView(title: "로그인되었습니다", grantMessage: "확인", denyMessage: "취소" , okAction: {
+            let viewModel = TabBarViewModel()
+            self?.navigator.show(segue: .tabs(viewModel: viewModel), sender: self, transition: .modalFullScreen)
+          })
+          if let token = response?.token{
+            LoginManager.shared.makeLoginStatus(status: .logined, accessToken: token)
+          }
         }
-      }.disposed(by: disposeBag)
-    
+      }.disposed(by: self.disposeBag)
     output.guestLoginResult
       .bind{ [weak self] result, response in
         AlertAction.shared.showAlertView(title: "로그인되었습니다", grantMessage: "확인", denyMessage: "취소")
         let viewModel = TabBarViewModel()
         
+        AlertAction.shared.showAlertView(title: "로그인되었습니다", grantMessage: "확인", denyMessage: "취소", okAction:  {
+          let viewModel = TabBarViewModel()
+          self?.navigator.show(segue: .tabs(viewModel: viewModel), sender: self, transition: .modalFullScreen)
+        })
         if let token = response?.token {
           LoginManager.shared.makeLoginStatus(status: .guest, accessToken: token)
         }
-        self?.navigator.show(segue: .tabs(viewModel: viewModel), sender: self, transition: .modalFullScreen)
       }.disposed(by: disposeBag)
     
     
@@ -132,11 +142,14 @@ class LoginViewController: ViewController {
       self.navigator.show(segue: .registrationTerms(viewModel: viewModel), sender: self, transition: .navigation(.right))
     }).disposed(by: disposeBag)
   }
-  
   override func configuration() {
     super.configuration()
     self.loginButton.isEnabled = true
     self.view.backgroundColor = .systemGray00
+    
+    if #available(iOS 13.0, *) {
+      signInWithAppleButton.addTarget(self, action: #selector(signInWithApple), for: .touchUpInside)
+    }
   }
   
   override func setupView() {
@@ -255,5 +268,40 @@ class LoginViewController: ViewController {
       $0.height.equalTo(18)
       $0.leading.equalTo(registLabel.snp.trailing).offset(8)
     }
+  }
+  @available(iOS 13.0, *)
+  @objc func signInWithApple() {
+    let appleIDProvider = ASAuthorizationAppleIDProvider()
+    let request = appleIDProvider.createRequest()
+    request.requestedScopes = [.fullName, .email]
+    
+    let authorizationController = ASAuthorizationController(authorizationRequests: [request])
+    authorizationController.delegate = self
+    authorizationController.presentationContextProvider = self
+    authorizationController.performRequests()
+  }
+}
+@available(iOS 13.0, *)
+extension LoginViewController: ASAuthorizationControllerDelegate {
+  func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
+    switch authorization.credential {
+      case let appleIDCredential as ASAuthorizationAppleIDCredential:
+      
+      // Todo: 첫 인증시 저장해야함
+      let userIdentifier = appleIDCredential.user
+      let fullName = appleIDCredential.fullName
+      let email = appleIDCredential.email
+      print(userIdentifier)
+    default:
+      break
+    }
+  }
+  
+}
+@available(iOS 13.0, *)
+extension LoginViewController: ASAuthorizationControllerPresentationContextProviding {
+  /// - Tag: provide_presentation_anchor
+  func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
+    return self.view.window!
   }
 }

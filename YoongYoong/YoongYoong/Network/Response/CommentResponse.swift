@@ -10,5 +10,5 @@ struct CommentResponse :Decodable {
   let commentId: Int
   let content: String
   let createdDate: String
-  let nickname: String
+  let user: UserInfo
 }

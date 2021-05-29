@@ -9,6 +9,8 @@ import Foundation
 import RxSwift
 import RxCocoa
 import Moya
+import AuthenticationServices
+
 class LoginViewModel : ViewModel, ViewModelType {
   private let service : AuthorizeServiceType = AuthorizeService(provider: MoyaProvider<AuthRouter>(plugins:[NetworkLoggerPlugin()]))
   struct Input {

@@ -20,3 +20,18 @@ extension FeedListSection: SectionModelType {
     self.items = items
   }
 }
+
+
+struct FeedContentImageSection {
+  var items: [Item]
+}
+
+extension FeedContentImageSection: SectionModelType {
+  typealias Item = FeedContentCollectionViewCellViewModel
+
+  init(original: FeedContentImageSection, items: [FeedContentCollectionViewCellViewModel]) {
+    self = original
+    self.items = items
+  }
+}
+

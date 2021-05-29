@@ -11,6 +11,7 @@ struct LoginRequest: Encodable {
   let email:String
   let password:String
 }
+
 struct SignupRequest: Encodable {
   let email:String
   let introduction: String
@@ -21,6 +22,7 @@ struct SignupRequest: Encodable {
   let privacy: Bool
   let service :Bool
 }
+
 struct CheckEmailDuplicateRequest: Encodable {
     let email: String
 }

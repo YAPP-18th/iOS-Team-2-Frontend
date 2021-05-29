@@ -15,14 +15,16 @@ class MyPageCell : UICollectionViewCell {
 
   private var collectionView : UICollectionView!
   private let loadUITrigger = PublishSubject<Void>()
+  private let containerSelect = PublishSubject<ContainerCellModel>()
+
   private let disposeBag = DisposeBag()
+  private var currentMonth : Int?
   func bind(){
     setUpCollectionView()
     layout()
-    
-    
-    let input = MypageViewModel.Input(loadView: loadUITrigger)
+    let input = MypageViewModel.Input(loadView: loadUITrigger, containerSelect: containerSelect)
     let out = viewModel.transform(input: input)
+    
     switch type {
     case .badge:
       print("뱃지")
@@ -35,31 +37,47 @@ class MyPageCell : UICollectionViewCell {
       }.disposed(by:disposeBag)
      
     case .feed:
+      
       print("피드")
+      viewModel.currentMonth.bind{[weak self] in
+        self?.currentMonth = $0
+      }.disposed(by:disposeBag)
       out.postUsecase.map{[$0]}.bind(to: collectionView.rx.items(cellIdentifier: MyPostCollectionViewCell.identifier,
                                                        cellType: MyPostCollectionViewCell.self)) {row, data, cell in
         cell.bindCell(model: data)
 
         cell.nextMonthBtn.rx.tap
           .takeUntil(cell.rx.methodInvoked(#selector(UICollectionReusableView.prepareForReuse)))
-          .bind{
-            print("다음 달 탭")
+          .bind{[weak self] in
+            if let month = self?.currentMonth {
+              self?.viewModel.changeCurrentMonth(for: month + 1)
+              self?.loadUITrigger.onNext(())
+
+            }
           }.disposed(by: cell.disposeBag)
         cell.lastMonthBtn.rx.tap
           .takeUntil(cell.rx.methodInvoked(#selector(UICollectionReusableView.prepareForReuse)))
-          .bind{
-            print("저번 달 탭")
+          .bind{ [weak self] in
+            if let month = self?.currentMonth {
+              self?.viewModel.changeCurrentMonth(for: month - 1)
+              self?.loadUITrigger.onNext(())
+
+            }
           }.disposed(by: cell.disposeBag)
       }.disposed(by: disposeBag)
     case .history:
+      containerSelect.bind{ print($0)}.disposed(by: disposeBag)
+
       out.packageUsecase.map{[$0]}.bind(to: collectionView.rx.items(cellIdentifier: MyPackageCollectionViewCell.identifier,
-                                                                    cellType: MyPackageCollectionViewCell.self)) {row, data, cell in
-        cell.setupCollectionView()
+                                                                    cellType: MyPackageCollectionViewCell.self)) {
+        [weak self] row, data, cell in
         cell.setupTableView()
         cell.bindCell(model: data)
+        cell.favorateTrigger.takeUntil(cell.rx.methodInvoked(#selector(UITableViewCell.prepareForReuse)))
+          .bind(to: self!.containerSelect)
+          .disposed(by: self!.disposeBag)
       }.disposed(by: disposeBag)
       
-      print("용기 보관함")
     case .none:
       print("기타")
     }
@@ -132,7 +150,7 @@ class MyPageCell : UICollectionViewCell {
     case .feed:
       collectionView.isScrollEnabled = true
     case .history:
-      collectionView.isScrollEnabled = true
+      collectionView.isScrollEnabled = false
 
     default:
       collectionView.isScrollEnabled = false

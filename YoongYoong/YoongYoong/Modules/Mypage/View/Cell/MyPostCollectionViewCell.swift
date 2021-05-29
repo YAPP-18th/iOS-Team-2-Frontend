@@ -38,9 +38,10 @@ class MyPostCollectionViewCell: UICollectionViewCell {
     $0.separatorStyle = .none
     $0.register(MyPostTableViewCell.self,
                 forCellReuseIdentifier: MyPostTableViewCell.identifier)
-    $0.isScrollEnabled = true
+    $0.isScrollEnabled = false
   }
   let nextMonthBtn = UIButton().then{
+    
     $0.setImage(UIImage(named: ""), for: .normal)
   }
   let lastMonthBtn = UIButton().then{
@@ -80,12 +81,12 @@ extension MyPostCollectionViewCell{
           }
         }
         .disposed(by: disposeBag)
-    feedSelect.bind{[weak self] id in
-      let viewModel = FeedDetailViewModel(feedId: id)
-      if let top = UIApplication.shared.topViewController() as? MyPageViewController {
-        top.navigator.show(segue: .feedDetail(viewModel: viewModel), sender: top, transition: .navigation())
-      }
-    }.disposed(by: disposeBag)
+//    feedSelect.bind{[weak self] id in
+//      let viewModel = FeedDetailViewModel(feedId: id)
+//      if let top = UIApplication.shared.topViewController() as? MyPageViewController {
+//        top.navigator.show(segue: .feedDetail(viewModel: viewModel), sender: top, transition: .navigation())
+//      }
+//    }.disposed(by: disposeBag)
   }
   
 }
@@ -138,7 +139,7 @@ extension MyPostCollectionViewCell {
     tableView.snp.makeConstraints{
       $0.top.equalTo(monthlyInformationView.snp.bottom)
       $0.leading.trailing.bottom.equalToSuperview()
-        $0.height.equalTo(300)
+      $0.height.equalTo(300)
     }
   }
 }

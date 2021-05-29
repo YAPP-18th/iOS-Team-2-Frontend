@@ -8,8 +8,10 @@
 import Foundation
 import RxSwift
 import RxCocoa
+import Moya
 
 class EditProfileViewModel : ViewModel, ViewModelType {
+  private let service = AuthorizeService(provider: MoyaProvider<AuthRouter>(plugins:[NetworkLoggerPlugin()]))
   struct Input {
     let loadView : Observable<Void>
     let ProfileImage : Observable<UIImage>
@@ -29,11 +31,17 @@ extension EditProfileViewModel {
     let currentProfile = input.loadView.map{_ in
       ProfileModel(imagePath: "", name: "김용기", message: "안녕하세용", userId: 0)
     }
-    let combined = Observable.combineLatest(input.nameText , input.commentText).map{ (name, comment) -> Bool in
+    let textValidate = Observable.combineLatest(input.nameText , input.commentText).map{ (name, comment) -> Bool in
       let firstCondition = name.count < 13 && !name.isEmpty
       let secondCondition = comment.count < 50 && !comment.isEmpty
       return firstCondition && secondCondition
     }
+    let nicknameCheck = input.nameText.flatMap {
+      self.service.checkNickNameDuplicate($0) ?? .empty()
+    }
+    
+    let combined = Observable.combineLatest(textValidate, nicknameCheck).map{ $0.0 && $0.1}
+    
     let nameCount = input.nameText.map{$0.count}
     let commentCount = input.commentText.map{$0.count}
     return .init(changeBtnActivate: combined.asDriver(onErrorDriveWith: .empty()),
