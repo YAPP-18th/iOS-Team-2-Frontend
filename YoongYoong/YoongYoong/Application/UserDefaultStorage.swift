@@ -39,6 +39,7 @@ class UserDefaultHelper<T> {
 }
 
 enum DataKeys: String {
+  case loginStatus = "loginStatus"
   case accessToken = "accessToken"
   case userId = "userId"
   case searchHistory = "searchHistory"

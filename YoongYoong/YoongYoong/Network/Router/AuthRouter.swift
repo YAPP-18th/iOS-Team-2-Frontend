@@ -28,9 +28,9 @@ extension AuthRouter: TargetType {
     case .login:
       return "/user/login"
     case .guest:
-      return "/users/login/guest"
+      return "/user/login/guest"
     case .emailCheck:
-      return "/users/check/email"
+      return "/user/check/email"
     }
   }
   

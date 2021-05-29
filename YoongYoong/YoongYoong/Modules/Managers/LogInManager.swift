@@ -9,25 +9,33 @@ import Foundation
 import UIKit
 
 class LoginManager: NSObject {
+  enum LoginStatus: String {
+    case none
+    case logined
+    case guest
+  }
+  
     static let shared = LoginManager()
-    private let login = "isLogin"
-    
+  var userID: String? {
+    return UserDefaultHelper<String>.value(forKey: .userId)
+  }
+  
+  var isLogin: Bool {
+    return UserDefaultHelper<String>.value(forKey: .loginStatus) == LoginStatus.logined.rawValue
+  }
     override private init() { }
-    func isLogin() -> Bool {
-        return UserDefaults.standard.bool(forKey: login)
-    }
     func makeLoginStatus(
-        accessToken: String
+      status: LoginStatus,
+        accessToken: String,
+      userID: Int = 0
     ) {
-        UserDefaultHelper<String>.set(accessToken, forKey: .accessToken)
-        
-        UserDefaults.standard.set(true, forKey: login)
-        UserDefaults.standard.synchronize()
+      UserDefaultHelper<String>.set(status.rawValue, forKey: .loginStatus)
+      UserDefaultHelper<String>.set(accessToken, forKey: .accessToken)
+      UserDefaultHelper<Int>.set(userID, forKey: .userId)
     }
     
     func makeLogoutStatus() {
         UserDefaultHelper<Any>.clearAll()
-        UserDefaults.standard.set(false, forKey: login)
-        UserDefaults.standard.synchronize()
+      UserDefaultHelper<String>.set(LoginStatus.none.rawValue, forKey: .loginStatus)
     }
 }

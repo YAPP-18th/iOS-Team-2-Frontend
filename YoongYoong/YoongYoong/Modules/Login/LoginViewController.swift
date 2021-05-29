@@ -107,14 +107,27 @@ class LoginViewController: ViewController {
     
     let output = viewModel.transform(input: input)
     output.loginResult
-      .bind{ [weak self] result , token in
+      .bind{ [weak self] result, response in
         AlertAction.shared.showAlertView(title: "로그인되었습니다", grantMessage: "확인", denyMessage: "취소")
         let viewModel = TabBarViewModel()
         self?.navigator.show(segue: .tabs(viewModel: viewModel), sender: self, transition: .modalFullScreen)
-        if let token = token {
-          LoginManager.shared.makeLoginStatus(accessToken: token)
+        if let token = response?.token, let userID = response?.userID {
+          LoginManager.shared.makeLoginStatus(status: .logined, accessToken: token, userID: userID)
         }
       }.disposed(by: disposeBag)
+    
+    output.guestLoginResult
+      .bind{ [weak self] result, response in
+        AlertAction.shared.showAlertView(title: "로그인되었습니다", grantMessage: "확인", denyMessage: "취소")
+        let viewModel = TabBarViewModel()
+        
+        if let token = response?.token, let userID = response?.userID {
+          LoginManager.shared.makeLoginStatus(status: .guest, accessToken: token)
+        }
+        self?.navigator.show(segue: .tabs(viewModel: viewModel), sender: self, transition: .modalFullScreen)
+      }.disposed(by: disposeBag)
+    
+    
     output.registration.drive(onNext: { viewModel in
       self.navigator.show(segue: .registrationTerms(viewModel: viewModel), sender: self, transition: .navigation(.right))
     }).disposed(by: disposeBag)
