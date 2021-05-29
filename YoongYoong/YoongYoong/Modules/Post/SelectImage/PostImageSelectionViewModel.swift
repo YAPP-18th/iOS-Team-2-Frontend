@@ -13,8 +13,9 @@ import RxSwift
 class PostImageSelectionViewModel: ViewModel, ViewModelType {
   private var fetchResults = PHFetchResult<PHAsset>()
   private var allPhotos = [PHAsset]()
+  private var photoLibraryDidChange = false
   var selected = [(PHAsset, IndexPath)]()
-  
+
   struct Input {
     let itemSelected: Observable<IndexPath>
     let itemDeselected: Observable<IndexPath>
@@ -146,8 +147,6 @@ class PostImageSelectionViewModel: ViewModel, ViewModelType {
       break
     }
   }
-  var photoLibraryDidChange = false
-
 }
 
 extension PostImageSelectionViewModel: PHPhotoLibraryChangeObserver {

@@ -13,11 +13,11 @@ import RxCocoa
 
 class PostMapViewController: ViewController {
   
-  let myLocationButton = UIButton().then {
+  private let myLocationButton = UIButton().then {
     $0.setImage(UIImage(named: "btnMapMyLocation"), for: .normal)
   }
   
-  let postButton = UIButton().then {
+  private let postButton = UIButton().then {
     $0.setTitleColor(.white, for: .normal)
     $0.titleLabel?.font = .krButton1
     $0.setTitle("이 가게 포스트 쓰기", for: .normal)
@@ -30,16 +30,25 @@ class PostMapViewController: ViewController {
     
   }
   
-  let storeInfoView = MapStoreInfoView()
+  private let storeInfoView = MapStoreInfoView()
   
-  let mapView = NMFMapView().then{
+  private let mapView = NMFMapView().then{
     $0.allowsRotating = false
     $0.allowsTilting = false
+    $0.positionMode = .normal
   }
+  private let marker = NMFMarker().then {
+    $0.iconImage = NMFOverlayImage(name: "icMapPin_selected")
+  }
+  private var myLocationOverlay: NMFLocationOverlay {
+    let overlay = mapView.locationOverlay
+    overlay.icon = NMFOverlayImage(name: "userLocationPin")
+    return overlay
+  }
+  
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    
   }
   
   override func bindViewModel() {
@@ -47,23 +56,56 @@ class PostMapViewController: ViewController {
     
     guard let viewModel = viewModel as? PostMapViewModel else { return }
     
-    let input = PostMapViewModel.Input(post: postButton.rx.tap.asObservable())
+    let input = PostMapViewModel.Input(post: postButton.rx.tap.asObservable(),
+                                       myLocationButtonDidTap: myLocationButton.rx.tap.asObservable())
     
     let output = viewModel.transform(input: input)
     
     output.imageSelectionView
       .observeOn(MainScheduler.instance)
-      .skip(1)
       .subscribe(onNext: { [weak self] viewModel in
         self?.navigator.show(segue: .selectImage(viewModel: viewModel), sender: self, transition: .navigation())
       }).disposed(by: disposeBag)
     
     output.setting
-      .skip(1)
+      .observeOn(MainScheduler.instance)
       .subscribe(onNext: { [weak self] _ in
         self?.showPermissionAlert()
       }).disposed(by: disposeBag)
     
+    output.storeInfo
+      .observeOn(MainScheduler.instance)
+      .subscribe(onNext:{ [weak self] place in
+        let position = NMFCameraPosition(
+          .init(lat: place.coordinate.latitude, lng: place.coordinate.longitude),
+          zoom: 16.0
+        )
+        self?.marker.position = NMGLatLng(lat: place.coordinate.latitude,
+                                          lng:  place.coordinate.longitude)
+        self?.marker.mapView = self?.mapView
+        self?.mapView.moveCamera(.init(position: position))
+        
+        self?.storeInfoView.distanceLabel.text = place.distance.convertDistance()
+        self?.storeInfoView.postCountLabel.text = "|   포스트 \(place.reviewCount)개"
+        self?.storeInfoView.nameLabel.text = place.name
+        self?.storeInfoView.locationLabel.text = place.address
+      }).disposed(by: disposeBag)
+    
+    output.myLocation
+      .observeOn(MainScheduler.instance)
+      .subscribe(onNext:{ [weak self] location in
+        self?.myLocationOverlay.location = NMGLatLng(lat: location.latitude, lng: location.longitude)
+      }).disposed(by: disposeBag)
+    
+    output.myLocation
+      .skip(1)
+      .observeOn(MainScheduler.instance)
+      .subscribe(onNext:{ [weak self] location in
+        let position = NMFCameraPosition(.init(lat: location.latitude,
+                                               lng: location.longitude),
+                                         zoom: 16.0)
+        self?.mapView.moveCamera(.init(position: position))
+      }).disposed(by: disposeBag)
   }
   
   override func viewDidLayoutSubviews() {
@@ -106,10 +148,10 @@ class PostMapViewController: ViewController {
     }
     
     storeInfoView.snp.makeConstraints {
-      $0.leading.equalTo(29)
-      $0.trailing.equalTo(-29)
+      $0.centerX.equalTo(view)
       $0.bottom.equalTo(postButton.snp.top).offset(-16)
     }
+    
   }
   
   private func showPermissionAlert() {

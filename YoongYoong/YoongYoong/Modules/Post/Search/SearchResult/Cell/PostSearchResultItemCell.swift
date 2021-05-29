@@ -13,12 +13,7 @@ class PostSearchResultItemCell: UITableViewCell {
   static let height = CGFloat(100)
   
   private let storeLabel = UILabel()
-  private let addressContainer = UIStackView()
-  private let hoursContainer = UIStackView()
   private let addressLabel = UILabel()
-  private let hoursLabel = UILabel()
-  private let addressIcon = UIImageView()
-  private let hoursIcon = UIImageView()
   private let distanceLabel = UILabel()
   private let verticalBarLabel = UILabel()
   private let postLabel = UILabel()
@@ -32,8 +27,9 @@ class PostSearchResultItemCell: UITableViewCell {
   
   func setupCellData(_ place: Place) {
     self.storeLabel.text = place.name
-    self.addressLabel.text = place.address
+    self.addressLabel.text = place.roadAddress.count > 0 ? place.roadAddress : place.address
     self.distanceLabel.text = place.distance.convertDistance()
+    self.postLabel.text = "포스트 \(place.reviewCount)개"
   }
   
   required init?(coder: NSCoder) {
@@ -45,120 +41,69 @@ class PostSearchResultItemCell: UITableViewCell {
     contentView.addSubview(distanceLabel)
     contentView.addSubview(verticalBarLabel)
     contentView.addSubview(postLabel)
-    contentView.addSubview(addressContainer)
-    addressContainer.addArrangedSubview(addressIcon)
-    addressContainer.addArrangedSubview(addressLabel)
-    
-//    contentView.addSubview(hoursContainer)
-//    hoursContainer.addArrangedSubview(hoursIcon)
-//    hoursContainer.addArrangedSubview(hoursLabel)
+    contentView.addSubview(addressLabel)
+
   
-    
     storeLabel.snp.makeConstraints{ make in
-      make.leading.equalTo(contentView.snp.leading).offset(18)
-      make.top.equalTo(contentView.snp.top).offset(17)
+      make.leading.equalTo(contentView.snp.leading).offset(16)
+      make.top.equalTo(contentView.snp.top).offset(22)
       make.height.equalTo(20)
       make.width.equalTo(208)
     }
     
     distanceLabel.snp.makeConstraints { make in
-      make.width.equalTo(43)
-      make.height.equalTo(16)
-      make.left.equalTo(contentView.snp.left).offset(18)
-      make.top.equalTo(storeLabel.snp.bottom).offset(3)
+      make.left.equalTo(contentView.snp.left).offset(16)
+      make.top.equalTo(storeLabel.snp.bottom).offset(4)
     }
     
     verticalBarLabel.snp.makeConstraints { make in
       make.height.equalTo(16)
-      make.left.equalTo(distanceLabel.snp.right)
-      make.top.equalTo(storeLabel.snp.bottom).offset(3)
+      make.left.equalTo(distanceLabel.snp.right).offset(8)
+      make.top.equalTo(storeLabel.snp.bottom).offset(4)
     }
     
     postLabel.snp.makeConstraints { make in
       make.height.equalTo(16)
-      make.left.equalTo(verticalBarLabel.snp.right).offset(10)
-      make.top.equalTo(storeLabel.snp.bottom).offset(3)
+      make.left.equalTo(verticalBarLabel.snp.right).offset(8)
+      make.top.equalTo(storeLabel.snp.bottom).offset(4)
     }
     
-    addressContainer.snp.makeConstraints { make in
-      make.top.equalTo(distanceLabel.snp.bottom).offset(8)
-      make.leading.equalTo(contentView.snp.leading).offset(18)
+    addressLabel.snp.makeConstraints { make in
+      make.top.equalTo(distanceLabel.snp.bottom).offset(2)
+      make.leading.equalTo(contentView.snp.leading).offset(16)
       make.height.equalTo(16)
       make.width.equalTo(298)
     }
     
-    addressIcon.snp.makeConstraints { make in
-      make.height.equalTo(16)
-      make.width.equalTo(16)
-    }
-    
-//    hoursContainer.snp.makeConstraints { make in
-//      make.top.equalTo(addressContainer.snp.bottom).offset(8)
-//      make.leading.equalTo(contentView.snp.leading).offset(18)
-//      make.height.equalTo(16)
-//      make.width.equalTo(298)
-//    }
-//
-//    hoursIcon.snp.makeConstraints { make in
-//      make.height.equalTo(16)
-//      make.width.equalTo(16)
-//    }
-
    
   }
   
   private func setupAttribute() {
     storeLabel.do {
-      $0.font = UIFont.sdGhothicNeo(ofSize: 14, weight: .bold)
-      $0.textColor = #colorLiteral(red: 0.06666666667, green: 0.06666666667, blue: 0.06666666667, alpha: 1)
-    }
-    
-    addressContainer.do {
-      $0.spacing = 8
-      $0.axis = .horizontal
-      $0.distribution = .fill
-    }
-    
-    addressIcon.do {
-      $0.image = #imageLiteral(resourceName: "mapsStroked")
+      $0.font = .krTitle2
+      $0.textColor = .systemGrayText01
     }
     
     addressLabel.do {
-      $0.font = UIFont.sdGhothicNeo(ofSize: 12, weight: .regular)
-      $0.textColor = #colorLiteral(red: 0.06666666667, green: 0.06666666667, blue: 0.06666666667, alpha: 1)
+      $0.font = .krCaption2
+      $0.textColor = .systemGrayText01
     }
-//
-//    hoursContainer.do {
-//      $0.spacing = 8
-//      $0.axis = .horizontal
-//      $0.distribution = .fill
-//    }
-//
-//    hoursIcon.do {
-//      $0.image = #imageLiteral(resourceName: "clockStroked")
-//    }
-//
-//    hoursLabel.do {
-//      $0.font = UIFont.sdGhothicNeo(ofSize: 12, weight: .regular)
-//      $0.textColor = #colorLiteral(red: 0.06666666667, green: 0.06666666667, blue: 0.06666666667, alpha: 1)
-//      $0.text = "매일 00:00 - 24:00"
-//    }
-//
+
     distanceLabel.do {
-      $0.font = UIFont.sdGhothicNeo(ofSize: 12, weight: .regular)
-      $0.textColor = #colorLiteral(red: 0.5490196078, green: 0.5529411765, blue: 0.5725490196, alpha: 1)
+      $0.font = .krCaption2
+      $0.textColor = .systemGrayText02
       $0.textAlignment = .left
     }
     
     postLabel.do {
-      $0.font = UIFont.sdGhothicNeo(ofSize: 12, weight: .regular)
-      $0.textColor = #colorLiteral(red: 0.5490196078, green: 0.5529411765, blue: 0.5725490196, alpha: 1)
+      $0.font = .krCaption2
+      $0.textColor = .systemGrayText02
       $0.text = "포스트 20개"
     }
     
     verticalBarLabel.do {
-      $0.font = UIFont.sdGhothicNeo(ofSize: 12, weight: .regular)
-      $0.textColor = #colorLiteral(red: 0.5490196078, green: 0.5529411765, blue: 0.5725490196, alpha: 1)
+      $0.font = .krCaption2
+      $0.textColor = .systemGrayText02
       $0.text = "|"
     }
     

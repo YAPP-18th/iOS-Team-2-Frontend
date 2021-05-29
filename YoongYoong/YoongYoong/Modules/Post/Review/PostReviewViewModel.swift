@@ -19,13 +19,22 @@ class PostReviewViewModel: ViewModel, ViewModelType {
   
   struct Output {
     let uploadButtonIsEnabled: Observable<Bool>
+    let uploadDidEnd: PublishSubject<Void>
   }
   
   func transform(input: Input) -> Output {
 
     let buttonEnabled = Observable.combineLatest([input.discountButtonDidTap, input.smileButtonDidTap, input.likeButtonDidTap]).map {$0[0] || $0[1] || $0[2]}
+    let uploadDidEnd = PublishSubject<Void>()
     
-    return Output(uploadButtonIsEnabled: buttonEnabled)
+    input.uploadButtonDidTap
+      .subscribe(onNext: {
+        // model.upload()
+        uploadDidEnd.onNext(())
+      }).disposed(by: disposeBag)
+    
+    return Output(uploadButtonIsEnabled: buttonEnabled,
+                  uploadDidEnd: uploadDidEnd)
   }
   
   
