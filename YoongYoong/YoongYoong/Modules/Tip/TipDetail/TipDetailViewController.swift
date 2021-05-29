@@ -12,10 +12,6 @@ class TipDetailViewController: ViewController {
   
   var topConstraint: Constraint!
   
-  let backgroundImageView = UIImageView().then {
-    $0.contentMode = .scaleAspectFit
-  }
-  
   var safeareaHeight: CGFloat {
     return UIApplication.shared.keyWindow?.safeAreaLayoutGuide.layoutFrame.size.height ?? 0
   }
@@ -23,9 +19,6 @@ class TipDetailViewController: ViewController {
   var bottomPadding: CGFloat {
     return UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0
   }
-  
-  var backgroungImage: UIImage?
-  
   
   let dimmView = UIView().then {
     $0.backgroundColor = UIColor(red: 18, green: 18, blue: 18).withAlphaComponent(0.7)
@@ -36,7 +29,9 @@ class TipDetailViewController: ViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    self.backgroundImageView.image = self.backgroungImage
+    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+      self.showTip()
+    }
   }
   override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
     super.traitCollectionDidChange(previousTraitCollection)
@@ -53,23 +48,18 @@ class TipDetailViewController: ViewController {
     } else {
       self.tipView.backgroundColor = .systemGray00
     }
+    self.view.backgroundColor = .clear
     
   }
   
   override func setupView() {
     super.setupView()
-    self.view.addSubview(backgroundImageView)
     self.view.addSubview(dimmView)
     self.view.addSubview(tipView)
   }
   
   override func setupLayout() {
     super.setupLayout()
-    
-    backgroundImageView.snp.makeConstraints {
-      $0.leading.trailing.equalTo(self.view.safeAreaLayoutGuide)
-      $0.top.bottom.equalToSuperview()
-    }
     dimmView.snp.makeConstraints {
       $0.edges.equalToSuperview()
     }
@@ -82,6 +72,13 @@ class TipDetailViewController: ViewController {
     
     let gesture = UITapGestureRecognizer(target: self, action: #selector(hideAndCloseTip))
     self.dimmView.addGestureRecognizer(gesture)
+    
+    let pangesture = UIPanGestureRecognizer(target: self, action: #selector(tipPanned(_:)))
+    pangesture.delaysTouchesBegan = false
+    pangesture.delaysTouchesEnded = false
+
+    self.tipView.isUserInteractionEnabled = true
+    self.tipView.addGestureRecognizer(pangesture)
     
     topConstraint.update(offset: self.safeareaHeight + bottomPadding)
     dimmView.alpha = 0.0

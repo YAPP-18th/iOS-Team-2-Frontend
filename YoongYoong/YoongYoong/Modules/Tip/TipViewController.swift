@@ -81,8 +81,6 @@ extension TipViewController: UITableViewDelegate {
       destinationVC.tipView = TipDetailThirdView()
     }
     
-    destinationVC.backgroungImage = self.view.toImage()
-    
     destinationVC.modalPresentationStyle = .overFullScreen
     destinationVC.modalTransitionStyle = .crossDissolve
     self.present(destinationVC, animated: false, completion: nil)
