@@ -2,7 +2,7 @@
 //  PostService.swift
 //  YoongYoong
 //
-//  Created by 손병근 on 2021/05/29.
+//  Created by 김태훈 on 2021/05/29.
 //
 
 import Foundation
@@ -50,5 +50,25 @@ final class PostService {
         }
       }
   }
+}
   
+protocol MyPostServiceType: class {
+  func fetchMyPost(month: Int) -> Observable<[PostResponse]>
+}
+
+class MyPostService: MyPostServiceType {
+  private let provider: MoyaProvider<PostRouter>
+  init(provider: MoyaProvider<PostRouter>) {
+    self.provider = provider
+  }
+}
+
+extension MyPostService {
+  func fetchMyPost(month: Int) -> Observable<[PostResponse]> {
+    provider.rx.request(.fetchMyPost(month: month))
+      .filter401StatusCode()
+      .filter500StatusCode()
+      .asObservable()
+      .map([PostResponse].self ,atKeyPath: "data")
+  }
 }

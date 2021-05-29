@@ -13,6 +13,8 @@ enum AuthRouter {
   case login(param: LoginRequest)
   case guest
   case emailCheck(param: CheckEmailDuplicateRequest)
+  case deleteAccount(id: Int)
+  case nickNameCheck(param: String)
 }
 
 
@@ -31,6 +33,10 @@ extension AuthRouter: TargetType {
       return "/user/login/guest"
     case .emailCheck:
       return "/user/check/email"
+    case .deleteAccount:
+      return "/user/withdrawal"
+    case .nickNameCheck:
+      return "/user/check/nickname"
     }
   }
   
@@ -38,8 +44,11 @@ extension AuthRouter: TargetType {
     switch self {
     case .register, .login, .guest:
       return .post
-    case .emailCheck:
+    case .emailCheck,
+         .nickNameCheck:
       return .get
+    case .deleteAccount:
+      return .delete
     }
   }
   
@@ -58,11 +67,18 @@ extension AuthRouter: TargetType {
       return .requestPlain
     case .emailCheck(let param):
       return .requestParameters(parameters: try! param.asParameters(), encoding: URLEncoding.default)
+    case .deleteAccount(let id):
+      return .requestParameters(parameters: try! ["userId" : id].asParameters(), encoding: URLEncoding.default)
+    case .nickNameCheck(param: let param):
+      return .requestParameters(parameters: try! ["nickname" : param].asParameters(), encoding: URLEncoding.default)
     }
   }
   
   var headers: [String : String]? {
     switch self {
+    case .deleteAccount :
+      return ["Content-Type":"application/json",
+              "Authorization" : "Bearer \(UserDefaultHelper<String>.value(forKey: .accessToken)!)"]
     default:
       return ["Content-Type":"application/json"]
     }

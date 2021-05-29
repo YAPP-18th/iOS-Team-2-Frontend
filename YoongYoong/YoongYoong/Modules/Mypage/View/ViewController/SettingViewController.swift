@@ -19,6 +19,9 @@ class SettingViewController : ViewController {
     $0.register(settingTableViewCell.self, forCellReuseIdentifier: settingTableViewCell.identifier)
     $0.register(settingTableViewHeader.self, forHeaderFooterViewReuseIdentifier: settingTableViewHeader.identifier)
   }
+  private let service = AuthorizeService(provider: MoyaProvider<AuthRouter>(plugins:[NetworkLoggerPlugin()]))
+  
+  
   private var sections: [String] = ["알림 설정", "계정 관리","기타"]
   private var items: [[String]] = [["알림 받기"],
                                    ["계정 이메일"],
@@ -81,8 +84,18 @@ extension SettingViewController : UITableViewDelegate, UITableViewDataSource {
         }, cancelBtnAction: nil)
         print("로그아웃")
       case 1 :
-        AlertAction.shared.showAlertView(title: "정말 탈퇴 하시겠습니까?", grantMessage: "확인", denyMessage: "취소", okAction: {
-          self.navigationController?.popToRootViewController(animated: true)
+        AlertAction.shared.showAlertView(title: "정말 탈퇴 하시겠습니까?", grantMessage: "확인", denyMessage: "취소", okAction: { [weak self] in
+          guard let self = self else {return }
+          if let userID = UserDefaultHelper<Int>.value(forKey: .userId){
+            let response = self.service.deletAccount(id: userID) ?? .empty()
+            response.bind{ [weak self] response in
+              if (200...300).contains(response.statusCode) {
+                if let window = self?.view.window {
+                  self?.navigator.show(segue: .splash(viewModel: SplashViewModel()), sender: self, transition: .root(in: window))
+                }
+              }
+            }.disposed(by: self.disposeBag)
+          }
         }, cancelBtnAction: nil)
         print("탈퇴하기")
       case 2:

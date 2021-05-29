@@ -17,6 +17,7 @@ enum PostRouter {
   case modifyComment(id: Int)
   case deleteComment(id: Int)
   case fetchPostBy
+  case fetchMyPost(month: Int)
 }
 
 
@@ -39,6 +40,8 @@ extension PostRouter: TargetType {
       return "/post"
     case .fetchPostBy:
       return "/post"
+    case .fetchMyPost:
+      return "/post/user/mine"
     }
   }
   
@@ -46,7 +49,8 @@ extension PostRouter: TargetType {
     switch self {
     case .fetchPostList,
          .fetchCommentList,
-         .fetchPostBy:
+         .fetchPostBy,
+         .fetchMyPost:
       return .get
     case .addPost,
          .addComment:
@@ -63,7 +67,6 @@ extension PostRouter: TargetType {
   
   var task: Task {
     switch self {
-    
     case .fetchPostList:
       return .requestPlain
     case .fetchCommentList:
@@ -78,6 +81,8 @@ extension PostRouter: TargetType {
       return .requestPlain
     case .fetchPostBy:
       return .requestPlain
+    case .fetchMyPost(month: let month):
+      return .requestParameters(parameters: ["month": month], encoding: URLEncoding.default)
     }
   }
   

@@ -1,0 +1,644 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>위치 기반 서비스</title><style>
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, YuMincho, "Yu Mincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC", "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
+
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
+
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, YuMincho, "Yu Mincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC", "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
+
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
+
+.highlight-default {
+}
+.highlight-gray {
+	color: rgb(155,154,151);
+}
+.highlight-brown {
+	color: rgb(100,71,58);
+}
+.highlight-orange {
+	color: rgb(217,115,13);
+}
+.highlight-yellow {
+	color: rgb(223,171,1);
+}
+.highlight-teal {
+	color: rgb(15,123,108);
+}
+.highlight-blue {
+	color: rgb(11,110,153);
+}
+.highlight-purple {
+	color: rgb(105,64,165);
+}
+.highlight-pink {
+	color: rgb(173,26,114);
+}
+.highlight-red {
+	color: rgb(224,62,62);
+}
+.highlight-gray_background {
+	background: rgb(235,236,237);
+}
+.highlight-brown_background {
+	background: rgb(233,229,227);
+}
+.highlight-orange_background {
+	background: rgb(250,235,221);
+}
+.highlight-yellow_background {
+	background: rgb(251,243,219);
+}
+.highlight-teal_background {
+	background: rgb(221,237,234);
+}
+.highlight-blue_background {
+	background: rgb(221,235,241);
+}
+.highlight-purple_background {
+	background: rgb(234,228,242);
+}
+.highlight-pink_background {
+	background: rgb(244,223,235);
+}
+.highlight-red_background {
+	background: rgb(251,228,228);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(55, 53, 47, 0.6);
+	fill: rgba(55, 53, 47, 0.6);
+}
+.block-color-brown {
+	color: rgb(100,71,58);
+	fill: rgb(100,71,58);
+}
+.block-color-orange {
+	color: rgb(217,115,13);
+	fill: rgb(217,115,13);
+}
+.block-color-yellow {
+	color: rgb(223,171,1);
+	fill: rgb(223,171,1);
+}
+.block-color-teal {
+	color: rgb(15,123,108);
+	fill: rgb(15,123,108);
+}
+.block-color-blue {
+	color: rgb(11,110,153);
+	fill: rgb(11,110,153);
+}
+.block-color-purple {
+	color: rgb(105,64,165);
+	fill: rgb(105,64,165);
+}
+.block-color-pink {
+	color: rgb(173,26,114);
+	fill: rgb(173,26,114);
+}
+.block-color-red {
+	color: rgb(224,62,62);
+	fill: rgb(224,62,62);
+}
+.block-color-gray_background {
+	background: rgb(235,236,237);
+}
+.block-color-brown_background {
+	background: rgb(233,229,227);
+}
+.block-color-orange_background {
+	background: rgb(250,235,221);
+}
+.block-color-yellow_background {
+	background: rgb(251,243,219);
+}
+.block-color-teal_background {
+	background: rgb(221,237,234);
+}
+.block-color-blue_background {
+	background: rgb(221,235,241);
+}
+.block-color-purple_background {
+	background: rgb(234,228,242);
+}
+.block-color-pink_background {
+	background: rgb(244,223,235);
+}
+.block-color-red_background {
+	background: rgb(251,228,228);
+}
+.select-value-color-default { background-color: rgba(206,205,202,0.5); }
+.select-value-color-gray { background-color: rgba(155,154,151, 0.4); }
+.select-value-color-brown { background-color: rgba(140,46,0,0.2); }
+.select-value-color-orange { background-color: rgba(245,93,0,0.2); }
+.select-value-color-yellow { background-color: rgba(233,168,0,0.2); }
+.select-value-color-green { background-color: rgba(0,135,107,0.2); }
+.select-value-color-blue { background-color: rgba(0,120,223,0.2); }
+.select-value-color-purple { background-color: rgba(103,36,222,0.2); }
+.select-value-color-pink { background-color: rgba(221,0,129,0.2); }
+.select-value-color-red { background-color: rgba(255,0,26,0.2); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="40bc0dce-32a6-4539-a292-ada956e0b209" class="page sans"><header><h1 class="page-title">위치 기반 서비스</h1></header><div class="page-body"><p id="f4991175-9218-4e6a-80d9-3f2124ed48de" class="">
+</p><p id="f940d5a3-a83a-4f89-bc64-0fd5ce99f109" class=""><strong>제1조 (목적)</strong></p><p id="3e684f19-d4a7-4f0a-bea6-e5b264d64905" class="">본 약관은 회원(본 약관에 동의한 자를 말합니다. 이하 “회원”이라고 합니다)이 용기내용(이하 “어플”라고 합니다)가 제공하는 위치기반서비스(이하 “서비스”라고 합니다)를 이용함에 있어 회사와 회원의 권리・의무 및 책임사항을 규정함을 목적으로 합니다.</p><p id="bafc4a9e-23ff-4460-8f03-b7c074ded11c" class="">
+</p><p id="e6ddd3da-c8ff-4488-905d-39402d32d95e" class=""><strong>제2조 (약관의 효력 및 변경)</strong></p><p id="dab43896-34a5-405f-be8c-fad6ce492b33" class="">1. 본 약관은 서비스를 신청한 고객 또는 개인위치정보주체가 본 약관에 동의하고 어플이 정한 소정의 절차에 따라 서비스의 이용자로 등록함으로써 효력이 발생합니다.</p><p id="0182752f-6807-4883-a1cc-d53283d9ade9" class="">2. 회사는 본 약관의 내용을 회원이 쉽게 알 수 있도록 서비스 초기 화면에 게시하거나 기타의 방법으로 공지합니다.</p><p id="33cfe027-6d9c-4ba3-b7b6-5512f525aacd" class="">3. 회사는 필요하다고 인정되면 본 약관을 변경할 수 있으며, 회사가 약관을 개정할 경우에는 기존약관과 개정약관 및 개정약관의 적용일자와 개정사유를 명시하여 현행약관과 함께 그 적용일자 7일 전부터 적용일 이후 상당한 기간 동안 공지합니다. 다만, 개정 내용이 회원에게 불리한 경우에는 그 적용일자 30일 전부터 적용일 이후 상당한 기간 동안 각각 이를 서비스 홈페이지에 게시하여 고지합니다.</p><p id="17942887-d35b-40da-98c8-e3712f3bb5c9" class="">4. 회사가 전항에 따라 회원에게 공지하거나 통지하면서 공지 또는 통지ㆍ고지일로부터 개정약관 시행일 7일 후까지 거부의사를 표시하지 아니하면 승인한 것으로 본다는 뜻을 명확하게 고지하였음에도 불구하고 거부의 의사표시가 없는 경우에는 변경된 약관에 승인한 것으로 봅니다. 회원이 개정약관에 동의하지 않을 경우 회원은 이용계약을 해지할 수 있습니다.</p><p id="83ab7a33-b0a2-4865-aa6b-038de4896b0d" class="">
+</p><p id="b59004a5-63ef-4868-864a-fe1dbf4849d5" class=""><strong>제3조 (약관 외 준칙)</strong></p><p id="b8d736c6-7c4d-4fc9-b2fd-b561f668d6a9" class="">본 약관에 규정되지 않은 사항에 대해서는 위치정보의 보호 및 이용 등에 관한 법률(이하 “위치정보법”이라고 합니다), 전기통신사업법, 정보통신망 이용촉진 및 보호 등에 관한 법률(이하 “정보통신망법”이라고 합니다), 개인정보보호법 등 관련법령 또는 회사가 정한 서비스의 운영정책 및 규칙 등(이하 “세부지침”이라고 합니다)의 규정에 따릅니다.</p><p id="5fb507d1-ffa7-4b11-82c3-7caababfea91" class="">
+</p><p id="8d875b01-9893-44e3-b075-476b40f7361e" class=""><strong>제4조 (서비스의 가입)</strong></p><p id="2d675987-1c14-4699-a4e6-3da150155d35" class="">1. 본회사는 아래와 같은 경우에는 여러분의 용기내용 계정 생성을 유보할 수 있습니다.</p><p id="cb08f2b5-31df-42c1-aee3-b8240f199769" class="">* 회원 등록 사항을 빠뜨리거나 잘못 기재하여 신청하는 경우</p><p id="00175227-b73b-48e9-b8f6-d1a86a398fc6" class="">* 기타 회사가 정한 이용신청 요건을 충족하지 않았을 경우</p><p id="cab3fb08-3a4a-452a-a53f-31dca0dc1140" class="">
+</p><p id="25113eeb-cd19-4246-a415-0c1b7a0e9119" class=""><strong>제5조 (서비스의 해지)</strong></p><p id="c3839c3a-fb14-434e-a9b1-e59215298de8" class="">회원이 서비스 이용을 해지하고자 할 경우 회원은 회사가 정한 절차(서비스 홈페이지 등을 통해 공지합니다)를 통해 서비스 해지를 신청할 수 있으며, 회사는 법령이 정하는 바에 따라 신속히 처리합니다.</p><p id="1ebbf979-14fc-4400-b0dd-43c08b665d19" class="">
+</p><p id="32e988d8-06bc-46ea-bcb2-f02982c0ec31" class=""><strong>제6조 (서비스의 내용)</strong></p><p id="78b2b04d-ccae-44cd-83ac-6f7195a366a2" class="">1. 서비스의 이용은 연중무휴 1일 24시간을 원칙으로 합니다. 단, 어플의 업무 또는 기술상의 이유로 서비스가 일시 중지될 수 있으며, 운영상의 목적으로 어플이 정한 기간에도 서비스는 일시 중지될 수 있습니다. 이때 어플은 사전 또는 사후에 이를 공지합니다.</p><p id="f89b202c-d1c7-4a40-9c51-03e79ece1f9b" class="">2. 어플이 제공하는 서비스의 종류, 세부 내용, 이용 요금은 아래와 같습니다.</p><p id="d21352eb-99c3-429e-9392-966fce78a769" class="">1. 종류 : 다회용기 기록/공유 서비스</p><p id="d6fb6f85-bce2-497f-8a90-7e1f9e3716ce" class="">2. 서비스명 : 용기내용</p><p id="446b729c-8534-4e10-9b64-a31ad6be589b" class="">3. 설명 : 내 위치 주변 음식점/식료품점에서 포장 시 다회용기를 사용하고 기록 및 공유하는 서비스</p><p id="45f2fb39-df3b-4153-b49f-b92f5876ee78" class="">4. 위치정보 이용 목적: 내 위치 인증</p><p id="6155dc03-c286-45ec-97b2-074688075d01" class="">5. 이용 요금 : 무료</p><p id="34ee9233-4834-47e7-a952-c025f10f0d3b" class="">
+</p><p id="1177bafb-eb90-4288-93d3-2b2591ddfca2" class=""><strong>제7조 (서비스의 이용제한 및 중지)</strong></p><p id="8c5ade77-2a98-4f7b-85b8-f9ad09b6e35d" class="">1. 어플은 아래 각 호의 경우에는 회원의 서비스 이용을 제한하거나 중지시킬 수 있습니다.</p><p id="0b60527c-a09d-47ec-9a08-ddc380a55cfb" class="">1. 회원이 어플 서비스의 운영을 고의 또는 중과실로 방해하는 경우</p><p id="da57fb87-c1c2-48ef-b735-8e3195caadd9" class="">2. 서비스용 설비 점검, 보수 또는 공사로 인하여 부득이한 경우</p><p id="2e5d3079-c64e-4ea3-96bd-2e3fa45e044e" class="">3. 전기통신사업법에 규정된 기간통신사업자가 전기통신 서비스를 중지했을 경우</p><p id="8a8b2e53-136e-4a06-8287-9890f48b8f48" class="">4. 국가비상사태, 서비스 설비의 장애 또는 서비스 이용의 폭주 등으로 서비스 이용에 지장이 있는 때</p><p id="3aeb6ccb-d71a-418c-b5ae-9abaa9d06c48" class="">5. 기타 중대한 사유로 인하여 어플이 서비스 제공을 지속하는 것이 부적당하다고 인정하는 경우</p><p id="b58c758e-becb-4eb9-97f7-c9c0a48a0891" class="">2. 어플은 전항의 규정에 의하여 서비스의 이용을 제한하거나 중지한 때에는 그 사유 및 제한기간 등을 회원에게 알려야 합니다.</p><p id="3d626ac5-9301-4345-9fa0-76e644688ab1" class="">
+</p><p id="412cea57-44a0-41a4-bb3a-d8e1ac27de7e" class=""><strong>제8조 (서비스내용변경 통지 등)</strong></p><p id="0c87c49d-cb80-4644-9d48-284f9977f5b1" class="">1. 어플이 서비스 내용을 변경하거나 종료하는 경우 어플은 회원의 등록된 이메일에 전송하는 방식으로 서비스 내용의 변경 사항 또는 종료를 통지할 수 있습니다.</p><p id="b74e9edc-5f61-41ff-b2bc-ca557f26b1c4" class="">2. 단, 회원 본인의 거래와 관련하여 중대한 영향을 미치는 사항은 상당한 기간 동안 서비스 앱스토어 설명에 게시하거나 회원에게 전자적 형태(전자우편)으로 개별통지 합니다.</p><p id="7a9583de-e99a-4fa2-a19c-75d74899ee8a" class="">
+</p><p id="7e7901e5-9b38-48b3-8a00-3437ecc609be" class=""><strong>제9조 (개인위치정보의 이용 또는 제공)</strong></p><p id="79767a8d-a939-4595-bb16-15deb9a3d4f2" class="">1. 어플은 개인위치정보를 이용하여 서비스를 제공하고자 하는 경우에는 미리 약관에 명시한 후 개인위치정보주체의 동의를 얻어야 합니다.</p><p id="fe464f70-fe6f-44e3-bab1-298ced1af79f" class="">2. 회원 및 법정대리인의 권리와 그 행사방법은 제소 당시의 이용자의 주소에 의하며, 주소가 없는 경우에는 거소를 관할하는 지방법원의 전속관할로 합니다. 다만, 제소 당시 이용자의 주소 또는 거소가 분명하지 않거나 외국 거주자의 경우에는 민사소송법상의 관할법원에 제기합니다.</p><p id="e43d2182-2583-4589-8dbf-688f57fd32b5" class="">3. 어플은 타사업자 또는 이용 고객과의 요금정산 및 민원처리를 위해 위치정보 이용·제공, 사실 확인자료를 자동 기록·보존하며, 해당 자료는 6개월간 보관합니다.</p><p id="aab19567-f089-4017-9e5c-741387ef79cd" class="">4. 어플은 개인위치정보주체의 동의 없이 개인위치정보를 제3자에게 제공하지 아니하며, 제3자 제공 서비스를 제공하는 경우에는 제공 받는자 및 제공목적을 사전에 개인위치정보주체에게 고지하고 동의를 받습니다. 다만, 다음의 경우는 예외로 하고 있습니다.</p><p id="0ccfcf9d-d547-485d-8d60-48d2cad534e7" class="">1. 법령의 규정에 의거하거나 수사 목적으로 법령에 정해진 절차와 방법에 따라 수사기관의 요구가 있는 경우</p><p id="50d5f4d9-4e9f-43d8-aefc-057263729625" class="">5. 어플은 개인위치정보를 회원이 지정하는 제3자에게 제공하는 경우에는 개인위치정보를 수집한 당해 통신 단말장치로 매회 회원에게 제공받는 자, 제공 일시 및 제공목적을 즉시 통보합니다. 단, 아래 각 호의 1에 해당하는 경우에는 회원이 미리 특정하여 지정한 통신 단말장치 또는 전자우편주소로 통보합니다.</p><p id="cbfce780-6ecc-4694-b58e-10fa02f1b59c" class="">1. 개인위치정보를 수집한 당해 통신단말장치가 문자, 음성 또는 영상의 수신기능을 갖추지 아니한 경우</p><p id="63c02688-3949-4321-aeaf-44fc313b4d05" class="">2. 회원이 온라인 게시 등의 방법으로 통보할 것을 미리 요청한 경우</p><p id="b4446f5f-c2de-434b-aea8-631a8267b0d7" class="">
+</p><p id="60519bd1-c58d-42ab-8458-02acfa48d875" class=""><strong>제10조 (개인위치정보주체의 권리)</strong></p><p id="775cf5d6-bc8c-4c54-8aab-fa8340790c90" class="">1. 회원은 어플에 대하여 언제든지 개인위치정보를 이용한 위치기반서비스 제공 및 개인위치정보의 제3자 제공에 대한 동의의 전부 또는 일부를 철회할 수 있습니다. 이 경우 회사는 수집한 개인위치정보 및 위치정보 이용, 제공사실 확인자료를 파기합니다.</p><p id="b968b7c4-a923-44d9-abd6-88ecaf760744" class="">2. 회원은 어플에 대하여 언제든지 개인위치정보의 수집, 이용 또는 제공의 일시적인 중지를 요구할 수 있으며, 어플은 이를 거절할 수 없고 이를 위한 기술적 수단을 갖추고 있습니다.</p><p id="de30d62e-61cc-45b0-890e-1df74a1fb989" class="">3. 회원은 어플에 대하여 아래 각 호의 자료에 대한 열람 또는 고지를 요구할 수 있고, 당해 자료에 오류가 있는 경우에는 그 정정을 요구할 수 있습니다. 이 경우 어플은 정당한 사유 없이 회원의 요구를 거절할 수 없습니다.</p><p id="5ee9bcd9-312e-48a0-bf76-33feece5f83d" class="">1. 본인에 대한 위치정보 수집, 이용, 제공사실 확인자료</p><p id="81e2bafb-77a0-40d4-a08b-b879629721a5" class="">2. 본인의 개인위치정보가 위치정보의 보호 및 이용 등에 관한 법률 또는 다른 법률 규정에 의하여 제3자에게 제공된 이유 및 내용</p><p id="7f7f5db9-adb0-452d-b2c0-fb1a0cca37a7" class="">4. 회원은 제1항 내지 제3항의 권리행사를 위해 어플의 소정의 절차를 통해 요구할 수 있습니다.</p><p id="c0879b33-b96e-4a56-99d5-acccd64066c2" class="">
+</p><p id="207ace63-daa4-451c-afff-ab80b1c45fb4" class=""><strong>제11조 (어플의 주소 및 연락처 등)</strong></p><p id="2f44b0d9-05c4-4333-94ec-a151be835245" class="">1. 어플의 연락처는 아래와 같습니다.</p><p id="2158d39f-8166-4d9c-adf3-d2a0c386797c" class="">* 이메일 주소: yongyong.yapp2021@gmail.com</p><p id="bb2dfec2-7987-46a0-857e-d3200c19ab73" class="">
+</p><p id="977897fd-b080-4bb4-8316-80fe34d4f239" class=""><strong>제12조 (양도금지)</strong></p><p id="a4d6bd96-53b4-432f-8248-d6d146739883" class="">회원의 서비스 받을 권리는 이를 양도 내지 증여하거나 담보제공 등의 목적으로 처분할 수 없습니다.</p><p id="2b56656d-3a19-4cb9-99a1-458bdcc084ec" class="">
+</p><p id="9a0aa28b-bb4a-4798-9933-b9dfcbbdc203" class=""><strong>제13조 (손해배상)</strong></p><p id="46b3749a-6ddb-4b89-a6d8-3724859eb9b6" class="">1. 어플이 위치정보법 제15조 내지 제26조의 규정을 위반한 행위로 회원에게 손해가 발생한 경우 회원은 어플에 대하여 손해배상 청구를 할 수 있습니다. 이 경우 회사는 고의, 과실이 없음을 입증하지 못하는 경우 책임을 면할 수 없습니다.</p><p id="739669d7-3d2b-455a-8fb0-99f8967517ac" class="">2. 어플이 위치정보법 제15조 내지 제26조의 규정을 위반한 행위로 회원에게 손해가 발생한 경우 회원은 회사에 대하여 손해배상 청구를 할 수 있습니다. 이 경우 회사는 고의, 과실이 없음을 입증하지 못하는 경우 책임을 면할 수 없습니다.</p><p id="527b7bbf-3e8b-4f7e-9a2e-a3dcba78c4c0" class="">
+</p><p id="55d7566d-2bb3-40b8-9d09-b940e1bb13f0" class=""><strong>제14조 (면책)</strong></p><p id="18bbe5c9-3664-48ee-98f9-315600c32f08" class="">1. 어플은 다음 각 호의 경우로 서비스를 제공할 수 없는 경우 이로 인하여 회원에게 발생한 손해에 대해서는 책임을 부담하지 않습니다.</p><p id="9d1bd384-b260-4759-8210-7f0f9449e230" class="">1. 천재지변 또는 이에 준하는 불가항력의 상태가 있는 경우</p><p id="c0f465a9-db31-4560-8736-5501759ff6ac" class="">2. 서비스 제공을 위하여 회사와 서비스 제휴계약을 체결한 제3자의 고의적인 서비스 방해가 있는 경우</p><p id="119d7d8e-0400-4f30-ac7c-29f7ece82a69" class="">3. 회원의 귀책사유로 서비스 이용에 장애가 있는 경우4) 제1호 내지 제3호를 제외한 기타 어플의 고의ㆍ과실이 없는 사유로 인한 경우</p><p id="cb60e2ef-95a9-4c7f-aa4b-15972db9401a" class="">2. 어플은 서비스 및 서비스에 게재된 정보, 자료, 사실의 신뢰도, 정확성 등에 대해서는 보증을 하지 않으며 이로 인해 발생한 회원의 손해에 대하여는 책임을 부담하지 아니합니다.</p><p id="912f8d2c-c7a2-4a3f-96c0-6440ed392487" class="">
+</p><p id="c1d17500-21d7-4142-9f56-413acb4738d8" class=""><strong>제15조 (분쟁의 조정 및 기타)</strong></p><p id="d082ef46-ddba-43f8-ac37-a903b48a6371" class="">1. 서비스 이용과 관련하여 회사와 회원 간에 분쟁이 발생하면, 회사는 분쟁의 해결을 위해 회원과 성실히 협의합니다.</p><p id="de1c680b-fa83-4425-a6c4-b0de4498ecec" class="">2. 전항의 협의에서 분쟁이 해결되지 않은 경우 회사와 회원은 위치정보법 제28조에 의한 방송통신위원회에 재정을 신청하거나, 개인정보보호법 제43조에 의한 방송통신위원회 또는 개인정보분쟁조정위원회에 재정 또는 분쟁조정을 신청할 수 있습니다.</p><p id="66cb8573-cd99-4966-b016-fdbf58057c3d" class="">3. 전항으로도 분쟁이 해결되지 않으면 회사와 회원 양 당사자는 민사소송법상의 관할법원에 소를 제기할 수 있습니다.</p><p id="dd5c6ed9-bb78-4616-bb24-74e175586c30" class="">
+</p><p id="61d74524-a27a-428c-a520-89c9ca54fec4" class="">부칙</p><p id="9cb4a6e7-03c6-4e36-bd78-8f4f7c131008" class="">제1조 (시행일) 본 약관은 2021년 5월 30일부터 시행합니다.</p><p id="7efdb534-c31d-4539-b346-fc1a4fec2e98" class="">
+</p></div></article></body></html>

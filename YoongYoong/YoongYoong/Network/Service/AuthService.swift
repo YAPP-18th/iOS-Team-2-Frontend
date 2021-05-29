@@ -12,9 +12,12 @@ import RxSwift
 protocol AuthorizeServiceType: class {
   
   func checkEmailDuplicate(_ param: CheckEmailDuplicateRequest) -> Observable<Bool>
+  func checkNickNameDuplicate(_ param: String) -> Observable<Bool>
+
   func signup(_ param: SignupRequest) -> Observable<Response>
   func login(_ param : LoginRequest) -> Observable<Response>
   func guest() -> Observable<Response>
+  func deletAccount(id: Int) -> Observable<Response>
 }
 
 class AuthorizeService: AuthorizeServiceType {
@@ -32,6 +35,14 @@ extension AuthorizeService {
         (200...300).contains(response.statusCode)
       }
   }
+  func checkNickNameDuplicate(_ param: String) -> Observable<Bool> {
+    return provider.rx.request(.nickNameCheck(param: param))
+      .asObservable()
+      .map { response -> Bool in
+        (200...300).contains(response.statusCode)
+      }
+  }
+
   func signup(_ param: SignupRequest) -> Observable<Response> {
     provider.rx.request(.register(param: param))
       .asObservable()
@@ -45,6 +56,8 @@ extension AuthorizeService {
     provider.rx.request(.guest)
       .asObservable()
   }
-  func logOut() {
+  func deletAccount(id : Int) -> Observable<Response> {
+    provider.rx.request(.deleteAccount(id: id))
+      .asObservable()
   }
 }

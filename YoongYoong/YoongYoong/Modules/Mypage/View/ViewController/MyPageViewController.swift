@@ -76,7 +76,9 @@ class MyPageViewController: ViewController {
     $0.font = .sdGhothicNeo(ofSize: 12, weight: .regular)
     $0.textAlignment = .center
   }
-  var yongCommentList : [String] = []
+  var yongCommentList : [String] = ["용기를 내고 배지를 모아보세요",
+                                    "지금까지 총 0개의 용기를 냈어요!",
+                                    "자주 사용하는 용기를 등록하세요!"]
   private let tabView : [UIView] = [UIView(),UIView(),UIView()]
   private let tabs : [UIImageView] = [UIImageView(),
                                       UIImageView(),
