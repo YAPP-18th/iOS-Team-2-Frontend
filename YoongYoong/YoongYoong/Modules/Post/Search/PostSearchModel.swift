@@ -20,7 +20,7 @@ class PostSearchModel {
     self.searchService = searchService
     self.placeService = placeService
     searchHistory = self.loadSearchHistory().reversed()
-//    getAllReviewCounts()    
+//    getAllReviewCounts()
   }
   
   private var page = 1
@@ -35,7 +35,6 @@ class PostSearchModel {
       .subscribe(onNext: { [weak self] in
         guard let self = self else { return }
         self.reviewCounts = $0!.data
-        print($0!.count)
       }).disposed(by: DisposeBag())
 
   }

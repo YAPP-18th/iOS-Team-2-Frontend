@@ -101,9 +101,11 @@ class PostImageSelectionViewModel: ViewModel, ViewModelType {
       }).disposed(by: disposeBag)
     
     input.registButtonDidTap
-      .map { _ in return SelectMenuViewModel() }
-      .bind(to: selectMenuView)
-      .disposed(by: disposeBag)
+      .subscribe(onNext: { [weak self] in
+        guard let self = self else { return }
+        PostData.shared.postImages = self.selected.map { $0.0 }
+        selectMenuView.accept(SelectMenuViewModel())
+      }).disposed(by: disposeBag)
     
     return Output(photos: photos,
                   selectedPhotos: selectedPhotos,

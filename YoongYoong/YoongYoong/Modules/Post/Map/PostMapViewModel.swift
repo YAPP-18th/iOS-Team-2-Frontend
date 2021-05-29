@@ -24,11 +24,9 @@ class PostMapViewModel: ViewModel, ViewModelType {
     let myLocation: BehaviorRelay<CLLocationCoordinate2D>
   }
   
-  // ??
-  var place: Place!
   
   func transform(input: Input) -> Output {
-    let storeInfo = BehaviorRelay<Place>(value: self.place)
+    let storeInfo = BehaviorRelay<Place>(value: PostData.shared.place!)
     let myLocation = BehaviorRelay<CLLocationCoordinate2D>(value: self.locationManager.locationChanged.value)
     let imageSelectionView = PublishRelay<PostImageSelectionViewModel>()
     let setting = PublishRelay<Void>()

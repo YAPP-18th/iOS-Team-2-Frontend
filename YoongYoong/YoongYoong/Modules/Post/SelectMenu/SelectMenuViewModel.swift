@@ -13,6 +13,7 @@ struct MenuInfo {
   var menu: String?
   var menuCount = 1
   var container: String?
+  var containerSize: String?
   var containerCount = 1
   var last: Bool
 }
@@ -26,22 +27,24 @@ class SelectMenuViewModel: ViewModel, ViewModelType {
     let menuCountChanged: PublishSubject<(count: Int, index: Int)>
     let containerCountChanged: PublishSubject<(count: Int, index: Int)>
     let menuText: PublishSubject<(txt: String?, index: Int)>
-
+    let nextButtonDidTap: Observable<Void>
   }
   
   struct Output {
     let menuInfo: BehaviorSubject<[MenuInfo]>
     let buttonEnabled: BehaviorRelay<Bool>
     let containerListView: PublishRelay<SelectContainerViewModel>
+    let addReviewView: PublishRelay<PostReviewViewModel>
   }
   
-  let containerIsSelected = PublishSubject<String>()
+  let containerIsSelected = PublishSubject<(name: String, size: String)>()
   
   func transform(input: Input) -> Output {
     var menus: [MenuInfo] = [.init(last: false), .init(last: true)]
     let menuInfoOutput = BehaviorSubject<[MenuInfo]>(value: menus)
     let buttonEnabledOutput = BehaviorRelay<Bool>(value: false)
     let containerListViewOutput = PublishRelay<SelectContainerViewModel>()
+    let addReviewView = PublishRelay<PostReviewViewModel>()
     
     input.containerTextFieldDidBeginEditing
       .subscribe(onNext: { [weak self] index in
@@ -88,18 +91,28 @@ class SelectMenuViewModel: ViewModel, ViewModelType {
         menus[$0.index].menu = $0.txt
         menuInfoOutput.onNext(menus)
       }).disposed(by: disposeBag)
+    
+    input.nextButtonDidTap
+      .subscribe(onNext: {
+        PostData.shared.containers = menus[0..<menus.count-1].map { PostContainer(containerData: ContainerData(name: $0.container!,
+                                                                                                               size: $0.containerSize!),
+                                                                                  containerCount: $0.containerCount,
+                                                                                  food: $0.menu!,
+                                                                                  foodCount: $0.menuCount)}
+      }).disposed(by: disposeBag)
         
     menuInfoOutput
       .map {self.checkNextButtonValid($0)}
       .bind(to: buttonEnabledOutput)
       .disposed(by: disposeBag)
     
-    var title = ""
+    var containerInfo: (name: String, size: String) = ("", "")
     containerIsSelected
-      .map{ title = $0 }
+      .map{ containerInfo = $0 }
       .withLatestFrom(input.containerTextFieldDidBeginEditing)
       .subscribe(onNext: { index in
-        menus[index].container = title
+        menus[index].container = containerInfo.name
+        menus[index].containerSize = containerInfo.size
         menuInfoOutput.onNext(menus)
       }).disposed(by: disposeBag)
       
@@ -107,7 +120,8 @@ class SelectMenuViewModel: ViewModel, ViewModelType {
     
     return Output(menuInfo: menuInfoOutput,
                   buttonEnabled: buttonEnabledOutput,
-                  containerListView: containerListViewOutput)
+                  containerListView: containerListViewOutput,
+                  addReviewView: addReviewView)
   }
   
   private func checkNextButtonValid(_ datas: [MenuInfo]) -> Bool {
@@ -124,6 +138,6 @@ class SelectMenuViewModel: ViewModel, ViewModelType {
 
 extension SelectMenuViewModel: SelectContainerDelegate {
   func containerTitle(_ title: String, _ size: String) {
-    containerIsSelected.onNext("\(title), \(size)")
+    containerIsSelected.onNext((title, size))
   }
 }

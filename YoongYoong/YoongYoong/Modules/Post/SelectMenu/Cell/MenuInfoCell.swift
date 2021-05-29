@@ -95,7 +95,12 @@ class MenuInfoCell: UITableViewCell {
     
     
     containerTextField.textColor = data.container == nil ? #colorLiteral(red: 0.7803921569, green: 0.7803921569, blue: 0.8039215686, alpha: 1) : .black
-    containerTextField.text = "\(data.container ?? "용기 종류")"
+    if data.container == nil {
+      containerTextField.text  = "용기 종류"
+    } else {
+      containerTextField.text = "\(data.container!) \(data.containerSize!)"
+
+    }
   }
   
   func setSeletedColor() {
