@@ -15,6 +15,7 @@ protocol AuthorizeServiceType: class {
   func signup(_ param: SignupRequest) -> Observable<Response>
   func login(_ param : LoginRequest) -> Observable<Response>
   func guest() -> Observable<Response>
+  func deletAccount(id: Int) -> Observable<Response>
 }
 
 class AuthorizeService: AuthorizeServiceType {
@@ -45,6 +46,8 @@ extension AuthorizeService {
     provider.rx.request(.guest)
       .asObservable()
   }
-  func logOut() {
+  func deletAccount(id : Int) -> Observable<Response> {
+    provider.rx.request(.deleteAccount(id: id))
+      .asObservable()
   }
 }
