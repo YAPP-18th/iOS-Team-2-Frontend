@@ -15,6 +15,7 @@ enum AuthRouter {
   case emailCheck(param: CheckEmailDuplicateRequest)
   case deleteAccount(id: Int)
   case nickNameCheck(param: String)
+  case modifyProfiel(param: ModifyProfileParam)
 }
 
 
@@ -37,6 +38,8 @@ extension AuthRouter: TargetType {
       return "/user/withdrawal"
     case .nickNameCheck:
       return "/user/check/nickname"
+    case .modifyProfiel:
+      return "/user/profile"
     }
   }
   
@@ -49,6 +52,8 @@ extension AuthRouter: TargetType {
       return .get
     case .deleteAccount:
       return .delete
+    case .modifyProfiel:
+      return .put
     }
   }
   
@@ -71,6 +76,9 @@ extension AuthRouter: TargetType {
       return .requestParameters(parameters: try! ["userId" : id].asParameters(), encoding: URLEncoding.default)
     case .nickNameCheck(param: let param):
       return .requestParameters(parameters: try! ["nickname" : param].asParameters(), encoding: URLEncoding.default)
+    case .modifyProfiel(param: let param):
+      
+      return .requestPlain
     }
   }
   
