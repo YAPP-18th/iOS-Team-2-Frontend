@@ -8,12 +8,13 @@
 import Foundation
 
 struct SearchAPIResponse: Decodable {
-  let documents: [Place]
+  let documents: [Documents]
   let meta: Meta
 }
 
-struct Place: Codable {
+struct Documents: Codable {
   var name: String
+  var roadAddress: String
   var address: String
   var distance: String
   var latitude: String
@@ -21,7 +22,8 @@ struct Place: Codable {
   
   enum CodingKeys: String, CodingKey {
     case name = "place_name"
-    case address = "road_address_name"
+    case roadAddress = "road_address_name"
+    case address = "address_name"
     case distance
     case latitude = "y"
     case longtitude = "x"
