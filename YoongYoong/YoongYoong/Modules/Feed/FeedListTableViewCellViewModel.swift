@@ -17,16 +17,16 @@ class FeedListTableViewCellViewModel: NSObject {
   let contentImageURL = BehaviorRelay<String?>(value: nil)
   let containerList = BehaviorRelay<[TitleContentItem]?>(value: nil)
   
-  let feed: Feed
-  init(with feed: Feed) {
+  let feed: PostResponse
+  init(with feed: PostResponse) {
     self.feed = feed
     super.init()
-    profileImageURL.accept(feed.profileImageURL)
-    nickname.accept(feed.nickname)
-    storeName.accept(feed.storeName)
-    date.accept(feed.date)
-    contentImageURL.accept(feed.contentImageURL)
-    containerList.accept(feed.menuList)
+    profileImageURL.accept(feed.user.imageUrl)
+    nickname.accept(feed.user.nickname)
+    storeName.accept(feed.placeName)
+    date.accept(feed.createdDate)
+//    contentImageURL.accept(feed.contentImageURL)
+//    containerList.accept(feed.menuList)
   }
 }
 

@@ -105,6 +105,12 @@ class FeedListTableViewCell: UITableViewCell {
     viewModel.storeName.asDriver().drive(self.storeNameLabel.rx.text).disposed(by: bag)
     viewModel.date.asDriver().drive(self.dateLabel.rx.text).disposed(by: bag)
     let containerViewModel = FeedListContainerListViewModel(with: viewModel.containerList.value ?? [])
+    viewModel.profileImageURL.subscribe (onNext: { url in
+      guard let url = url else { return }
+      ImageDownloadManager.shared.downloadImage(url: url) { image in
+        self.profileImageView.image = image
+      }
+    }).disposed(by: bag)
     containerListView.bind(to: containerViewModel)
   }
 }

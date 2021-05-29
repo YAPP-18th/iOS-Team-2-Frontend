@@ -10,6 +10,12 @@ import RxCocoa
 import RxSwift
 
 class FeedViewModel: ViewModel, ViewModelType {
+  
+  private let provider: PostService
+  
+  init(provider: PostService = .init()) {
+    self.provider = provider
+  }
   struct Input {
     let feedSelected: Observable<IndexPath>
   }
@@ -26,10 +32,11 @@ class FeedViewModel: ViewModel, ViewModelType {
     return formatter
   }()
   
-  let feedElements = BehaviorRelay<[Feed]>(value: Feed.dummyList)
+  let feedElements = PublishSubject<[PostResponse]>()
   let profileSelection = PublishSubject<Void>()
   let currentDate = BehaviorRelay<String>(value: "")
   let brave = BehaviorRelay<String>(value: BraveWord.default)
+  let feedSelection = PublishSubject<PostResponse>()
   
   func transform(input: Input) -> Output {
     let elements = BehaviorRelay<[FeedListSection]>(value: [])
@@ -57,10 +64,25 @@ class FeedViewModel: ViewModel, ViewModelType {
       return FeedDetailViewModel()
     }
     
+    fetchFeedList()
+    
     return Output(
       items: elements,
       profile: profile,
       detail: detail
     )
+  }
+  
+  func fetchFeedList() {
+    self.provider.fetchAllPosts().subscribe(onNext: { result in
+      switch result {
+      case let .success(list):
+        self.feedElements.onNext(list.data ?? [])
+      case let .failure(error):
+        print(error.localizedDescription)
+      }
+    }, onError: { (error) in
+      print(error.localizedDescription)
+    }).disposed(by: self.disposeBag)
   }
 }

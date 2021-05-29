@@ -140,7 +140,9 @@ class LoginViewController: ViewController {
     self.loginButton.isEnabled = true
     self.view.backgroundColor = .systemGray00
     
-    
+    if #available(iOS 13.0, *) {
+      signInWithAppleButton.addTarget(self, action: #selector(signInWithApple), for: .touchUpInside)
+    }
   }
   
   override func setupView() {
@@ -261,7 +263,7 @@ class LoginViewController: ViewController {
     }
   }
   @available(iOS 13.0, *)
-  @objc func siinInWithApple() {
+  @objc func signInWithApple() {
     let appleIDProvider = ASAuthorizationAppleIDProvider()
     let request = appleIDProvider.createRequest()
     request.requestedScopes = [.fullName, .email]
@@ -283,7 +285,7 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
       let userIdentifier = appleIDCredential.user
       let fullName = appleIDCredential.fullName
       let email = appleIDCredential.email
-      
+      print(userIdentifier)
     default:
       break
     }
