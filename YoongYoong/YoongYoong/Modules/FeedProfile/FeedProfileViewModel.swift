@@ -11,8 +11,11 @@ import RxSwift
 
 class FeedProfileViewModel: ViewModel, ViewModelType {
   var userInfo: UserInfo
-  init(userInfo: UserInfo) {
+  private let provider: PostService
+  
+  init(userInfo: UserInfo, provider: PostService = .init()) {
     self.userInfo = userInfo
+    self.provider = provider
     super.init()
   }
   struct Input {
@@ -20,10 +23,11 @@ class FeedProfileViewModel: ViewModel, ViewModelType {
   }
   
   struct Output {
+    let profile: Driver<UserInfo>
     let items: BehaviorRelay<[ProfilePostListSection]>
   }
   
-  let feedElements = BehaviorRelay<[Feed]>(value: Feed.dummyList)
+  let feedElements = PublishSubject<[PostResponse]>()
   
   func transform(input: Input) -> Output {
     let elements = BehaviorRelay<[ProfilePostListSection]>(value: [])
@@ -36,8 +40,25 @@ class FeedProfileViewModel: ViewModel, ViewModelType {
       elements.append(ProfilePostListSection(items: cellViewModel))
       return elements
     }.bind(to: elements).disposed(by: disposeBag)
+    
+    self.fetchFeedList()
+    
     return Output(
+      profile: .just(self.userInfo),
       items: elements
     )
+  }
+  
+  func fetchFeedList() {
+    self.provider.fetchOtherPosts(userId: self.userInfo.id).subscribe(onNext: { result in
+      switch result {
+      case let .success(list):
+        self.feedElements.onNext(list.data ?? [])
+      case let .failure(error):
+        print(error.localizedDescription)
+      }
+    }, onError: { (error) in
+      print(error.localizedDescription)
+    }).disposed(by: self.disposeBag)
   }
 }

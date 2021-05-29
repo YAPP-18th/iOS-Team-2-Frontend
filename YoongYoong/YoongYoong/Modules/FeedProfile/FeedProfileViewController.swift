@@ -99,6 +99,11 @@ class FeedProfileViewController: ViewController {
     let input = FeedProfileViewModel.Input()
     let output = viewModel.transform(input: input)
     
+    output.profile.drive(onNext: { userInfo in
+      self.nicknameLabel.text = userInfo.nickname
+      ImageDownloadManager.shared.downloadImage(url: userInfo.imageUrl).bind(to: self.profileImageView.rx.image).disposed(by: self.disposeBag)
+      self.stateLabel.text = userInfo.introduction
+    }).disposed(by: self.disposeBag)
     let dataSource = RxCollectionViewSectionedReloadDataSource<ProfilePostListSection> { (dataSource, collectionView, indexPath, item) in
       let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProfilePostCollectionViewCell", for: indexPath) as! ProfilePostCollectionViewCell
       cell.bind(to: item)

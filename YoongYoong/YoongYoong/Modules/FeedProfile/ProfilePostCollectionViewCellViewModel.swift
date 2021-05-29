@@ -12,11 +12,11 @@ import RxCocoa
 class ProfilePostCollectionViewCellViewModel: NSObject {
   let contentImageURL = BehaviorRelay<String?>(value: nil)
   
-  let feed: Feed
-  init(with feed: Feed) {
+  let feed: PostResponse
+  init(with feed: PostResponse) {
     self.feed = feed
     super.init()
-    contentImageURL.accept(feed.contentImageURL)
+    contentImageURL.accept(feed.images.first)
   }
 }
 

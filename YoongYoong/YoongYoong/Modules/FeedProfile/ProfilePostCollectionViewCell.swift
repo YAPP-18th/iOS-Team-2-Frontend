@@ -36,7 +36,10 @@ class ProfilePostCollectionViewCell: UICollectionViewCell {
   }
   
   func bind(to viewModel: ProfilePostCollectionViewCellViewModel) {
-    
+    viewModel.contentImageURL.subscribe(onNext: { url in
+      guard let url = url else { return }
+      ImageDownloadManager.shared.downloadImage(url: url).bind(to: self.contentImageView.rx.image).disposed(by: self.bag)
+    }).disposed(by: self.bag)
   }
 }
 
