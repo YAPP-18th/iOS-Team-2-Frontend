@@ -63,7 +63,8 @@ class FeedListTableViewCell: UITableViewCell {
     $0.titleLabel?.font = .sdGhothicNeo(ofSize: 12, weight: .regular)
     $0.setTitleColor(.systemGray02, for: .normal)
     $0.setImage(UIImage(named: "icFeedLikeStroked"), for: .normal)
-    $0.centerTextAndImage(spacing: 2)
+    $0.contentEdgeInsets = .init(top: 3, left: 6, bottom: 3, right: 8)
+    $0.titleEdgeInsets = .init(top: 0, left: 2, bottom: 0, right: -2)
   }
   
   let messagesContainer = UIView()
@@ -72,8 +73,9 @@ class FeedListTableViewCell: UITableViewCell {
     $0.titleLabel?.font = .krBody3
     $0.imageView?.contentMode = .scaleAspectFit
     $0.setTitleColor(.systemGray02, for: .normal)
-    $0.setImage(UIImage(named: "icFeedMessages"), for: .normal)
-    $0.centerTextAndImage(spacing: 2)
+    $0.setImage(UIImage(named: "icFeedMessagesStroked"), for: .normal)
+    $0.contentEdgeInsets = .init(top: 3, left: 6, bottom: 3, right: 8)
+    $0.titleEdgeInsets = .init(top: 0, left: 2, bottom: 0, right: -2)
   }
   
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -188,7 +190,6 @@ extension FeedListTableViewCell {
     
     likeButton.snp.makeConstraints {
       $0.centerX.centerY.equalToSuperview()
-      $0.height.equalTo(16)
     }
     
     messagesContainer.snp.makeConstraints {
@@ -200,7 +201,6 @@ extension FeedListTableViewCell {
     
     messagesButton.snp.makeConstraints {
       $0.centerX.centerY.equalToSuperview()
-      $0.height.equalTo(16)
     }
     
   }

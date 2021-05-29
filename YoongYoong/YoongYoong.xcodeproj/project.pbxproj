@@ -83,13 +83,6 @@
 		AACCAAFE2646484C005C9FBC /* UITextField+Extenstions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0F5B18263E9BFD003AE118 /* UITextField+Extenstions.swift */; };
 		AACCAB0226464855005C9FBC /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0F5AE4263E6006003AE118 /* String+Extensions.swift */; };
 		AACCAB062646485C005C9FBC /* UIApplication+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAFB3C6D264021380065E3C4 /* UIApplication+Extensions.swift */; };
-		AACCAD98264F6DEE005C9FBC /* FeedDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCAD97264F6DEE005C9FBC /* FeedDetailViewController.swift */; };
-		AACCADA0264F6FA3005C9FBC /* FeedDetailMessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCAD9F264F6FA3005C9FBC /* FeedDetailMessageTableViewCell.swift */; };
-		AACCADA5264F72AF005C9FBC /* FeedDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCADA4264F72AF005C9FBC /* FeedDetailViewModel.swift */; };
-		AACCADAA264F7586005C9FBC /* FeedDetailMessageSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCADA9264F7586005C9FBC /* FeedDetailMessageSection.swift */; };
-		AACCADAF264F75A8005C9FBC /* FeedDetailMessageTableViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCADAE264F75A8005C9FBC /* FeedDetailMessageTableViewCellViewModel.swift */; };
-		AACCADB4264F75F2005C9FBC /* FeedMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCADB3264F75F2005C9FBC /* FeedMessage.swift */; };
-		AACCADB9264F79ED005C9FBC /* DynamicHeightTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCADB8264F79ED005C9FBC /* DynamicHeightTableView.swift */; };
 		AACCAD2E264D76F1005C9FBC /* NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCAD2D264D76F1005C9FBC /* NavigationBar.swift */; };
 		AACCAD35264D79E1005C9FBC /* RegistrationTermsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCAD34264D79E1005C9FBC /* RegistrationTermsViewController.swift */; };
 		AACCAD3D264D7E19005C9FBC /* RegistrationTermsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCAD3C264D7E19005C9FBC /* RegistrationTermsViewModel.swift */; };
@@ -102,6 +95,13 @@
 		AACCAD7F264F5C89005C9FBC /* RegistrationProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCAD7E264F5C89005C9FBC /* RegistrationProfileViewController.swift */; };
 		AACCAD87264F63A7005C9FBC /* RegistrationProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCAD86264F63A7005C9FBC /* RegistrationProfileViewModel.swift */; };
 		AACCAD8C264F68EC005C9FBC /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCAD8B264F68EC005C9FBC /* Button.swift */; };
+		AACCAD98264F6DEE005C9FBC /* FeedDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCAD97264F6DEE005C9FBC /* FeedDetailViewController.swift */; };
+		AACCADA0264F6FA3005C9FBC /* FeedDetailMessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCAD9F264F6FA3005C9FBC /* FeedDetailMessageTableViewCell.swift */; };
+		AACCADA5264F72AF005C9FBC /* FeedDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCADA4264F72AF005C9FBC /* FeedDetailViewModel.swift */; };
+		AACCADAA264F7586005C9FBC /* FeedDetailMessageSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCADA9264F7586005C9FBC /* FeedDetailMessageSection.swift */; };
+		AACCADAF264F75A8005C9FBC /* FeedDetailMessageTableViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCADAE264F75A8005C9FBC /* FeedDetailMessageTableViewCellViewModel.swift */; };
+		AACCADB4264F75F2005C9FBC /* FeedMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCADB3264F75F2005C9FBC /* FeedMessage.swift */; };
+		AACCADB9264F79ED005C9FBC /* DynamicHeightTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCADB8264F79ED005C9FBC /* DynamicHeightTableView.swift */; };
 		AAD023F62642A4D200F1EC2B /* UIButton+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAD023F42642A4D200F1EC2B /* UIButton+Extensions.swift */; };
 		AAD023F72642A4D200F1EC2B /* UILabel+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAD023F52642A4D200F1EC2B /* UILabel+Extensions.swift */; };
 		AAD0240A2642A4FB00F1EC2B /* FeedTipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAD023FC2642A4FB00F1EC2B /* FeedTipView.swift */; };
@@ -274,13 +274,6 @@
 		AACCAACC26464669005C9FBC /* MyPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
 		AACCAACD26464669005C9FBC /* BadgeDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BadgeDetailView.swift; sourceTree = "<group>"; };
 		AACCAAF3264646E1005C9FBC /* AlertAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertAction.swift; sourceTree = "<group>"; };
-		AACCAD97264F6DEE005C9FBC /* FeedDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedDetailViewController.swift; sourceTree = "<group>"; };
-		AACCAD9F264F6FA3005C9FBC /* FeedDetailMessageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedDetailMessageTableViewCell.swift; sourceTree = "<group>"; };
-		AACCADA4264F72AF005C9FBC /* FeedDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedDetailViewModel.swift; sourceTree = "<group>"; };
-		AACCADA9264F7586005C9FBC /* FeedDetailMessageSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedDetailMessageSection.swift; sourceTree = "<group>"; };
-		AACCADAE264F75A8005C9FBC /* FeedDetailMessageTableViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedDetailMessageTableViewCellViewModel.swift; sourceTree = "<group>"; };
-		AACCADB3264F75F2005C9FBC /* FeedMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedMessage.swift; sourceTree = "<group>"; };
-		AACCADB8264F79ED005C9FBC /* DynamicHeightTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicHeightTableView.swift; sourceTree = "<group>"; };
 		AACCAD2D264D76F1005C9FBC /* NavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBar.swift; sourceTree = "<group>"; };
 		AACCAD34264D79E1005C9FBC /* RegistrationTermsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationTermsViewController.swift; sourceTree = "<group>"; };
 		AACCAD3C264D7E19005C9FBC /* RegistrationTermsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationTermsViewModel.swift; sourceTree = "<group>"; };
@@ -293,6 +286,13 @@
 		AACCAD7E264F5C89005C9FBC /* RegistrationProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationProfileViewController.swift; sourceTree = "<group>"; };
 		AACCAD86264F63A7005C9FBC /* RegistrationProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationProfileViewModel.swift; sourceTree = "<group>"; };
 		AACCAD8B264F68EC005C9FBC /* Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
+		AACCAD97264F6DEE005C9FBC /* FeedDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedDetailViewController.swift; sourceTree = "<group>"; };
+		AACCAD9F264F6FA3005C9FBC /* FeedDetailMessageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedDetailMessageTableViewCell.swift; sourceTree = "<group>"; };
+		AACCADA4264F72AF005C9FBC /* FeedDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedDetailViewModel.swift; sourceTree = "<group>"; };
+		AACCADA9264F7586005C9FBC /* FeedDetailMessageSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedDetailMessageSection.swift; sourceTree = "<group>"; };
+		AACCADAE264F75A8005C9FBC /* FeedDetailMessageTableViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedDetailMessageTableViewCellViewModel.swift; sourceTree = "<group>"; };
+		AACCADB3264F75F2005C9FBC /* FeedMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedMessage.swift; sourceTree = "<group>"; };
+		AACCADB8264F79ED005C9FBC /* DynamicHeightTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicHeightTableView.swift; sourceTree = "<group>"; };
 		AAD023F42642A4D200F1EC2B /* UIButton+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+Extensions.swift"; sourceTree = "<group>"; };
 		AAD023F52642A4D200F1EC2B /* UILabel+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UILabel+Extensions.swift"; sourceTree = "<group>"; };
 		AAD023FC2642A4FB00F1EC2B /* FeedTipView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedTipView.swift; sourceTree = "<group>"; };
@@ -531,13 +531,6 @@
 			path = Cell;
 			sourceTree = "<group>";
 		};
-		7E7F80AB2653F80E0035EDED /* Entities */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Entities;
-			sourceTree = "<group>";
-		};
 		7EA8B42B26400902003974D7 /* SelectMenu */ = {
 			isa = PBXGroup;
 			children = (
@@ -568,7 +561,6 @@
 			isa = PBXGroup;
 			children = (
 				7E5D68A92646389B0014E23A /* PostNavigationController.swift */,
-				7E7F80AB2653F80E0035EDED /* Entities */,
 				7E209973262DB53900A43E70 /* Search */,
 				7E438BAE26307619000C53BD /* Map */,
 				7E32AC582636F6F200E694EB /* SelectImage */,
@@ -755,18 +747,6 @@
 			path = ViewController;
 			sourceTree = "<group>";
 		};
-		AACCAD96264F6DE3005C9FBC /* FeedDetail */ = {
-			isa = PBXGroup;
-			children = (
-				AACCAD97264F6DEE005C9FBC /* FeedDetailViewController.swift */,
-				AACCAD9F264F6FA3005C9FBC /* FeedDetailMessageTableViewCell.swift */,
-				AACCADA4264F72AF005C9FBC /* FeedDetailViewModel.swift */,
-				AACCADA9264F7586005C9FBC /* FeedDetailMessageSection.swift */,
-				AACCADAE264F75A8005C9FBC /* FeedDetailMessageTableViewCellViewModel.swift */,
-			);
-			path = FeedDetail;
-			sourceTree = "<group>";
-		};
 		AACCAC3F264C3B4C005C9FBC /* Login */ = {
 			isa = PBXGroup;
 			children = (
@@ -822,6 +802,18 @@
 				AACCAD86264F63A7005C9FBC /* RegistrationProfileViewModel.swift */,
 			);
 			path = RegistrationProfile;
+			sourceTree = "<group>";
+		};
+		AACCAD96264F6DE3005C9FBC /* FeedDetail */ = {
+			isa = PBXGroup;
+			children = (
+				AACCAD97264F6DEE005C9FBC /* FeedDetailViewController.swift */,
+				AACCAD9F264F6FA3005C9FBC /* FeedDetailMessageTableViewCell.swift */,
+				AACCADA4264F72AF005C9FBC /* FeedDetailViewModel.swift */,
+				AACCADA9264F7586005C9FBC /* FeedDetailMessageSection.swift */,
+				AACCADAE264F75A8005C9FBC /* FeedDetailMessageTableViewCellViewModel.swift */,
+			);
+			path = FeedDetail;
 			sourceTree = "<group>";
 		};
 		AAD023F32642A4B600F1EC2B /* Recovered References */ = {
