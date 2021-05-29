@@ -86,6 +86,7 @@ class MapViewController: ViewController {
     super.configuration()
     self.view.backgroundColor = .white
     self.navigationItem.titleView = navView
+    self.navigationItem.hidesBackButton = true
     mapView = NMFMapView()
     mapView.allowsRotating = false
     mapView.allowsTilting = false

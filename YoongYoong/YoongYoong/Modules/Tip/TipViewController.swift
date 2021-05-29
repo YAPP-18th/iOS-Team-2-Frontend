@@ -41,6 +41,7 @@ class TipViewController: ViewController {
   }
   
   func setupRightBarButton() {
+    self.navigationItem.hidesBackButton = true
     self.navigationItem.rightBarButtonItem = UIBarButtonItem(
       image: UIImage(named: "icBtnNavForward")?
         .withRenderingMode(.alwaysOriginal),
