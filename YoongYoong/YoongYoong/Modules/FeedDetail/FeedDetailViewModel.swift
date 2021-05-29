@@ -10,23 +10,24 @@ import RxSwift
 import RxCocoa
 
 class FeedDetailViewModel : ViewModel, ViewModelType {
-
-  private var feedId: Int?
-  init(feedId: Int? = nil) {
-    self.feedId = feedId
+  private var feed: PostResponse
+  private let provider: PostService
+  
+  init(feed: PostResponse, provider: PostService = .init()) {
+    self.feed = feed
+    self.provider = provider
+    super.init()
+  }
+  struct Input {
   }
   
-  struct Input {
-    
-  }
   struct Output {
+    let feed: Driver<PostResponse>
     let items: BehaviorRelay<[FeedDetailMessageSection]>
   }
   
-  let feedMessageElements = BehaviorRelay<[FeedMessage]>(value: FeedMessage.dummyList)
+  let feedMessageElements = PublishSubject<[CommentResponse]>()
   
-}
-extension FeedDetailViewModel {
   func transform(input: Input) -> Output {
     let elements = BehaviorRelay<[FeedDetailMessageSection]>(value: [])
     
@@ -39,8 +40,23 @@ extension FeedDetailViewModel {
       return elements
     }.bind(to: elements).disposed(by: disposeBag)
     
+    fetchCommentList()
     return .init(
+      feed: .just(self.feed),
       items: elements
     )
+  }
+  
+  func fetchCommentList() {
+    self.provider.fetchComments(postId: self.feed.postId).subscribe(onNext: { result in
+      switch result {
+      case let .success(list):
+        self.feedMessageElements.onNext(list.data ?? [])
+      case let .failure(error):
+        print(error.localizedDescription)
+      }
+    }, onError: { (error) in
+      print(error.localizedDescription)
+    }).disposed(by: self.disposeBag)
   }
 }

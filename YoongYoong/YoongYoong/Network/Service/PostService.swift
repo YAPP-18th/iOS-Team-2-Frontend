@@ -73,6 +73,29 @@ final class PostService {
         }
       }
   }
+  
+  func fetchComments(postId: Int) -> Observable<Result<BaseResponse<[CommentResponse]>, PostAPIError>> {
+    return provider.rx.request(.fetchCommentList(id: postId)).asObservable()
+      .map { response -> Result<BaseResponse<[CommentResponse]>, PostAPIError> in
+        switch response.statusCode {
+        case 200:
+          do {
+            let results = try JSONDecoder().decode(BaseResponse<[CommentResponse]>.self, from: response.data)
+            return .success(results)
+          } catch {
+            return .failure(.error("JSON Parsing Error"))
+          }
+        case 400:
+          // 잘못된 parameter를 전달한 경우
+          return .failure(.error("Bad Request"))
+        case 500:
+          // parameter가 누락된 경우
+          return .failure(.error("Internal Server Error"))
+        default:
+          return .failure(.error("원인 모를 에러"))
+        }
+      }
+  }
 }
   
 protocol MyPostServiceType: class {

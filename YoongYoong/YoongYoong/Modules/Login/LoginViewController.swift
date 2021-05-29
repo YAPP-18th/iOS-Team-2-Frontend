@@ -114,8 +114,8 @@ class LoginViewController: ViewController {
           let viewModel = TabBarViewModel()
           self?.navigator.show(segue: .tabs(viewModel: viewModel), sender: self, transition: .modalFullScreen)
         })
-        if let token = response?.token, let userID = response?.userID {
-          LoginManager.shared.makeLoginStatus(status: .logined, accessToken: token, userID: userID)
+        if let token = response?.token{
+          LoginManager.shared.makeLoginStatus(status: .logined, accessToken: token)
         }
       }.disposed(by: disposeBag)
     
@@ -125,7 +125,7 @@ class LoginViewController: ViewController {
           let viewModel = TabBarViewModel()
           self?.navigator.show(segue: .tabs(viewModel: viewModel), sender: self, transition: .modalFullScreen)
         })
-        if let token = response?.token, let userID = response?.userID {
+        if let token = response?.token {
           LoginManager.shared.makeLoginStatus(status: .guest, accessToken: token)
         }
       }.disposed(by: disposeBag)

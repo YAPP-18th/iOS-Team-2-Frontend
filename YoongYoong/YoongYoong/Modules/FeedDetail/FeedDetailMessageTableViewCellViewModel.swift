@@ -15,14 +15,14 @@ class FeedDetailMessageTableViewCellViewModel: NSObject {
   let message = BehaviorRelay<String?>(value: nil)
   let date = BehaviorRelay<String?>(value: nil)
   
-  let feedMessage: FeedMessage
-  init(with feedMessage: FeedMessage) {
+  let feedMessage: CommentResponse
+  init(with feedMessage: CommentResponse) {
     self.feedMessage = feedMessage
     super.init()
-    profileImageURL.accept(feedMessage.profileImageURL)
-    nickname.accept(feedMessage.nickname)
-    date.accept(feedMessage.date)
-    message.accept(feedMessage.message)
+    profileImageURL.accept(feedMessage.user.imageUrl)
+    nickname.accept(feedMessage.user.nickname)
+    date.accept(feedMessage.createdDate)
+    message.accept(feedMessage.content)
   }
 }
 

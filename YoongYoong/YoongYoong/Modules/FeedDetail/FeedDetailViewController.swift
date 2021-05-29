@@ -109,7 +109,16 @@ class FeedDetailViewController: ViewController {
     output.items.asObservable()
         .bind(to: messagesTableView.rx.items(dataSource: dataSource))
         .disposed(by: disposeBag)
-    
+    output.feed.drive(onNext: { feed in
+      ImageDownloadManager.shared.downloadImage(url: feed.user.imageUrl).bind(to: self.profileImageView.rx.image).disposed(by: self.disposeBag)
+      self.nameLabel.text = feed.user.nickname
+      self.dateLabel.text = feed.createdDate
+      self.storeNameLabel.text = feed.placeName
+      self.likeButton.setTitle("\(feed.likeCount)", for: .normal)
+      self.messagesButton.setTitle("\(feed.commentCount)", for: .normal)
+      
+      self.containerListView.bind(to: .init(with: feed.postContainers.map { .init(container: $0.container, containerCount: $0.containerCount, food: $0.food, foodCount: $0.foodCount)}))
+    }).disposed(by: self.disposeBag)
     messagesTableView.rx.setDelegate(self).disposed(by: disposeBag)
   }
   

@@ -81,12 +81,12 @@ extension MyPostCollectionViewCell{
           }
         }
         .disposed(by: disposeBag)
-    feedSelect.bind{[weak self] id in
-      let viewModel = FeedDetailViewModel(feedId: id)
-      if let top = UIApplication.shared.topViewController() as? MyPageViewController {
-        top.navigator.show(segue: .feedDetail(viewModel: viewModel), sender: top, transition: .navigation())
-      }
-    }.disposed(by: disposeBag)
+//    feedSelect.bind{[weak self] id in
+//      let viewModel = FeedDetailViewModel(feedId: id)
+//      if let top = UIApplication.shared.topViewController() as? MyPageViewController {
+//        top.navigator.show(segue: .feedDetail(viewModel: viewModel), sender: top, transition: .navigation())
+//      }
+//    }.disposed(by: disposeBag)
   }
   
 }

@@ -54,6 +54,10 @@ class FeedDetailMessageTableViewCell: UITableViewCell {
     viewModel.nickname.asDriver().drive(self.nameLabel.rx.text).disposed(by: bag)
     viewModel.message.asDriver().drive(self.messageLabel.rx.text).disposed(by: bag)
     viewModel.date.asDriver().drive(self.dateLabel.rx.text).disposed(by: bag)
+    viewModel.profileImageURL.subscribe(onNext: { url in
+      guard let url = url else { return }
+      ImageDownloadManager.shared.downloadImage(url: url).bind(to: self.profileImageView.rx.image).disposed(by: self.bag)
+    }).disposed(by: bag)
     self.height = Self.getHeight(viewModel: viewModel)
   }
   

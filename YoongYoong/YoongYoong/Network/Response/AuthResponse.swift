@@ -7,6 +7,5 @@
 
 import Foundation
 struct LoginResponse : Decodable {
-  let userID: Int
   let token: String
 }

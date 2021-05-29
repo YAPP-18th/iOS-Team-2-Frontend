@@ -26,12 +26,10 @@ class LoginManager: NSObject {
     override private init() { }
     func makeLoginStatus(
       status: LoginStatus,
-        accessToken: String,
-      userID: Int = 0
+        accessToken: String
     ) {
       UserDefaultHelper<String>.set(status.rawValue, forKey: .loginStatus)
       UserDefaultHelper<String>.set(accessToken, forKey: .accessToken)
-      UserDefaultHelper<Int>.set(userID, forKey: .userId)
     }
     
     func makeLogoutStatus() {

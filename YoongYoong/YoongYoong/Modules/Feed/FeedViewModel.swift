@@ -17,13 +17,13 @@ class FeedViewModel: ViewModel, ViewModelType {
     self.provider = provider
   }
   struct Input {
-    let feedSelected: Observable<IndexPath>
+    let feedSelected: Observable<FeedListTableViewCellViewModel>
   }
   
   struct Output {
     let items: BehaviorRelay<[FeedListSection]>
     let profile: Observable<FeedProfileViewModel>
-    let detail: Driver<FeedDetailViewModel>
+    let detail: Observable<FeedDetailViewModel>
   }
   
   private let dateFormatter: DateFormatter = {
@@ -62,8 +62,8 @@ class FeedViewModel: ViewModel, ViewModelType {
     let braveWord = BraveWord()
     brave.accept(braveWord.randomBrave() ?? BraveWord.default)
     
-    let detail = input.feedSelected.asDriver(onErrorJustReturn: IndexPath(item: 0, section: 0)).map { _ -> FeedDetailViewModel in
-      return FeedDetailViewModel()
+    let detail = input.feedSelected.map { data -> FeedDetailViewModel in
+      return FeedDetailViewModel(feed: data.feed)
     }
     
     fetchFeedList()
