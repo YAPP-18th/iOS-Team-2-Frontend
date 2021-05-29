@@ -18,18 +18,26 @@ class PostReviewViewModel: ViewModel, ViewModelType {
   }
   
   struct Output {
-    let uploadButtonIsEnabled: Observable<Bool>
+    let uploadButtonIsEnabled: PublishSubject<Bool>
     let uploadDidEnd: PublishSubject<Void>
   }
   
   func transform(input: Input) -> Output {
-
-    let buttonEnabled = Observable.combineLatest([input.discountButtonDidTap, input.smileButtonDidTap, input.likeButtonDidTap]).map {$0[0] || $0[1] || $0[2]}
+    var reviewBadges = Array(repeating: false, count: 3)
+    let buttonEnabled = PublishSubject<Bool>()
+    Observable.combineLatest([input.discountButtonDidTap, input.smileButtonDidTap, input.likeButtonDidTap]).subscribe(onNext: {
+      reviewBadges = [$0[0], $0[1],$0[2]]
+      PostData.shared.reviewBadges = reviewBadges.reduce("", { $0 + ($1 ? "T" : "F") })
+      buttonEnabled.onNext($0[0] || $0[1] || $0[2])
+    }).disposed(by: disposeBag
+    )
     let uploadDidEnd = PublishSubject<Void>()
+    
+    let model = PostReviewModel()
     
     input.uploadButtonDidTap
       .subscribe(onNext: {
-        // model.upload()
+        PostData.shared.toDTO { model.addPost($0) }
         uploadDidEnd.onNext(())
       }).disposed(by: disposeBag)
     

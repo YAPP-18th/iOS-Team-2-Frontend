@@ -45,7 +45,8 @@ class SelectMenuViewController: ViewController {
                                           removeCell: PublishRelay<Int>(),
                                           menuCountChanged: PublishSubject<(count: Int,index: Int)>(),
                                           containerCountChanged: PublishSubject<(count: Int,index: Int)>(),
-                                          menuText: PublishSubject<(txt: String?, index: Int)>())
+                                          menuText: PublishSubject<(txt: String?, index: Int)>(),
+                                          nextButtonDidTap: nextButton.rx.tap.asObservable())
     
     let output = viewModel.transform(input: input)
     

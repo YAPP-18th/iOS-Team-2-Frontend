@@ -110,17 +110,24 @@ class LoginViewController: ViewController {
     let output = viewModel.transform(input: input)
     output.loginResult
       .bind{ [weak self] result, response in
-        AlertAction.shared.showAlertView(title: "로그인되었습니다", grantMessage: "확인", denyMessage: "취소" , okAction: {
-          let viewModel = TabBarViewModel()
-          self?.navigator.show(segue: .tabs(viewModel: viewModel), sender: self, transition: .modalFullScreen)
-        })
-        if let token = response?.token{
-          LoginManager.shared.makeLoginStatus(status: .logined, accessToken: token)
+        AlertAction.shared.showAlertView(title: "로그인되었습니다", grantMessage: "확인", denyMessage: "취소")
+        let viewModel = TabBarViewModel()
+        self?.navigator.show(segue: .tabs(viewModel: viewModel), sender: self, transition: .modalFullScreen)
+        if let token = response?.token {
+          AlertAction.shared.showAlertView(title: "로그인되었습니다", grantMessage: "확인", denyMessage: "취소" , okAction: {
+            let viewModel = TabBarViewModel()
+            self?.navigator.show(segue: .tabs(viewModel: viewModel), sender: self, transition: .modalFullScreen)
+          })
+          if let token = response?.token{
+            LoginManager.shared.makeLoginStatus(status: .logined, accessToken: token)
+          }
         }
-      }.disposed(by: disposeBag)
-    
+      }.disposed(by: self.disposeBag)
     output.guestLoginResult
       .bind{ [weak self] result, response in
+        AlertAction.shared.showAlertView(title: "로그인되었습니다", grantMessage: "확인", denyMessage: "취소")
+        let viewModel = TabBarViewModel()
+        
         AlertAction.shared.showAlertView(title: "로그인되었습니다", grantMessage: "확인", denyMessage: "취소", okAction:  {
           let viewModel = TabBarViewModel()
           self?.navigator.show(segue: .tabs(viewModel: viewModel), sender: self, transition: .modalFullScreen)
@@ -135,7 +142,6 @@ class LoginViewController: ViewController {
       self.navigator.show(segue: .registrationTerms(viewModel: viewModel), sender: self, transition: .navigation(.right))
     }).disposed(by: disposeBag)
   }
-  
   override func configuration() {
     super.configuration()
     self.loginButton.isEnabled = true
@@ -275,12 +281,11 @@ class LoginViewController: ViewController {
     authorizationController.performRequests()
   }
 }
-
 @available(iOS 13.0, *)
 extension LoginViewController: ASAuthorizationControllerDelegate {
   func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
     switch authorization.credential {
-    case let appleIDCredential as ASAuthorizationAppleIDCredential:
+      case let appleIDCredential as ASAuthorizationAppleIDCredential:
       
       // Todo: 첫 인증시 저장해야함
       let userIdentifier = appleIDCredential.user

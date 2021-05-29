@@ -11,11 +11,11 @@ import RxCocoa
 
 class RegistrationTermsViewController: ViewController {
   
-  let viewModels: [TermsCheckItem.ViewModel] = [
-    TermsCheckItem.ViewModel(isChecked: false, title: "(필수) 서비스 이용약관"),
-    TermsCheckItem.ViewModel(isChecked: false, title: "(필수) 개인정보 처리방침"),
-    TermsCheckItem.ViewModel(isChecked: false, title: "(필수) 위치 기반 서비스"),
-    TermsCheckItem.ViewModel(isChecked: false, title: "(선택) 마케팅 정보 수신 동의")
+  let viewModels: [TermsCheckItemViewModel] = [
+    TermsCheckItemViewModel(title: "(필수) 서비스 이용약관", detail: ""),
+    TermsCheckItemViewModel(title: "(필수) 서비스 이용약관", detail: ""),
+    TermsCheckItemViewModel(title: "(필수) 서비스 이용약관", detail: ""),
+    TermsCheckItemViewModel(title: "(필수) 서비스 이용약관", detail: ""),
   ]
   
   let titleLabel = UILabel().then {
@@ -56,7 +56,6 @@ class RegistrationTermsViewController: ViewController {
     super.bindViewModel()
     guard let viewModel = self.viewModel as? RegistrationTermsViewModel else { return }
     let input = RegistrationTermsViewModel.Input(
-      checkAll: self.checkAllButton.rx.tap.asObservable(),
       next: nextButton.rx.tap.asObservable()
     )
     
@@ -66,14 +65,7 @@ class RegistrationTermsViewController: ViewController {
       self.navigator.show(segue: .registrationEmail(viewModel: viewModel), sender: self, transition: .navigation(.right))
     }).disposed(by: disposeBag)
     
-    output.checkAll.drive(onNext: { checkedAll in
-      let image = checkedAll ? UIImage(named: "icRegChecked") : UIImage(named: "icRegUnchecked")
-      self.checkAllButton.setImage(image, for: .normal)
-      for (var i, j) in zip(self.viewModels, self.vStackView.arrangedSubviews) {
-        i.isChecked = checkedAll
-        (j as! TermsCheckItem).viewModel = i
-      }
-    }).disposed(by: disposeBag)
+    
   }
   
   override func viewWillAppear(_ animated: Bool) {
@@ -130,7 +122,7 @@ class RegistrationTermsViewController: ViewController {
     
     for viewModel in self.viewModels {
       let checkItem = TermsCheckItem()
-      checkItem.viewModel = viewModel
+      checkItem.bind(to: viewModel)
       self.vStackView.addArrangedSubview(checkItem)
     }
     

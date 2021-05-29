@@ -9,6 +9,10 @@ import Foundation
 import Moya
 import RxSwift
 
+protocol PostServiceType: AnyObject {
+  func addRequest(_ requestDTO: PostRequestDTO) -> Observable<Response>
+}
+
 enum PostAPIError: Error {
   case error(String)
   
@@ -18,7 +22,6 @@ enum PostAPIError: Error {
       return msg
     }
   }
-  
 }
 
 final class PostService {
@@ -26,6 +29,10 @@ final class PostService {
   private let provider: MoyaProvider<PostRouter>
   init(provider: MoyaProvider<PostRouter> = .init()) {
     self.provider = provider
+  }
+  
+  func addRequest(_ requestDTO: PostRequestDTO) -> Observable<Response> {
+    return provider.rx.request(.addPost(param: requestDTO)).asObservable()
   }
   
   func fetchAllPosts() -> Observable<Result<BaseResponse<[PostResponse]>, PostAPIError>> {
@@ -97,7 +104,7 @@ final class PostService {
       }
   }
 }
-  
+
 protocol MyPostServiceType: class {
   func fetchMyPost(month: Int) -> Observable<[PostResponse]>
 }
@@ -118,3 +125,4 @@ extension MyPostService {
       .map([PostResponse].self ,atKeyPath: "data")
   }
 }
+

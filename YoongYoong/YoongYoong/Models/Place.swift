@@ -15,7 +15,7 @@ struct Place {
   var distance: String
   var latitude: String
   var longtitude: String
-  var reviewCount: Int = 0
+  var reviewCount: Int
   
   var coordinate: CLLocationCoordinate2D {
     let lat = NumberFormatter().number(from: latitude)!.doubleValue

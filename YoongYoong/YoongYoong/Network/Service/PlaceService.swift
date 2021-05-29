@@ -9,4 +9,15 @@ import Foundation
 import Moya
 import RxSwift
 
+class PlaceService {
+  let provider: MoyaProvider<PlaceRouter>
+  init(provider: MoyaProvider<PlaceRouter> = .init()) {
+    self.provider = provider
+  }
+  
+  func requestReviewCount() -> Observable<Response> {
+    return provider.rx.request(.fetchReviewCountAll(()))
+      .asObservable()
 
+  }
+}
