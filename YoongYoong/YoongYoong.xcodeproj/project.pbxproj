@@ -44,6 +44,8 @@
 		AA6E013A261F611600318E30 /* MapStoreInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6E0139261F611600318E30 /* MapStoreInfoView.swift */; };
 		AA6E013F261F6A0D00318E30 /* CALayer+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6E013E261F6A0D00318E30 /* CALayer+Extensions.swift */; };
 		AA72B7DD261B3996001E959B /* MapNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA72B7DC261B3996001E959B /* MapNavigationView.swift */; };
+		AA836E25266214CB008B731B /* PostService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA836E24266214CB008B731B /* PostService.swift */; };
+		AA836E4126622792008B731B /* BaseResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA836E4026622792008B731B /* BaseResponse.swift */; };
 		AAC78F91262A67FD009CC84E /* Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC78F90262A67FD009CC84E /* Application.swift */; };
 		AAC78F96262A6916009CC84E /* ViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC78F95262A6916009CC84E /* ViewModelType.swift */; };
 		AAC78FE8262A6FC4009CC84E /* TabBarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC78FE7262A6FC4009CC84E /* TabBarViewModel.swift */; };
@@ -242,6 +244,8 @@
 		AA6E0139261F611600318E30 /* MapStoreInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapStoreInfoView.swift; sourceTree = "<group>"; };
 		AA6E013E261F6A0D00318E30 /* CALayer+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CALayer+Extensions.swift"; sourceTree = "<group>"; };
 		AA72B7DC261B3996001E959B /* MapNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapNavigationView.swift; sourceTree = "<group>"; };
+		AA836E24266214CB008B731B /* PostService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostService.swift; sourceTree = "<group>"; };
+		AA836E4026622792008B731B /* BaseResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseResponse.swift; sourceTree = "<group>"; };
 		AAC78F90262A67FD009CC84E /* Application.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Application.swift; sourceTree = "<group>"; };
 		AAC78F95262A6916009CC84E /* ViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelType.swift; sourceTree = "<group>"; };
 		AAC78FE7262A6FC4009CC84E /* TabBarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewModel.swift; sourceTree = "<group>"; };
@@ -992,6 +996,7 @@
 				7E7F80AC2653F8380035EDED /* SearchResponse.swift */,
 				DA5D36E62661E4C500C41C82 /* PostResponse.swift */,
 				DA5D36EB2661E5D300C41C82 /* CommentResponse.swift */,
+				AA836E4026622792008B731B /* BaseResponse.swift */,
 			);
 			path = Response;
 			sourceTree = "<group>";
@@ -1001,6 +1006,7 @@
 			children = (
 				DA1284DB265899A600764A2D /* AuthService.swift */,
 				7ED3422A26552F9D0070DED5 /* SearchService.swift */,
+				AA836E24266214CB008B731B /* PostService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -1420,6 +1426,7 @@
 				AAD45C9E2619CAEC00A6F4D6 /* UIColor+Extensions.swift in Sources */,
 				7ED3422B26552F9D0070DED5 /* SearchService.swift in Sources */,
 				AACCAD8C264F68EC005C9FBC /* Button.swift in Sources */,
+				AA836E4126622792008B731B /* BaseResponse.swift in Sources */,
 				DAB00027260F12CA00D8208F /* AppDelegate.swift in Sources */,
 				AACCAADE2646466A005C9FBC /* BadgeDetailView.swift in Sources */,
 				AA53BE5B265C1252004A39E2 /* SplashViewController.swift in Sources */,
@@ -1442,6 +1449,7 @@
 				AAD024122642A4FB00F1EC2B /* FeedProfileViewModel.swift in Sources */,
 				AAD0243A2643C13C00F1EC2B /* TipSection.swift in Sources */,
 				AACCAAD42646466A005C9FBC /* ProfileModel.swift in Sources */,
+				AA836E25266214CB008B731B /* PostService.swift in Sources */,
 				AAC79002262A7A1D009CC84E /* NavigationController.swift in Sources */,
 				AACCADAF264F75A8005C9FBC /* FeedDetailMessageTableViewCellViewModel.swift in Sources */,
 				7EF2DC64263076F80002E1E3 /* PostMapViewController.swift in Sources */,

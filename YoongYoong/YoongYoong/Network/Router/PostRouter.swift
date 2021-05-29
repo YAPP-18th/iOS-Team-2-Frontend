@@ -85,7 +85,7 @@ extension PostRouter: TargetType {
     switch self {
     default:
       return ["Content-Type":"application/json",
-              "token" : UserDefaultHelper<String>.value(forKey: .accessToken)!]
+              "Authorization" : "Bearer \(UserDefaultHelper<String>.value(forKey: .accessToken)!)"]
     }
   }
 }

@@ -6,9 +6,9 @@
 //
 
 import Foundation
+
 struct PostResponse : Decodable{
   let commentCount: Int
-  let content: String
   let createdDate: String
   let images: [String]
   let likeCount: Int
@@ -38,6 +38,6 @@ struct ContainerInfo: Decodable{
 }
 extension PostResponse {
   var myPagePostModel : PostSimpleModel {
-    return .init(feedId: postId, profile: .init(imagePath: user.imageUrl, name: user.nickname, message: user.introduction, userId: user.id), postedAt: createdDate, menus: postContainers.map{MenuModel.init(menutitle: $0.food, menuCount: $0.foodCount)}, thumbNail: images.first ?? "", postDescription: content )
+    return .init(feedId: postId, profile: .init(imagePath: user.imageUrl, name: user.nickname, message: user.introduction, userId: user.id), postedAt: createdDate, menus: postContainers.map{MenuModel.init(menutitle: $0.food, menuCount: $0.foodCount)}, thumbNail: images.first ?? "", postDescription: "" )
   }
 }
