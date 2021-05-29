@@ -21,7 +21,13 @@ class FeedViewController: ViewController {
     $0.register(FeedListTableViewCell.self, forCellReuseIdentifier: "FeedListTableViewCell")
   }
   
-  var cellHeights: [IndexPath: CGFloat] = [:]
+  let dataSource = RxTableViewSectionedReloadDataSource<FeedListSection>(configureCell: { dataSource, tableView, indexPath, item in
+    let cell = tableView.dequeueReusableCell(withIdentifier: "FeedListTableViewCell", for: indexPath) as! FeedListTableViewCell
+    cell.bind(to: item)
+    let gesture = UITapGestureRecognizer()
+    cell.profileImageView.addGestureRecognizer(gesture)
+    return cell
+  })
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -53,19 +59,10 @@ class FeedViewController: ViewController {
   override func bindViewModel() {
     super.bindViewModel()
     guard let viewModel = viewModel as? FeedViewModel else { return }
-    let input = FeedViewModel.Input()
+    let input = FeedViewModel.Input(feedSelected: self.tableView.rx.itemSelected.asObservable())
     let output = viewModel.transform(input: input)
     
-    let dataSource = RxTableViewSectionedReloadDataSource<FeedListSection>(configureCell: { dataSource, tableView, indexPath, item in
-      let cell = tableView.dequeueReusableCell(withIdentifier: "FeedListTableViewCell", for: indexPath) as! FeedListTableViewCell
-      cell.bind(to: item)
-      self.cellHeights[indexPath] = cell.height
-      let gesture = UITapGestureRecognizer()
-      cell.profileImageView.addGestureRecognizer(gesture)
-      
-      gesture.rx.event.map { _ in }.bind(to: viewModel.profileSelection).disposed(by: self.disposeBag)
-      return cell
-    })
+    
     
     output.items.asObservable()
         .bind(to: tableView.rx.items(dataSource: dataSource))
@@ -75,6 +72,10 @@ class FeedViewController: ViewController {
     
     output.profile.drive(onNext: { [weak self] viewModel in
       self?.navigator.show(segue: .feedProfile(viewModel: viewModel), sender: self, transition: .navigation())
+    }).disposed(by: disposeBag)
+    
+    output.detail.drive(onNext: { [weak self] viewModel in
+      self?.navigator.show(segue: .feedDetail(viewModel: viewModel), sender: self, transition: .navigation(.right))
     }).disposed(by: disposeBag)
   }
 }
@@ -93,7 +94,7 @@ extension FeedViewController: UITableViewDelegate {
   }
   
   func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-    guard let height = cellHeights[indexPath] else { return .leastNonzeroMagnitude }
+    let height = FeedListTableViewCell.getHeight(viewModel: dataSource[indexPath.section].items[indexPath.row])
     print(height)
     return height
   }
