@@ -22,7 +22,7 @@ class FeedViewModel: ViewModel, ViewModelType {
   
   struct Output {
     let items: BehaviorRelay<[FeedListSection]>
-    let profile: Driver<FeedProfileViewModel>
+    let profile: Observable<FeedProfileViewModel>
     let detail: Driver<FeedDetailViewModel>
   }
   
@@ -33,10 +33,10 @@ class FeedViewModel: ViewModel, ViewModelType {
   }()
   
   let feedElements = PublishSubject<[PostResponse]>()
-  let profileSelection = PublishSubject<Void>()
   let currentDate = BehaviorRelay<String>(value: "")
   let brave = BehaviorRelay<String>(value: BraveWord.default)
   let feedSelection = PublishSubject<PostResponse>()
+  let userSelection = PublishSubject<UserInfo>()
   
   func transform(input: Input) -> Output {
     let elements = BehaviorRelay<[FeedListSection]>(value: [])
@@ -44,17 +44,19 @@ class FeedViewModel: ViewModel, ViewModelType {
     feedElements.map { feedList -> [FeedListSection] in
       var elements: [FeedListSection] = []
       let cellViewModel = feedList.map { feed -> FeedListSection.Item in
-        FeedListTableViewCellViewModel.init(with: feed)
+        let viewModel = FeedListTableViewCellViewModel.init(with: feed)
+        viewModel.userSelection.bind(to: self.userSelection).disposed(by: self.disposeBag)
+        return viewModel
       }
+      
       elements.append(FeedListSection(items: cellViewModel))
       return elements
     }.bind(to: elements).disposed(by: disposeBag)
     
-    let profile = profileSelection.asDriver(onErrorJustReturn: ())
-      .map({ (user) -> FeedProfileViewModel in
-          let viewModel = FeedProfileViewModel()
-          return viewModel
-      })
+    let profile = userSelection.map({ userInfo -> FeedProfileViewModel in
+      let viewModel = FeedProfileViewModel(userInfo: userInfo)
+      return viewModel
+    })
     
     currentDate.accept(dateFormatter.string(from: Date()))
     let braveWord = BraveWord()

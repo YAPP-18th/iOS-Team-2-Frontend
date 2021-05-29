@@ -10,6 +10,11 @@ import RxCocoa
 import RxSwift
 
 class FeedProfileViewModel: ViewModel, ViewModelType {
+  var userInfo: UserInfo
+  init(userInfo: UserInfo) {
+    self.userInfo = userInfo
+    super.init()
+  }
   struct Input {
     
   }

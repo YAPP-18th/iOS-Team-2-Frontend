@@ -21,10 +21,9 @@ class FeedListTableViewCell: UITableViewCell {
     return cell
   }
   
-  let profileImageView = UIImageView().then {
+  let profileButton = UIButton().then {
     $0.contentMode = .scaleAspectFit
     $0.backgroundColor = .lightGray
-    $0.isUserInteractionEnabled = true
   }
   
   let nameLabel = UILabel().then {
@@ -102,8 +101,8 @@ class FeedListTableViewCell: UITableViewCell {
   
   override func layoutSubviews() {
     super.layoutSubviews()
-    profileImageView.layer.cornerRadius = 19
-    profileImageView.layer.masksToBounds = true
+    profileButton.layer.cornerRadius = 19
+    profileButton.layer.masksToBounds = true
     
     containerListView.layer.cornerRadius = 8
     containerListView.layer.borderWidth = 1
@@ -117,7 +116,7 @@ class FeedListTableViewCell: UITableViewCell {
     let containerViewModel = FeedListContainerListViewModel(with: viewModel.containerList.value)
     viewModel.profileImageURL.subscribe (onNext: { url in
       guard let url = url else { return }
-      ImageDownloadManager.shared.downloadImage(url: url).bind(to: self.profileImageView.rx.image).disposed(by: self.bag)
+      ImageDownloadManager.shared.downloadImage(url: url).bind(to: self.profileButton.rx.image(for: .normal)).disposed(by: self.bag)
     }).disposed(by: bag)
     contentImageCollectionView.dataSource = nil
     viewModel.contentImageURL.map { list -> [FeedContentImageSection] in
@@ -131,6 +130,14 @@ class FeedListTableViewCell: UITableViewCell {
     viewModel.likecount.bind(to: likeButton.rx.title(for: .normal)).disposed(by: bag)
     viewModel.messageCount.bind(to: messagesButton.rx.title(for: .normal)).disposed(by: bag)
     containerListView.bind(to: containerViewModel)
+    profileButton.rx.tap
+      .map { _ in viewModel.feed.user }
+      .bind(to: viewModel.userSelection)
+      .disposed(by: self.bag)
+  }
+  
+  @objc func profileTapped() {
+
   }
 }
 
@@ -143,7 +150,7 @@ extension FeedListTableViewCell {
   
   private func setupView() {
     [
-      profileImageView, nameLabel, storeNameLabel, dateLabel,
+      profileButton, nameLabel, storeNameLabel, dateLabel,
       contentImageCollectionView,
       containerTitleLabel, containerListView,
       divider,
@@ -157,7 +164,7 @@ extension FeedListTableViewCell {
   }
   
   private func setupLayout() {
-    profileImageView.snp.makeConstraints {
+    profileButton.snp.makeConstraints {
       $0.top.equalTo(25)
       $0.leading.equalTo(16)
       $0.width.height.equalTo(38)
@@ -165,7 +172,7 @@ extension FeedListTableViewCell {
     
     nameLabel.snp.makeConstraints {
       $0.top.equalTo(25)
-      $0.leading.equalTo(profileImageView.snp.trailing).offset(8)
+      $0.leading.equalTo(profileButton.snp.trailing).offset(8)
       $0.height.equalTo(18)
     }
     
@@ -178,7 +185,7 @@ extension FeedListTableViewCell {
     
     storeNameLabel.snp.makeConstraints {
       $0.top.equalTo(nameLabel.snp.bottom).offset(2)
-      $0.leading.equalTo(profileImageView.snp.trailing).offset(8)
+      $0.leading.equalTo(profileButton.snp.trailing).offset(8)
       $0.trailing.equalTo(dateLabel.snp.leading).offset(-20)
       $0.height.equalTo(18)
     }

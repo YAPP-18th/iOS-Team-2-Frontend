@@ -19,6 +19,8 @@ class FeedListTableViewCellViewModel: NSObject {
   let likecount = BehaviorRelay<String>(value: "0")
   let messageCount = BehaviorRelay<String>(value: "0")
   
+  let userSelection = PublishSubject<UserInfo>()
+  
   let feed: PostResponse
   init(with feed: PostResponse) {
     self.feed = feed
