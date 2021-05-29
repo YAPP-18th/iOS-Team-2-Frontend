@@ -41,12 +41,10 @@ extension AuthorizeService {
     provider.rx.request(.login(param: param))
       .asObservable()
   }
-<<<<<<< HEAD
   func guest() -> Observable<Response> {
     provider.rx.request(.guest)
       .asObservable()
-=======
+  }
   func logOut() {
->>>>>>> [feat]머지 전 커밋
   }
 }

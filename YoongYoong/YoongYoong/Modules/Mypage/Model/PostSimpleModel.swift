@@ -7,6 +7,7 @@
 
 import Foundation
 struct PostSimpleModel {
+  let feedId: Int
   let profile : ProfileModel
   let postedAt: String
   let menus:[MenuModel]

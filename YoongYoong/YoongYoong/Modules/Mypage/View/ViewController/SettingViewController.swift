@@ -74,7 +74,10 @@ extension SettingViewController : UITableViewDelegate, UITableViewDataSource {
       switch indexPath.row {
       case 0 :
         AlertAction.shared.showAlertView(title: "정말 로그아웃을 하시겠습니까?", grantMessage: "확인", denyMessage: "취소", okAction: {
-          
+          LoginManager.shared.makeLogoutStatus()
+          if let window = self.view.window {
+            self.navigator.show(segue: .splash(viewModel: SplashViewModel()), sender: self, transition: .root(in: window))
+          }
         }, cancelBtnAction: nil)
         print("로그아웃")
       case 1 :

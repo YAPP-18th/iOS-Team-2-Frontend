@@ -27,6 +27,44 @@ class AlertAction: BaseAlert {
 extension AlertAction {
   func showAlertView(
     title: String,
+    description: String = "",
+    grantMessage: String = "확인",
+    okAction: PopupDialogButtonAction? = nil
+  ) {
+    initializeMainView()
+    
+    denyButton.isHidden = true
+    denyButton.removeFromSuperview()
+    buttonAction = okAction
+    titleLabel.text = title
+    
+    grantButton.setTitle(grantMessage, for: .normal)
+    grantButton.addTarget(self,
+                          action: #selector(grantAction),
+                          for: .touchUpInside)
+    
+    let titlelabelLineCount = titleLabel.intrinsicContentSize.height / 24
+    alertView.heightAnchor.constraint(equalToConstant: 170 + 24 * titlelabelLineCount).isActive = true
+    
+    if UIApplication.shared.windows.first(where: { $0.isKeyWindow }) != nil {
+      let transform = CGAffineTransform(translationX: 0, y: -300)
+      blackView.alpha = 0
+      alertView.transform = transform
+      UIView.animate(
+        withDuration: 0.7,
+        delay: 0,
+        usingSpringWithDamping: 1,
+        initialSpringVelocity: 1,
+        options: .curveEaseOut,
+        animations: { [unowned self] in
+          self.blackView.alpha = 0.5
+          self.alertView.transform = .identity
+        }, completion: nil)
+    }
+  }
+  func showAlertView(
+    title: String,
+    description: String = "",
     grantMessage: String,
     denyMessage: String,
     okAction: PopupDialogButtonAction? = nil,
@@ -39,7 +77,7 @@ extension AlertAction {
     buttonAction = okAction
     cancelAction = cancelBtnAction
     titleLabel.text = title
-    
+    descriptionLabel.text = description
     denyButton.setTitle(denyMessage, for: .normal)
     denyButton.addTarget(self,
                          action: #selector(denyAction),
@@ -131,17 +169,25 @@ class BaseAlert: UIView {
   }(UIView(frame: .zero))
   
   let titleLabel: UILabel = {
-    $0.font = .systemFont(ofSize: 20, weight: .medium)
+    $0.font = .krTitle1
     $0.textColor = UIColor.black
     $0.textAlignment = .center
     $0.numberOfLines = 0
     $0.translatesAutoresizingMaskIntoConstraints = false
     return $0
   }(UILabel(frame: .zero))
-  
+  let descriptionLabel: UILabel = {
+    $0.font = .krBody3
+    $0.textColor = UIColor.black
+    $0.textAlignment = .center
+    $0.numberOfLines = 0
+    $0.translatesAutoresizingMaskIntoConstraints = false
+    return $0
+  }(UILabel(frame: .zero))
+
   let grantButton: UIButton = {
     $0.translatesAutoresizingMaskIntoConstraints = false
-    $0.titleLabel?.font = .sdGhothicNeo(ofSize: 18, weight: .bold)
+    $0.titleLabel?.font = .krButton1
     $0.backgroundColor = UIColor.white
     $0.setTitleColor(UIColor.brandColorGreen01, for: .normal)
     $0.setTitle("", for: .normal)
@@ -153,7 +199,7 @@ class BaseAlert: UIView {
   
   let denyButton: UIButton = {
     $0.translatesAutoresizingMaskIntoConstraints = false
-    $0.titleLabel?.font = .sdGhothicNeo(ofSize: 18, weight: .regular)
+    $0.titleLabel?.font = .krButton2
     $0.backgroundColor = UIColor.white
     $0.setTitleColor(UIColor.brandColorGreen01, for: .normal)
     $0.setTitle("", for: .normal)
@@ -193,6 +239,7 @@ extension BaseAlert {
       window.addSubview(blackView)
       window.addSubview(alertView)
       alertView.addSubview(titleLabel)
+      alertView.addSubview(descriptionLabel)
       alertView.addSubview(buttonStackView)
       
       NSLayoutConstraint.activate([
@@ -203,6 +250,10 @@ extension BaseAlert {
         titleLabel.centerXAnchor.constraint(equalTo: alertView.centerXAnchor),
         titleLabel.widthAnchor.constraint(equalTo: alertView.widthAnchor, constant: 16),
         titleLabel.centerYAnchor.constraint(equalTo: alertView.centerYAnchor, constant: -24),
+        
+        descriptionLabel.centerXAnchor.constraint(equalTo: alertView.centerXAnchor),
+        descriptionLabel.widthAnchor.constraint(equalTo: alertView.widthAnchor, constant: 16),
+        descriptionLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor,constant: 8),
         
         buttonStackView.heightAnchor.constraint(equalToConstant: 48),
         buttonStackView.leadingAnchor.constraint(equalTo: alertView.leadingAnchor, constant: 0),
