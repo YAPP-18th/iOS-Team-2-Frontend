@@ -12,6 +12,7 @@ import Moya
 enum PlaceRouter {
   case fetchPlaceList(param : PlaceRequest)
   case fetchReviewCount(name: String)
+  case fetchReviewCountAll(Void)
 }
 
 
@@ -26,6 +27,8 @@ extension PlaceRouter: TargetType {
       return "/place"
     case .fetchReviewCount(name: let name):
       return "/place/review-count"
+    case .fetchReviewCountAll():
+      return "/place/review-count/all"
     }
   }
   
@@ -33,7 +36,8 @@ extension PlaceRouter: TargetType {
     switch self {
     
     case .fetchReviewCount,
-         .fetchPlaceList:
+         .fetchPlaceList,
+         .fetchReviewCountAll:
       return .get
 
     }
@@ -49,6 +53,8 @@ extension PlaceRouter: TargetType {
       return .requestJSONEncodable(param)
     case .fetchReviewCount(name: let name):
       return .requestParameters(parameters: try! ["name" : name].asParameters(), encoding: JSONEncoding.default)
+    case .fetchReviewCountAll():
+      return .requestPlain
     }
   }
   

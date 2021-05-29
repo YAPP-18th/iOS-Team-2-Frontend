@@ -12,7 +12,7 @@ import Moya
 enum PostRouter {
   case fetchPostList
   case fetchCommentList(id: Int)
-  case addPost
+  case addPost(param: PostRequestDTO)
   case addComment(id: Int)
   case modifyComment(id: Int)
   case deleteComment(id: Int)
@@ -68,8 +68,33 @@ extension PostRouter: TargetType {
       return .requestPlain
     case .fetchCommentList:
       return .requestPlain
-    case .addPost:
-      return .requestPlain
+    case .addPost(let param):
+      var multipartFormDatas = [MultipartFormData]()
+      
+      let placeNameMP = MultipartFormData(provider: .data("\(param.placeName)".data(using: .utf8)!), name: "placeName")
+      let contentMP = MultipartFormData(provider: .data("\(param.content)".data(using: .utf8)!), name: "content")
+      let reviewBadgeMP = MultipartFormData(provider: .data("\(param.reviewBadge)".data(using: .utf8)!), name: "reviewBadge")
+      let placeLocationMP = MultipartFormData(provider: .data("\(param.placeLocation)".data(using: .utf8)!), name: "placeLocation")
+      
+      for i in 0..<param.containers.count {
+        let tuples = containerParameter(i)
+        let foodMP = MultipartFormData(provider: .data("\(param.containers[i].food)".data(using: .utf8)!), name: tuples.food)
+        let foodCountMP = MultipartFormData(provider: .data("\(param.containers[i].foodCount)".data(using: .utf8)!), name: tuples.foodCount)
+        let containerNameMP = MultipartFormData(provider: .data("\(param.containers[i].container.name)".data(using: .utf8)!), name: tuples.containerName)
+        let containerSizeMP = MultipartFormData(provider: .data("\(param.containers[i].container.size)".data(using: .utf8)!), name: tuples.containerSize)
+        let containerCountMP = MultipartFormData(provider: .data("\(param.containers[i].containerCount)".data(using: .utf8)!), name: tuples.containerCount)
+        
+        multipartFormDatas += [foodMP, foodCountMP, containerNameMP, containerSizeMP, containerCountMP]
+      }
+      
+      // TODO: imageData
+      for data in param.postImages {}
+      
+      multipartFormDatas += [placeNameMP, placeLocationMP, contentMP, reviewBadgeMP]
+      
+      print(multipartFormDatas)
+      
+      return .uploadMultipart(multipartFormDatas)
     case .addComment:
       return .requestPlain
     case .modifyComment:
@@ -88,4 +113,19 @@ extension PostRouter: TargetType {
               "token" : UserDefaultHelper<String>.value(forKey: .accessToken)!]
     }
   }
+}
+
+func containerParameter(_ index: Int) -> (food: String,
+                                foodCount: String,
+                                containerName: String,
+                                containerSize: String,
+                                containerCount: String) {
+  
+  let containers = "containers[\(index)]."
+  return (containers+"food",
+          containers+"foodCount",
+          containers+"container.name",
+          containers+"container.size",
+          containers+"containerCount")
+  
 }

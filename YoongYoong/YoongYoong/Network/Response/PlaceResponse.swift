@@ -7,3 +7,14 @@
 
 import Foundation
 
+struct AllPlaceReviewCountResponse: Decodable {
+  let count: Int
+  let data: [PlaceReviewCount]
+  
+}
+
+struct PlaceReviewCount: Decodable {
+  let location: String
+  let name: String
+  let reviewCount: Int
+}
