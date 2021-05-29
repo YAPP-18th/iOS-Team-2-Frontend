@@ -16,6 +16,7 @@ class MyPageCell : UICollectionViewCell {
   private var collectionView : UICollectionView!
   private let loadUITrigger = PublishSubject<Void>()
   private let disposeBag = DisposeBag()
+  private var currentMonth : Int?
   func bind(){
     setUpCollectionView()
     layout()
@@ -23,6 +24,7 @@ class MyPageCell : UICollectionViewCell {
     
     let input = MypageViewModel.Input(loadView: loadUITrigger)
     let out = viewModel.transform(input: input)
+    
     switch type {
     case .badge:
       print("뱃지")
@@ -35,20 +37,32 @@ class MyPageCell : UICollectionViewCell {
       }.disposed(by:disposeBag)
      
     case .feed:
+      
       print("피드")
+      viewModel.currentMonth.bind{[weak self] in
+        self?.currentMonth = $0
+      }.disposed(by:disposeBag)
       out.postUsecase.map{[$0]}.bind(to: collectionView.rx.items(cellIdentifier: MyPostCollectionViewCell.identifier,
                                                        cellType: MyPostCollectionViewCell.self)) {row, data, cell in
         cell.bindCell(model: data)
 
         cell.nextMonthBtn.rx.tap
           .takeUntil(cell.rx.methodInvoked(#selector(UICollectionReusableView.prepareForReuse)))
-          .bind{
-            print("다음 달 탭")
+          .bind{[weak self] in
+            if let month = self?.currentMonth {
+              self?.viewModel.changeCurrentMonth(for: month + 1)
+              self?.loadUITrigger.onNext(())
+
+            }
           }.disposed(by: cell.disposeBag)
         cell.lastMonthBtn.rx.tap
           .takeUntil(cell.rx.methodInvoked(#selector(UICollectionReusableView.prepareForReuse)))
-          .bind{
-            print("저번 달 탭")
+          .bind{ [weak self] in
+            if let month = self?.currentMonth {
+              self?.viewModel.changeCurrentMonth(for: month - 1)
+              self?.loadUITrigger.onNext(())
+
+            }
           }.disposed(by: cell.disposeBag)
       }.disposed(by: disposeBag)
     case .history:

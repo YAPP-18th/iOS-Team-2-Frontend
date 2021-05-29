@@ -8,7 +8,11 @@
 import Foundation
 import RxSwift
 import RxCocoa
+import Moya
+
 class MypageViewModel: ViewModel , ViewModelType {
+  private let service = PostService(provider: MoyaProvider<PostRouter>(plugins:[NetworkLoggerPlugin()]))
+  let currentMonth = BehaviorSubject<Int>(value: Int(Date().month) ?? 6)
   struct Input {
     let loadView : Observable<Void>
   }
@@ -21,6 +25,9 @@ class MypageViewModel: ViewModel , ViewModelType {
 }
 extension MypageViewModel {
   // contentCell에 바인딩
+  func changeCurrentMonth(for changed: Int) {
+    currentMonth.onNext(changed)
+  }
   func transform(input: Input) -> Output {
     weak var weakSelf = self
     let badgeUsecase = input.loadView.map{ _ -> [BadgeModel] in
@@ -40,47 +47,20 @@ extension MypageViewModel {
         return []
       }
     }
-    let postList = input.loadView.map{ _ -> PostListModel in
+    let postList = input.loadView.withLatestFrom(self.currentMonth).flatMapLatest{ month -> Observable<PostListModel> in
       if LoginManager.shared.isLogin {
-        
-        return PostListModel(month: "2021년 3월", postCount: 15, packageCount: 	24,
-                             postList: [PostSimpleModel(feedId: 0, profile: ProfileModel(imagePath: "", name: "김용기", message: "", userId: 0),
-                                                        postedAt: "21.03.27",
-                                                        menus: [MenuModel(menutitle: "김밥", menuCount: 2)],
-                                                        thumbNail: "",
-                                                        postDescription: "떡볶이와김밥을시켰습니다"),
-                                        PostSimpleModel(feedId: 1, profile: ProfileModel(imagePath: "", name: "김용기", message: "", userId: 0),
-                                                        postedAt: "21.03.27",
-                                                        menus: [MenuModel(menutitle: "김밥", menuCount: 2)],
-                                                        thumbNail: "",
-                                                        postDescription: "떡볶이와김밥을시켰습니다"),
-                                        PostSimpleModel(feedId: 2, profile: ProfileModel(imagePath: "", name: "김용기", message: "", userId: 0),
-                                                        postedAt: "21.03.27",
-                                                        menus: [MenuModel(menutitle: "김밥", menuCount: 2)],
-                                                        thumbNail: "",
-                                                        postDescription: "떡볶이와김밥을시켰습니다"),
-                                        PostSimpleModel(feedId: 3, profile: ProfileModel(imagePath: "", name: "김용기", message: "", userId: 0),
-                                                        postedAt: "21.03.27",
-                                                        menus: [MenuModel(menutitle: "김밥", menuCount: 2)],
-                                                        thumbNail: "",
-                                                        postDescription: "떡볶이와김밥을시켰습니다"),
-                                        PostSimpleModel(feedId: 4, profile: ProfileModel(imagePath: "", name: "김용기", message: "", userId: 0),
-                                                        postedAt: "21.03.27",
-                                                        menus: [MenuModel(menutitle: "김밥", menuCount: 2)],
-                                                        thumbNail: "",
-                                                        postDescription: "떡볶이와김밥을시켰습니다"),
-                                        PostSimpleModel(feedId: 5, profile: ProfileModel(imagePath: "", name: "김용기", message: "", userId: 0),
-                                                        postedAt: "21.03.27",
-                                                        menus: [MenuModel(menutitle: "김밥", menuCount: 2)],
-                                                        thumbNail: "",
-                                                        postDescription: "떡볶이와김밥을시켰습니다")])
+        let myPost =  self.service.fetchMyPost(month: month)
+        let containers = myPost.map{$0.map{$0.postContainers.map{$0.containerCount}}}.map{ container -> Int in
+          let result = container.map{$0.reduce(0){$0 + $1}}.reduce(0){$0 + $1}
+          return result
+        }
+        return Observable.combineLatest(myPost, containers).map{PostListModel(month: "2021년 \(month)월", postCount: $0.0.count, packageCount: $0.1, postList: $0.0.map{$0.myPagePostModel})}
       }
       else {
-        return .init(month: "3월", postCount: 0, packageCount: 0, postList: [])
+        return .just( .init(month: "3월", postCount: 0, packageCount: 0, postList: []))
       }
     }.share()
-    let message = input.loadView
-      .withLatestFrom(postList){ _, model -> [String] in
+    let message = postList.map{ model -> [String] in
         return ["용기를 내고 배지를 모아보세요",
                 "지금까지 총 \(model.packageCount)개의 용기를 냈어요!",
                 "자주 사용하는 용기를 등록하세요!"]
