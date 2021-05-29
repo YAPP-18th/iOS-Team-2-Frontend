@@ -10,9 +10,17 @@ import Then
 import SnapKit
 import RxSwift
 import RxCocoa
+import RxDataSources
 
 class FeedListTableViewCell: UITableViewCell {
   private let bag = DisposeBag()
+  
+  let dataSource = RxCollectionViewSectionedReloadDataSource<FeedContentImageSection> { _, collectionView, indexPath, viewModel in
+    guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FeedContentCollectionViewCell.identifier, for: indexPath) as? FeedContentCollectionViewCell else { return .init() }
+    cell.bind(to: viewModel)
+    return cell
+  }
+  
   let profileImageView = UIImageView().then {
     $0.contentMode = .scaleAspectFit
     $0.backgroundColor = .lightGray
@@ -39,9 +47,12 @@ class FeedListTableViewCell: UITableViewCell {
     $0.textAlignment = .right
   }
   
-  let contentImageView = UIImageView().then {
-    $0.contentMode = .scaleAspectFill
-    $0.backgroundColor = .lightGray
+  let contentImageCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout()).then {
+    if let layout = $0.collectionViewLayout as? UICollectionViewFlowLayout {
+      layout.scrollDirection = .horizontal
+    }
+    $0.register(FeedContentCollectionViewCell.self, forCellWithReuseIdentifier: FeedContentCollectionViewCell.identifier)
+    $0.isPagingEnabled = true
   }
   
   let containerTitleLabel = UILabel().then {
@@ -107,10 +118,17 @@ class FeedListTableViewCell: UITableViewCell {
     let containerViewModel = FeedListContainerListViewModel(with: viewModel.containerList.value ?? [])
     viewModel.profileImageURL.subscribe (onNext: { url in
       guard let url = url else { return }
-      ImageDownloadManager.shared.downloadImage(url: url) { image in
-        self.profileImageView.image = image
-      }
+      ImageDownloadManager.shared.downloadImage(url: url).bind(to: self.profileImageView.rx.image).disposed(by: self.bag)
     }).disposed(by: bag)
+    contentImageCollectionView.dataSource = nil
+    viewModel.contentImageURL.map { list -> [FeedContentImageSection] in
+      var elements: [FeedContentImageSection] = []
+      let cellViewModel = list.map { url -> FeedContentImageSection.Item in
+        FeedContentCollectionViewCellViewModel.init(imageURL: url)
+      }
+      elements.append(FeedContentImageSection(items: cellViewModel))
+      return elements
+    }.bind(to: contentImageCollectionView.rx.items(dataSource: dataSource)).disposed(by: bag)
     containerListView.bind(to: containerViewModel)
   }
 }
@@ -119,12 +137,13 @@ extension FeedListTableViewCell {
   private func configuration() {
     self.selectionStyle = .none
     self.contentView.backgroundColor = .systemGray00
+    self.contentImageCollectionView.rx.setDelegate(self).disposed(by: bag)
   }
   
   private func setupView() {
     [
       profileImageView, nameLabel, storeNameLabel, dateLabel,
-      contentImageView,
+      contentImageCollectionView,
       containerTitleLabel, containerListView,
       divider,
       likeContainer, messagesContainer
@@ -163,14 +182,14 @@ extension FeedListTableViewCell {
       $0.height.equalTo(18)
     }
     
-    contentImageView.snp.makeConstraints {
+    contentImageCollectionView.snp.makeConstraints {
       $0.top.equalTo(storeNameLabel.snp.bottom).offset(16)
       $0.leading.trailing.equalToSuperview()
-      $0.height.equalTo(contentImageView.snp.width)
+      $0.height.equalTo(contentImageCollectionView.snp.width)
     }
     
     containerTitleLabel.snp.makeConstraints {
-      $0.top.equalTo(contentImageView.snp.bottom).offset(16)
+      $0.top.equalTo(contentImageCollectionView.snp.bottom).offset(16)
       $0.leading.equalTo(16)
     }
     
@@ -228,5 +247,19 @@ extension FeedListTableViewCell {
     
     height = profileHeight + contentImageViewHeight + containerHeight + likeMessagesHeight
     return height
+  }
+}
+
+extension FeedListTableViewCell: UICollectionViewDelegateFlowLayout {
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+    return 0
+  }
+  
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+    return 0
+  }
+  
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    return collectionView.frame.size
   }
 }

@@ -14,7 +14,7 @@ class FeedListTableViewCellViewModel: NSObject {
   let nickname = BehaviorRelay<String?>(value: nil)
   let storeName = BehaviorRelay<String?>(value: nil)
   let date = BehaviorRelay<String?>(value: nil)
-  let contentImageURL = BehaviorRelay<String?>(value: nil)
+  let contentImageURL = BehaviorRelay<[String]>(value: [])
   let containerList = BehaviorRelay<[TitleContentItem]?>(value: nil)
   
   let feed: PostResponse
@@ -25,7 +25,7 @@ class FeedListTableViewCellViewModel: NSObject {
     nickname.accept(feed.user.nickname)
     storeName.accept(feed.placeName)
     date.accept(feed.createdDate)
-//    contentImageURL.accept(feed.contentImageURL)
+    contentImageURL.accept(feed.images)
 //    containerList.accept(feed.menuList)
   }
 }

@@ -62,6 +62,7 @@
 		AAC79015262A91A4009CC84E /* TipViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC79014262A91A4009CC84E /* TipViewModel.swift */; };
 		AAC79020262AA7E3009CC84E /* TipViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC7901F262AA7E3009CC84E /* TipViewController.swift */; };
 		AAC83411266265D000D3E267 /* ImageDownloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC83410266265D000D3E267 /* ImageDownloadManager.swift */; };
+		AAC834132662691200D3E267 /* FeedContentImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC834122662691200D3E267 /* FeedContentImageCollectionViewCell.swift */; };
 		AACCAA7826451B64005C9FBC /* TipDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCAA7726451B64005C9FBC /* TipDetailViewController.swift */; };
 		AACCAA8326451CBE005C9FBC /* TipDetailFirstView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCAA8226451CBE005C9FBC /* TipDetailFirstView.swift */; };
 		AACCAA8826453786005C9FBC /* TipDetailFirstListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCAA8726453786005C9FBC /* TipDetailFirstListView.swift */; };
@@ -268,6 +269,7 @@
 		AAC7901F262AA7E3009CC84E /* TipViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipViewController.swift; sourceTree = "<group>"; };
 		AAC8340F2662596C00D3E267 /* YoongYoongDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = YoongYoongDebug.entitlements; sourceTree = "<group>"; };
 		AAC83410266265D000D3E267 /* ImageDownloadManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDownloadManager.swift; sourceTree = "<group>"; };
+		AAC834122662691200D3E267 /* FeedContentImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedContentImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		AACCAA7726451B64005C9FBC /* TipDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipDetailViewController.swift; sourceTree = "<group>"; };
 		AACCAA8226451CBE005C9FBC /* TipDetailFirstView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipDetailFirstView.swift; sourceTree = "<group>"; };
 		AACCAA8726453786005C9FBC /* TipDetailFirstListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipDetailFirstListView.swift; sourceTree = "<group>"; };
@@ -863,6 +865,7 @@
 				AAD024012642A4FB00F1EC2B /* FeedViewController.swift */,
 				AAD024022642A4FB00F1EC2B /* FeedListContainerListViewModel.swift */,
 				AAD024032642A4FB00F1EC2B /* FeedListTableViewCell.swift */,
+				AAC834122662691200D3E267 /* FeedContentImageCollectionViewCell.swift */,
 			);
 			path = Feed;
 			sourceTree = "<group>";
@@ -1550,6 +1553,7 @@
 				7E7F80AD2653F8380035EDED /* SearchResponse.swift in Sources */,
 				7E42939E2648FF19005D7710 /* PostReviewViewController.swift in Sources */,
 				AAD024352643C0D400F1EC2B /* TipTableViewCellViewModel.swift in Sources */,
+				AAC834132662691200D3E267 /* FeedContentImageCollectionViewCell.swift in Sources */,
 				7E9F7B8726281D8B00051D03 /* PostSearchResultItemCell.swift in Sources */,
 				7E5D68AA2646389B0014E23A /* PostNavigationController.swift in Sources */,
 				7EC9BA002641531D007565C6 /* ContainerListHeaderView.swift in Sources */,
