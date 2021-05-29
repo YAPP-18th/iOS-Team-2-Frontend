@@ -55,7 +55,7 @@ class LoginViewController: ViewController {
     $0.layer.masksToBounds = true
   }
   
-  let signInWithKakaoButton = UIButton().then {
+  lazy var signInWithKakaoButton = UIButton().then {
     $0.setImage(UIImage(named: "icLoginButtonKakao"), for: .normal)
     $0.layer.cornerRadius = 22
     $0.layer.masksToBounds = true
@@ -132,8 +132,14 @@ class LoginViewController: ViewController {
     scrollView.addArrangedSubview(contentView)
     [
       logoImageView, emailField, emailDivider, passwordField, passwordDivider,
-      loginButton, findPasswordButton, signInWithAppleButton, signInWithKakaoButton, skipLoginButton, registContainer
+      loginButton, findPasswordButton, signInWithAppleButton
     ].forEach {
+      self.contentView.addSubview($0)
+    }
+    if #available(iOS 13.0, *) {
+      self.contentView.addSubview(signInWithAppleButton)
+    }
+    [signInWithKakaoButton, skipLoginButton, registContainer].forEach {
       self.contentView.addSubview($0)
     }
     [registLabel, registButton].forEach {
@@ -197,18 +203,27 @@ class LoginViewController: ViewController {
       $0.height.equalTo(44)
     }
     
-    signInWithAppleButton.snp.makeConstraints {
-      $0.top.equalTo(signInWithKakaoButton.snp.bottom).offset(8)
-      $0.leading.equalTo(16)
-      $0.trailing.equalTo(-16)
-      $0.height.equalTo(44)
-    }
-    
-    skipLoginButton.snp.makeConstraints {
-      $0.top.equalTo(signInWithAppleButton.snp.bottom).offset(8)
-      $0.leading.equalTo(16)
-      $0.trailing.equalTo(-16)
-      $0.height.equalTo(44)
+    if #available(iOS 13.0, *) {
+      signInWithAppleButton.snp.makeConstraints {
+        $0.top.equalTo(signInWithKakaoButton.snp.bottom).offset(8)
+        $0.leading.equalTo(16)
+        $0.trailing.equalTo(-16)
+        $0.height.equalTo(44)
+      }
+      
+      skipLoginButton.snp.makeConstraints {
+        $0.top.equalTo(signInWithAppleButton.snp.bottom).offset(8)
+        $0.leading.equalTo(16)
+        $0.trailing.equalTo(-16)
+        $0.height.equalTo(44)
+      }
+    } else {
+      skipLoginButton.snp.makeConstraints {
+        $0.top.equalTo(signInWithKakaoButton.snp.bottom).offset(8)
+        $0.leading.equalTo(16)
+        $0.trailing.equalTo(-16)
+        $0.height.equalTo(44)
+      }
     }
     
     registContainer.snp.makeConstraints {
