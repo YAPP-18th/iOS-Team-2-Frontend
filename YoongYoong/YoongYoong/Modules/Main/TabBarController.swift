@@ -86,10 +86,11 @@ class TabBarController: UITabBarController, Navigatable {
     self.delegate = self
   }
   
+  let tabBarDidSelected = PublishSubject<Void>()
   func bindViewModel() {
     guard let viewModel = viewModel else { return }
     
-    let input = TabBarViewModel.Input()
+    let input = TabBarViewModel.Input(postTapDidTap: tabBarDidSelected)
     let output = viewModel.transform(input: input)
     
     output.tabBarItems.drive(onNext: { [weak self] tabBarItems in
@@ -101,22 +102,40 @@ class TabBarController: UITabBarController, Navigatable {
       }
       self.setViewControllers(controllers, animated: true)
     }).disposed(by: self.disposeBag)
+    
+    output.postView
+      .subscribe(onNext: { [weak self] viewModel in
+        guard let self = self else { return }
+        self.navigator.show(segue: .post(viewModel: viewModel),
+                            sender: self,
+                            transition: .post)
+      }).disposed(by: disposeBag)
+    
+    output.setting
+      .subscribe(onNext: { [weak self] in
+        self?.alertSetting()
+      }).disposed(by: disposeBag)
+    
   }
+  
+  private func alertSetting() {
+    let alertController = UIAlertController(title: "알림", message: "위치 정보 확인을 위해 설정에서 위치 권한을 허용해주세요.", preferredStyle: .alert)
+    alertController.addAction(.init(title: "권한설정", style: .default, handler: { _ in
+      guard let url = URL(string: "App-prefs:root=Privacy&path=LOCATION") else { return }
+      UIApplication.shared.open(url, options: [:], completionHandler: nil)
+    }))
+    alertController.addAction(.init(title: "취소", style: .cancel))
+    self.present(alertController, animated: true)
+  }
+  
 }
 
 extension TabBarController: UITabBarControllerDelegate {
   func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
-    
+
     guard let viewController = viewController as? NavigationController,
           viewController.topViewController is PostSearchViewController else { return true }
-    
-    guard let viewModel = viewModel,
-          let postViewModel = viewModel.viewModel(for: .post) as? PostSearchViewModel else {
-      return true
-    }
-    
-    self.navigator.show(segue: .post(viewModel: postViewModel), sender: self, transition: .post)
-
+    tabBarDidSelected.onNext(())
     return false
   }
 }
