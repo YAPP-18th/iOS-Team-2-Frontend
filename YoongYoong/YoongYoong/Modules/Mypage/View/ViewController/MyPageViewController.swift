@@ -62,7 +62,7 @@ class MyPageViewController: ViewController {
   private let yongyongCommentView = UIView().then{
     $0.backgroundColor = .white
     $0.layer.borderWidth = 1
-    $0.layer.borderColor = UIColor.brandColorGreen02.cgColor
+    $0.layer.borderColor = UIColor.brandColorGreen01.cgColor
     $0.layer.cornerRadius = 16
   }
   private let yongyongCommentLable = UILabel().then{
@@ -261,21 +261,23 @@ extension MyPageViewController {
   }
   @objc
   private func tab1Action(sender : UITapGestureRecognizer) {
-    setTabView(tabIndex: 0)
     moveColletionViewNextPage(tabIndex: 0)
+    setTabView(tabIndex: 0)
   }
   @objc
   private func tab2Action(sender : UITapGestureRecognizer) {
-    setTabView(tabIndex: 1)
     moveColletionViewNextPage(tabIndex: 1)
+    setTabView(tabIndex: 1)
   }
   @objc
   private func tab3Action(sender : UITapGestureRecognizer) {
-    setTabView(tabIndex: 2)
     moveColletionViewNextPage(tabIndex: 2)
+    setTabView(tabIndex: 2)
+
   }
   private func setTabView(tabIndex i : Int) {
     // default, selected
+    
     let tabImageName: [(String,String)] = [("MyBadge-Inactive","MyBadge-Active"),
                                            ("MyPost-Inactive","MyPost-Active"),
                                            ("MyYonggi-Inactive","MyYonggi-Active")]

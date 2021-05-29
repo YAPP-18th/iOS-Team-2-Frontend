@@ -1,0 +1,26 @@
+{
+  "images" : [
+    {
+      "filename" : "containerIcon.png",
+      "idiom" : "universal",
+      "locale" : "YAPP",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "containerIcon@2x.png",
+      "idiom" : "universal",
+      "locale" : "YAPP",
+      "scale" : "2x"
+    },
+    {
+      "filename" : "containerIcon@3x.png",
+      "idiom" : "universal",
+      "locale" : "YAPP",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

@@ -151,6 +151,9 @@
 		DA579E752658B75700E724A4 /* PlaceRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA579E742658B75700E724A4 /* PlaceRouter.swift */; };
 		DA579E7A2658B76B00E724A4 /* PostRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA579E792658B76B00E724A4 /* PostRouter.swift */; };
 		DA579E7F2658BF5000E724A4 /* PlaceReqest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA579E7E2658BF5000E724A4 /* PlaceReqest.swift */; };
+		DA5D36E72661E4C500C41C82 /* PostResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5D36E62661E4C500C41C82 /* PostResponse.swift */; };
+		DA5D36EC2661E5D300C41C82 /* CommentResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5D36EB2661E5D300C41C82 /* CommentResponse.swift */; };
+		DA5D36F42661E64A00C41C82 /* PostRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5D36F32661E64A00C41C82 /* PostRequest.swift */; };
 		DAB00027260F12CA00D8208F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB00026260F12CA00D8208F /* AppDelegate.swift */; };
 		DAB00031260F12CA00D8208F /* YoongYoong.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DAB0002F260F12CA00D8208F /* YoongYoong.xcdatamodeld */; };
 		DAB00033260F12CD00D8208F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DAB00032260F12CD00D8208F /* Assets.xcassets */; };
@@ -349,6 +352,9 @@
 		DA579E742658B75700E724A4 /* PlaceRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceRouter.swift; sourceTree = "<group>"; };
 		DA579E792658B76B00E724A4 /* PostRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostRouter.swift; sourceTree = "<group>"; };
 		DA579E7E2658BF5000E724A4 /* PlaceReqest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceReqest.swift; sourceTree = "<group>"; };
+		DA5D36E62661E4C500C41C82 /* PostResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostResponse.swift; sourceTree = "<group>"; };
+		DA5D36EB2661E5D300C41C82 /* CommentResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentResponse.swift; sourceTree = "<group>"; };
+		DA5D36F32661E64A00C41C82 /* PostRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostRequest.swift; sourceTree = "<group>"; };
 		DAB00023260F12CA00D8208F /* YoongYoong.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YoongYoong.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAB00026260F12CA00D8208F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DAB00030260F12CA00D8208F /* YoongYoong.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = YoongYoong.xcdatamodel; sourceTree = "<group>"; };
@@ -971,6 +977,7 @@
 			children = (
 				DA1284D52658957A00764A2D /* AuthRequest.swift */,
 				DA579E7E2658BF5000E724A4 /* PlaceReqest.swift */,
+				DA5D36F32661E64A00C41C82 /* PostRequest.swift */,
 			);
 			path = Request;
 			sourceTree = "<group>";
@@ -980,6 +987,8 @@
 			children = (
 				DA1284D02658956300764A2D /* AuthResponse.swift */,
 				7E7F80AC2653F8380035EDED /* SearchResponse.swift */,
+				DA5D36E62661E4C500C41C82 /* PostResponse.swift */,
+				DA5D36EB2661E5D300C41C82 /* CommentResponse.swift */,
 			);
 			path = Response;
 			sourceTree = "<group>";
@@ -1354,6 +1363,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AAD0240A2642A4FB00F1EC2B /* FeedTipView.swift in Sources */,
+				DA5D36F42661E64A00C41C82 /* PostRequest.swift in Sources */,
 				DA1284BC2658941600764A2D /* Moya+RxSwift.swift in Sources */,
 				7E9F7B8226281D7100051D03 /* PostSearchResultView.swift in Sources */,
 				DA579E6D2658A91E00E724A4 /* NSMutableAttributedString+Extensions.swift in Sources */,
@@ -1389,6 +1399,7 @@
 				AA6E013A261F611600318E30 /* MapStoreInfoView.swift in Sources */,
 				AAD0240D2642A4FB00F1EC2B /* FeedListSection.swift in Sources */,
 				DABDB0F5264F84CD00653739 /* TermViewController.swift in Sources */,
+				DA5D36EC2661E5D300C41C82 /* CommentResponse.swift in Sources */,
 				AACCAADA2646466A005C9FBC /* MyBadgeCollectionViewCell.swift in Sources */,
 				AACCADB9264F79ED005C9FBC /* DynamicHeightTableView.swift in Sources */,
 				AAC78F91262A67FD009CC84E /* Application.swift in Sources */,
@@ -1440,6 +1451,7 @@
 				7E32AC612636F6F200E694EB /* PostImageSelectionViewCell.swift in Sources */,
 				AAC78FF5262A7150009CC84E /* Navigator.swift in Sources */,
 				AACCAD2E264D76F1005C9FBC /* NavigationBar.swift in Sources */,
+				DA5D36E72661E4C500C41C82 /* PostResponse.swift in Sources */,
 				AACCAAD12646466A005C9FBC /* BadgeModel.swift in Sources */,
 				AAC78FF0262A7027009CC84E /* TabBarController.swift in Sources */,
 				AAD023F72642A4D200F1EC2B /* UILabel+Extensions.swift in Sources */,
@@ -1677,7 +1689,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = 7Y3Y9M4N4F;
 				INFOPLIST_FILE = YoongYoong/Info.plist;
 				KAKAO_REST_API_KEY = a30bb297576560dd0618e9d8e05bedb8;
@@ -1703,7 +1715,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = 7Y3Y9M4N4F;
 				INFOPLIST_FILE = YoongYoong/Info.plist;
 				KAKAO_REST_API_KEY = a30bb297576560dd0618e9d8e05bedb8;
@@ -1872,7 +1884,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = 7Y3Y9M4N4F;
 				INFOPLIST_FILE = YoongYoong/Info.plist;
 				KAKAO_REST_API_KEY = a30bb297576560dd0618e9d8e05bedb8;

@@ -117,7 +117,7 @@ class EditProfileViewController : ViewController {
     let output = viewModel.transform(input: inputs)
     output.changeBtnActivate.drive{[weak self] result in
       self?.submitBtn.isEnabled = result
-      self?.submitBtn.backgroundColor = result ? .brandColorGreen02 : .brandColorBlue02
+      self?.submitBtn.backgroundColor = result ? .brandColorBlue01 : .brandColorBlue02
     }.disposed(by: disposeBag)
     output.commentTextCount.drive{ [weak self] count in
       self?.commentTextCounter.text = "\(count)/50"

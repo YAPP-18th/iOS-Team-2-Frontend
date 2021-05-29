@@ -1,0 +1,26 @@
+{
+  "images" : [
+    {
+      "filename" : "postIcon.png",
+      "idiom" : "universal",
+      "locale" : "YAPP",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "postIcon@2x.png",
+      "idiom" : "universal",
+      "locale" : "YAPP",
+      "scale" : "2x"
+    },
+    {
+      "filename" : "postIcon@3x.png",
+      "idiom" : "universal",
+      "locale" : "YAPP",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

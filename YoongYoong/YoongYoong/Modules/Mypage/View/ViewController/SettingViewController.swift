@@ -9,6 +9,8 @@ import Foundation
 import UIKit
 import RxSwift
 import RxCocoa
+import Moya
+
 class SettingViewController : ViewController {
   private let settingTableView = UITableView().then{
     $0.backgroundColor = .white
@@ -72,7 +74,7 @@ extension SettingViewController : UITableViewDelegate, UITableViewDataSource {
       switch indexPath.row {
       case 0 :
         AlertAction.shared.showAlertView(title: "정말 로그아웃을 하시겠습니까?", grantMessage: "확인", denyMessage: "취소", okAction: {
-          print("로그아웃 되었습니다")
+          
         }, cancelBtnAction: nil)
         print("로그아웃")
       case 1 :

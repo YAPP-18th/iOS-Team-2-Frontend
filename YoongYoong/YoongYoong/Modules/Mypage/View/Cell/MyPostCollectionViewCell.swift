@@ -20,13 +20,13 @@ class MyPostCollectionViewCell: UICollectionViewCell {
     $0.textColor = .black
   }
   private let postImage = UIImageView().then {
-    $0.image = UIImage(named: "")
+    $0.image = UIImage(named: "postIcon")
   }
   private let postCount = UILabel().then{
     $0.font = .sdGhothicNeo(ofSize: 14, weight: .bold)
   }
   private let packageImage = UIImageView().then {
-    $0.image = UIImage(named: "")
+    $0.image = UIImage(named: "containerIcon")
   }
   private let packageCount = UILabel().then{
     $0.font = .sdGhothicNeo(ofSize: 14, weight: .bold)
@@ -62,6 +62,7 @@ extension MyPostCollectionViewCell{
       }.disposed(by: disposeBag)
     Observable.zip(tableView.rx.itemSelected,
                    tableView.rx.modelSelected(PostSimpleModel.self))
+
     tableView.rx
         .observeWeakly(CGSize.self, "contentSize")
         .compactMap { $0?.height }
