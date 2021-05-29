@@ -12,11 +12,17 @@ import RxSwift
 
 enum SearchAPIError: Error {
   case error(String)
+  case apiError(Int)
+  case jsonParsingError
   
   var message: String {
     switch self {
     case .error(let msg):
       return msg
+    case .apiError(let statusCode):
+      return "API Error. status code: \(statusCode)"
+    case .jsonParsingError:
+      return "JSON Parsing Error"
     }
   }
   
@@ -38,16 +44,11 @@ class SearchService {
             let results = try JSONDecoder().decode(SearchAPIResponse.self, from: response.data)
             return .success(results)
           } catch {
-            return .failure(.error("JSON Parsing Error"))
+            return .failure(.jsonParsingError)
           }
-        case 400:
-          // 잘못된 parameter를 전달한 경우
-          return .failure(.error("Bad Request"))
-        case 500:
-          // parameter가 누락된 경우 
-          return .failure(.error("Internal Server Error"))
+        // 잘못된 parameter를 전달한 경우, parameter가 누락된 경우
         default:
-          return .failure(.error("원인 모를 에러"))
+          return .failure(.apiError(response.statusCode))
         }
       }
 

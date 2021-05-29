@@ -24,7 +24,7 @@ class PostSearchModel {
   private var isEnd = false
   
   func search(_ text: String, _ coordinate: CLLocationCoordinate2D?, nextPage: Bool) -> Observable<Result<[Place], SearchAPIError>>  {
-    guard let coordinate = coordinate else { return .just(.failure(.error("coordinate error")))}
+    guard let coordinate = coordinate else { return .just(.failure(.error("위치 접근 권한")))}
     
     if nextPage {
       page += 1
@@ -33,22 +33,30 @@ class PostSearchModel {
       isEnd = false
     }
     if isEnd { return .just(.success([])) }
-
+    
     return provider.searchResults(text: text,
-                           lat:  String(coordinate.latitude),
-                           long: String(coordinate.longitude),
-                           page: page).map { [weak self] result in
-                            switch result {
-                            case .success(let response):
-                              self?.isEnd = response.meta.isEnd
-                              return .success(response.documents)
-                            case .failure(let error):
-                              return .failure(error)
-                            }
-                            
-                           }
+                                  lat:  String(coordinate.latitude),
+                                  long: String(coordinate.longitude),
+                                  page: page).map{ result -> Result<[Place], SearchAPIError> in
+                                    switch result {
+                                    case .success(let response):
+                                      // TODO: Get Post Count
+                                      self.isEnd = response.meta.isEnd
+                                      let places = response.documents.map { Place(name: $0.name,
+                                                                                  roadAddress: $0.roadAddress,
+                                                                                  address: $0.address,
+                                                                                  distance: $0.distance,
+                                                                                  latitude: $0.latitude,
+                                                                                  longtitude: $0.longtitude)}
+                                      return .success(places)
+                                    case .failure(let error):
+                                      
+                                      return .failure(error)
+                                    }
+                                  }
     
   }
+  
   
   // 검색어
   func searchItem(at index: Int) -> String {
@@ -91,7 +99,7 @@ class PostSearchModel {
   
   func loadSearchHistory() -> [String] {
     guard let history = UserDefaultStorage.searchHistory else { return [] }
-    return history
+    return history.reversed()
   }
 
 }
