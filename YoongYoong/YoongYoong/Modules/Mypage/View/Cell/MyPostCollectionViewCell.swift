@@ -12,7 +12,7 @@ import RxCocoa
 class MyPostCollectionViewCell: UICollectionViewCell {
   let disposeBag = DisposeBag()
   private let monthlyInformationView = UIView().then{
-    $0.backgroundColor = UIColor.brandColorGreen01.withAlphaComponent(0.5)
+    $0.backgroundColor = UIColor.brandColorGreen03
   }
   private let timeStampLabel = UILabel().then{
     $0.font = .sdGhothicNeo(ofSize: 12, weight: .bold)
@@ -20,13 +20,13 @@ class MyPostCollectionViewCell: UICollectionViewCell {
     $0.textColor = .black
   }
   private let postImage = UIImageView().then {
-    $0.image = UIImage(named: "")
+    $0.image = UIImage(named: "postIcon")
   }
   private let postCount = UILabel().then{
     $0.font = .sdGhothicNeo(ofSize: 14, weight: .bold)
   }
   private let packageImage = UIImageView().then {
-    $0.image = UIImage(named: "")
+    $0.image = UIImage(named: "containerIcon")
   }
   private let packageCount = UILabel().then{
     $0.font = .sdGhothicNeo(ofSize: 14, weight: .bold)
@@ -47,11 +47,19 @@ class MyPostCollectionViewCell: UICollectionViewCell {
     $0.setImage(UIImage(named: ""), for: .normal)
   }
   private var cellCount = 0
+  override init(frame: CGRect) {
+    super.init(frame: frame)
+    layout()
+  }
+  
+  required init?(coder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
 }
 extension MyPostCollectionViewCell{
   func bindCell(model: PostListModel) {
     cellCount = model.postList.count
-    layout()
+    let feedSelect = tableView.rx.modelSelected(PostSimpleModel.self).map{$0.feedId}
     self.timeStampLabel.text = model.month
     self.postCount.text = "\(model.postCount)"
     self.packageCount.text = "\(model.packageCount)"
@@ -60,8 +68,8 @@ extension MyPostCollectionViewCell{
                                    cellType: MyPostTableViewCell.self)) { row, data, cell in
         cell.bind(model: data)
       }.disposed(by: disposeBag)
-    Observable.zip(tableView.rx.itemSelected,
-                   tableView.rx.modelSelected(PostSimpleModel.self))
+
+
     tableView.rx
         .observeWeakly(CGSize.self, "contentSize")
         .compactMap { $0?.height }
@@ -72,7 +80,12 @@ extension MyPostCollectionViewCell{
           }
         }
         .disposed(by: disposeBag)
-    
+    feedSelect.bind{[weak self] id in
+      let viewModel = FeedDetailViewModel(feedId: id)
+      if let top = UIApplication.shared.topViewController() as? MyPageViewController {
+        top.navigator.show(segue: .feedDetail(viewModel: viewModel), sender: top, transition: .navigation())
+      }
+    }.disposed(by: disposeBag)
   }
   
 }

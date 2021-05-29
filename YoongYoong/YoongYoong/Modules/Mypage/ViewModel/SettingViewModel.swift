@@ -6,7 +6,11 @@
 //
 
 import Foundation
+import Moya
+
 class SettingViewModel : ViewModel, ViewModelType {
+  private let service = AuthorizeService(provider: MoyaProvider<AuthRouter>(plugins:[NetworkLoggerPlugin()]))
+
   struct Input {
     
   }
@@ -14,6 +18,8 @@ class SettingViewModel : ViewModel, ViewModelType {
     
   }
   func transform(input: Input) -> Output {
+    weak var `self` = self
+    let logout = self?.service
     return .init()
   }
 }

@@ -25,7 +25,6 @@ class TipDetailSecondListView: UIView {
   }
   
   let contentContainer = UIView().then {
-    $0.backgroundColor = .brandColorGreen03
     $0.layer.cornerRadius = 16
   }
   
@@ -34,6 +33,15 @@ class TipDetailSecondListView: UIView {
     $0.font = .krBody2
     $0.numberOfLines = 0
     $0.textAlignment = .center
+  }
+  
+  override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+    super.traitCollectionDidChange(previousTraitCollection)
+    if isDarkMode {
+      contentContainer.backgroundColor = .init(hexString: "#1C1C1E")
+    } else {
+      contentContainer.backgroundColor = .brandColorGreen03
+    }
   }
   
   override init(frame: CGRect) {
@@ -50,7 +58,11 @@ class TipDetailSecondListView: UIView {
 
 extension TipDetailSecondListView {
   private func configuration() {
-    
+    if isDarkMode {
+      contentContainer.backgroundColor = .init(hexString: "#1C1C1E")
+    } else {
+      contentContainer.backgroundColor = .brandColorGreen03
+    }
   }
   
   private func setupView() {

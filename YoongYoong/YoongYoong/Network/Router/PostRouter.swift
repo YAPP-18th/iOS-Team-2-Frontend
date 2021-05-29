@@ -66,15 +66,15 @@ extension PostRouter: TargetType {
     
     case .fetchPostList:
       return .requestPlain
-    case .fetchCommentList(id: let id):
+    case .fetchCommentList:
       return .requestPlain
     case .addPost:
       return .requestPlain
-    case .addComment(id: let id):
+    case .addComment:
       return .requestPlain
-    case .modifyComment(id: let id):
+    case .modifyComment:
       return .requestPlain
-    case .deleteComment(id: let id):
+    case .deleteComment:
       return .requestPlain
     case .fetchPostBy:
       return .requestPlain
@@ -89,4 +89,3 @@ extension PostRouter: TargetType {
     }
   }
 }
-

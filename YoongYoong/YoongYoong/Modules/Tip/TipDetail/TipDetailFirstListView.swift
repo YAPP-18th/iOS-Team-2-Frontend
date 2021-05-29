@@ -93,7 +93,7 @@ extension TipDetailFirstListView {
     
     let rangeLabel = UILabel().then {
       $0.text = item.content.title
-      $0.textColor = .systemGray00
+      $0.textColor = .systemGrayText01
       $0.font = .sdGhothicNeo(ofSize: 16, weight: .regular)
     }
     

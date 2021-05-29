@@ -63,7 +63,7 @@ class RegistrationTermsViewController: ViewController {
   }
   override func configuration() {
     super.configuration()
-    
+    self.view.backgroundColor = .systemGray00
     self.navigationItem.leftBarButtonItem = UIBarButtonItem(
       image: UIImage(named: "icBtnNavBack")?
         .withRenderingMode(.alwaysOriginal),

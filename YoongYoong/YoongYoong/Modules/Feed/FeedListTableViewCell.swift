@@ -13,7 +13,6 @@ import RxCocoa
 
 class FeedListTableViewCell: UITableViewCell {
   private let bag = DisposeBag()
-  var height: CGFloat = 0.0
   let profileImageView = UIImageView().then {
     $0.contentMode = .scaleAspectFit
     $0.backgroundColor = .lightGray
@@ -64,7 +63,8 @@ class FeedListTableViewCell: UITableViewCell {
     $0.titleLabel?.font = .sdGhothicNeo(ofSize: 12, weight: .regular)
     $0.setTitleColor(.systemGray02, for: .normal)
     $0.setImage(UIImage(named: "icFeedLikeStroked"), for: .normal)
-    $0.centerTextAndImage(spacing: 2)
+    $0.contentEdgeInsets = .init(top: 3, left: 6, bottom: 3, right: 8)
+    $0.titleEdgeInsets = .init(top: 0, left: 2, bottom: 0, right: -2)
   }
   
   let messagesContainer = UIView()
@@ -73,8 +73,9 @@ class FeedListTableViewCell: UITableViewCell {
     $0.titleLabel?.font = .krBody3
     $0.imageView?.contentMode = .scaleAspectFit
     $0.setTitleColor(.systemGray02, for: .normal)
-    $0.setImage(UIImage(named: "icFeedMessages"), for: .normal)
-    $0.centerTextAndImage(spacing: 2)
+    $0.setImage(UIImage(named: "icFeedMessagesStroked"), for: .normal)
+    $0.contentEdgeInsets = .init(top: 3, left: 6, bottom: 3, right: 8)
+    $0.titleEdgeInsets = .init(top: 0, left: 2, bottom: 0, right: -2)
   }
   
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -105,15 +106,13 @@ class FeedListTableViewCell: UITableViewCell {
     viewModel.date.asDriver().drive(self.dateLabel.rx.text).disposed(by: bag)
     let containerViewModel = FeedListContainerListViewModel(with: viewModel.containerList.value ?? [])
     containerListView.bind(to: containerViewModel)
-    
-    self.height = Self.getHeight(viewModel: viewModel)
   }
 }
 
 extension FeedListTableViewCell {
   private func configuration() {
     self.selectionStyle = .none
-    self.contentView.backgroundColor = .white
+    self.contentView.backgroundColor = .systemGray00
   }
   
   private func setupView() {
@@ -191,7 +190,6 @@ extension FeedListTableViewCell {
     
     likeButton.snp.makeConstraints {
       $0.centerX.centerY.equalToSuperview()
-      $0.height.equalTo(16)
     }
     
     messagesContainer.snp.makeConstraints {
@@ -203,7 +201,6 @@ extension FeedListTableViewCell {
     
     messagesButton.snp.makeConstraints {
       $0.centerX.centerY.equalToSuperview()
-      $0.height.equalTo(16)
     }
     
   }

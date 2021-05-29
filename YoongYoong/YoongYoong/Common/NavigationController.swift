@@ -20,7 +20,7 @@ class NavigationController: UINavigationController{
     ]
     
     navigationBar.isTranslucent = false
-    navigationBar.barTintColor = .white
+    navigationBar.barTintColor = .systemGray00
     navigationBar.tintColor = .brandColorGreen01
   }
 }

@@ -11,6 +11,7 @@ import Moya
 enum AuthRouter {
   case register(param: SignupRequest)
   case login(param: LoginRequest)
+  case guest
   case emailCheck(param: CheckEmailDuplicateRequest)
 }
 
@@ -26,17 +27,18 @@ extension AuthRouter: TargetType {
       return "/user/sign-up"
     case .login:
       return "/user/login"
+    case .guest:
+      return "/user/login/guest"
     case .emailCheck:
-      return "/users/check/email"
+      return "/user/check/email"
     }
   }
   
   var method: Moya.Method {
     switch self {
-    case .register,
-         .login:
+    case .register, .login, .guest:
       return .post
-    case .emailCheck :
+    case .emailCheck:
       return .get
     }
   }
@@ -52,6 +54,8 @@ extension AuthRouter: TargetType {
       return .uploadCompositeMultipart([multipart], urlParameters: try! param.asParameters())
     case .login(let param):
       return .requestJSONEncodable(param)
+    case .guest:
+      return .requestPlain
     case .emailCheck(let param):
       return .requestParameters(parameters: try! param.asParameters(), encoding: URLEncoding.default)
     }

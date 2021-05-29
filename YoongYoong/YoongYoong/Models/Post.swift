@@ -19,12 +19,13 @@ class PostData {
 }
 
 struct PostContainer {
-  let container: ContainerInfo
+  let container: ContainerSize
   let containerCount: Int
   let food: String
   let foodCount: Int
 }
-struct ContainerInfo {
+
+struct ContainerSize {
   let name: String
   let size: String
 }

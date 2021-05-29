@@ -11,8 +11,8 @@ class RegistrationPasswordViewController: ViewController {
   
   let titleLabel = UILabel().then {
     $0.attributedText = NSMutableAttributedString()
-      .string("비밀번호를 입력해주세요\n", font: .krTitle1)
-      .string("(영문, 숫자 포함 8자 이상)", font: .krBody2)
+      .string("비밀번호를 입력해주세요\n", font: .krTitle1, color: .systemGrayText01)
+      .string("(영문, 숫자 포함 8자 이상)", font: .krBody2, color: .systemGrayText01)
     $0.numberOfLines = 2
   }
   
@@ -74,6 +74,7 @@ class RegistrationPasswordViewController: ViewController {
   
   override func configuration() {
     super.configuration()
+    self.view.backgroundColor = .systemGray00
     self.navigationItem.title = "비밀번호 입력하기"
     nextButton.isEnabled = true
   }

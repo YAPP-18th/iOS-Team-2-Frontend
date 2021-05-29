@@ -74,7 +74,9 @@ extension UIColor {
   @nonobjc class var brandColorGreen05: UIColor {
     return UIColor(named: "brandColorGreen05")!
   }
-  
+  @nonobjc class var brandColorBlue01: UIColor {
+    return UIColor(named: "brandColorTertiary01")!
+  }
   @nonobjc class var brandColorBlue02: UIColor {
     return UIColor(named: "brandColorBlue02")!
   }

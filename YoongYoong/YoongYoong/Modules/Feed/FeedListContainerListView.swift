@@ -37,7 +37,7 @@ class FeedListContainerListView: UIView {
 
 extension FeedListContainerListView {
   private func configuration() {
-    self.backgroundColor = .white
+    self.backgroundColor = .systemGray00
   }
   
   private func setupView() {

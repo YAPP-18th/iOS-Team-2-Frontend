@@ -22,11 +22,17 @@ class MyPageViewController: ViewController {
     $0.textColor = .black
     $0.font = .sdGhothicNeo(ofSize: 16, weight: .bold)
   }
+  private let loginBtn = UIButton().then {
+    $0.isHidden = true
+    $0.setTitle("로그인", for: .normal)
+    $0.titleLabel?.font = .sdGhothicNeo(ofSize: 18, weight: .regular)
+    $0.setTitleColor(.black, for: .normal)
+  }
   private let comments = UILabel().then {
     $0.numberOfLines = 2
     $0.textColor = .black
     $0.font = .sdGhothicNeo(ofSize: 14, weight: .regular)
-
+    
     
   }
   private let editProfileBtn = UIButton()
@@ -62,7 +68,7 @@ class MyPageViewController: ViewController {
   private let yongyongCommentView = UIView().then{
     $0.backgroundColor = .white
     $0.layer.borderWidth = 1
-    $0.layer.borderColor = UIColor.brandColorGreen02.cgColor
+    $0.layer.borderColor = UIColor.brandColorGreen01.cgColor
     $0.layer.cornerRadius = 16
   }
   private let yongyongCommentLable = UILabel().then{
@@ -86,9 +92,10 @@ class MyPageViewController: ViewController {
   private let tabBinder = BehaviorSubject<[TabType]>(value: [.badge,.feed,.history])
   private let loadTrigger = PublishSubject<Void>()
   private let jumpTrigger = PublishSubject<Void>()
+  private let loginTrigger = PublishSubject<Void>()
   override func viewDidLoad() {
     setupCollectionView()
-
+    
     super.viewDidLoad()
     setupNavigationBar(.white)
     self.navigationItem.leftBarButtonItem = leftButtonItem
@@ -97,7 +104,7 @@ class MyPageViewController: ViewController {
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     tabIndicator.frame.origin.x = CGFloat((UIScreen.main.bounds.width / 3.0 - 108)/2)
-
+    
   }
   override func setupLayout() {
     self.view.add(scrollView)
@@ -110,9 +117,9 @@ class MyPageViewController: ViewController {
       $0.height.equalToSuperview().priority(.low)
     }
     containerView.adds([profileView,
-                    segmentView,
-                    yongyongView,
-                    collectionView])
+                        segmentView,
+                        yongyongView,
+                        collectionView])
     profileView.snp.makeConstraints{
       $0.centerX.equalTo(self.view.safeAreaLayoutGuide)
       $0.leading.equalTo(self.view.safeAreaLayoutGuide).offset(15)
@@ -169,7 +176,7 @@ class MyPageViewController: ViewController {
     tabView[0].addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tab1Action)))
     tabView[1].addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tab2Action)))
     tabView[2].addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tab3Action)))
-
+    
     tabIndicator.snp.makeConstraints{
       $0.bottom.equalToSuperview()
       $0.height.equalTo(4)
@@ -204,12 +211,25 @@ class MyPageViewController: ViewController {
       $0.centerX.equalToSuperview()
       $0.bottom.equalTo(self.view.safeAreaLayoutGuide)
     }
+    if !LoginManager.shared.isLogin {
+      userName.isHidden = true
+      userProfile.image = UIImage()
+      comments.isHidden = true
+      editProfileBtn.isHidden = true
+      loginBtn.isHidden = false
+      profileView.add(loginBtn)
+      loginBtn.snp.makeConstraints{
+        $0.centerY.equalTo(userProfile)
+        $0.leading.equalTo(userProfile.snp.trailing).offset(6)
+      }
+    }
   }
   override func bindViewModel() {
     guard let viewModel = viewModel as? MypageViewModel else { return }
     let input = MypageViewModel.Input(loadView: loadTrigger)
     let profile = viewModel.getProfile(inputs: input)
     let message = viewModel.yongyongMessage(inputs: input)
+    let login = viewModel.logIn(inputs: loginTrigger)
     profile.drive{ [weak self] model in
       guard let self = self else{return}
       if let image = model.imagePath {
@@ -231,18 +251,36 @@ class MyPageViewController: ViewController {
       cell.viewModel = viewModel
       cell.type = data
       cell.bind()
-
+      
     }.disposed(by: disposeBag)
-  editProfileBtn.rx.tap.bind{[weak self] in
+    editProfileBtn.rx.tap.bind{[weak self] in
       let vc = EditProfileViewController(viewModel: EditProfileViewModel(), navigator: self?.navigator ?? Navigator())
       vc.hidesBottomBarWhenPushed = true
       self?.navigationController?.pushViewController(vc, animated: true)
     }.disposed(by: disposeBag)
     leftButtonItem.rx.tap.bind{ [weak self] in
-      self?.navigator.show(segue: .alertList(viewModel: AlertViewModel()), sender: self, transition: .navigation())
+      if LoginManager.shared.isLogin {
+        self?.navigator.show(segue: .alertList(viewModel: AlertViewModel()), sender: self, transition: .navigation())
+      }
+      else {
+        self?.checkLogin()
+      }
     }.disposed(by: disposeBag)
     rightButtonItem.rx.tap.bind{ [weak self] in
-      self?.navigator.show(segue: .settingList(viewModel: SettingViewModel()), sender: self, transition: .navigation())
+      if LoginManager.shared.isLogin  {
+        
+        self?.navigator.show(segue: .settingList(viewModel: SettingViewModel()), sender: self, transition: .navigation())
+      }
+      else {
+        self?.checkLogin()
+      }
+    }.disposed(by: disposeBag)
+    loginBtn.rx.tap.bind(to: loginTrigger).disposed(by: disposeBag)
+    login.bind{[weak self] in
+      guard let self = self else {return}
+      if let window = self.view.window {
+        self.navigator.show(segue: .splash(viewModel: $0), sender: self, transition: .root(in: window))
+      }
     }.disposed(by: disposeBag)
     self.loadTrigger.onNext(())
     
@@ -261,21 +299,23 @@ extension MyPageViewController {
   }
   @objc
   private func tab1Action(sender : UITapGestureRecognizer) {
-    setTabView(tabIndex: 0)
     moveColletionViewNextPage(tabIndex: 0)
+    setTabView(tabIndex: 0)
   }
   @objc
   private func tab2Action(sender : UITapGestureRecognizer) {
-    setTabView(tabIndex: 1)
     moveColletionViewNextPage(tabIndex: 1)
+    setTabView(tabIndex: 1)
   }
   @objc
   private func tab3Action(sender : UITapGestureRecognizer) {
-    setTabView(tabIndex: 2)
     moveColletionViewNextPage(tabIndex: 2)
+    setTabView(tabIndex: 2)
+    
   }
   private func setTabView(tabIndex i : Int) {
     // default, selected
+    
     let tabImageName: [(String,String)] = [("MyBadge-Inactive","MyBadge-Active"),
                                            ("MyPost-Inactive","MyPost-Active"),
                                            ("MyYonggi-Inactive","MyYonggi-Active")]
@@ -288,11 +328,11 @@ extension MyPageViewController {
     }
   }
   private func moveColletionViewNextPage(tabIndex:Int) {
-      UIView.animate(withDuration: 0.2) {
-          self.collectionView.contentOffset.x = CGFloat(tabIndex) * CGFloat(UIScreen.main.bounds.width)
-      }
+    UIView.animate(withDuration: 0.2) {
+      self.collectionView.contentOffset.x = CGFloat(tabIndex) * CGFloat(UIScreen.main.bounds.width)
+    }
   }
-
+  
 }
 extension MyPageViewController : UICollectionViewDelegateFlowLayout {
   private func setupCollectionView() {
@@ -311,7 +351,7 @@ extension MyPageViewController : UICollectionViewDelegateFlowLayout {
     collectionView.bounces = false
     collectionView.isHidden = false
     collectionView.rx.setDelegate(self)
-        .disposed(by: disposeBag)
+      .disposed(by: disposeBag)
     tabIndicator.frame.size.width = 108
     tabIndicator.frame.origin.x = CGFloat(offset)
     collectionView.rx.didScroll
@@ -335,9 +375,21 @@ extension MyPageViewController : UICollectionViewDelegateFlowLayout {
     let height = collectionView.frame.height
     return CGSize(width: width, height: height)
   }
+  @objc
+  private func login(sender : UITapGestureRecognizer) {
+    self.loginTrigger.onNext(())
+  }
+  private func checkLogin() {
+    if !LoginManager.shared.isLogin {
+      AlertAction.shared.showAlertView(title: "로그인이 필요한 서비스입니다.",description: "로그인 화면으로 이동하시겠습니까?", grantMessage: "확인", denyMessage: "취소", okAction: { [weak self] in
+        self?.loginTrigger.onNext(())
+      })
+    }
+  }
 }
 enum TabType{
   case badge
   case feed
   case history
 }
+

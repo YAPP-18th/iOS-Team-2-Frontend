@@ -21,9 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // Override point for customization after application launch.
     window = UIWindow(frame: UIScreen.main.bounds)
     window?.makeKeyAndVisible()
-    let loginCheck = LoginManager.shared.isLogin()
-     //Application.shared.presentInitialScreen(in: window, isFirst: true) //온보딩 값 <- 토큰 유무로 판단하면 될듯
-    Application.shared.presentInitialScreen(in: window , isFirst: true)
+    Application.shared.presentInitialScreen(in: window)
     return true
   }
   // MARK: - Core Data stack

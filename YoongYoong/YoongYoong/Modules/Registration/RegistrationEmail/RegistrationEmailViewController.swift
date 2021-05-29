@@ -16,7 +16,7 @@ class RegistrationEmailViewController: ViewController {
   }
   
   let emailField = UITextField().then {
-    $0.placeholder = "이메일"
+    $0.attributedPlaceholder = NSMutableAttributedString().string("이메일", font: .krBody2, color: .systemGray04)
     $0.font = .krBody2
     $0.textColor = .systemGrayText01
   }
@@ -71,6 +71,7 @@ class RegistrationEmailViewController: ViewController {
   
   override func configuration() {
     super.configuration()
+    self.view.backgroundColor = .systemGray00
     self.navigationItem.title = "이메일로 가입하기"
     self.nextButton.isEnabled = true
   }

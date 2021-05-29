@@ -22,9 +22,9 @@ class LoginViewController: ViewController {
   
   let emailField = UITextField().then {
     $0.borderStyle = .none
-    $0.placeholder = "이메일"
     $0.font = .krBody2
     $0.textColor = .systemGray01
+    $0.attributedPlaceholder = NSMutableAttributedString().string("이메일", font: .krBody2, color: .systemGray04)
     $0.autocapitalizationType = .none
     $0.autocorrectionType = .no
   }
@@ -55,7 +55,7 @@ class LoginViewController: ViewController {
     $0.layer.masksToBounds = true
   }
   
-  let signInWithKakaoButton = UIButton().then {
+  lazy var signInWithKakaoButton = UIButton().then {
     $0.setImage(UIImage(named: "icLoginButtonKakao"), for: .normal)
     $0.layer.cornerRadius = 22
     $0.layer.masksToBounds = true
@@ -65,7 +65,7 @@ class LoginViewController: ViewController {
     $0.setTitle("로그인 없이 둘러볼게요", for: .normal)
     $0.setTitleColor(.brandColorGreen01, for: .normal)
     $0.titleLabel?.font = .krButton1
-    $0.backgroundColor = .white
+    $0.backgroundColor = .systemGray03
     $0.layer.cornerRadius = 22
     $0.layer.borderColor = UIColor.systemGray05.cgColor
     $0.layer.borderWidth = 1
@@ -101,19 +101,33 @@ class LoginViewController: ViewController {
     let input = LoginViewModel.Input(
       param: loginParam,
       registration: self.registButton.rx.tap.asObservable(),
-      login: self.loginButton.rx.tap.asObservable()
+      login: self.loginButton.rx.tap.asObservable(),
+      guest: self.skipLoginButton.rx.tap.asObservable()
     )
     
     let output = viewModel.transform(input: input)
     output.loginResult
-      .bind{ [weak self] result , token in
+      .bind{ [weak self] result, response in
         AlertAction.shared.showAlertView(title: "로그인되었습니다", grantMessage: "확인", denyMessage: "취소")
         let viewModel = TabBarViewModel()
         self?.navigator.show(segue: .tabs(viewModel: viewModel), sender: self, transition: .modalFullScreen)
-        if let token = token {
-          LoginManager.shared.makeLoginStatus(accessToken: token)
+        if let token = response?.token, let userID = response?.userID {
+          LoginManager.shared.makeLoginStatus(status: .logined, accessToken: token, userID: userID)
         }
       }.disposed(by: disposeBag)
+    
+    output.guestLoginResult
+      .bind{ [weak self] result, response in
+        AlertAction.shared.showAlertView(title: "로그인되었습니다", grantMessage: "확인", denyMessage: "취소")
+        let viewModel = TabBarViewModel()
+        
+        if let token = response?.token, let userID = response?.userID {
+          LoginManager.shared.makeLoginStatus(status: .guest, accessToken: token)
+        }
+        self?.navigator.show(segue: .tabs(viewModel: viewModel), sender: self, transition: .modalFullScreen)
+      }.disposed(by: disposeBag)
+    
+    
     output.registration.drive(onNext: { viewModel in
       self.navigator.show(segue: .registrationTerms(viewModel: viewModel), sender: self, transition: .navigation(.right))
     }).disposed(by: disposeBag)
@@ -121,8 +135,8 @@ class LoginViewController: ViewController {
   
   override func configuration() {
     super.configuration()
-    self.view.backgroundColor = .white
     self.loginButton.isEnabled = true
+    self.view.backgroundColor = .systemGray00
   }
   
   override func setupView() {
@@ -131,8 +145,14 @@ class LoginViewController: ViewController {
     scrollView.addArrangedSubview(contentView)
     [
       logoImageView, emailField, emailDivider, passwordField, passwordDivider,
-      loginButton, findPasswordButton, signInWithAppleButton, signInWithKakaoButton, skipLoginButton, registContainer
+      loginButton, findPasswordButton, signInWithAppleButton
     ].forEach {
+      self.contentView.addSubview($0)
+    }
+    if #available(iOS 13.0, *) {
+      self.contentView.addSubview(signInWithAppleButton)
+    }
+    [signInWithKakaoButton, skipLoginButton, registContainer].forEach {
       self.contentView.addSubview($0)
     }
     [registLabel, registButton].forEach {
@@ -196,18 +216,27 @@ class LoginViewController: ViewController {
       $0.height.equalTo(44)
     }
     
-    signInWithAppleButton.snp.makeConstraints {
-      $0.top.equalTo(signInWithKakaoButton.snp.bottom).offset(8)
-      $0.leading.equalTo(16)
-      $0.trailing.equalTo(-16)
-      $0.height.equalTo(44)
-    }
-    
-    skipLoginButton.snp.makeConstraints {
-      $0.top.equalTo(signInWithAppleButton.snp.bottom).offset(8)
-      $0.leading.equalTo(16)
-      $0.trailing.equalTo(-16)
-      $0.height.equalTo(44)
+    if #available(iOS 13.0, *) {
+      signInWithAppleButton.snp.makeConstraints {
+        $0.top.equalTo(signInWithKakaoButton.snp.bottom).offset(8)
+        $0.leading.equalTo(16)
+        $0.trailing.equalTo(-16)
+        $0.height.equalTo(44)
+      }
+      
+      skipLoginButton.snp.makeConstraints {
+        $0.top.equalTo(signInWithAppleButton.snp.bottom).offset(8)
+        $0.leading.equalTo(16)
+        $0.trailing.equalTo(-16)
+        $0.height.equalTo(44)
+      }
+    } else {
+      skipLoginButton.snp.makeConstraints {
+        $0.top.equalTo(signInWithKakaoButton.snp.bottom).offset(8)
+        $0.leading.equalTo(16)
+        $0.trailing.equalTo(-16)
+        $0.height.equalTo(44)
+      }
     }
     
     registContainer.snp.makeConstraints {
