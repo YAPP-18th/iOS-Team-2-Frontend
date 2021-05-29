@@ -11,7 +11,7 @@ import RxCocoa
 import Moya
 
 class MypageViewModel: ViewModel , ViewModelType {
-  private let service = PostService(provider: MoyaProvider<PostRouter>(plugins:[NetworkLoggerPlugin()]))
+  private let service = MyPostService(provider: MoyaProvider<PostRouter>(plugins:[NetworkLoggerPlugin()]))
   let currentMonth = BehaviorSubject<Int>(value: Int(Date().month) ?? 6)
   struct Input {
     let loadView : Observable<Void>

@@ -9,10 +9,7 @@ import Foundation
 
 struct PostResponse : Decodable{
   let commentCount: Int
-<<<<<<< HEAD
-=======
   let content: String?
->>>>>>> [Feat] 마이페이지 포스트 바인딩 + Date Extension
   let createdDate: String
   let images: [String]
   let likeCount: Int
@@ -42,10 +39,6 @@ struct ContainerInfo: Decodable{
 }
 extension PostResponse {
   var myPagePostModel : PostSimpleModel {
-<<<<<<< HEAD
-    return .init(feedId: postId, profile: .init(imagePath: user.imageUrl, name: user.nickname, message: user.introduction, userId: user.id), postedAt: createdDate, menus: postContainers.map{MenuModel.init(menutitle: $0.food, menuCount: $0.foodCount)}, thumbNail: images.first ?? "", postDescription: "" )
-=======
     return .init(feedId: postId, profile: .init(imagePath: user.imageUrl, name: user.nickname, message: user.introduction, userId: user.id), postedAt: createdDate, menus: postContainers.map{MenuModel.init(menutitle: $0.food, menuCount: $0.foodCount)}, thumbNail: images.first ?? "", postDescription: content ?? "" )
->>>>>>> [Feat] 마이페이지 포스트 바인딩 + Date Extension
   }
 }
