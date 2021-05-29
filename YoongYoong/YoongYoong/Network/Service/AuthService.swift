@@ -44,10 +44,7 @@ extension AuthorizeService {
   func guest() -> Observable<Response> {
     provider.rx.request(.guest)
       .asObservable()
-    
-    
   }
   func logOut() {
-    
   }
 }

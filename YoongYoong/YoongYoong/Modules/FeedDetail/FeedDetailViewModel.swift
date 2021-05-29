@@ -10,6 +10,12 @@ import RxSwift
 import RxCocoa
 
 class FeedDetailViewModel : ViewModel, ViewModelType {
+
+  private var feedId: Int?
+  init(feedId: Int? = nil) {
+    self.feedId = feedId
+  }
+  
   struct Input {
     
   }

@@ -154,6 +154,7 @@
 		DA5D36E72661E4C500C41C82 /* PostResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5D36E62661E4C500C41C82 /* PostResponse.swift */; };
 		DA5D36EC2661E5D300C41C82 /* CommentResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5D36EB2661E5D300C41C82 /* CommentResponse.swift */; };
 		DA5D36F42661E64A00C41C82 /* PostRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5D36F32661E64A00C41C82 /* PostRequest.swift */; };
+		DA5D370D26621AC800C41C82 /* MyPageEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5D370C26621AC800C41C82 /* MyPageEmptyView.swift */; };
 		DAB00027260F12CA00D8208F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB00026260F12CA00D8208F /* AppDelegate.swift */; };
 		DAB00031260F12CA00D8208F /* YoongYoong.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DAB0002F260F12CA00D8208F /* YoongYoong.xcdatamodeld */; };
 		DAB00033260F12CD00D8208F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DAB00032260F12CD00D8208F /* Assets.xcassets */; };
@@ -355,6 +356,7 @@
 		DA5D36E62661E4C500C41C82 /* PostResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostResponse.swift; sourceTree = "<group>"; };
 		DA5D36EB2661E5D300C41C82 /* CommentResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentResponse.swift; sourceTree = "<group>"; };
 		DA5D36F32661E64A00C41C82 /* PostRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostRequest.swift; sourceTree = "<group>"; };
+		DA5D370C26621AC800C41C82 /* MyPageEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageEmptyView.swift; sourceTree = "<group>"; };
 		DAB00023260F12CA00D8208F /* YoongYoong.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YoongYoong.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAB00026260F12CA00D8208F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DAB00030260F12CA00D8208F /* YoongYoong.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = YoongYoong.xcdatamodel; sourceTree = "<group>"; };
@@ -720,6 +722,7 @@
 				AACCAAC226464669005C9FBC /* Cell */,
 				AACCAACA26464669005C9FBC /* ViewController */,
 				AACCAACD26464669005C9FBC /* BadgeDetailView.swift */,
+				DA5D370C26621AC800C41C82 /* MyPageEmptyView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1511,6 +1514,7 @@
 				AACCAA9A264628EB005C9FBC /* TipDetailSecondListView.swift in Sources */,
 				AACCAAA426463A76005C9FBC /* TipDetailThirdListView.swift in Sources */,
 				AAD024212642A56600F1EC2B /* TitleContentItem.swift in Sources */,
+				DA5D370D26621AC800C41C82 /* MyPageEmptyView.swift in Sources */,
 				DACA9680264F693300E95165 /* ManageEmailViewController.swift in Sources */,
 				DAB00031260F12CA00D8208F /* YoongYoong.xcdatamodeld in Sources */,
 				7E7F80AD2653F8380035EDED /* SearchResponse.swift in Sources */,
