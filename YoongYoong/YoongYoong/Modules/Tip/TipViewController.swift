@@ -24,11 +24,34 @@ class TipViewController: ViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-
   }
   
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    self.tabBarController?.tabBar.isHidden = true
+  }
+  
+  override func viewWillDisappear(_ animated: Bool) {
+    super.viewWillDisappear(animated)
+    self.tabBarController?.tabBar.isHidden = false
+  }
   override func configuration() {
     super.configuration()
+    setupRightBarButton()
+  }
+  
+  func setupRightBarButton() {
+    self.navigationItem.rightBarButtonItem = UIBarButtonItem(
+      image: UIImage(named: "icBtnNavForward")?
+        .withRenderingMode(.alwaysOriginal),
+      style: .plain,
+      target: self,
+      action: #selector(backToMap)
+    )
+  }
+  
+  @objc func backToMap() {
+    self.navigator.show(segue: .map(viewModel: .init()), sender: self, transition: .navigation(.right))
   }
   
   override func setupView() {
