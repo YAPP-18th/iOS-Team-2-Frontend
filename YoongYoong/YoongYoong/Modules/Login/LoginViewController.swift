@@ -8,6 +8,8 @@
 import UIKit
 import Moya
 import RxSwift
+import AuthenticationServices
+
 class LoginViewController: ViewController {
   let scrollView = ScrollStackView().then {
     $0.showsVerticalScrollIndicator = false
@@ -137,6 +139,8 @@ class LoginViewController: ViewController {
     super.configuration()
     self.loginButton.isEnabled = true
     self.view.backgroundColor = .systemGray00
+    
+    
   }
   
   override func setupView() {
@@ -255,5 +259,41 @@ class LoginViewController: ViewController {
       $0.height.equalTo(18)
       $0.leading.equalTo(registLabel.snp.trailing).offset(8)
     }
+  }
+  @available(iOS 13.0, *)
+  @objc func siinInWithApple() {
+    let appleIDProvider = ASAuthorizationAppleIDProvider()
+    let request = appleIDProvider.createRequest()
+    request.requestedScopes = [.fullName, .email]
+    
+    let authorizationController = ASAuthorizationController(authorizationRequests: [request])
+    authorizationController.delegate = self
+    authorizationController.presentationContextProvider = self
+    authorizationController.performRequests()
+  }
+}
+
+@available(iOS 13.0, *)
+extension LoginViewController: ASAuthorizationControllerDelegate {
+  func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
+    switch authorization.credential {
+    case let appleIDCredential as ASAuthorizationAppleIDCredential:
+      
+      // Todo: 첫 인증시 저장해야함
+      let userIdentifier = appleIDCredential.user
+      let fullName = appleIDCredential.fullName
+      let email = appleIDCredential.email
+      
+    default:
+      break
+    }
+  }
+  
+}
+@available(iOS 13.0, *)
+extension LoginViewController: ASAuthorizationControllerPresentationContextProviding {
+  /// - Tag: provide_presentation_anchor
+  func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
+    return self.view.window!
   }
 }

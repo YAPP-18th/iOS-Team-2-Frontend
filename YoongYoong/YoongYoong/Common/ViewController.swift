@@ -45,6 +45,20 @@ class ViewController: UIViewController, Navigatable {
         }.disposed(by: disposeBag)
   }
   
+  func setupBackButton() {
+    self.navigationItem.leftBarButtonItem = UIBarButtonItem(
+      image: UIImage(named: "icBtnNavBack")?
+        .withRenderingMode(.alwaysOriginal),
+      style: .plain,
+      target: self,
+      action: #selector(backButtonTapped)
+    )
+  }
+  
+  @objc func backButtonTapped() {
+    self.navigationController?.popViewController(animated: true)
+  }
+  
   func bindViewModel() {
     
   }

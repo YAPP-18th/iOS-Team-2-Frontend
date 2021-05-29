@@ -67,7 +67,8 @@ class Navigator {
       return rootVC
     case .login(let viewModel):
       let loginVC = LoginViewController(viewModel: viewModel, navigator: self)
-      return loginVC
+      let nav = NavigationController(rootViewController: loginVC)
+      return nav
     case .registrationTerms(let viewModel):
       let regTermsVC = RegistrationTermsViewController(viewModel: viewModel, navigator: self)
       return regTermsVC

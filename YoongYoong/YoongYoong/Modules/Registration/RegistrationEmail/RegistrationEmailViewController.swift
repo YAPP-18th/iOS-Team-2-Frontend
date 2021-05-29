@@ -73,6 +73,7 @@ class RegistrationEmailViewController: ViewController {
     super.configuration()
     self.view.backgroundColor = .systemGray00
     self.navigationItem.title = "이메일로 가입하기"
+    self.setupBackButton()
     self.nextButton.isEnabled = true
   }
   

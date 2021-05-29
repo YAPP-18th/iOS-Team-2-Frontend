@@ -9,6 +9,11 @@ import UIKit
 
 class RegistrationTermsViewController: ViewController {
   
+  let firstViewModel = TermsCheckItemViewModel(title: "(필수) 서비스 이용약관", detail: "")
+  let secondViewModel = TermsCheckItemViewModel(title: "(필수) 개인정보 처리방침", detail: "")
+  let thirdViewModel = TermsCheckItemViewModel(title: "(필수) 위치 기반 서비스", detail: "")
+  let fourthViewModel = TermsCheckItemViewModel(title: "(선택) 마케팅 정보 수신 동의", detail: "")
+  
   let titleLabel = UILabel().then {
     $0.text = "환영합니다!"
     $0.font = .krTitle1
@@ -64,22 +69,12 @@ class RegistrationTermsViewController: ViewController {
   override func configuration() {
     super.configuration()
     self.view.backgroundColor = .systemGray00
-    self.navigationItem.leftBarButtonItem = UIBarButtonItem(
-      image: UIImage(named: "icBtnNavBack")?
-        .withRenderingMode(.alwaysOriginal),
-      style: .plain,
-      target: self,
-      action: #selector(backButtonTapped)
-    )
+    self.setupBackButton()
     
     self.navigationItem.title = "약관 및 정책"
     self.nextButton.isEnabled = true
   }
-  
-  @objc func backButtonTapped() {
-    
-  }
-  
+
   override func setupView() {
     super.setupView()
     [titleLabel, checkAllButton, checkAllLabel, divider, vStackView, nextButton].forEach {
@@ -117,16 +112,11 @@ class RegistrationTermsViewController: ViewController {
       $0.leading.trailing.equalToSuperview()
     }
     
-    let viewModelList: [TermsCheckItem.ViewModel] = [
-      .init(isChecked: true, title: "(필수) 서비스 이용약관", detail: ""),
-      .init(isChecked: false, title: "(필수) 개인정보 처리방침", detail: ""),
-      .init(isChecked: true, title: "(필수) 위치 기반 서비스", detail: ""),
-      .init(isChecked: false, title: "(선택) 마케팅 정보 수신 동의", detail: "")
-    ]
     
-    for viewModel in viewModelList {
+    
+    for viewModel in [firstViewModel, secondViewModel, thirdViewModel, fourthViewModel] {
       let checkItem = TermsCheckItem()
-      checkItem.viewModel = viewModel
+      checkItem.bind(to: viewModel)
       self.vStackView.addArrangedSubview(checkItem)
     }
     
