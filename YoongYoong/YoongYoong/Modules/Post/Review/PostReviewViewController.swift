@@ -148,6 +148,11 @@ class PostReviewViewController: ViewController {
       }.disposed(by: disposeBag)
  
     
+    output.uploadDidEnd
+      .subscribe(onNext: { [weak self] in
+        self?.dismiss(animated: true, completion: nil)
+      }).disposed(by: disposeBag)
+    
   }
   
   override func setupView() {

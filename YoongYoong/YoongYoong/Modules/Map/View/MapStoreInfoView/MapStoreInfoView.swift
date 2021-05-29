@@ -26,29 +26,12 @@ class MapStoreInfoView: UIView {
     $0.textColor = .systemGrayText02
   }
   
-  let locationContainerView = UIView()
-  
-  let locationIconImageView = UIImageView().then {
-    $0.image = UIImage(named: "icMapStoreInfoLocation")
-    $0.contentMode = .scaleAspectFit
-  }
-  
   let locationLabel = UILabel().then {
     $0.font = .krCaption2
     $0.text = "서울 송파구 송파대로 106-17"
   }
   
-  let timeContainerView = UIView()
-  
-  let timeIconImageView = UIImageView().then {
-    $0.image = UIImage(named: "icMapStoreInfoTime")
-    $0.contentMode = .scaleAspectFit
-  }
-  
-  let timeLabel = UILabel().then {
-    $0.font = .krCaption2
-    $0.text = "매일 00:00 - 24:00"
-  }
+
   
   override init(frame: CGRect) {
     super.init(frame: frame)
@@ -79,77 +62,43 @@ extension MapStoreInfoView {
       postCountLabel,
       distanceLabel,
       nameLabel,
-      locationContainerView,
-      timeContainerView
+      locationLabel
     ].forEach {
       self.addSubview($0)
     }
-    
-    [locationIconImageView, locationLabel].forEach {
-      locationContainerView.addSubview($0)
-    }
-    
-    [timeIconImageView, timeLabel].forEach {
-      timeContainerView.addSubview($0)
-    }
+
   }
   
   private func setupLayout() {
-    postCountLabel.snp.makeConstraints {
-      $0.top.equalTo(12)
-      $0.trailing.equalTo(-16)
+    self.snp.makeConstraints {
+      $0.width.equalTo(322)
+      $0.height.equalTo(96)
+    }
+    nameLabel.snp.makeConstraints {
+      $0.leading.equalTo(16)
+      $0.top.equalTo(16)
     }
     
     distanceLabel.snp.makeConstraints {
-      $0.trailing.equalTo(postCountLabel.snp.leading).offset(-10)
-      $0.centerY.equalTo(postCountLabel)
+      $0.leading.equalTo(self.snp.leading).offset(16)
+      $0.top.equalTo(nameLabel.snp.bottom).offset(10)
     }
     
+    postCountLabel.snp.makeConstraints {
+      $0.leading.equalTo(distanceLabel.snp.trailing).offset(4)
+      $0.top.equalTo(nameLabel.snp.bottom).offset(10)
+    }
+    
+
     [postCountLabel, distanceLabel].forEach {
       $0.setContentHuggingPriority(.defaultHigh, for: .horizontal)
     }
-    
-    nameLabel.snp.makeConstraints {
-      $0.leading.equalTo(16)
-      $0.centerY.equalTo(distanceLabel)
-      $0.trailing.equalTo(distanceLabel.snp.leading)
-    }
-    
-    locationContainerView.snp.makeConstraints {
-      $0.top.equalTo(nameLabel.snp.bottom).offset(16)
-      $0.leading.equalTo(16)
-      $0.trailing.equalTo(-16)
-      $0.height.equalTo(24)
-    }
-    
-    locationIconImageView.snp.makeConstraints {
-      $0.leading.centerY.equalToSuperview()
-      $0.width.height.equalTo(16)
-    }
-    
+
     locationLabel.snp.makeConstraints {
-      $0.leading.equalTo(locationIconImageView.snp.trailing).offset(4)
-      $0.centerY.equalToSuperview()
+      $0.leading.equalTo(self.snp.leading).offset(16)
+      $0.top.equalTo(distanceLabel.snp.bottom).offset(4)
     }
-    
-    timeContainerView.snp.makeConstraints {
-      $0.top.equalTo(locationContainerView.snp.bottom)
-      $0.leading.equalTo(16)
-      $0.trailing.equalTo(-16)
-      $0.height.equalTo(24)
-      $0.bottom.equalTo(-8)
-    }
-    
-    timeIconImageView.snp.makeConstraints {
-      $0.leading.centerY.equalToSuperview()
-      $0.width.height.equalTo(16)
-    }
-    
-    timeLabel.snp.makeConstraints {
-      $0.leading.equalTo(timeIconImageView.snp.trailing).offset(4)
-      $0.centerY.equalToSuperview()
-    }
-  
+
   }
   
   private func updateView() {

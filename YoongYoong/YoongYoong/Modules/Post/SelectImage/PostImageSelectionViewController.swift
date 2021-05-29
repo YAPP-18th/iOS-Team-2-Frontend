@@ -28,14 +28,15 @@ class PostImageSelectionViewController: ViewController {
     super.viewDidLoad()
   }
   
-  
+  private var newPhotoSaved = PublishSubject<Void>()
   override func bindViewModel() {
     super.bindViewModel()
     guard let viewModel = viewModel as? PostImageSelectionViewModel else { return }
     
     let input = PostImageSelectionViewModel.Input(itemSelected: pickerColletionView.rx.itemSelected.asObservable(),
                                                   itemDeselected: pickerColletionView.rx.itemDeselected.asObservable(),
-                                                  registButtonDidTap: registButton.rx.tap.asObservable()
+                                                  topCellDidDelete: PublishSubject<Int>(),
+                                                  registButtonDidTap: registButton.rx.tap.asObservable(), newPhotoSaved: newPhotoSaved
     )
     
     let output = viewModel.transform(input: input)
@@ -60,34 +61,34 @@ class PostImageSelectionViewController: ViewController {
       .bind(to: selectedImageContainer.collectionView.rx.items(cellIdentifier: PostImageContainerCell.reuseIdentifier, cellType: PostImageContainerCell.self)) { [weak self] index, element, cell in
         guard let self = self else {return}
         cell.setImage(element.0)
-        cell.didDelete = {
-          viewModel.removeFromSelected(index)
-          self.pickerColletionView.deselectItem(at: element.1, animated: false)
-        }
-        
+        cell.bind()
+        cell.deleteDidTap
+          .map{ index }
+          .bind { [weak self] in
+            guard let self = self else { return }
+            input.topCellDidDelete.onNext($0)
+            self.pickerColletionView.deselectItem(at: element.1, animated: false)
+          }
+          .disposed(by: self.disposeBag)
+
       }.disposed(by: disposeBag)
 
     output.selectedPhotos
       .observeOn(MainScheduler.instance)
-      .skip(1)
       .subscribe(onNext: { [weak self] item in
         guard let self = self else { return }
         for i in 0..<item.count {
           let indexPath = item[i].1
           if let cell = self.pickerColletionView.cellForItem(at: indexPath) as? PostImageSelectionViewCell {
             cell.setNumber(i+1)
-            
           }
-          
-          
         }
-        
+
       }).disposed(by: disposeBag)
 
     
     output.selectedPhotos
       .observeOn(MainScheduler.instance)
-      .skip(1)
       .map { $0.count }
       .subscribe(onNext: { [weak self] count in
         guard let self = self else { return }
@@ -106,14 +107,12 @@ class PostImageSelectionViewController: ViewController {
     
     output.setting
       .observeOn(MainScheduler.instance)
-      .skip(1)
       .subscribe(onNext: { [weak self] in
         self?.showPermissionAlert()
       }).disposed(by: disposeBag)
     
     output.presentCamera
       .observeOn(MainScheduler.instance)
-      .skip(1)
       .subscribe(onNext: {  [weak self] in
         self?.presentCamera()
       }).disposed(by: disposeBag)
@@ -226,6 +225,7 @@ class PostImageSelectionViewController: ViewController {
 
 
 extension PostImageSelectionViewController: UICollectionViewDelegate {
+  // 이미지 10개 까지 선택 가능
   func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
     
     if indexPath.row == 0 { return true }
@@ -236,6 +236,7 @@ extension PostImageSelectionViewController: UICollectionViewDelegate {
     return true
   }
   
+  // 카메라 셀
   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
     guard indexPath.row != 0 else {
       collectionView.deselectItem(at: indexPath, animated: false)
@@ -249,10 +250,26 @@ extension PostImageSelectionViewController: UINavigationControllerDelegate, UIIm
   func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
     
     guard let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage else { return }
+    UIImageWriteToSavedPhotosAlbum(image, self,
+                                   #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
     picker.dismiss(animated: true, completion: nil)
     
-    // TODO: Navigate
+    if let selected = pickerColletionView.indexPathsForSelectedItems {
+      for indexPath in selected {
+        print(indexPath)
+        pickerColletionView.deselectItem(at: indexPath, animated: false)
+      }
+    }
     
+
+  }
+  
+  @objc func image(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
+      if let error = error {
+        print(error.localizedDescription)
+      } else {
+          newPhotoSaved.onNext(())
+      }
   }
   
 }

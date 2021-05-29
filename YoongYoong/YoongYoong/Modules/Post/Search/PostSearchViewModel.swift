@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CoreLocation
 import RxSwift
 import RxCocoa
 import Moya
@@ -24,8 +25,8 @@ class PostSearchViewModel: ViewModel, ViewModelType {
   struct Output {
     var searchHistory: BehaviorSubject<[String]>
     var searchResult: Observable<[Place]>
-    var searchError: Observable<SearchAPIError>
-    var postMapView: Observable<PostMapViewModel>
+    var searchError: Observable<String>
+    var postMapView: PublishRelay<PostMapViewModel>
     var searchHistorySelected: PublishSubject<String>
   }
   
@@ -39,7 +40,7 @@ class PostSearchViewModel: ViewModel, ViewModelType {
     let searchResult = BehaviorSubject<[Place]>(value: [])
     
     let searchSuccess = PublishSubject<[Place]>()
-    let searchError = PublishSubject<SearchAPIError>()
+    let searchError = PublishSubject<String>()
     
     input.searchTextFieldDidBeginEditing
       .subscribe(onNext: { _ in
@@ -52,8 +53,8 @@ class PostSearchViewModel: ViewModel, ViewModelType {
       switch result {
       case .success(let places):
         searchSuccess.onNext(places)
-      case .failure(let error):
-        searchError.onNext(error)
+      case .failure(_):
+        searchError.onNext("검색 결과를 불러올 수 없음.")
       }
     }).disposed(by: disposeBag)
     
@@ -82,8 +83,8 @@ class PostSearchViewModel: ViewModel, ViewModelType {
         switch result {
         case .success(let places):
           searchSuccess.onNext(places)
-        case .failure(let error):
-          searchError.onNext(error)
+        case .failure(_):
+          searchError.onNext("검색 결과를 불러올 수 없습니다.")
         }
       }).disposed(by: disposeBag)
     
@@ -116,10 +117,18 @@ class PostSearchViewModel: ViewModel, ViewModelType {
         return self.isPaging ? current + next : next
       }.bind(to: searchResult)
       .disposed(by: disposeBag)
-        
-
-    let postMapViewModel = input.searchResultItemDidTap
-      .map { _ in return PostMapViewModel()}
+    
+    
+    let postMapViewModel =  PublishRelay<PostMapViewModel>()
+    Observable.combineLatest(searchResult, input.searchResultItemDidTap)
+      .sample(input.searchResultItemDidTap)
+      .map { places, indexPath -> PostMapViewModel in
+        let viewModel = PostMapViewModel()
+        viewModel.place = places[indexPath.row]
+        return viewModel
+      }.bind(to: postMapViewModel)
+      .disposed(by: disposeBag)
+    
     
     let output = Output(searchHistory: searchHistory,
                         searchResult: searchResult,

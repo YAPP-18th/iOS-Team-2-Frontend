@@ -7,6 +7,7 @@
 
 import UIKit
 import Photos
+import RxSwift
 
 class PostImageContainerCell: UICollectionViewCell {
   
@@ -15,11 +16,15 @@ class PostImageContainerCell: UICollectionViewCell {
   private var imageRequestID: PHImageRequestID?
 
   
-  let imageView = UIImageView()
+  let imageView = UIImageView().then {
+    $0.contentMode = .scaleAspectFill
+    $0.layer.masksToBounds = true
+  }
   let removeButton = UIButton().then {
     $0.contentMode = .scaleToFill
   }
   var didDelete: () -> () = {}
+  var deleteDidTap = PublishSubject<Void>()
   
   override init(frame: CGRect) {
     super.init(frame: frame)
@@ -28,11 +33,17 @@ class PostImageContainerCell: UICollectionViewCell {
     configuration()
   }
   
+  func bind() {
+    let deleting = PublishSubject<Void>()
+    didDelete = { deleting.onNext(()) }
+    deleteDidTap = deleting
+  }
+  
 
   func setImage(_ asset: PHAsset) {
     imageRequestID = PHImageManager.default().requestImage(for: asset,
-                                          targetSize: PostImageContainerCell.cellSize,
-                                          contentMode: .aspectFit, options: nil) { image, _ in
+                                                           targetSize: CGSize(width: asset.pixelWidth, height: asset.pixelHeight),
+                                                           contentMode: .aspectFit, options: nil) { image, _ in
       self.imageView.image = image
     }
   }

@@ -211,7 +211,7 @@ class MyPageViewController: ViewController {
       $0.centerX.equalToSuperview()
       $0.bottom.equalTo(self.view.safeAreaLayoutGuide)
     }
-    if !LoginManager.shared.isLogin() {
+    if !LoginManager.shared.isLogin {
       userName.isHidden = true
       userProfile.image = UIImage()
       comments.isHidden = true
@@ -259,7 +259,7 @@ class MyPageViewController: ViewController {
       self?.navigationController?.pushViewController(vc, animated: true)
     }.disposed(by: disposeBag)
     leftButtonItem.rx.tap.bind{ [weak self] in
-      if LoginManager.shared.isLogin() {
+      if LoginManager.shared.isLogin {
         self?.navigator.show(segue: .alertList(viewModel: AlertViewModel()), sender: self, transition: .navigation())
       }
       else {
@@ -267,7 +267,7 @@ class MyPageViewController: ViewController {
       }
     }.disposed(by: disposeBag)
     rightButtonItem.rx.tap.bind{ [weak self] in
-      if LoginManager.shared.isLogin() {
+      if LoginManager.shared.isLogin  {
         
         self?.navigator.show(segue: .settingList(viewModel: SettingViewModel()), sender: self, transition: .navigation())
       }
@@ -380,7 +380,7 @@ extension MyPageViewController : UICollectionViewDelegateFlowLayout {
     self.loginTrigger.onNext(())
   }
   private func checkLogin() {
-    if !LoginManager.shared.isLogin() {
+    if !LoginManager.shared.isLogin {
       AlertAction.shared.showAlertView(title: "로그인이 필요한 서비스입니다.",description: "로그인 화면으로 이동하시겠습니까?", grantMessage: "확인", denyMessage: "취소", okAction: { [weak self] in
         self?.loginTrigger.onNext(())
       })

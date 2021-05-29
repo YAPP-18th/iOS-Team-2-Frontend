@@ -23,7 +23,10 @@ class PostImageSelectionViewCell: UICollectionViewCell {
     }
   }
 
-  let imageView = UIImageView()
+  let imageView = UIImageView().then {
+    $0.contentMode = .scaleAspectFill
+    $0.layer.masksToBounds = true
+  }
   
   let cameraImageView = UIImageView().then {
     $0.image = #imageLiteral(resourceName: "Camera-stroked")
