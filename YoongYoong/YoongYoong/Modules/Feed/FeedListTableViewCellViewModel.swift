@@ -15,7 +15,9 @@ class FeedListTableViewCellViewModel: NSObject {
   let storeName = BehaviorRelay<String?>(value: nil)
   let date = BehaviorRelay<String?>(value: nil)
   let contentImageURL = BehaviorRelay<[String]>(value: [])
-  let containerList = BehaviorRelay<[TitleContentItem]?>(value: nil)
+  let containerList = BehaviorRelay<[PostContainerModel]>(value: [])
+  let likecount = BehaviorRelay<String>(value: "0")
+  let messageCount = BehaviorRelay<String>(value: "0")
   
   let feed: PostResponse
   init(with feed: PostResponse) {
@@ -26,7 +28,9 @@ class FeedListTableViewCellViewModel: NSObject {
     storeName.accept(feed.placeName)
     date.accept(feed.createdDate)
     contentImageURL.accept(feed.images)
-//    containerList.accept(feed.menuList)
+    containerList.accept(feed.postContainers)
+    likecount.accept("\(feed.likeCount)")
+    messageCount.accept("\(feed.commentCount)")
   }
 }
 

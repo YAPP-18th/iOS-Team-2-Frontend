@@ -111,11 +111,10 @@ class FeedListTableViewCell: UITableViewCell {
   }
   
   func bind(to viewModel: FeedListTableViewCellViewModel) {
-//    viewModel.profileImageURL.asDriver().drive(self.profileImageView.rx.image).disposed(by: bag)
     viewModel.nickname.asDriver().drive(self.nameLabel.rx.text).disposed(by: bag)
     viewModel.storeName.asDriver().drive(self.storeNameLabel.rx.text).disposed(by: bag)
     viewModel.date.asDriver().drive(self.dateLabel.rx.text).disposed(by: bag)
-    let containerViewModel = FeedListContainerListViewModel(with: viewModel.containerList.value ?? [])
+    let containerViewModel = FeedListContainerListViewModel(with: viewModel.containerList.value)
     viewModel.profileImageURL.subscribe (onNext: { url in
       guard let url = url else { return }
       ImageDownloadManager.shared.downloadImage(url: url).bind(to: self.profileImageView.rx.image).disposed(by: self.bag)
@@ -129,6 +128,8 @@ class FeedListTableViewCell: UITableViewCell {
       elements.append(FeedContentImageSection(items: cellViewModel))
       return elements
     }.bind(to: contentImageCollectionView.rx.items(dataSource: dataSource)).disposed(by: bag)
+    viewModel.likecount.bind(to: likeButton.rx.title(for: .normal)).disposed(by: bag)
+    viewModel.messageCount.bind(to: messagesButton.rx.title(for: .normal)).disposed(by: bag)
     containerListView.bind(to: containerViewModel)
   }
 }
@@ -239,9 +240,9 @@ extension FeedListTableViewCell {
     let profileHeight: CGFloat = 79.0
     let contentImageViewHeight: CGFloat = UIScreen.main.bounds.size.width
     var containerHeight: CGFloat = 35.0 + 24.0 + 21.0
-    if let count = viewModel.containerList.value?.count {
-      containerHeight += CGFloat(18 * count)
-    }
+    let count = viewModel.containerList.value.count
+    containerHeight += CGFloat(18 * count)
+    
       
     let likeMessagesHeight: CGFloat = 30.0
     
