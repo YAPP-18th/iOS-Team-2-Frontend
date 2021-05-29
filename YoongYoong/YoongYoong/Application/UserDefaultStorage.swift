@@ -17,6 +17,22 @@ class UserDefaultStorage {
   static var searchHistory: [String]? {
     return UserDefaultHelper<[String]>.value(forKey: .searchHistory)
   }
+  static var myContainers:[String]? {
+    return UserDefaultHelper<[String]>.value(forKey: .container)
+  }
+  static var myContainerSection: ContainerSection? {
+    if let temp = UserDefaultHelper<[String]>.value(forKey: .container) {
+      let splited = temp.map{$0.split(separator: "/").map{String($0)}}
+      var sections = [ContainerCellModel]()
+      for item in splited {
+        sections.append(ContainerCellModel.init(identity: item[0] + "/" + item[1], title: item[0], size: item[1], selected: true))
+      }
+      return ContainerSection(id: 0, items: sections)
+    }
+    else{
+       return nil
+    }
+  }
 }
 
 class UserDefaultHelper<T> {
@@ -51,4 +67,5 @@ enum DataKeys: String {
   case accessToken = "accessToken"
   case userId = "userId"
   case searchHistory = "searchHistory"
+  case container = "container"
 }

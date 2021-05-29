@@ -7,6 +7,7 @@
 
 import Foundation
 struct BadgeModel {
+  let badgeId: Int
   let imagePath : String
   let title: String
   let discription: String

@@ -35,6 +35,13 @@ class MyPackageTableViewCell: UITableViewCell {
     self.sizeLabel.text = model.size
     self.favorateBtn.isSelected = model.selected
   }
+  func bind(model: ContainerCellModel) {
+    self.selectionStyle = .none
+    layout()
+    self.titleLabel.text = model.title
+    self.sizeLabel.text = model.size
+    self.favorateBtn.isSelected = model.selected
+  }
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 

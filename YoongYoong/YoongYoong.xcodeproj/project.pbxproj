@@ -190,6 +190,7 @@
 		DAF5C5C7266263A100BF93E0 /* service.html in Resources */ = {isa = PBXBuildFile; fileRef = DAF5C5C3266263A000BF93E0 /* service.html */; };
 		DAF5C5C8266263A100BF93E0 /* marketing.html in Resources */ = {isa = PBXBuildFile; fileRef = DAF5C5C4266263A000BF93E0 /* marketing.html */; };
 		DAF5C5C9266263A100BF93E0 /* location.html in Resources */ = {isa = PBXBuildFile; fileRef = DAF5C5C5266263A100BF93E0 /* location.html */; };
+		DAF5C6462662C1AE00BF93E0 /* profileRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF5C6452662C1AE00BF93E0 /* profileRequest.swift */; };
 		DBBE82F53A75CC8AAF58B667 /* Pods_YoongYoong_YoongYoongUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 238ACAD42E9502C9F4DB3139 /* Pods_YoongYoong_YoongYoongUITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -413,6 +414,7 @@
 		DAF5C5C3266263A000BF93E0 /* service.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = service.html; sourceTree = "<group>"; };
 		DAF5C5C4266263A000BF93E0 /* marketing.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = marketing.html; sourceTree = "<group>"; };
 		DAF5C5C5266263A100BF93E0 /* location.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = location.html; sourceTree = "<group>"; };
+		DAF5C6452662C1AE00BF93E0 /* profileRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = profileRequest.swift; sourceTree = "<group>"; };
 		DAFB3C6D264021380065E3C4 /* UIApplication+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+Extensions.swift"; sourceTree = "<group>"; };
 		F1BA7E9CFA81CCA931C8F5E2 /* Pods-YoongYoong-YoongYoongUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YoongYoong-YoongYoongUITests.release.xcconfig"; path = "Target Support Files/Pods-YoongYoong-YoongYoongUITests/Pods-YoongYoong-YoongYoongUITests.release.xcconfig"; sourceTree = "<group>"; };
 		F1D48CD7588577A288A8C11C /* Pods-YoongYoongTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YoongYoongTests.release.xcconfig"; path = "Target Support Files/Pods-YoongYoongTests/Pods-YoongYoongTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -1015,6 +1017,7 @@
 			children = (
 				DA1284D52658957A00764A2D /* AuthRequest.swift */,
 				DA579E7E2658BF5000E724A4 /* PlaceReqest.swift */,
+				DAF5C6452662C1AE00BF93E0 /* profileRequest.swift */,
 			);
 			path = Request;
 			sourceTree = "<group>";
@@ -1437,6 +1440,7 @@
 				AAD45C582619C06800A6F4D6 /* UIFont+Extensions.swift in Sources */,
 				7EA8B42D264009E3003974D7 /* SelectMenuViewController.swift in Sources */,
 				7EA88B6E2654017C00D7CEEF /* SearchRouter.swift in Sources */,
+				DAF5C6462662C1AE00BF93E0 /* profileRequest.swift in Sources */,
 				AAD024132642A4FB00F1EC2B /* ProfilePostCollectionViewCell.swift in Sources */,
 				AACCAB062646485C005C9FBC /* UIApplication+Extensions.swift in Sources */,
 				AACCAD35264D79E1005C9FBC /* RegistrationTermsViewController.swift in Sources */,

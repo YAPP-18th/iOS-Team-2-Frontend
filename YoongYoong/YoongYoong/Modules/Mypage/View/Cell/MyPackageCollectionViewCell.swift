@@ -10,30 +10,34 @@ import RxSwift
 import RxCocoa
 import RxDataSources
 typealias DataSource = RxTableViewSectionedReloadDataSource
-typealias PackageSectionType = AnimatableSectionModel<String,PackageSimpleModel>
-
 class MyPackageCollectionViewCell: UICollectionViewCell {
   private let tableView = UITableView()
-  private var collectionView : UICollectionView!
-  private let disposeBag = DisposeBag()
-  lazy var dataSource = DataSource<PackageSectionType> (
+  private let flowlayout = UICollectionViewFlowLayout().then {
+    $0.scrollDirection = .horizontal
+  }
+  private lazy var containerListTabBar = UICollectionView(frame: .zero, collectionViewLayout: flowlayout).then {
+    $0.register(ContainerListTabBarCell.self, forCellWithReuseIdentifier: ContainerListTabBarCell.reuseIdentifier)
+    $0.collectionViewLayout = flowlayout
+    $0.backgroundColor = .white
+    $0.showsHorizontalScrollIndicator = false
+    $0.delegate = self
+    $0.dataSource = self
+    $0.selectItem(at: IndexPath(row: 0, section: 0), animated: false, scrollPosition: .left)
+  }
+  let disposeBag = DisposeBag()
+  lazy var dataSource = DataSource<ContainerSection> (
     configureCell: configureCell
   )
-}
-extension MyPackageCollectionViewCell {
-  func setupCollectionView() {
-    let layout = UICollectionViewFlowLayout()
-    layout.scrollDirection = .horizontal
-    layout.itemSize = UICollectionViewFlowLayout.automaticSize
-    layout.estimatedItemSize = CGSize(width: 63, height: 28)
-    layout.minimumLineSpacing = 4
-    layout.sectionInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
-    self.collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-    self.collectionView.register(MyPackageFilterCollectionViewCell.self,
-                                  forCellWithReuseIdentifier: MyPackageFilterCollectionViewCell.identifier)
-    self.collectionView.backgroundColor = .white
-    self.collectionView.showsVerticalScrollIndicator = false
-    self.collectionView.showsHorizontalScrollIndicator = false
+  private var currentTopSection = 0
+  private var flag = false
+  var favorateTrigger = PublishSubject<ContainerCellModel>()
+  override init(frame: CGRect) {
+    super.init(frame: frame)
+    layout()
+
+  }
+  required init?(coder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
   }
 }
 extension MyPackageCollectionViewCell: UITableViewDelegate {
@@ -43,48 +47,39 @@ extension MyPackageCollectionViewCell: UITableViewDelegate {
     tableView.separatorStyle = .none
     tableView.register(MyPackageTableViewCell.self,
                        forCellReuseIdentifier: MyPackageTableViewCell.identifier)
-    tableView.register(PackageTableViewHeader.self,
-                       forHeaderFooterViewReuseIdentifier: PackageTableViewHeader.identifier)
-    
-    //델리게이트 안쓰고 헤더는 못쓰는건가요...?
-    
-    
+    tableView.register(ContainerListHeaderView.self,
+                       forHeaderFooterViewReuseIdentifier: ContainerListHeaderView.reuseIdentifier)
     tableView.rx.setDelegate(self)
       .disposed(by: disposeBag)
-  
   }
   func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-    guard  let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: PackageTableViewHeader.identifier) as? PackageTableViewHeader else {
-      return UIView()
-    }
-    view.layout()
-    view.image.image = UIImage(named: dataSource[section].model.packageType)
-    view.title.text = dataSource[section].model
-    return view
+    guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: ContainerListHeaderView.reuseIdentifier) as? ContainerListHeaderView else { return UIView()}
+    header.imageView.image = Container.sectionImage(section)
+    header.title.text = Container.sectionTitle(section)
+    return header
   }
   func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
     return 32
   }
-  func bindCell(model : [PackageSectionType]) {
-    layout()
+  func bindCell(model : [ContainerSection]) {
+    
     Observable.just(model)
       .bind(to: tableView.rx.items(dataSource: dataSource))
       .disposed(by: disposeBag)
-  
-    tableView.rx
-        .observeWeakly(CGSize.self, "contentSize")
-        .compactMap { $0?.height }
-        .distinctUntilChanged()
-        .bind { [weak self] height in
-          self?.tableView.snp.updateConstraints{
-            $0.height.equalTo((height + 1).rounded())
-          }
-        }
-        .disposed(by: disposeBag)
+//    tableView.rx
+//        .observeWeakly(CGSize.self, "contentSize")
+//        .compactMap { $0?.height }
+//        .distinctUntilChanged()
+//        .bind { [weak self] height in
+//          self?.tableView.snp.updateConstraints{
+//            $0.height.equalTo((height + 1).rounded())
+//          }
+//        }
+//        .disposed(by: disposeBag)
   }
 }
 extension MyPackageCollectionViewCell {
-  private var configureCell: DataSource<PackageSectionType>.ConfigureCell {
+  private var configureCell: DataSource<ContainerSection>.ConfigureCell {
     return {[weak self] ds, tableView, indexPath, item -> UITableViewCell in
       guard let cell = tableView.dequeueReusableCell(withIdentifier: MyPackageTableViewCell.identifier) as? MyPackageTableViewCell else {
         return UITableViewCell()
@@ -92,7 +87,7 @@ extension MyPackageCollectionViewCell {
       cell.bind(model: item)
       cell.favorateBtn.rx.tap.takeUntil(cell.rx.methodInvoked(#selector(UITableViewCell.prepareForReuse)))
         .bind{[weak self] in
-          print(item)
+          self?.favorateTrigger.onNext(item)
           cell.favorateBtn.isSelected.toggle()
         }.disposed(by: cell.disposeBag)
       return cell
@@ -102,38 +97,48 @@ extension MyPackageCollectionViewCell {
   private func layout() {
     self.contentView.backgroundColor = #colorLiteral(red: 0.92900002, green: 0.92900002, blue: 0.92900002, alpha: 1)
     self.contentView.add(tableView)
-    self.contentView.add(collectionView)
+    self.contentView.add(containerListTabBar)
     tableView.snp.makeConstraints{
       $0.leading.trailing.bottom.equalToSuperview()
       $0.top.equalToSuperview().offset(48)
-      $0.height.equalTo(300)
     }
-    collectionView.snp.makeConstraints{
+    containerListTabBar.snp.makeConstraints{
       $0.leading.trailing.top.equalToSuperview()
       $0.bottom.equalTo(tableView.snp.top)
     }
   }
 }
-class PackageTableViewHeader :UITableViewHeaderFooterView , Identifiable{
-  let image = UIImageView()
-  let headerView = UIView().then{
-    $0.backgroundColor = .brandColorBlue03
+extension MyPackageCollectionViewCell: UICollectionViewDelegate {
+  func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    containerListTabBar.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+    tableView.scrollToRow(at: IndexPath(row: 0, section: indexPath.row), at: .top, animated: true)
+    currentTopSection = indexPath.row
+    flag = false
   }
-  let title = UILabel()
-  func layout(){
-    self.add(headerView)
-    headerView.snp.makeConstraints{
-      $0.leading.trailing.top.bottom.equalToSuperview()
+}
+
+extension MyPackageCollectionViewCell: UICollectionViewDataSource {
+  func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    return Container.allCases.count
+  }
+  
+  func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ContainerListTabBarCell.reuseIdentifier, for: indexPath) as? ContainerListTabBarCell else {
+      return UICollectionViewCell()
     }
-    headerView.adds([image, title])
-    image.snp.makeConstraints{
-      $0.leading.equalToSuperview().offset(20)
-      $0.width.height.equalTo(22)
-      $0.centerY.equalToSuperview()
-    }
-    title.snp.makeConstraints{
-      $0.leading.equalTo(image.snp.trailing).offset(4)
-      $0.centerY.equalToSuperview()
-    }
+    cell.setTitle(Container.sectionTitle(indexPath.row))
+    return cell
+  }
+  
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+    return CGFloat(0.0)
+
+  }
+}
+
+extension MyPackageCollectionViewCell: UICollectionViewDelegateFlowLayout {
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    return ContainerListTabBarCell.cellSize(availableHeight: 50, title: Container.sectionTitle(indexPath.row))
+
   }
 }

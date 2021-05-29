@@ -63,7 +63,7 @@ class MyPageViewController: ViewController {
     }
   private let yongyong = UIImageView().then{
     $0.image = UIImage(named: "")
-    $0.backgroundColor = .gray
+    $0.backgroundColor = .clear
   }
   private let yongyongCommentView = UIView().then{
     $0.backgroundColor = .white
@@ -228,7 +228,7 @@ class MyPageViewController: ViewController {
   }
   override func bindViewModel() {
     guard let viewModel = viewModel as? MypageViewModel else { return }
-    let input = MypageViewModel.Input(loadView: loadTrigger)
+    let input = MypageViewModel.Input(loadView: loadTrigger, containerSelect: .empty() )
     let profile = viewModel.getProfile(inputs: input)
     let message = viewModel.yongyongMessage(inputs: input)
     let login = viewModel.logIn(inputs: loginTrigger)
@@ -315,12 +315,13 @@ extension MyPageViewController {
     setTabView(tabIndex: 2)
     
   }
-  private func setTabView(tabIndex i : Int) {
+   func setTabView(tabIndex i : Int) {
     // default, selected
     
     let tabImageName: [(String,String)] = [("MyBadge-Inactive","MyBadge-Active"),
                                            ("MyPost-Inactive","MyPost-Active"),
                                            ("MyYonggi-Inactive","MyYonggi-Active")]
+    let yongyongImg: [String] = ["yongyong1","yongyong2","yongyong3"]
     let tabName = ["내 배지", "포스트", "용기 보관함"]
     for idx in 0..<self.tabView.count {
       self.tabs[idx].image = UIImage(named: i == idx ? tabImageName[idx].1 : tabImageName[idx].0)
@@ -328,6 +329,8 @@ extension MyPageViewController {
       self.tabLabel[idx].textColor = idx == i ? .black : .white
       self.tabLabel[idx].font = .sdGhothicNeo(ofSize: 12, weight: .bold)
     }
+    self.yongyong.image = UIImage(named: yongyongImg[i])
+
   }
   private func moveColletionViewNextPage(tabIndex:Int) {
     UIView.animate(withDuration: 0.2) {
@@ -389,9 +392,9 @@ extension MyPageViewController : UICollectionViewDelegateFlowLayout {
     }
   }
 }
-enum TabType{
-  case badge
-  case feed
-  case history
+enum TabType : Int{
+  case badge = 0
+  case feed = 1
+  case history = 2
 }
 

@@ -50,9 +50,29 @@ enum Container: Int, CaseIterable {
   }
   
 }
+extension String {
+  var asContainerForm : Container{
+    switch self {
+    case Container.sectionTitle(Container.favorite.rawValue) :
+      return .favorite
+    case Container.sectionTitle(Container.airtight.rawValue) :
+      return .airtight
+    case Container.sectionTitle(Container.pot.rawValue) :
+      return .pot
+    case Container.sectionTitle(Container.tumbler.rawValue) :
+      return .tumbler
+    case Container.sectionTitle(Container.lunchBox.rawValue) :
+      return .lunchBox
+    case Container.sectionTitle(Container.fryingPan.rawValue) :
+      return .fryingPan
+    default :
+      return .favorite
+    }
+  }
+}
 
 struct ContainerCellModel: IdentifiableType {
-  let identity: Int
+  let identity: String
   let title: String
   let size: String
   var selected: Bool
@@ -74,5 +94,21 @@ extension ContainerSection: AnimatableSectionModelType {
   
   var identity: Int {
     return id
+  }
+}
+extension ContainerCellModel {
+  func add(){
+    if var temp = UserDefaultStorage.myContainers {
+      temp.append(self.title + "/" + self.size)
+      UserDefaultHelper<[String]>.set(temp, forKey: .container)
+    }
+  }
+  func delete(){
+    if var temp = UserDefaultStorage.myContainers {
+      if let firstIndex = temp.firstIndex(of: self.identity) {
+        temp.remove(at: firstIndex)
+        UserDefaultHelper<[String]>.set(temp, forKey: .container)
+      }
+    }
   }
 }

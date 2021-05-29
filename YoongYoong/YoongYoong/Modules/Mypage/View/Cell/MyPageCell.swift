@@ -15,14 +15,14 @@ class MyPageCell : UICollectionViewCell {
 
   private var collectionView : UICollectionView!
   private let loadUITrigger = PublishSubject<Void>()
+  private let containerSelect = PublishSubject<ContainerCellModel>()
+
   private let disposeBag = DisposeBag()
   private var currentMonth : Int?
   func bind(){
     setUpCollectionView()
     layout()
-    
-    
-    let input = MypageViewModel.Input(loadView: loadUITrigger)
+    let input = MypageViewModel.Input(loadView: loadUITrigger, containerSelect: containerSelect)
     let out = viewModel.transform(input: input)
     
     switch type {
@@ -66,14 +66,18 @@ class MyPageCell : UICollectionViewCell {
           }.disposed(by: cell.disposeBag)
       }.disposed(by: disposeBag)
     case .history:
+      containerSelect.bind{ print($0)}.disposed(by: disposeBag)
+
       out.packageUsecase.map{[$0]}.bind(to: collectionView.rx.items(cellIdentifier: MyPackageCollectionViewCell.identifier,
-                                                                    cellType: MyPackageCollectionViewCell.self)) {row, data, cell in
-        cell.setupCollectionView()
+                                                                    cellType: MyPackageCollectionViewCell.self)) {
+        [weak self] row, data, cell in
         cell.setupTableView()
         cell.bindCell(model: data)
+        cell.favorateTrigger.takeUntil(cell.rx.methodInvoked(#selector(UITableViewCell.prepareForReuse)))
+          .bind(to: self!.containerSelect)
+          .disposed(by: self!.disposeBag)
       }.disposed(by: disposeBag)
       
-      print("용기 보관함")
     case .none:
       print("기타")
     }
@@ -146,7 +150,7 @@ class MyPageCell : UICollectionViewCell {
     case .feed:
       collectionView.isScrollEnabled = true
     case .history:
-      collectionView.isScrollEnabled = true
+      collectionView.isScrollEnabled = false
 
     default:
       collectionView.isScrollEnabled = false
