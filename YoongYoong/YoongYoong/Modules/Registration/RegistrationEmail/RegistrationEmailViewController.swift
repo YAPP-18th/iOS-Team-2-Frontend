@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+import RxSwift
 class RegistrationEmailViewController: ViewController {
   
   let titleLabel = UILabel().then {
@@ -19,6 +19,11 @@ class RegistrationEmailViewController: ViewController {
     $0.attributedPlaceholder = NSMutableAttributedString().string("이메일", font: .krBody2, color: .systemGray04)
     $0.font = .krBody2
     $0.textColor = .systemGrayText01
+  }
+  
+  let checkImageView = UIImageView().then {
+    $0.image = UIImage(named: "icRegFormCheck")
+    $0.contentMode = .center
   }
   
   let divider = UIView().then {
@@ -62,11 +67,19 @@ class RegistrationEmailViewController: ViewController {
     output.registrationPassword.drive(onNext: { viewModel in
       self.navigator.show(segue: .registrationPassword(viewModel: viewModel), sender: self, transition: .navigation(.right))
     }).disposed(by: disposeBag)
-    output.checkEmailResult
-      .drive {[weak self] in
-        self?.warningImageView.isHidden = $0
-        self?.warningLabel.isHidden = $0
-      }.disposed(by: disposeBag)
+  
+    Observable.zip(output.validEmail.asObservable(), output.checkEmailResult.asObservable()).subscribe(onNext: { [weak self] in
+      let isValid = !(!$0 || !$1)
+      self?.warningImageView.isHidden = isValid
+      self?.warningLabel.isHidden = isValid
+      self?.checkImageView.isHidden = !isValid
+      self?.nextButton.isEnabled = isValid
+      if !$0 {
+        self?.warningLabel.text = "올바른 형식의 이메일이 아닙니다."
+      } else if !$1 {
+        self?.warningLabel.text = "이미 등록된 이메일입니다."
+      }
+    }).disposed(by: disposeBag)
   }
   
   override func configuration() {
@@ -74,12 +87,12 @@ class RegistrationEmailViewController: ViewController {
     self.view.backgroundColor = .systemGray00
     self.navigationItem.title = "이메일로 가입하기"
     self.setupBackButton()
-    self.nextButton.isEnabled = true
+    nextButton.isEnabled = false
   }
   
   override func setupView() {
     super.setupView()
-    [titleLabel, emailField, divider, warningImageView, warningLabel, nextButton].forEach {
+    [titleLabel, emailField, checkImageView, divider, warningImageView, warningLabel, nextButton].forEach {
       self.view.addSubview($0)
     }
   }
@@ -96,6 +109,12 @@ class RegistrationEmailViewController: ViewController {
       $0.leading.equalTo(32)
       $0.trailing.equalTo(-31)
       $0.height.equalTo(32)
+    }
+    
+    checkImageView.snp.makeConstraints {
+      $0.trailing.equalTo(emailField.snp.trailing)
+      $0.centerY.equalTo(emailField)
+      $0.width.height.equalTo(24)
     }
     
     divider.snp.makeConstraints {
@@ -122,5 +141,9 @@ class RegistrationEmailViewController: ViewController {
       $0.leading.equalTo(warningImageView.snp.trailing).offset(8)
       $0.centerY.equalTo(warningImageView)
     }
+    
+    warningImageView.isHidden = true
+    warningLabel.isHidden = true
+    checkImageView.isHidden = true
   }
 }

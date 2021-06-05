@@ -25,19 +25,37 @@ class RegistrationEmailViewModel: ViewModel, ViewModelType {
   struct Output {
     let registrationPassword: Driver<RegistrationPasswordViewModel>
     let checkEmailResult: Driver<Bool>
+    let validEmail: Driver<Bool>
   }
   func transform(input: Input) -> Output {
-    weak var `self` = self
     let registrationPassword = input.next.asDriver(onErrorJustReturn: ()).map { () -> RegistrationPasswordViewModel in
       let viewModel = RegistrationPasswordViewModel()
       return viewModel
     }
     let result = input.emailCheck
-      .flatMapLatest{ email in
+      .flatMapLatest{ [weak self] email in
         self?.service.checkEmailDuplicate(.init(email: email)) ?? .empty()
       }
+    
+    let validEmail = input.emailCheck
+      .flatMapLatest { [weak self] email in
+        return self?.validateEmailPattern(text: email) ?? .empty()
+      }
     return .init(
-      registrationPassword: registrationPassword, checkEmailResult: result.asDriver(onErrorDriveWith: .empty())
+      registrationPassword: registrationPassword, checkEmailResult: result.asDriver(onErrorDriveWith: .empty()),
+      validEmail: validEmail.asDriver(onErrorDriveWith: .empty())
     )
+  }
+  
+  func validateEmailPattern(text: String) -> Observable<Bool> {
+    return Observable.create { observer in
+      let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+
+      let emailTest = NSPredicate(format: "SELF MATCHES %@", emailRegEx)
+      let result = emailTest.evaluate(with: text)
+      observer.onNext(result)
+      return Disposables.create()
+    }
+    
   }
 }
