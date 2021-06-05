@@ -9,20 +9,19 @@ import UIKit
 
 class RegistrationProfileViewController: ViewController {
   
-  let profileImageView = UIImageView().then {
-    $0.image = UIImage(named: "icRegProfileEmpty")
+  let profileButton = UIButton().then {
+    $0.setImage(UIImage(named: "icRegProfileEmpty"), for: .normal)
     $0.contentMode = .scaleAspectFit
     $0.layer.cornerRadius = 42.3
-    $0.layer.masksToBounds = true
   }
   
-  let profileButton = UIButton().then {
-    $0.setImage(UIImage(named: "icRegProfilePicture"), for: .normal)
+  let profileImageView = UIImageView().then {
+    $0.image = UIImage(named: "icRegBtnProfile")
     $0.contentMode = .scaleAspectFit
   }
   
   let nicknameField = UITextField().then {
-    $0.attributedPlaceholder = NSMutableAttributedString().string("닉네ㅣㅁ", font: .krBody2, color: .systemGrayText02)
+    $0.attributedPlaceholder = NSMutableAttributedString().string("닉네임", font: .krBody2, color: .systemGrayText02)
     $0.font = .krBody2
     $0.textColor = .systemGray01
   }
@@ -107,6 +106,9 @@ class RegistrationProfileViewController: ViewController {
     $0.setTitleColor(.systemGray02, for: .normal)
   }
   
+  private var profileImagePicker: SingleImagePicker!
+  
+  
   override func viewDidLoad() {
     super.viewDidLoad()
   }
@@ -124,6 +126,10 @@ class RegistrationProfileViewController: ViewController {
     
     output.nicknameLength.drive(nicknameLengthLabel.rx.text).disposed(by: disposeBag)
     output.introduceLength.drive(introduceLengthLabel.rx.text).disposed(by: disposeBag)
+    
+    profileButton.rx.tap.bind{ [weak self] in
+      self?.profileImagePicker.present(from: self?.view ?? UIView())
+    }.disposed(by: disposeBag)
   }
   
   override func configuration() {
@@ -136,8 +142,9 @@ class RegistrationProfileViewController: ViewController {
   
   override func setupView() {
     super.setupView()
+    self.profileImagePicker = SingleImagePicker(presentationController: self, delegate: self)
     [
-      profileImageView, profileButton,
+      profileButton,
       nicknameField, nicknameLengthLabel, nicknameSlashLabel, nicknameMaxLengthLabel, nicknameDivider,
       warningImageView, warningLabel,
       introduceContainer, introduceLengthLabel, introduceSlashLabel, introduceMaxLengthLabel,
@@ -146,20 +153,22 @@ class RegistrationProfileViewController: ViewController {
       self.view.addSubview($0)
     }
     
+    profileButton.addSubview(profileImageView)
+    
     introduceContainer.addSubview(introduceTextView)
   }
   
   override func setupLayout() {
     super.setupLayout()
     
-    profileImageView.snp.makeConstraints {
+    profileButton.snp.makeConstraints {
       $0.top.equalTo(self.view.safeAreaLayoutGuide).offset(114)
       $0.centerX.equalToSuperview()
       $0.width.height.equalTo(84.6)
     }
     
-    profileButton.snp.makeConstraints {
-      $0.trailing.bottom.equalTo(profileImageView)
+    profileImageView.snp.makeConstraints {
+      $0.trailing.bottom.equalToSuperview()
       $0.width.height.equalTo(24)
     }
     
@@ -243,6 +252,20 @@ class RegistrationProfileViewController: ViewController {
       $0.trailing.equalTo(-24)
       $0.height.equalTo(44)
     }
+    self.warningImageView.isHidden = true
+    self.warningLabel.isHidden = true
   }
   
+}
+extension RegistrationProfileViewController : SingleImagePickerDelegate {
+  func didSelect(image: UIImage?) {
+    if let image = image {
+      self.profileButton.setImage(image, for: .normal)
+    }
+    profileImageView.contentMode = .scaleAspectFill
+    
+    profileButton.layer.masksToBounds = true
+    
+    self.profileImageView.isHidden = true
+  }
 }
