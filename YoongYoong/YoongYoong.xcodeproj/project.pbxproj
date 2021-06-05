@@ -53,6 +53,7 @@
 		AA72B7DD261B3996001E959B /* MapNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA72B7DC261B3996001E959B /* MapNavigationView.swift */; };
 		AA836E25266214CB008B731B /* PostService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA836E24266214CB008B731B /* PostService.swift */; };
 		AA836E4126622792008B731B /* BaseResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA836E4026622792008B731B /* BaseResponse.swift */; };
+		AA875C00266B867600085A73 /* BraveWords.plist in Resources */ = {isa = PBXBuildFile; fileRef = AA099431263DA780002222D6 /* BraveWords.plist */; };
 		AAC78F91262A67FD009CC84E /* Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC78F90262A67FD009CC84E /* Application.swift */; };
 		AAC78F96262A6916009CC84E /* ViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC78F95262A6916009CC84E /* ViewModelType.swift */; };
 		AAC78FE8262A6FC4009CC84E /* TabBarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC78FE7262A6FC4009CC84E /* TabBarViewModel.swift */; };
@@ -1291,6 +1292,7 @@
 				AAD45C772619C36900A6F4D6 /* SF-Pro-Text-Semibold.otf in Resources */,
 				DAF5C5C9266263A100BF93E0 /* location.html in Resources */,
 				AAD45CA92619CB2A00A6F4D6 /* Colors.xcassets in Resources */,
+				AA875C00266B867600085A73 /* BraveWords.plist in Resources */,
 				DAF5C5C7266263A100BF93E0 /* service.html in Resources */,
 				DAF5C5C6266263A100BF93E0 /* privacy.html in Resources */,
 				AAD45C752619C36900A6F4D6 /* SF-Pro-Text-Black.otf in Resources */,

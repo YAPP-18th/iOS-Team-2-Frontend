@@ -23,8 +23,8 @@ struct BraveWord {
   }
   
   func randomBrave() -> String? {
-    guard let path = Bundle.main.path(forResource: "BraveWords", ofType: "plist"),
-          let dictRoot = NSDictionary(contentsOfFile: path)
+    guard let path = Bundle.main.path(forResource: "BraveWords", ofType: "plist") else { return nil }
+    guard let dictRoot = NSDictionary(contentsOfFile: path)
     else { return nil }
     
     if isMonday {
