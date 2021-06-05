@@ -10,7 +10,13 @@ import RxSwift
 import RxCocoa
 import Moya
 
-class RegistrationEmailViewModel : ViewModel, ViewModelType {
+class RegistrationEmailViewModel: ViewModel, ViewModelType {
+  let isMarketingAgree: Bool
+  
+  init(isMarketingAgree: Bool) {
+    self.isMarketingAgree = isMarketingAgree
+  }
+  
   private let service : AuthorizeServiceType = AuthorizeService(provider: MoyaProvider<AuthRouter>(plugins:[NetworkLoggerPlugin()]))
   struct Input {
     let next: Observable<Void>

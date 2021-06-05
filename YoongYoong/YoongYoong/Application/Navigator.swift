@@ -24,6 +24,7 @@ class Navigator {
     case registrationEmail(viewModel: RegistrationEmailViewModel)
     case registrationPassword(viewModel: RegistrationPasswordViewModel)
     case registrationProfile(viewModel: RegistrationProfileViewModel)
+    case map(viewModel: MapViewModel)
     case tip(viewModel: TipViewModel)
     case feedProfile(viewModel: FeedProfileViewModel)
     case feedDetail(viewModel: FeedDetailViewModel)
@@ -69,6 +70,9 @@ class Navigator {
       let loginVC = LoginViewController(viewModel: viewModel, navigator: self)
       let nav = NavigationController(rootViewController: loginVC)
       return nav
+    
+//      let loginVC = LoginViewController(viewModel: viewModel, navigator: self)
+//      return loginVC
     case .registrationTerms(let viewModel):
       let regTermsVC = RegistrationTermsViewController(viewModel: viewModel, navigator: self)
       return regTermsVC
@@ -81,6 +85,9 @@ class Navigator {
     case .registrationProfile(let viewModel):
       let regProfileVC = RegistrationProfileViewController(viewModel: viewModel, navigator: self)
       return regProfileVC
+    case let .map(viewModel):
+      let mapVC = MapViewController(viewModel: viewModel, navigator: self)
+      return mapVC
     case.tip(let viewModel):
       let tipVC = TipViewController(viewModel: viewModel, navigator: self)
       return tipVC
@@ -182,9 +189,8 @@ class Navigator {
       
     case .modalFullScreen:
       DispatchQueue.main.async {
-        let nav = NavigationController(rootViewController: target)
-        nav.modalPresentationStyle = .fullScreen
-        sender.present(nav, animated: true, completion: nil)
+        target.modalPresentationStyle = .fullScreen
+        sender.present(target, animated: true, completion: nil)
       }
       
     case .detail:
