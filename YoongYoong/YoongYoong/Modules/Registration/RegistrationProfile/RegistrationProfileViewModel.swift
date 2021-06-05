@@ -10,6 +10,22 @@ import RxSwift
 import RxCocoa
 
 class RegistrationProfileViewModel : ViewModel, ViewModelType {
+  
+  let isMarketingAgree: Bool
+  let email: String
+  let password: String
+  
+  init(
+    isMarketingAgree: Bool,
+    email: String,
+    password: String
+  ) {
+    self.isMarketingAgree = isMarketingAgree
+    self.email = email
+    self.password = password
+    
+  }
+  
   struct Input {
     let nicknameChanged: Observable<String>
     let introduceChanged: Observable<String>
