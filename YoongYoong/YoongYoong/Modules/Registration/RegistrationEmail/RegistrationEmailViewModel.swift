@@ -19,7 +19,7 @@ class RegistrationEmailViewModel: ViewModel, ViewModelType {
   
   private let service : AuthorizeServiceType = AuthorizeService(provider: MoyaProvider<AuthRouter>(plugins:[NetworkLoggerPlugin()]))
   struct Input {
-    let next: Observable<Void>
+    let next: Observable<String>
     let emailCheck: Observable<String>
   }
   struct Output {
@@ -28,8 +28,11 @@ class RegistrationEmailViewModel: ViewModel, ViewModelType {
     let validEmail: Driver<Bool>
   }
   func transform(input: Input) -> Output {
-    let registrationPassword = input.next.asDriver(onErrorJustReturn: ()).map { () -> RegistrationPasswordViewModel in
-      let viewModel = RegistrationPasswordViewModel()
+    let registrationPassword = input.next.asDriver(onErrorJustReturn: "").map { email -> RegistrationPasswordViewModel in
+      let viewModel = RegistrationPasswordViewModel(
+        isMarketingAgree: self.isMarketingAgree,
+        email: email
+      )
       return viewModel
     }
     let result = input.emailCheck

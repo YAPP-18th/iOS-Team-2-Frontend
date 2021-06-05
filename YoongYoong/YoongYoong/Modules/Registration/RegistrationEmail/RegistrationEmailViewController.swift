@@ -55,7 +55,9 @@ class RegistrationEmailViewController: ViewController {
     super.bindViewModel()
     guard let viewModel = self.viewModel as? RegistrationEmailViewModel else { return }
     let input = RegistrationEmailViewModel.Input(
-      next: self.nextButton.rx.tap.asObservable(),
+      next: self.nextButton.rx.tap.map{[weak self] in
+        self?.emailField.text ?? ""
+      }.asObservable(),
       emailCheck: emailField.rx.controlEvent(.editingDidEnd)
         .map{[weak self] in
           self?.emailField.text ?? ""
