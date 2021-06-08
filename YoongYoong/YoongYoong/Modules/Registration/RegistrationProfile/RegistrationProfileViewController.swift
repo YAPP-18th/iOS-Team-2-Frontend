@@ -144,7 +144,10 @@ class RegistrationProfileViewController: ViewController {
     
     output.signUp.drive(onNext: { response in
       if response.statusCode == 201 {
-        print("성공")
+        AlertAction.shared.showAlertView(title: "회원가입이 완료되었습니다.", grantMessage: "확인", denyMessage: "취소" , okAction: { [weak self] in
+            guard let self = self else { return }
+            self.navigator.show(segue: .login(viewModel: .init()), sender: self, transition: .root(in: self.view.window!))
+        })
       } else {
         print("실패")
       }
