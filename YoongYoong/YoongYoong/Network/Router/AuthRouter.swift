@@ -9,7 +9,7 @@ import Foundation
 import Moya
 
 enum AuthRouter {
-  case register(param: SignupRequest)
+  case register(param: SignupRequest, image: Data)
   case login(param: LoginRequest)
   case guest
   case emailCheck(param: CheckEmailDuplicateRequest)
@@ -63,8 +63,8 @@ extension AuthRouter: TargetType {
   
   var task: Task {
     switch self {
-    case .register(let param):
-      let multipart = MultipartFormData(provider: .data(Data()), name: "profileImage")
+    case let .register(param, image):
+      let multipart = MultipartFormData(provider: .data(image), name: "profileImage", fileName: "profileImage.png", mimeType: "image/png")
       return .uploadCompositeMultipart([multipart], urlParameters: try! param.asParameters())
     case .login(let param):
       return .requestJSONEncodable(param)

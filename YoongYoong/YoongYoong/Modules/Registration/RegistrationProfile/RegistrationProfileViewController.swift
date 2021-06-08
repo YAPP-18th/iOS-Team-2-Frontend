@@ -83,7 +83,7 @@ class RegistrationProfileViewController: ViewController {
   }
   
   let introduceMaxLengthLabel = UILabel().then {
-    $0.text = "12"
+    $0.text = "50"
     $0.font = .sdGhothicNeo(ofSize: 12, weight: .regular)
     $0.textAlignment = .justified
     $0.textColor = .systemGrayText02
@@ -119,7 +119,13 @@ class RegistrationProfileViewController: ViewController {
     
     let input = RegistrationProfileViewModel.Input(
       nicknameChanged: nicknameField.rx.text.orEmpty.asObservable(),
-      introduceChanged: introduceTextView.rx.text.orEmpty.asObservable()
+      introduceChanged: introduceTextView.rx.text.orEmpty.asObservable(),
+      register: saveButton.rx.tap.map {
+        let nickname = self.nicknameField.text ?? ""
+        let introduction = self.introduceTextView.text ?? ""
+        let image = self.profileButton.image(for: .normal) ?? UIImage()
+        return (nickname, introduction, image)
+      }.asObservable()
     )
     
     let output = viewModel.transform(input: input)
@@ -127,9 +133,22 @@ class RegistrationProfileViewController: ViewController {
     output.nicknameLength.drive(nicknameLengthLabel.rx.text).disposed(by: disposeBag)
     output.introduceLength.drive(introduceLengthLabel.rx.text).disposed(by: disposeBag)
     
+    output.checkNicknameResult.drive(onNext: {result in
+      self.warningImageView.isHidden = result
+      self.warningLabel.isHidden = result
+    }).disposed(by: disposeBag)
+    
     profileButton.rx.tap.bind{ [weak self] in
       self?.profileImagePicker.present(from: self?.view ?? UIView())
     }.disposed(by: disposeBag)
+    
+    output.signUp.drive(onNext: { response in
+      if response.statusCode == 201 {
+        print("성공")
+      } else {
+        print("실패")
+      }
+    }).disposed(by: disposeBag)
   }
   
   override func configuration() {
@@ -137,7 +156,7 @@ class RegistrationProfileViewController: ViewController {
     self.view.backgroundColor = .systemGray00
     self.navigationItem.title = "프로필 만들기"
     self.setupBackButton()
-    self.saveButton.isEnabled = false
+    self.saveButton.isEnabled = true
   }
   
   override func setupView() {

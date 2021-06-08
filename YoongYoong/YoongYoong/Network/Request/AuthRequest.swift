@@ -5,7 +5,7 @@
 //  Created by 김태훈 on 2021/05/22.
 //
 
-import Foundation
+import UIKit
 
 struct LoginRequest: Encodable {
   let email:String
@@ -13,14 +13,14 @@ struct LoginRequest: Encodable {
 }
 
 struct SignupRequest: Encodable {
-  let email:String
-  let introduction: String
-  let loaction: Bool
-  let marketing: Bool
-  let nickname: String
+  let email: String
   let password: String
+  let nickname: String
+  let introduction: String
+  let location: Bool
+  let service: Bool
   let privacy: Bool
-  let service :Bool
+  let marketing: Bool
 }
 
 struct CheckEmailDuplicateRequest: Encodable {

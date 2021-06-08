@@ -14,7 +14,7 @@ protocol AuthorizeServiceType: class {
   func checkEmailDuplicate(_ param: CheckEmailDuplicateRequest) -> Observable<Bool>
   func checkNickNameDuplicate(_ param: String) -> Observable<Bool>
 
-  func signup(_ param: SignupRequest) -> Observable<Response>
+  func signup(_ param: SignupRequest, image: Data) -> Observable<Response>
   func login(_ param : LoginRequest) -> Observable<Response>
   func guest() -> Observable<Response>
   func deletAccount(id: Int) -> Observable<Response>
@@ -43,8 +43,8 @@ extension AuthorizeService {
       }
   }
 
-  func signup(_ param: SignupRequest) -> Observable<Response> {
-    provider.rx.request(.register(param: param))
+  func signup(_ param: SignupRequest, image: Data) -> Observable<Response> {
+    provider.rx.request(.register(param: param, image: image))
       .asObservable()
     
   }

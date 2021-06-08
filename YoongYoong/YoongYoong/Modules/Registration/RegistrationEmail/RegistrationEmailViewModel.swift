@@ -45,7 +45,8 @@ class RegistrationEmailViewModel: ViewModel, ViewModelType {
         return self?.validateEmailPattern(text: email) ?? .empty()
       }
     return .init(
-      registrationPassword: registrationPassword, checkEmailResult: result.asDriver(onErrorDriveWith: .empty()),
+      registrationPassword: registrationPassword,
+      checkEmailResult: result.asDriver(onErrorDriveWith: .empty()),
       validEmail: validEmail.asDriver(onErrorDriveWith: .empty())
     )
   }
