@@ -133,6 +133,7 @@ class Navigator {
       return settingVC
     case .feedDetail(let viewModel):
       let feedDetailVC = FeedDetailViewController(viewModel: viewModel, navigator: self)
+      feedDetailVC.hidesBottomBarWhenPushed = true
       return feedDetailVC
     }
    

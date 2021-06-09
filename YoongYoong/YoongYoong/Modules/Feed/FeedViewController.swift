@@ -37,6 +37,11 @@ class FeedViewController: ViewController {
     self.navigationController?.setNavigationBarHidden(true, animated: animated)
   }
   
+  override func viewWillDisappear(_ animated: Bool) {
+    super.viewWillDisappear(animated)
+    self.navigationController?.setNavigationBarHidden(false, animated: animated)
+  }
+  
   override func configuration() {
     super.configuration()
     self.view.backgroundColor = .systemGray06
