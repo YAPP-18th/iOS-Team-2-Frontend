@@ -11,7 +11,9 @@ import RxCocoa
 import RxDataSources
 
 class FeedDetailViewController: ViewController {
-  let scrollView = ScrollStackView()
+  let scrollView = ScrollStackView().then {
+    $0.contentInset.bottom = 86
+  }
   let contentView = UIView()
   
   let authorContainer = UIView()
@@ -99,8 +101,40 @@ class FeedDetailViewController: ViewController {
     return cell
   }
   
+  let commentInputContainer = UIView().then {
+    $0.backgroundColor = .white
+  }
+  
+  let commentInputProfileImageView = UIImageView().then {
+    $0.image = UIImage(named: "iconUserAvater")
+    $0.contentMode = .scaleAspectFit
+  }
+  
+  let commentFieldContainer = UIView().then{
+    $0.layer.cornerRadius = 20
+    $0.layer.borderColor = UIColor.systemGray05.cgColor
+    $0.layer.borderWidth = 1
+  }
+  
+  let commentField = UITextField().then {
+    $0.font = .krBody3
+    $0.textColor = .systemGrayText01
+    $0.attributedPlaceholder = NSMutableAttributedString(string: "", attributes: [.foregroundColor: UIColor.systemGray04,
+                                                                                  .font: UIFont.krBody3])
+  }
+  
+  let sendCommentButton = UIButton().then {
+    $0.setImage(UIImage(named: "icFeedDetailBtnSend"), for: .normal)
+  }
+  
+  
   override func viewDidLoad() {
     super.viewDidLoad()
+  }
+  
+  override func viewDidLayoutSubviews() {
+    super.viewDidLayoutSubviews()
+    self.commentInputContainer.layer.applySketchShadow(color: .black, alpha: 0.07, x: 0, y: -2, blur: 8, spread: 0)
   }
   
   override func bindViewModel() {
@@ -143,6 +177,7 @@ class FeedDetailViewController: ViewController {
   override func setupView() {
     super.setupView()
     self.view.addSubview(scrollView)
+    self.view.addSubview(commentInputContainer)
     scrollView.addArrangedSubview(contentView)
     
     [authorContainer, contentImageCollectionView, containerTitleLabel, containerListView, divider, likeContainer, messagesContainer, messagesTableView].forEach {
@@ -155,10 +190,48 @@ class FeedDetailViewController: ViewController {
     
     likeContainer.addSubview(likeButton)
     messagesContainer.addSubview(messagesButton)
+    
+    [commentInputProfileImageView, commentFieldContainer].forEach {
+      commentInputContainer.addSubview($0)
+    }
+    
+    [commentField, sendCommentButton].forEach {
+      commentFieldContainer.addSubview($0)
+    }
   }
   
   override func setupLayout() {
     super.setupLayout()
+    commentInputContainer.snp.makeConstraints {
+      $0.leading.trailing.bottom.equalToSuperview()
+    }
+    
+    commentInputProfileImageView.snp.makeConstraints {
+      $0.bottom.equalTo(self.view.safeAreaLayoutGuide).offset(-20)
+      $0.leading.equalTo(16)
+      $0.top.equalTo(8)
+      $0.width.height.equalTo(40)
+    }
+    
+    commentFieldContainer.snp.makeConstraints {
+      $0.centerY.equalTo(commentInputProfileImageView)
+      $0.leading.equalTo(commentInputProfileImageView.snp.trailing).offset(8)
+      $0.trailing.equalTo(-16)
+      $0.height.equalTo(32)
+    }
+    
+    sendCommentButton.snp.makeConstraints {
+      $0.trailing.equalTo(-14)
+      $0.centerY.equalToSuperview()
+      $0.width.height.equalTo(20)
+    }
+    
+    commentField.snp.makeConstraints {
+      $0.leading.equalTo(8)
+      $0.top.equalTo(7)
+      $0.bottom.equalTo(-7)
+      $0.trailing.equalTo(sendCommentButton.snp.leading).offset(-14)
+    }
     
     scrollView.snp.makeConstraints {
       $0.edges.equalTo(self.view.safeAreaLayoutGuide)
