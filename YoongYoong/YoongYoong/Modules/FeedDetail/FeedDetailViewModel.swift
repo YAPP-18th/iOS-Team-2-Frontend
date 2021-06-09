@@ -24,13 +24,22 @@ class FeedDetailViewModel : ViewModel, ViewModelType {
   struct Output {
     let feed: Driver<PostResponse>
     let items: BehaviorRelay<[FeedDetailMessageSection]>
+    let images: Driver<[FeedContentImageSection]>
   }
   
   let feedMessageElements = PublishSubject<[CommentResponse]>()
-  
+  let contentImageURL = BehaviorRelay<[String]>(value: [])
   func transform(input: Input) -> Output {
     let elements = BehaviorRelay<[FeedDetailMessageSection]>(value: [])
-    
+    contentImageURL.accept(feed.images)
+    let images = self.contentImageURL.map { list -> [FeedContentImageSection] in
+      var elements: [FeedContentImageSection] = []
+      let cellViewModel = list.map { url -> FeedContentImageSection.Item in
+        FeedContentCollectionViewCellViewModel.init(imageURL: url)
+      }
+      elements.append(FeedContentImageSection(items: cellViewModel))
+      return elements
+    }.asDriver(onErrorJustReturn: [])
     feedMessageElements.map { feedList -> [FeedDetailMessageSection] in
       var elements: [FeedDetailMessageSection] = []
       let cellViewModel = feedList.map { feed -> FeedDetailMessageSection.Item in
@@ -43,7 +52,8 @@ class FeedDetailViewModel : ViewModel, ViewModelType {
     fetchCommentList()
     return .init(
       feed: .just(self.feed),
-      items: elements
+      items: elements,
+      images: images
     )
   }
   

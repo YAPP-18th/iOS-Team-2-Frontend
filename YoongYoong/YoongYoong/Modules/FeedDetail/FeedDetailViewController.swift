@@ -46,9 +46,13 @@ class FeedDetailViewController: ViewController {
     $0.textAlignment = .right
   }
   
-  let contentImageView = UIImageView().then {
-    $0.contentMode = .scaleAspectFill
-    $0.backgroundColor = .lightGray
+  let contentImageCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout()).then {
+    if let layout = $0.collectionViewLayout as? UICollectionViewFlowLayout {
+      layout.scrollDirection = .horizontal
+    }
+    $0.register(FeedContentCollectionViewCell.self, forCellWithReuseIdentifier: FeedContentCollectionViewCell.identifier)
+    $0.isPagingEnabled = true
+    $0.backgroundColor = .white
   }
   
   let containerTitleLabel = UILabel().then {
@@ -89,6 +93,12 @@ class FeedDetailViewController: ViewController {
   
   var cellHeights: [IndexPath: CGFloat] = [:]
   
+  let collectionDataSource = RxCollectionViewSectionedReloadDataSource<FeedContentImageSection> { _, collectionView, indexPath, viewModel in
+    guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FeedContentCollectionViewCell.identifier, for: indexPath) as? FeedContentCollectionViewCell else { return .init() }
+    cell.bind(to: viewModel)
+    return cell
+  }
+  
   override func viewDidLoad() {
     super.viewDidLoad()
   }
@@ -120,6 +130,9 @@ class FeedDetailViewController: ViewController {
       self.containerListView.bind(to: .init(with: feed.postContainers.map { .init(container: $0.container, containerCount: $0.containerCount, food: $0.food, foodCount: $0.foodCount)}))
     }).disposed(by: self.disposeBag)
     messagesTableView.rx.setDelegate(self).disposed(by: disposeBag)
+    contentImageCollectionView.dataSource = nil
+    output.images.drive(self.contentImageCollectionView.rx.items(dataSource: collectionDataSource)).disposed(by: disposeBag)
+    contentImageCollectionView.rx.setDelegate(self).disposed(by: disposeBag)
   }
   
   override func configuration() {
@@ -132,7 +145,7 @@ class FeedDetailViewController: ViewController {
     self.view.addSubview(scrollView)
     scrollView.addArrangedSubview(contentView)
     
-    [authorContainer, contentImageView, containerTitleLabel, containerListView, divider, likeContainer, messagesContainer, messagesTableView].forEach {
+    [authorContainer, contentImageCollectionView, containerTitleLabel, containerListView, divider, likeContainer, messagesContainer, messagesTableView].forEach {
       contentView.addSubview($0)
     }
     
@@ -188,14 +201,14 @@ class FeedDetailViewController: ViewController {
       $0.height.equalTo(18)
     }
     
-    contentImageView.snp.makeConstraints {
+    contentImageCollectionView.snp.makeConstraints {
       $0.top.equalTo(authorContainer.snp.bottom)
       $0.leading.trailing.equalToSuperview()
-      $0.height.equalTo(contentImageView.snp.width)
+      $0.height.equalTo(contentImageCollectionView.snp.width)
     }
     
     containerTitleLabel.snp.makeConstraints {
-      $0.top.equalTo(contentImageView.snp.bottom).offset(16)
+      $0.top.equalTo(contentImageCollectionView.snp.bottom).offset(16)
       $0.leading.equalTo(16)
     }
     
@@ -248,5 +261,18 @@ extension FeedDetailViewController: UITableViewDelegate {
     guard let height = cellHeights[indexPath] else { return .leastNonzeroMagnitude }
     print(height)
     return height
+  }
+}
+extension FeedDetailViewController: UICollectionViewDelegateFlowLayout {
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+    return 0
+  }
+  
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+    return 0
+  }
+  
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    return collectionView.frame.size
   }
 }
