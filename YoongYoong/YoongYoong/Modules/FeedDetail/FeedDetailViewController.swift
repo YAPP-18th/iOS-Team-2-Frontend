@@ -149,7 +149,7 @@ class FeedDetailViewController: ViewController {
       cell.bind(to: item)
       self.cellHeights[indexPath] = cell.height
       return cell
-    })
+    }, canEditRowAtIndexPath: { _, _ in true })
     
     
     
