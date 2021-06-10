@@ -89,7 +89,7 @@ class FeedDetailViewController: ViewController {
     $0.centerTextAndImage(spacing: 2)
   }
   
-  let messagesTableView = DynamicHeightTableView().then {
+  let messagesTableView = UITableView().then {
     $0.register(FeedDetailMessageTableViewCell.self, forCellReuseIdentifier: FeedDetailMessageTableViewCell.identifier)
   }
   
@@ -143,12 +143,15 @@ class FeedDetailViewController: ViewController {
     let input = FeedDetailViewModel.Input()
     let output = viewModel.transform(input: input)
     
+    
     let dataSource = RxTableViewSectionedReloadDataSource<FeedDetailMessageSection>(configureCell: { dataSource, tableView, indexPath, item in
       let cell = tableView.dequeueReusableCell(withIdentifier: FeedDetailMessageTableViewCell.identifier, for: indexPath) as! FeedDetailMessageTableViewCell
       cell.bind(to: item)
       self.cellHeights[indexPath] = cell.height
       return cell
     })
+    
+    
     
     output.items.asObservable()
         .bind(to: messagesTableView.rx.items(dataSource: dataSource))
@@ -163,7 +166,6 @@ class FeedDetailViewController: ViewController {
       
       self.containerListView.bind(to: .init(with: feed.postContainers.map { .init(container: $0.container, containerCount: $0.containerCount, food: $0.food, foodCount: $0.foodCount)}))
     }).disposed(by: self.disposeBag)
-    messagesTableView.rx.setDelegate(self).disposed(by: disposeBag)
     contentImageCollectionView.dataSource = nil
     output.images.drive(self.contentImageCollectionView.rx.items(dataSource: collectionDataSource)).disposed(by: disposeBag)
     contentImageCollectionView.rx.setDelegate(self).disposed(by: disposeBag)
@@ -325,16 +327,57 @@ class FeedDetailViewController: ViewController {
     messagesTableView.snp.makeConstraints {
       $0.top.equalTo(messagesContainer.snp.bottom)
       $0.leading.trailing.bottom.equalToSuperview()
+      $0.height.equalTo(1000)
     }
+    
+    messagesTableView.rx.setDelegate(self).disposed(by: disposeBag)
   }
 }
-
 extension FeedDetailViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
     guard let height = cellHeights[indexPath] else { return .leastNonzeroMagnitude }
     print(height)
     return height
   }
+  
+  func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+    let editAction = UIContextualAction(style: .normal, title: nil) { action, view, completion in
+      print("dd")
+      completion(true)
+    }
+    editAction.image = UIImage(named: "icFeedCommentEdit")
+    editAction.backgroundColor = .brandColorTertiary01
+    
+    let removeAction = UIContextualAction(style: .normal, title: nil) { action, view, completion in
+      print("dd")
+      completion(true)
+    }
+    
+    removeAction.image = UIImage(named: "icFeedCommentRemove")
+    removeAction.backgroundColor = .brandColorSecondary01
+    
+    return UISwipeActionsConfiguration(actions: [editAction, removeAction])
+  }
+  
+  func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+    let editAction = UIContextualAction(style: .normal, title: nil) { action, view, completion in
+      print("dd")
+      completion(true)
+    }
+    editAction.image = UIImage(named: "icFeedCommentEdit")
+    editAction.backgroundColor = .brandColorTertiary01
+    
+    let removeAction = UIContextualAction(style: .normal, title: nil) { action, view, completion in
+      print("dd")
+      completion(true)
+    }
+    
+    removeAction.image = UIImage(named: "icFeedCommentRemove")
+    removeAction.backgroundColor = .brandColorSecondary01
+    
+    return UISwipeActionsConfiguration(actions: [editAction, removeAction])
+  }
+  
 }
 extension FeedDetailViewController: UICollectionViewDelegateFlowLayout {
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
