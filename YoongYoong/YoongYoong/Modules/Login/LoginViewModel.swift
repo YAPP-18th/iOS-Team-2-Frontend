@@ -18,11 +18,13 @@ class LoginViewModel : ViewModel, ViewModelType {
     let registration: Observable<Void>
     let login: Observable<Void>
     let guest: Observable<Void>
+    let findPassword: Observable<Void>
   }
   struct Output {
     let loginResult: Observable<(Bool, LoginResponse?)>
     let guestLoginResult: Observable<(Bool, LoginResponse?)>
     let registration: Driver<RegistrationTermsViewModel>
+    let findPassword: Driver<FindPasswordViewModel>
   }
   func transform(input: Input) -> Output {
     weak var `self` = self
@@ -42,10 +44,16 @@ class LoginViewModel : ViewModel, ViewModelType {
       return viewModel
     }
     
+    let findPassword = input.findPassword.asDriver(onErrorJustReturn: ()).map { () -> FindPasswordViewModel in
+      let viewModel = FindPasswordViewModel()
+      return viewModel
+    }
+    
     return .init(
       loginResult: registrationResult,
       guestLoginResult: guestLogin,
-      registration: registration
+      registration: registration,
+      findPassword: findPassword
     )
   }
 }

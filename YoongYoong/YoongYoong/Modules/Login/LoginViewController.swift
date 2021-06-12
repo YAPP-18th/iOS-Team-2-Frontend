@@ -95,6 +95,11 @@ class LoginViewController: ViewController {
     self.navigationController?.setNavigationBarHidden(true, animated: animated)
   }
   
+  override func viewWillDisappear(_ animated: Bool) {
+    super.viewWillDisappear(animated)
+    self.navigationController?.setNavigationBarHidden(false, animated: animated)
+  }
+  
   override func bindViewModel() {
     super.bindViewModel()
     guard let viewModel = self.viewModel as? LoginViewModel else { return }
@@ -104,7 +109,8 @@ class LoginViewController: ViewController {
       param: loginParam,
       registration: self.registButton.rx.tap.asObservable(),
       login: self.loginButton.rx.tap.asObservable(),
-      guest: self.skipLoginButton.rx.tap.asObservable()
+      guest: self.skipLoginButton.rx.tap.asObservable(),
+      findPassword: self.findPasswordButton.rx.tap.asObservable()
     )
     
     let output = viewModel.transform(input: input)
@@ -140,6 +146,10 @@ class LoginViewController: ViewController {
     
     output.registration.drive(onNext: { viewModel in
       self.navigator.show(segue: .registrationTerms(viewModel: viewModel), sender: self, transition: .navigation(.right))
+    }).disposed(by: disposeBag)
+    
+    output.findPassword.drive(onNext: { viewModel in
+      self.navigator.show(segue: .findPassword(viewModel: viewModel), sender: self, transition: .navigation(.right))
     }).disposed(by: disposeBag)
   }
   override func configuration() {
