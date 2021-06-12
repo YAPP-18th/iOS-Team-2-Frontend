@@ -25,7 +25,7 @@ class MapViewController: ViewController {
     $0.axis = .vertical
   }
   
-  let menuButton = UIButton().then {
+  let listButton = UIButton().then {
     $0.setImage(UIImage(named:"icMapBtnMenu"), for: .normal)
   }
   
@@ -48,7 +48,9 @@ class MapViewController: ViewController {
     guard let viewModel = viewModel as? MapViewModel else { return }
     let input = MapViewModel.Input(
       tip: navView.tipButton.rx.tap.asObservable(),
-      myLocation: myLocationButton.rx.tap.asObservable()
+      myLocation: myLocationButton.rx.tap.asObservable(),
+      search: navView.searchButton.rx.tap.asObservable(),
+      list: listButton.rx.tap.asObservable()
     )
     let output = viewModel.transform(input: input)
     
@@ -90,7 +92,7 @@ class MapViewController: ViewController {
   override func setupView() {
     super.setupView()
     self.view.addSubview(self.mapView)
-    self.view.addSubview(menuButton)
+    self.view.addSubview(listButton)
     self.view.addSubview(myLocationButton)
     self.view.addSubview(storeInfoView)
   }
@@ -102,7 +104,7 @@ class MapViewController: ViewController {
       $0.edges.equalToSuperview()
     }
     
-    menuButton.snp.makeConstraints {
+    listButton.snp.makeConstraints {
       $0.top.equalTo(self.view.safeAreaLayoutGuide).offset(16)
       $0.trailing.equalTo(-16)
       $0.width.height.equalTo(48)
