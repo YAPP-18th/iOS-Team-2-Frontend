@@ -140,7 +140,7 @@ class FeedDetailViewController: ViewController {
   override func bindViewModel() {
     super.bindViewModel()
     guard let viewModel = self.viewModel as? FeedDetailViewModel else { return }
-    let input = FeedDetailViewModel.Input()
+    let input = FeedDetailViewModel.Input(addComment: self.sendCommentButton.rx.tap.map { self.commentField.text ?? "" }.filter { !$0.isEmpty }.asObservable() )
     let output = viewModel.transform(input: input)
     
     

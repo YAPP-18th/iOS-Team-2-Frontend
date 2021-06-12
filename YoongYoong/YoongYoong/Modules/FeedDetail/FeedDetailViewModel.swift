@@ -19,6 +19,7 @@ class FeedDetailViewModel : ViewModel, ViewModelType {
     super.init()
   }
   struct Input {
+    let addComment: Observable<String>
   }
   
   struct Output {
@@ -30,6 +31,10 @@ class FeedDetailViewModel : ViewModel, ViewModelType {
   let feedMessageElements = PublishSubject<[CommentResponse]>()
   let contentImageURL = BehaviorRelay<[String]>(value: [])
   func transform(input: Input) -> Output {
+    input.addComment.subscribe(onNext: { comment in
+      let requestDTO = CommentRequestDTO(content: comment)
+      self.addComment(requestDTO: requestDTO)
+    }).disposed(by: self.disposeBag)
     let elements = BehaviorRelay<[FeedDetailMessageSection]>(value: [])
     contentImageURL.accept(feed.images)
     let images = self.contentImageURL.map { list -> [FeedContentImageSection] in
@@ -55,6 +60,12 @@ class FeedDetailViewModel : ViewModel, ViewModelType {
       items: elements,
       images: images
     )
+  }
+  
+  func addComment(requestDTO: CommentRequestDTO) {
+    self.provider.addCommentRequesst(postId: self.feed.postId, requestDTO: requestDTO).subscribe(onNext: { result in
+      self.fetchCommentList()
+    }).disposed(by: disposeBag)
   }
   
   func fetchCommentList() {

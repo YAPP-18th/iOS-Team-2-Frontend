@@ -81,6 +81,13 @@ final class PostService {
       }
   }
   
+  func addCommentRequesst(postId: Int, requestDTO: CommentRequestDTO) -> Observable<Bool> {
+    return provider.rx.request(.addComment(id: postId, param: requestDTO)).asObservable()
+      .map { response -> Bool in
+        (200...300).contains(response.statusCode)
+      }
+  }
+  
   func fetchComments(postId: Int) -> Observable<Result<BaseResponse<[CommentResponse]>, PostAPIError>> {
     return provider.rx.request(.fetchCommentList(id: postId)).asObservable()
       .map { response -> Result<BaseResponse<[CommentResponse]>, PostAPIError> in

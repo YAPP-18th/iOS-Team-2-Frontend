@@ -28,5 +28,7 @@ struct ContainerDTO: Encodable {
   let size: String
 }
 
-
+struct CommentRequestDTO: Encodable {
+  let content: String
+}
 
