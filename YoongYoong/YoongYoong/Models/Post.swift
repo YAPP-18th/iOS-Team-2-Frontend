@@ -50,17 +50,18 @@ class PostData {
     let dispatchGroup = DispatchGroup()
     assets.forEach { asset in
       let options = PHImageRequestOptions()
+      options.isSynchronous = true
       options.isNetworkAccessAllowed = true
       
       dispatchGroup.enter()
       // async
       PHImageManager.default().requestImage(for: asset, targetSize: CGSize(width: asset.pixelWidth, height: asset.pixelHeight), contentMode: .aspectFit, options: options) { image, _ in
-
-      if let image = image, let data = image.jpegData(compressionQuality: 1.0) {
-        datas.append(data)
-        dispatchGroup.leave()
-      }
-      
+        defer {
+          dispatchGroup.leave()
+        }
+        if let image = image, let data = image.jpegData(compressionQuality: 1.0) {
+          datas.append(data)
+        }
     }}
       
     dispatchGroup.notify(queue: .main) {
