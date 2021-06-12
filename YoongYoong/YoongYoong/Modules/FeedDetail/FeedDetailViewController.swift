@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 import RxSwift
 import RxCocoa
 import RxDataSources
@@ -131,9 +132,21 @@ class FeedDetailViewController: ViewController {
     $0.setImage(UIImage(named: "icFeedDetailBtnSend"), for: .normal)
   }
   
+  var commentFieldBotton: Constraint!
+  
   
   override func viewDidLoad() {
     super.viewDidLoad()
+  }
+  
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    registerForKeyboardNotifications()
+  }
+  
+  override func viewWillDisappear(_ animated: Bool) {
+    super.viewWillDisappear(animated)
+    resignForKeyboardNotifications()
   }
   
   override func viewDidLayoutSubviews() {
@@ -141,16 +154,37 @@ class FeedDetailViewController: ViewController {
     self.commentInputContainer.layer.applySketchShadow(color: .black, alpha: 0.07, x: 0, y: -2, blur: 8, spread: 0)
   }
   
+  private func registerForKeyboardNotifications() {
+    NotificationCenter.default.addObserver(self, selector: #selector(keyboardToggled(notification:)),
+                                           name: UIResponder.keyboardWillShowNotification, object: nil)
+    NotificationCenter.default.addObserver(self, selector: #selector(keyboardToggled(notification:)),
+                                           name: UIResponder.keyboardWillHideNotification, object: nil)
+  }
+  
+  private func resignForKeyboardNotifications() {
+    NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+    NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+  }
+  
+  @objc
+  private func keyboardToggled(notification: NSNotification) {
+    // Adjust the presented view to move the active text input out of the keyboards's way (if needed).
+    if notification.name == UIResponder.keyboardWillShowNotification {
+      guard let keyboardFrame = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
+      else { return assertionFailure() }
+
+      let offset = (keyboardFrame.height * -1) - 20
+      self.commentFieldBotton.update(offset: offset)
+    } else if notification.name == UIResponder.keyboardWillHideNotification {
+      self.commentFieldBotton.update(offset: -20)
+    }
+  }
+  
   override func bindViewModel() {
     super.bindViewModel()
     guard let viewModel = self.viewModel as? FeedDetailViewModel else { return }
     let input = FeedDetailViewModel.Input(addComment: self.sendCommentButton.rx.tap.map { self.commentField.text ?? "" }.filter { !$0.isEmpty }.asObservable() )
     let output = viewModel.transform(input: input)
-    
-    
-    
-    
-    
     
     output.items.asObservable()
         .bind(to: messagesTableView.rx.items(dataSource: dataSource))
@@ -208,7 +242,7 @@ class FeedDetailViewController: ViewController {
     }
     
     commentInputProfileImageView.snp.makeConstraints {
-      $0.bottom.equalTo(self.view.safeAreaLayoutGuide).offset(-20)
+      self.commentFieldBotton = $0.bottom.equalTo(self.view.safeAreaLayoutGuide).offset(-20).constraint
       $0.leading.equalTo(16)
       $0.top.equalTo(8)
       $0.width.height.equalTo(40)
