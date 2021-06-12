@@ -24,6 +24,11 @@ class MapViewController: ViewController {
   var vStackView = UIStackView().then {
     $0.axis = .vertical
   }
+  
+  let menuButton = UIButton().then {
+    $0.setImage(UIImage(named:"icMapBtnMenu"), for: .normal)
+  }
+  
   let myLocationButton = UIButton().then {
     $0.setImage(UIImage(named: "btnMapMyLocation"), for: .normal)
   }
@@ -85,6 +90,7 @@ class MapViewController: ViewController {
   override func setupView() {
     super.setupView()
     self.view.addSubview(self.mapView)
+    self.view.addSubview(menuButton)
     self.view.addSubview(myLocationButton)
     self.view.addSubview(storeInfoView)
   }
@@ -94,6 +100,12 @@ class MapViewController: ViewController {
     
     mapView.snp.makeConstraints {
       $0.edges.equalToSuperview()
+    }
+    
+    menuButton.snp.makeConstraints {
+      $0.top.equalTo(self.view.safeAreaLayoutGuide).offset(16)
+      $0.trailing.equalTo(-16)
+      $0.width.height.equalTo(48)
     }
     
     storeInfoView.snp.makeConstraints {

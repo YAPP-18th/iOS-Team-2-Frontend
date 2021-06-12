@@ -58,7 +58,7 @@ class MapNavigationView: UIView {
 
 extension MapNavigationView {
   private func configuration() {
-
+    backgroundColor = isDarkMode ? .systemGray06 : .systemGray00
   }
   
   private func setupView() {
