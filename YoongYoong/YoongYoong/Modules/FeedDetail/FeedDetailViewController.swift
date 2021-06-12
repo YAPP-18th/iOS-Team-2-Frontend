@@ -89,11 +89,15 @@ class FeedDetailViewController: ViewController {
     $0.centerTextAndImage(spacing: 2)
   }
   
-  let messagesTableView = UITableView().then {
+  let messagesTableView = DynamicHeightTableView().then {
     $0.register(FeedDetailMessageTableViewCell.self, forCellReuseIdentifier: FeedDetailMessageTableViewCell.identifier)
   }
   
-  var cellHeights: [IndexPath: CGFloat] = [:]
+  let dataSource = RxTableViewSectionedReloadDataSource<FeedDetailMessageSection>(configureCell: { dataSource, tableView, indexPath, item in
+    let cell = tableView.dequeueReusableCell(withIdentifier: FeedDetailMessageTableViewCell.identifier, for: indexPath) as! FeedDetailMessageTableViewCell
+    cell.bind(to: item)
+    return cell
+  }, canEditRowAtIndexPath: { _, _ in true })
   
   let collectionDataSource = RxCollectionViewSectionedReloadDataSource<FeedContentImageSection> { _, collectionView, indexPath, viewModel in
     guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FeedContentCollectionViewCell.identifier, for: indexPath) as? FeedContentCollectionViewCell else { return .init() }
@@ -144,12 +148,7 @@ class FeedDetailViewController: ViewController {
     let output = viewModel.transform(input: input)
     
     
-    let dataSource = RxTableViewSectionedReloadDataSource<FeedDetailMessageSection>(configureCell: { dataSource, tableView, indexPath, item in
-      let cell = tableView.dequeueReusableCell(withIdentifier: FeedDetailMessageTableViewCell.identifier, for: indexPath) as! FeedDetailMessageTableViewCell
-      cell.bind(to: item)
-      self.cellHeights[indexPath] = cell.height
-      return cell
-    }, canEditRowAtIndexPath: { _, _ in true })
+    
     
     
     
@@ -327,7 +326,6 @@ class FeedDetailViewController: ViewController {
     messagesTableView.snp.makeConstraints {
       $0.top.equalTo(messagesContainer.snp.bottom)
       $0.leading.trailing.bottom.equalToSuperview()
-      $0.height.equalTo(1000)
     }
     
     messagesTableView.rx.setDelegate(self).disposed(by: disposeBag)
@@ -335,21 +333,24 @@ class FeedDetailViewController: ViewController {
 }
 extension FeedDetailViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-    guard let height = cellHeights[indexPath] else { return .leastNonzeroMagnitude }
-    print(height)
+    let item = self.dataSource[indexPath.section].items[indexPath.row]
+    let height = FeedDetailMessageTableViewCell.getHeight(viewModel: item)
     return height
   }
   
   func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
     let editAction = UIContextualAction(style: .normal, title: nil) { action, view, completion in
-      print("dd")
+      
       completion(true)
     }
     editAction.image = UIImage(named: "icFeedCommentEdit")
     editAction.backgroundColor = .brandColorTertiary01
     
-    let removeAction = UIContextualAction(style: .normal, title: nil) { action, view, completion in
-      print("dd")
+    let removeAction = UIContextualAction(style: .normal, title: nil) { [weak self]  action, view, completion in
+      guard let self = self,
+            let viewModel = self.viewModel as? FeedDetailViewModel else { completion(false); return}
+      let item = self.dataSource[indexPath.section].items[indexPath.row]
+      viewModel.deleteComment.onNext(item.feedMessage)
       completion(true)
     }
     
@@ -358,26 +359,6 @@ extension FeedDetailViewController: UITableViewDelegate {
     
     return UISwipeActionsConfiguration(actions: [editAction, removeAction])
   }
-  
-  func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-    let editAction = UIContextualAction(style: .normal, title: nil) { action, view, completion in
-      print("dd")
-      completion(true)
-    }
-    editAction.image = UIImage(named: "icFeedCommentEdit")
-    editAction.backgroundColor = .brandColorTertiary01
-    
-    let removeAction = UIContextualAction(style: .normal, title: nil) { action, view, completion in
-      print("dd")
-      completion(true)
-    }
-    
-    removeAction.image = UIImage(named: "icFeedCommentRemove")
-    removeAction.backgroundColor = .brandColorSecondary01
-    
-    return UISwipeActionsConfiguration(actions: [editAction, removeAction])
-  }
-  
 }
 extension FeedDetailViewController: UICollectionViewDelegateFlowLayout {
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {

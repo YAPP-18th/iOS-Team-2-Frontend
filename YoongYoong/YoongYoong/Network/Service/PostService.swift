@@ -88,6 +88,12 @@ final class PostService {
       }
   }
   
+  func deleteComment(postId: Int, commentId: Int) -> Observable<Bool>{
+    return provider.rx.request(.deleteComment(postId: postId, commentId: commentId)).asObservable().map { response -> Bool in
+      (200...300).contains(response.statusCode)
+    }
+  }
+  
   func fetchComments(postId: Int) -> Observable<Result<BaseResponse<[CommentResponse]>, PostAPIError>> {
     return provider.rx.request(.fetchCommentList(id: postId)).asObservable()
       .map { response -> Result<BaseResponse<[CommentResponse]>, PostAPIError> in

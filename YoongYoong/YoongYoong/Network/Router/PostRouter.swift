@@ -15,7 +15,7 @@ enum PostRouter {
   case addPost(param: PostRequestDTO)
   case addComment(id: Int, param: CommentRequestDTO)
   case modifyComment(id: Int)
-  case deleteComment(id: Int)
+  case deleteComment(postId: Int, commentId: Int)
   case fetchPostBy
   case fetchMyPost(month: Int)
   case fetchOtherPost(id: Int)
@@ -35,9 +35,10 @@ extension PostRouter: TargetType {
       return "/post"
     case .fetchCommentList(let id),
          .addComment(let id, _),
-         .modifyComment(let id),
-         .deleteComment(let id):
+         .modifyComment(let id):
       return "/post/\(id)/comment"
+    case let .deleteComment(postId, commentId):
+      return "/post/\(postId)/\(commentId)"
     case .addPost:
       return "/post"
     case .fetchPostBy:

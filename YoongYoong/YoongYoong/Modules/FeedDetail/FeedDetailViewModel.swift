@@ -30,10 +30,16 @@ class FeedDetailViewModel : ViewModel, ViewModelType {
   
   let feedMessageElements = PublishSubject<[CommentResponse]>()
   let contentImageURL = BehaviorRelay<[String]>(value: [])
+  let deleteComment = PublishSubject<CommentResponse>()
+  
   func transform(input: Input) -> Output {
     input.addComment.subscribe(onNext: { comment in
       let requestDTO = CommentRequestDTO(content: comment)
       self.addComment(requestDTO: requestDTO)
+    }).disposed(by: self.disposeBag)
+    
+    deleteComment.subscribe(onNext: { comment in
+      self.deleteComment(commentId: comment.commentId)
     }).disposed(by: self.disposeBag)
     let elements = BehaviorRelay<[FeedDetailMessageSection]>(value: [])
     contentImageURL.accept(feed.images)
@@ -79,5 +85,12 @@ class FeedDetailViewModel : ViewModel, ViewModelType {
     }, onError: { (error) in
       print(error.localizedDescription)
     }).disposed(by: self.disposeBag)
+  }
+  
+  func deleteComment(commentId: Int) {
+    self.provider.deleteComment(postId: self.feed.postId, commentId: commentId)
+      .subscribe(onNext: { result in
+        self.fetchCommentList()
+      }).disposed(by: disposeBag)
   }
 }
