@@ -18,6 +18,7 @@ protocol AuthorizeServiceType: class {
   func login(_ param : LoginRequest) -> Observable<Response>
   func guest() -> Observable<Response>
   func deletAccount(id: Int) -> Observable<Response>
+  func findPassword(_ param: FindPasswordRequest) -> Observable<Bool>
 }
 
 class AuthorizeService: AuthorizeServiceType {
@@ -59,5 +60,13 @@ extension AuthorizeService {
   func deletAccount(id : Int) -> Observable<Response> {
     provider.rx.request(.deleteAccount(id: id))
       .asObservable()
+  }
+  
+  func findPassword(_ param: FindPasswordRequest) -> Observable<Bool> {
+    return provider.rx.request(.findPassword(param: param))
+      .asObservable()
+      .map { response -> Bool in
+        (200...300).contains(response.statusCode)
+      }
   }
 }

@@ -38,3 +38,6 @@ struct VerifyConfirmRequest: Encodable {
     let code: String
 }
 
+struct FindPasswordRequest: Encodable {
+  let email: String
+}

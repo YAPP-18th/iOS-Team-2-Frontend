@@ -8,11 +8,15 @@
 import Foundation
 import RxSwift
 import RxCocoa
+import Moya
 
 class FindPasswordViewModel: ViewModel, ViewModelType {
   
+  private let service : AuthorizeServiceType = AuthorizeService(provider: MoyaProvider<AuthRouter>(plugins:[NetworkLoggerPlugin()]))
+  
   struct Input {
     let emailCheck: Observable<String>
+    let findPassword: Observable<String>
   }
   struct Output {
     let validEmail: Driver<Bool>
@@ -23,12 +27,17 @@ class FindPasswordViewModel: ViewModel, ViewModelType {
       .flatMapLatest { [weak self] email in
         return self?.validateEmailPattern(text: email) ?? .empty()
       }
+    
+    input.findPassword.subscribe(onNext: { email in
+      let param = FindPasswordRequest(email: email)
+      self.findPassword(param: param)
+    }).disposed(by: disposeBag)
     return .init(
       validEmail: validEmail.asDriver(onErrorDriveWith: .empty())
     )
   }
   
-  func validateEmailPattern(text: String) -> Observable<Bool> {
+  private func validateEmailPattern(text: String) -> Observable<Bool> {
     return Observable.create { observer in
       let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
 
@@ -38,6 +47,16 @@ class FindPasswordViewModel: ViewModel, ViewModelType {
       return Disposables.create()
     }
     
+  }
+  
+  private func findPassword(param: FindPasswordRequest) {
+    self.service.findPassword(param).subscribe(onNext: { result in
+      if result {
+        print("success")
+      } else {
+        print("fail")
+      }
+    })
   }
 }
 

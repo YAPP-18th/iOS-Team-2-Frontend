@@ -55,7 +55,8 @@ class FindPasswordViewController: ViewController {
       emailCheck: emailField.rx.controlEvent(.editingDidEnd)
         .map{[weak self] in
           self?.emailField.text ?? ""
-        }.asObservable()
+        }.asObservable(),
+      findPassword: nextButton.rx.tap.map { self.emailField.text ?? "" }.filter { !$0.isEmpty }.asObservable()
     )
     
     let output = viewModel.transform(input: input)
