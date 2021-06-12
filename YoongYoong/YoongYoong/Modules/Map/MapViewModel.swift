@@ -13,7 +13,6 @@ import RxSwift
 class MapViewModel: ViewModel, ViewModelType {
   struct Input {
     let tip: Observable<Void>
-    let post: Observable<Void>
     let myLocation: Observable<Void>
   }
   
@@ -22,7 +21,6 @@ class MapViewModel: ViewModel, ViewModelType {
     let setting: Observable<Void>
     let appSetting: Observable<Void>
     let location: Driver<CLLocationCoordinate2D>
-    let login: Driver<LoginViewModel>
   }
   
   var settingTrigger = PublishSubject<Void>()
@@ -54,11 +52,6 @@ class MapViewModel: ViewModel, ViewModelType {
       }
     }).disposed(by: disposeBag)
     
-    let login = input.post.asDriver(onErrorJustReturn: ()).map { () -> LoginViewModel in
-      let viewModel = LoginViewModel()
-      return viewModel
-    }.asDriver()
-    
     let setting = self.settingTrigger.asObservable()
     let appSetting = self.appSettingTrigger.asObservable()
     let location = self.location.asDriver(onErrorJustReturn: .init(latitude: 37.5662952, longitude: 126.9757564))
@@ -66,8 +59,7 @@ class MapViewModel: ViewModel, ViewModelType {
       tip: tip,
       setting: setting,
       appSetting: appSetting,
-      location: location,
-      login: login
+      location: location
     )
   }
 }

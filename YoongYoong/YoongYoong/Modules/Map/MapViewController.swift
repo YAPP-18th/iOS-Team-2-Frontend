@@ -21,18 +21,17 @@ class MapViewController: ViewController {
   }
   var mapView: NMFMapView!
   
+  var vStackView = UIStackView().then {
+    $0.axis = .vertical
+  }
   let myLocationButton = UIButton().then {
     $0.setImage(UIImage(named: "btnMapMyLocation"), for: .normal)
   }
   
-  let postButton = UIButton().then {
-    $0.setTitleColor(.white, for: .normal)
-    $0.setTitle("이 가게 포스트 쓰기", for: .normal)
-    $0.backgroundColor = .brandColorGreen01
-  }
-  
   let storeInfoView = MapStoreInfoView()
   
+  var myLocationButtonBottomToSuperview: Constraint!
+  var myLocationButtonBottomToStoreInfo: Constraint!
   override func viewDidLoad() {
     super.viewDidLoad()
     
@@ -44,17 +43,12 @@ class MapViewController: ViewController {
     guard let viewModel = viewModel as? MapViewModel else { return }
     let input = MapViewModel.Input(
       tip: navView.tipButton.rx.tap.asObservable(),
-      post: postButton.rx.tap.asObservable(),
       myLocation: myLocationButton.rx.tap.asObservable()
     )
     let output = viewModel.transform(input: input)
     
     output.tip.drive(onNext: { [weak self] viewModel in
       self?.navigator.show(segue: .tip(viewModel: viewModel), sender: self, transition: .navigation(.left))
-    }).disposed(by: disposeBag)
-    
-    output.login.drive(onNext: { [weak self] viewModel in
-      self?.navigator.show(segue: .login(viewModel: viewModel), sender: self, transition: .modalFullScreen)
     }).disposed(by: disposeBag)
     
     output.location.drive (onNext: { [weak self] location in
@@ -75,12 +69,6 @@ class MapViewController: ViewController {
     }).disposed(by: disposeBag)
   }
   
-  override func viewDidLayoutSubviews() {
-    super.viewDidLayoutSubviews()
-    postButton.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-    postButton.layer.cornerRadius = 16.0
-  }
-  
   // MARK: - Setup Views and Layout
   override func configuration() {
     super.configuration()
@@ -98,7 +86,6 @@ class MapViewController: ViewController {
     super.setupView()
     self.view.addSubview(self.mapView)
     self.view.addSubview(myLocationButton)
-    self.view.addSubview(postButton)
     self.view.addSubview(storeInfoView)
   }
   
@@ -109,23 +96,23 @@ class MapViewController: ViewController {
       $0.edges.equalToSuperview()
     }
     
-    myLocationButton.snp.makeConstraints {
-      $0.trailing.equalTo(-19)
-      $0.bottom.equalTo(storeInfoView.snp.top).offset(-16)
-      $0.width.height.equalTo(48)
-    }
-    
-    postButton.snp.makeConstraints {
-      $0.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom)
-      $0.leading.trailing.equalToSuperview()
-      $0.height.equalTo(56)
-    }
-    
     storeInfoView.snp.makeConstraints {
       $0.leading.equalTo(29)
       $0.trailing.equalTo(-29)
-      $0.bottom.equalTo(postButton.snp.top).offset(-16)
+      $0.bottom.equalTo(self.view.safeAreaLayoutGuide).offset(-16)
     }
+    
+    myLocationButton.snp.makeConstraints {
+      $0.trailing.equalTo(-19)
+      myLocationButtonBottomToStoreInfo = $0.bottom.equalTo(storeInfoView.snp.top).offset(-16).constraint
+      myLocationButtonBottomToSuperview = $0.bottom.equalTo(self.view.safeAreaLayoutGuide).offset(-16).constraint
+      $0.width.height.equalTo(48)
+    }
+    
+    myLocationButtonBottomToSuperview.isActive = true
+    myLocationButtonBottomToStoreInfo.isActive = false
+    
+    storeInfoView.isHidden = true
   }
   
   private func updateView() {
