@@ -41,9 +41,12 @@ class PostImageContainerCell: UICollectionViewCell {
   
 
   func setImage(_ asset: PHAsset) {
+    let options = PHImageRequestOptions()
+    options.isNetworkAccessAllowed = true
+    options.isSynchronous = true
     imageRequestID = PHImageManager.default().requestImage(for: asset,
                                                            targetSize: CGSize(width: asset.pixelWidth, height: asset.pixelHeight),
-                                                           contentMode: .aspectFit, options: nil) { image, _ in
+                                                           contentMode: .aspectFit, options: options) { image, _ in
       self.imageView.image = image
     }
   }
