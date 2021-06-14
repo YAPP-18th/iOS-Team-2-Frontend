@@ -70,8 +70,8 @@ class ContainerListItemCell: UITableViewCell {
     favoriteButton.snp.makeConstraints {
       $0.left.equalTo(sizeLabel.snp.right).offset(8)
       $0.centerY.equalTo(contentView)
-      $0.width.equalTo(16)
-      $0.height.equalTo(16)
+      $0.width.equalTo(20)
+      $0.height.equalTo(20)
     }
 
   }
