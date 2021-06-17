@@ -83,6 +83,13 @@ extension PostRouter: TargetType {
       let reviewBadgeMP = MultipartFormData(provider: .data("\(param.reviewBadge)".data(using: .utf8)!), name: "reviewBadge")
       let placeLocationMP = MultipartFormData(provider: .data("\(param.placeLocation)".data(using: .utf8)!), name: "placeLocation")
       
+      for i in 0..<param.postImages.count {
+        let imageData = param.postImages[i]
+        let imageMP = MultipartFormData(provider: .data(imageData), name: "postImages", fileName: "image\(i).jpg", mimeType: "image/jpeg")
+        multipartFormDatas.append(imageMP)
+      }
+      
+      
       for i in 0..<param.containers.count {
         let tuples = containerParameter(i)
         let foodMP = MultipartFormData(provider: .data("\(param.containers[i].food)".data(using: .utf8)!), name: tuples.food)
@@ -94,12 +101,10 @@ extension PostRouter: TargetType {
         multipartFormDatas += [foodMP, foodCountMP, containerNameMP, containerSizeMP, containerCountMP]
       }
       
-      // TODO: imageData
-      for data in param.postImages {}
-      
+        
       multipartFormDatas += [placeNameMP, placeLocationMP, contentMP, reviewBadgeMP]
       
-      print(multipartFormDatas)
+      print("multiparts \(multipartFormDatas)")
       
       return .uploadMultipart(multipartFormDatas)
     case .addComment:

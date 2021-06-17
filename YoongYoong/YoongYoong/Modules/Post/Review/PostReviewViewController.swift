@@ -46,6 +46,8 @@ class PostReviewViewController: ViewController {
   
   private let uploadButton = UIButton().then {
     $0.layer.cornerRadius = 30.0
+    $0.isEnabled = false
+    $0.backgroundColor = .brandColorGreen03
     $0.setTitle("업로드", for: .normal)
     $0.titleLabel?.font = .krButton1
     $0.layer.applySketchShadow(color: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), alpha: 0.12, x: 0, y: 2, blur: 10, spread: 0)
@@ -90,6 +92,8 @@ class PostReviewViewController: ViewController {
     $0.font = .sdGhothicNeo(ofSize: 12, weight: .regular)
     $0.textColor = .systemGrayText02
   }
+  
+  private var reviewContent = PublishRelay<String>()
   override func viewDidLoad() {
     super.viewDidLoad()
     
@@ -135,7 +139,9 @@ class PostReviewViewController: ViewController {
  
     let input = PostReviewViewModel.Input(discountButtonDidTap: discountButtonDidTap,
                                           smileButtonDidTap: smileButtonDidTap,
-                                          likeButtonDidTap: likeButtonDidTap, uploadButtonDidTap: uploadButton.rx.tap.asObservable())
+                                          likeButtonDidTap: likeButtonDidTap,
+                                          reviewContent: reviewContent,
+                                          uploadButtonDidTap: uploadButton.rx.tap.asObservable())
   
     
     let output = viewModel.transform(input: input)
@@ -253,6 +259,7 @@ extension PostReviewViewController: UITextViewDelegate {
       textView.text = "실천에 대한 자세한 이야기를 들려주세요!"
       textView.textColor = UIColor.systemGrayText02
     }
+    reviewContent.accept(textView.text)
   }
   
   func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {

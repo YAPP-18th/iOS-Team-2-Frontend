@@ -14,6 +14,7 @@ class PostReviewViewModel: ViewModel, ViewModelType {
     let discountButtonDidTap: BehaviorRelay<Bool>
     let smileButtonDidTap: BehaviorRelay<Bool>
     let likeButtonDidTap: BehaviorRelay<Bool>
+    let reviewContent: PublishRelay<String>
     let uploadButtonDidTap: Observable<Void>
   }
   
@@ -32,8 +33,12 @@ class PostReviewViewModel: ViewModel, ViewModelType {
     }).disposed(by: disposeBag
     )
     let uploadDidEnd = PublishSubject<Void>()
-    
     let model = PostReviewModel()
+    
+    input.reviewContent
+      .subscribe(onNext: {
+        PostData.shared.content = $0
+      }).disposed(by: disposeBag)
     
     input.uploadButtonDidTap
       .subscribe(onNext: {

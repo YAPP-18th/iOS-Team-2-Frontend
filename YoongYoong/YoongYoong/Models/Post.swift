@@ -47,25 +47,21 @@ class PostData {
   
   private func assetToData(_ assets: [PHAsset], _ completion: @escaping ([Data]) -> ()) {
     var datas = [Data]()
-    let dispatchGroup = DispatchGroup()
+      
     assets.forEach { asset in
       let options = PHImageRequestOptions()
       options.isNetworkAccessAllowed = true
+      options.isSynchronous = true
       
-      dispatchGroup.enter()
-      // async
       PHImageManager.default().requestImage(for: asset, targetSize: CGSize(width: asset.pixelWidth, height: asset.pixelHeight), contentMode: .aspectFit, options: options) { image, _ in
-
-      if let image = image, let data = image.jpegData(compressionQuality: 1.0) {
-        datas.append(data)
-        dispatchGroup.leave()
+        
+        if let image = image, let data = image.jpegData(compressionQuality: 1.0) {
+          datas.append(data)
+        }
       }
-      
-    }}
-      
-    dispatchGroup.notify(queue: .main) {
-      completion(datas)
     }
+    
+    completion(datas)
   }
   
 }

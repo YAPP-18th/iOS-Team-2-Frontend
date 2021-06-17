@@ -9,9 +9,11 @@ import Foundation
 import Moya
 import RxSwift
 
-class PlaceService {
+protocol PlaceServiceType {}
+
+final class PlaceService {
   let provider: MoyaProvider<PlaceRouter>
-  init(provider: MoyaProvider<PlaceRouter> = .init()) {
+  init(provider: MoyaProvider<PlaceRouter> = .init(plugins:[NetworkLoggerPlugin()])) {
     self.provider = provider
   }
   
