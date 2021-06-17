@@ -33,7 +33,7 @@ class ContainerListItemCell: UITableViewCell {
   func configureCell(_ item: ContainerCellModel) {
     titleLabel.text = item.title
     sizeLabel.text = item.size
-    favoriteButton.isSelected = item.selected
+    favoriteButton.isSelected = item.isFavorite
   }
   
   var isFavoirite = PublishSubject<Void>()
