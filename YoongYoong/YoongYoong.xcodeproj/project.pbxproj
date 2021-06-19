@@ -44,6 +44,9 @@
 		7EDCDB6F262321D60029BE45 /* PostSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EDCDB6E262321D60029BE45 /* PostSearchViewController.swift */; };
 		7EF2DC64263076F80002E1E3 /* PostMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF2DC63263076F80002E1E3 /* PostMapViewController.swift */; };
 		7EF2DC69263077610002E1E3 /* PostMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF2DC68263077610002E1E3 /* PostMapViewModel.swift */; };
+		AA144649267DA69200A149EE /* MapSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA144648267DA69200A149EE /* MapSearchViewController.swift */; };
+		AA14464B267DA77B00A149EE /* MapSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA14464A267DA77B00A149EE /* MapSearchViewModel.swift */; };
+		AA14464D267DA8E300A149EE /* MapSearchNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA14464C267DA8E300A149EE /* MapSearchNavigationView.swift */; };
 		AA344617261B2F240034E1BC /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA344616261B2F240034E1BC /* MapViewController.swift */; };
 		AA53BE55265C0F07004A39E2 /* UserDefault+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA53BE54265C0F07004A39E2 /* UserDefault+Extensions.swift */; };
 		AA53BE5B265C1252004A39E2 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA53BE5A265C1252004A39E2 /* SplashViewController.swift */; };
@@ -262,6 +265,9 @@
 		9AA94A64E3F69882F456EE4D /* Pods-YoongYoong.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YoongYoong.debug.xcconfig"; path = "Target Support Files/Pods-YoongYoong/Pods-YoongYoong.debug.xcconfig"; sourceTree = "<group>"; };
 		9BB5CF0D7707EB35250D4235 /* Pods-YoongYoong-YoongYoongUITests.dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YoongYoong-YoongYoongUITests.dev.xcconfig"; path = "Target Support Files/Pods-YoongYoong-YoongYoongUITests/Pods-YoongYoong-YoongYoongUITests.dev.xcconfig"; sourceTree = "<group>"; };
 		AA099431263DA780002222D6 /* BraveWords.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = BraveWords.plist; sourceTree = "<group>"; };
+		AA144648267DA69200A149EE /* MapSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapSearchViewController.swift; sourceTree = "<group>"; };
+		AA14464A267DA77B00A149EE /* MapSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapSearchViewModel.swift; sourceTree = "<group>"; };
+		AA14464C267DA8E300A149EE /* MapSearchNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapSearchNavigationView.swift; sourceTree = "<group>"; };
 		AA344616261B2F240034E1BC /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		AA53BE54265C0F07004A39E2 /* UserDefault+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefault+Extensions.swift"; sourceTree = "<group>"; };
 		AA53BE5A265C1252004A39E2 /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
@@ -616,6 +622,16 @@
 			path = Post;
 			sourceTree = "<group>";
 		};
+		AA144647267DA68700A149EE /* MapSearch */ = {
+			isa = PBXGroup;
+			children = (
+				AA144648267DA69200A149EE /* MapSearchViewController.swift */,
+				AA14464A267DA77B00A149EE /* MapSearchViewModel.swift */,
+				AA14464C267DA8E300A149EE /* MapSearchNavigationView.swift */,
+			);
+			path = MapSearch;
+			sourceTree = "<group>";
+		};
 		AA344626261B31590034E1BC /* Application */ = {
 			isa = PBXGroup;
 			children = (
@@ -656,6 +672,7 @@
 		AAC78FE5262A6FAD009CC84E /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				AA144647267DA68700A149EE /* MapSearch */,
 				AAD5DEDF2674407E00138605 /* FindPassword */,
 				AACCAD96264F6DE3005C9FBC /* FeedDetail */,
 				AA53BE59265C1243004A39E2 /* Splash */,
@@ -1463,6 +1480,7 @@
 				AACCAD7F264F5C89005C9FBC /* RegistrationProfileViewController.swift in Sources */,
 				DABDB0EB264F6C4F00653739 /* CheckTermsViewController.swift in Sources */,
 				7EA041CE266274A30092AC46 /* PostService.swift in Sources */,
+				AA144649267DA69200A149EE /* MapSearchViewController.swift in Sources */,
 				AAD0240E2642A4FB00F1EC2B /* FeedViewModel.swift in Sources */,
 				AACCAA9F26463A0E005C9FBC /* TipDetailThirdView.swift in Sources */,
 				DACA963E264BA9CC00E95165 /* AlertViewModel.swift in Sources */,
@@ -1476,6 +1494,7 @@
 				AA6E013A261F611600318E30 /* MapStoreInfoView.swift in Sources */,
 				AAD5DEE12674408D00138605 /* FindPasswordViewController.swift in Sources */,
 				DAF5C5BD2662567D00BF93E0 /* PostService.swift in Sources */,
+				AA14464D267DA8E300A149EE /* MapSearchNavigationView.swift in Sources */,
 				AAD0240D2642A4FB00F1EC2B /* FeedListSection.swift in Sources */,
 				DABDB0F5264F84CD00653739 /* TermViewController.swift in Sources */,
 				DA5D36EC2661E5D300C41C82 /* CommentResponse.swift in Sources */,
@@ -1591,6 +1610,7 @@
 				AAD024112642A4FB00F1EC2B /* FeedListTableViewCell.swift in Sources */,
 				AAD0240B2642A4FB00F1EC2B /* FeedListTableViewCellViewModel.swift in Sources */,
 				AAC78FFA262A773D009CC84E /* ViewController.swift in Sources */,
+				AA14464B267DA77B00A149EE /* MapSearchViewModel.swift in Sources */,
 				AAD024222642A56600F1EC2B /* BraveWord.swift in Sources */,
 				AAC79020262AA7E3009CC84E /* TipViewController.swift in Sources */,
 				DACA964D264BAD8700E95165 /* AlertModel.swift in Sources */,

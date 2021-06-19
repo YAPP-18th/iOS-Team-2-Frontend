@@ -26,6 +26,7 @@ class Navigator {
     case registrationPassword(viewModel: RegistrationPasswordViewModel)
     case registrationProfile(viewModel: RegistrationProfileViewModel)
     case map(viewModel: MapViewModel)
+    case mapSearch(viewModel: MapSearchViewModel)
     case tip(viewModel: TipViewModel)
     case feedProfile(viewModel: FeedProfileViewModel)
     case feedDetail(viewModel: FeedDetailViewModel)
@@ -48,7 +49,7 @@ class Navigator {
     }
     
     case root(in: UIWindow)
-    case navigation(_ direction: Direction = .right)
+    case navigation(_ direction: Direction = .right, animated: Bool = true)
     case post
     case customModal
     case modal
@@ -89,6 +90,9 @@ class Navigator {
     case let .map(viewModel):
       let mapVC = MapViewController(viewModel: viewModel, navigator: self)
       return mapVC
+    case let .mapSearch(viewModel):
+      let mapSearchVC = MapSearchViewController(viewModel: viewModel, navigator: self)
+      return mapSearchVC
     case.tip(let viewModel):
       let tipVC = TipViewController(viewModel: viewModel, navigator: self)
       return tipVC
@@ -162,7 +166,7 @@ class Navigator {
     }
     
     switch transition {
-    case .navigation(let direction):
+    case let .navigation(direction, animated):
       if let nav = sender.navigationController {
         // push controller to navigation stack
         switch direction{
@@ -170,9 +174,9 @@ class Navigator {
           var vcs = nav.viewControllers
           vcs.insert(target, at: vcs.count - 1)
           nav.setViewControllers(vcs, animated: false)
-          nav.popViewController(animated: true)
+          nav.popViewController(animated: animated)
         case .right:
-          nav.pushViewController(target, animated: true)
+          nav.pushViewController(target, animated: animated)
         }
       }
     case .modal:

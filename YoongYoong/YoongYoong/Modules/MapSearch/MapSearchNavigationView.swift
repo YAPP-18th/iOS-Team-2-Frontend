@@ -2,7 +2,7 @@
 //  MapSearchNavigationView.swift
 //  YoongYoong
 //
-//  Created by 손병근 on 2021/04/05.
+//  Created by 손병근 on 2021/06/19.
 //
 
 import UIKit
@@ -11,25 +11,24 @@ import SnapKit
 import RxSwift
 import RxCocoa
 
-class MapNavigationView: UIView {
+class MapSearchNavigationView: UIView {
   let disposeBag = DisposeBag()
   
   // MARK: - View
   let searchContainerView = UIView()
   
-  let tipButton = UIButton().then {
-    $0.setImage(UIImage(named: "icBtnNavTip"), for: .normal)
+  let backButton = UIButton().then {
+    $0.setImage(UIImage(named: "icBtnNavBack"), for: .normal)
+    $0.contentMode = .center
   }
   
   let searchField = UITextField().then {
     $0.borderStyle = .none
     $0.font = .krBody1
     $0.placeholder = "가게명 검색"
+    $0.clearButtonMode = .whileEditing
     $0.textColor = .systemGrayText01
-    $0.isUserInteractionEnabled = false
   }
-  
-  let searchFieldButton = UIButton()
   
   let searchButton = UIButton().then {
     $0.setImage(UIImage(named: "icBtnNavSearch"), for: .normal)
@@ -59,32 +58,30 @@ class MapNavigationView: UIView {
   
 }
 
-extension MapNavigationView {
+extension MapSearchNavigationView {
   private func configuration() {
     backgroundColor = isDarkMode ? .systemGray06 : .systemGray00
   }
   
   private func setupView() {
-    
+    self.addSubview(backButton)
     self.addSubview(searchContainerView)
-    searchContainerView.addSubview(tipButton)
     searchContainerView.addSubview(searchField)
-    searchContainerView.addSubview(searchFieldButton)
     searchContainerView.addSubview(searchButton)
   }
   
   private func setupLayout() {
+    backButton.snp.makeConstraints {
+      $0.leading.equalToSuperview()
+      $0.centerY.equalToSuperview()
+      $0.width.height.equalTo(24)
+    }
     
     searchContainerView.snp.makeConstraints {
-      $0.leading.equalTo(8)
+      $0.leading.equalTo(backButton.snp.trailing).offset(8)
       $0.trailing.equalTo(-16)
       $0.height.equalTo(40)
       $0.centerY.equalToSuperview()
-    }
-    
-    tipButton.snp.makeConstraints {
-      $0.leading.centerY.equalToSuperview()
-      $0.width.height.equalTo(34)
     }
     
     searchButton.snp.makeConstraints {
@@ -93,15 +90,12 @@ extension MapNavigationView {
     }
     
     searchField.snp.makeConstraints {
-      $0.leading.equalTo(tipButton.snp.trailing)
-      $0.trailing.equalTo(searchButton.snp.leading)
+      $0.leading.equalTo(16)
+      $0.trailing.equalTo(searchButton.snp.leading).offset(-6)
       $0.centerY.equalToSuperview()
-      $0.height.equalTo(24)
+      $0.height.equalTo(25)
     }
     
-    searchFieldButton.snp.makeConstraints {
-      $0.edges.equalTo(searchField)
-    }
     
   }
   

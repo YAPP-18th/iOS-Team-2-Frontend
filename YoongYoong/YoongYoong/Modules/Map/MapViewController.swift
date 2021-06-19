@@ -49,7 +49,7 @@ class MapViewController: ViewController {
     let input = MapViewModel.Input(
       tip: navView.tipButton.rx.tap.asObservable(),
       myLocation: myLocationButton.rx.tap.asObservable(),
-      search: navView.searchButton.rx.tap.asObservable(),
+      search: Observable.merge(navView.searchButton.rx.tap.asObservable(), navView.searchFieldButton.rx.tap.asObservable()),
       list: listButton.rx.tap.asObservable()
     )
     let output = viewModel.transform(input: input)
@@ -74,6 +74,11 @@ class MapViewController: ViewController {
     output.appSetting.subscribe(onNext: { [weak self] in
       self?.alertAppSetting()
     }).disposed(by: disposeBag)
+    
+    output.search.drive(onNext: { [weak self] viewModel in
+      self?.navigator.show(segue: .mapSearch(viewModel: viewModel), sender: self, transition: .navigation(animated: false))
+    }).disposed(by: disposeBag)
+    
   }
   
   // MARK: - Setup Views and Layout
@@ -87,14 +92,16 @@ class MapViewController: ViewController {
     mapView.allowsTilting = false
     mapView.addCameraDelegate(delegate: self)
     mapView.touchDelegate = self
+    
+    listButton.addTarget(self, action: #selector(listButtonTapped), for: .touchUpInside)
   }
   
   override func setupView() {
     super.setupView()
     self.view.addSubview(self.mapView)
     self.view.addSubview(listButton)
-    self.view.addSubview(myLocationButton)
     self.view.addSubview(storeInfoView)
+    self.view.addSubview(myLocationButton)
   }
   
   override func setupLayout() {
@@ -152,6 +159,14 @@ class MapViewController: ViewController {
     }))
     alertController.addAction(.init(title: "취소", style: .cancel))
     self.present(alertController, animated: true)
+  }
+  
+  @objc func listButtonTapped() {
+    
+  }
+  
+  @objc func mapButtonTapped() {
+    
   }
 }
 

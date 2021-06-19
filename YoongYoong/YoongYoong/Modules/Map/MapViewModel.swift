@@ -23,6 +23,7 @@ class MapViewModel: ViewModel, ViewModelType {
     let setting: Observable<Void>
     let appSetting: Observable<Void>
     let location: Driver<CLLocationCoordinate2D>
+    let search: Driver<MapSearchViewModel>
   }
   
   var settingTrigger = PublishSubject<Void>()
@@ -57,11 +58,16 @@ class MapViewModel: ViewModel, ViewModelType {
     let setting = self.settingTrigger.asObservable()
     let appSetting = self.appSettingTrigger.asObservable()
     let location = self.location.asDriver(onErrorJustReturn: .init(latitude: 37.5662952, longitude: 126.9757564))
+    let search = input.search.asDriver(onErrorJustReturn: ()).map { () -> MapSearchViewModel in
+      let viewModel = MapSearchViewModel()
+      return viewModel
+    }
     return Output(
       tip: tip,
       setting: setting,
       appSetting: appSetting,
-      location: location
+      location: location,
+      search: search
     )
   }
 }
