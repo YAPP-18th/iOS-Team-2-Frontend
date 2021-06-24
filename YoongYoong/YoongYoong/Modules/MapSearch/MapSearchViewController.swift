@@ -16,10 +16,10 @@ class MapSearchViewController: ViewController {
       $0.height.equalTo(44)
     }
   }
-  
-  private let listContainer = UIView().then {
-    $0.backgroundColor = .systemGray00
+  private let imageView = UIImageView().then {
+    $0.image = UIImage(named: "postYongyong")
   }
+  
   private let searchHistoryView = PostSearchHistoryView()
   private let searchResultView = PostSearchResultView()
   
@@ -29,6 +29,46 @@ class MapSearchViewController: ViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    
+  }
+  
+  override func bindViewModel() {
+    super.bindViewModel()
+    guard let viewModel = self.viewModel as? MapSearchViewModel else { return }
+    
+    let searchText = PublishSubject<String>()
+    navView.searchButton.rx.tap
+      .subscribe(onNext: { [weak self] in
+        guard let self = self else { return }
+        guard let text = self.navView.searchField.text, text.count
+                > 0 else { return }
+        searchText.onNext(text)
+        self.searchButtonDidTap()
+      }).disposed(by: disposeBag)
+    
+    let input = MapSearchViewModel.Input(
+      searchTextFieldDidBeginEditing: navView.searchField.rx.controlEvent(.editingDidBegin).asObservable(),
+      searchButtonDidTap: searchText,
+      removeSearchHistoryItem: PublishSubject<Int>()
+    )
+    let output = viewModel.transform(input: input)
+    
+    output.searchHistory
+      .bind(to: searchHistoryView.tableView.rx.items(
+              cellIdentifier: PostSearchHistoryItemCell.reuseIdentifier,
+              cellType: PostSearchHistoryItemCell.self)) { [weak self] index , item , cell  in
+        guard let self = self else { return }
+        cell.textLabel?.text = item
+        cell.binding()
+        cell.deleteCell
+          .map{ index }
+          .bind(to: input.removeSearchHistoryItem)
+          .disposed(by: self.disposeBag)
+      }.disposed(by: disposeBag)
+    
+    self.navView.backButton.rx.tap.subscribe {
+      self.navigationController?.popViewController(animated: true)
+    }
   }
   
   override func configuration() {
@@ -39,24 +79,36 @@ class MapSearchViewController: ViewController {
   
   override func setupView() {
     super.setupView()
-    view.addSubview(listContainer)
-    listContainer.addSubview(searchHistoryView)
-    listContainer.addSubview(searchResultView)
+    view.addSubview(imageView)
+    view.addSubview(searchHistoryView)
+    view.addSubview(searchResultView)
   }
   
   override func setupLayout() {
     super.setupLayout()
     
-    listContainer.snp.makeConstraints {
-      $0.edges.equalToSuperview()
+    imageView.snp.makeConstraints {
+      $0.width.height.equalTo(172)
+      $0.center.equalToSuperview()
     }
     
     searchHistoryView.snp.makeConstraints {
-      $0.edges.equalTo(listContainer)
+      $0.edges.equalTo(view.safeAreaLayoutGuide)
     }
     
     searchResultView.snp.makeConstraints {
-      $0.edges.equalTo(listContainer)
+      $0.edges.equalTo(view.safeAreaLayoutGuide)
     }
+    
+//    searchHistoryView.isHidden = true
+    searchResultView.isHidden = true
+    mapButton.isHidden = true
   }
+  private func searchButtonDidTap() {
+    navView.searchField.resignFirstResponder()
+    searchResultView.isHidden = false
+    searchHistoryView.isHidden = true
+    mapButton.isHidden = false
+  }
+  
 }

@@ -11,14 +11,26 @@ import RxCocoa
 
 class MapSearchViewModel: ViewModel, ViewModelType {
   struct Input {
-    
+    let searchTextFieldDidBeginEditing: Observable<Void>
+    let searchButtonDidTap: PublishSubject<String>
+    let removeSearchHistoryItem: PublishSubject<Int>
   }
   
   struct Output {
-    
+    var searchHistory: BehaviorSubject<[String]>
   }
   
   func transform(input: Input) -> Output {
-    return .init()
+    let model = PostSearchModel()
+    let searchHistory = BehaviorSubject<[String]>(value: model.loadSearchHistory())
+    
+    input.removeSearchHistoryItem
+      .subscribe(onNext: {
+        model.remove($0) {searchHistory.onNext($0)}
+      }).disposed(by: disposeBag)
+    
+    return .init(
+      searchHistory: searchHistory
+    )
   }
 }

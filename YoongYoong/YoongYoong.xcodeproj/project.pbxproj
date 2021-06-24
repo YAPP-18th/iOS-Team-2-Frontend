@@ -47,6 +47,7 @@
 		AA144649267DA69200A149EE /* MapSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA144648267DA69200A149EE /* MapSearchViewController.swift */; };
 		AA14464B267DA77B00A149EE /* MapSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA14464A267DA77B00A149EE /* MapSearchViewModel.swift */; };
 		AA14464D267DA8E300A149EE /* MapSearchNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA14464C267DA8E300A149EE /* MapSearchNavigationView.swift */; };
+		AA14468A2684655100A149EE /* dangsan.gpx in Resources */ = {isa = PBXBuildFile; fileRef = AA1446892684655100A149EE /* dangsan.gpx */; };
 		AA344617261B2F240034E1BC /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA344616261B2F240034E1BC /* MapViewController.swift */; };
 		AA53BE55265C0F07004A39E2 /* UserDefault+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA53BE54265C0F07004A39E2 /* UserDefault+Extensions.swift */; };
 		AA53BE5B265C1252004A39E2 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA53BE5A265C1252004A39E2 /* SplashViewController.swift */; };
@@ -268,6 +269,7 @@
 		AA144648267DA69200A149EE /* MapSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapSearchViewController.swift; sourceTree = "<group>"; };
 		AA14464A267DA77B00A149EE /* MapSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapSearchViewModel.swift; sourceTree = "<group>"; };
 		AA14464C267DA8E300A149EE /* MapSearchNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapSearchNavigationView.swift; sourceTree = "<group>"; };
+		AA1446892684655100A149EE /* dangsan.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = dangsan.gpx; sourceTree = "<group>"; };
 		AA344616261B2F240034E1BC /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		AA53BE54265C0F07004A39E2 /* UserDefault+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefault+Extensions.swift"; sourceTree = "<group>"; };
 		AA53BE5A265C1252004A39E2 /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
@@ -931,6 +933,7 @@
 		AAD45C502619BFC800A6F4D6 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				AA1446892684655100A149EE /* dangsan.gpx */,
 				DAF5C5C12662638F00BF93E0 /* Terms */,
 				AAD45C512619BFD800A6F4D6 /* Fonts */,
 				DAB00032260F12CD00D8208F /* Assets.xcassets */,
@@ -1319,6 +1322,7 @@
 				DAB00033260F12CD00D8208F /* Assets.xcassets in Resources */,
 				DAF5C5C8266263A100BF93E0 /* marketing.html in Resources */,
 				AAD45C722619C36900A6F4D6 /* SF-Pro-Text-Heavy.otf in Resources */,
+				AA14468A2684655100A149EE /* dangsan.gpx in Resources */,
 				AAD45C7F2619C36900A6F4D6 /* SF-Pro-Text-Thin.otf in Resources */,
 				AAD45C772619C36900A6F4D6 /* SF-Pro-Text-Semibold.otf in Resources */,
 				DAF5C5C9266263A100BF93E0 /* location.html in Resources */,
