@@ -14,11 +14,23 @@ class MapSearchViewModel: ViewModel, ViewModelType {
     let searchTextFieldDidBeginEditing: Observable<Void>
     let searchButtonDidTap: PublishSubject<String>
     let removeSearchHistoryItem: PublishSubject<Int>
+    let removeAllButtonDidTap: Observable<Void>
+    let searchHistoryItemDidTap: Observable<IndexPath>
   }
   
   struct Output {
     var searchHistory: BehaviorSubject<[String]>
+    var searchResult: Observable<[Place]>
+    var searchError: Observable<String>
+    var searchHistorySelected: PublishSubject<String>
+    
   }
+  
+  let searchHistorySelected = PublishSubject<String>()
+  let searchResult = BehaviorSubject<[Place]>(value: [])
+  
+  let searchSuccess = PublishSubject<[Place]>()
+  let searchError = PublishSubject<String>()
   
   func transform(input: Input) -> Output {
     let model = PostSearchModel()
@@ -29,8 +41,40 @@ class MapSearchViewModel: ViewModel, ViewModelType {
         model.remove($0) {searchHistory.onNext($0)}
       }).disposed(by: disposeBag)
     
+    input.removeAllButtonDidTap
+      .subscribe(onNext: {
+        model.remove(nil) {searchHistory.onNext($0)}
+      }).disposed(by: disposeBag)
+    
+    input.searchHistoryItemDidTap
+      .map {model.searchItem(at: $0.row)}
+      .bind(to: input.searchButtonDidTap, searchHistorySelected)
+      .disposed(by: disposeBag)
+    
+    input.searchButtonDidTap
+      .filter { $0.count > 0 }
+      .subscribe(onNext: {
+        model.add($0) {searchHistory.onNext($0)}
+      }).disposed(by: disposeBag)
+    
+    input.searchButtonDidTap.flatMapLatest { [weak self] in
+      model.search($0, self?.locationManager.locationChanged.value, nextPage: false)
+    }.subscribe(onNext: { result in
+      switch result {
+      case .success(let places):
+        self.searchSuccess.onNext(places)
+      case .failure(_):
+        self.searchError.onNext("검색 결과를 불러올 수 없음.")
+      }
+    }).disposed(by: disposeBag)
+    
+    
+    
     return .init(
-      searchHistory: searchHistory
+      searchHistory: searchHistory,
+      searchResult: searchSuccess,
+      searchError: searchError,
+      searchHistorySelected: searchHistorySelected
     )
   }
 }
