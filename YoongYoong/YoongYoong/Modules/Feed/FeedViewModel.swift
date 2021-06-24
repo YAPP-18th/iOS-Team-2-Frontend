@@ -24,6 +24,7 @@ class FeedViewModel: ViewModel, ViewModelType {
     let items: BehaviorRelay<[FeedListSection]>
     let profile: Observable<FeedProfileViewModel>
     let detail: Observable<FeedDetailViewModel>
+    let likeChanged: Observable<(IndexPath, FeedListTableViewCellViewModel)>
   }
   
   private let dateFormatter: DateFormatter = {
@@ -32,12 +33,12 @@ class FeedViewModel: ViewModel, ViewModelType {
     return formatter
   }()
   
-  let feedElements = PublishSubject<[PostResponse]>()
+  let feedElements = BehaviorRelay<[PostResponse]>(value: [])
   let currentDate = BehaviorRelay<String>(value: "")
   let brave = BehaviorRelay<String>(value: BraveWord.default)
   let feedSelection = PublishSubject<PostResponse>()
   let userSelection = PublishSubject<UserInfo>()
-  
+  let likeChanged = PublishRelay<(IndexPath, FeedListTableViewCellViewModel)>()
   func transform(input: Input) -> Output {
     let elements = BehaviorRelay<[FeedListSection]>(value: [])
     
@@ -46,6 +47,9 @@ class FeedViewModel: ViewModel, ViewModelType {
       let cellViewModel = feedList.map { feed -> FeedListSection.Item in
         let viewModel = FeedListTableViewCellViewModel.init(with: feed)
         viewModel.userSelection.bind(to: self.userSelection).disposed(by: self.disposeBag)
+        viewModel.likeButtonDidTap.bind { feed in
+          self.likePost(feed: feed)
+        }.disposed(by: self.disposeBag)
         return viewModel
       }
       
@@ -71,7 +75,8 @@ class FeedViewModel: ViewModel, ViewModelType {
     return Output(
       items: elements,
       profile: profile,
-      detail: detail
+      detail: detail,
+      likeChanged: self.likeChanged.asObservable()
     )
   }
   
@@ -79,12 +84,32 @@ class FeedViewModel: ViewModel, ViewModelType {
     self.provider.fetchAllPosts().subscribe(onNext: { result in
       switch result {
       case let .success(list):
-        self.feedElements.onNext(list.data ?? [])
+        self.feedElements.accept(list.data ?? [])
       case let .failure(error):
         print(error.localizedDescription)
       }
     }, onError: { (error) in
       print(error.localizedDescription)
     }).disposed(by: self.disposeBag)
+  }
+  
+  func likePost(feed: PostResponse) {
+    provider.likePost(feed: feed)
+      .subscribe(onNext: { result in
+        switch result {
+        case .success:
+          var newFeed = feed
+          newFeed.isLikePressed = !feed.isLikePressed
+          newFeed.likeCount = newFeed.isLikePressed ? newFeed.likeCount + 1 : newFeed.likeCount - 1
+          var newFeedElements = self.feedElements.value
+          if let index = newFeedElements.firstIndex(where: { $0.postId == feed.postId }) {
+            newFeedElements[index] = newFeed
+            self.feedElements.accept(newFeedElements)
+          }
+          
+        case let .failure(error):
+          print(error.localizedDescription)
+        }
+      }).disposed(by: self.disposeBag)
   }
 }
