@@ -17,6 +17,7 @@ class MapSearchViewModel: ViewModel, ViewModelType {
     let removeAllButtonDidTap: Observable<Void>
     let searchHistoryItemDidTap: Observable<IndexPath>
     let searchResultItemDidTap: Observable<IndexPath>
+    let resultTableViewReachedBottom: Observable<Bool>
   }
   
   struct Output {
@@ -27,15 +28,45 @@ class MapSearchViewModel: ViewModel, ViewModelType {
     var searchResultView: PublishRelay<MapSearchResultViewModel>
   }
   
-  let searchHistorySelected = PublishSubject<String>()
-  let searchResult = BehaviorSubject<[Place]>(value: [])
-  
-  let searchSuccess = PublishSubject<[Place]>()
-  let searchError = PublishSubject<String>()
+  private var isPaging = false
   
   func transform(input: Input) -> Output {
     let model = PostSearchModel()
     let searchHistory = BehaviorSubject<[String]>(value: model.loadSearchHistory())
+    
+    let searchHistorySelected = PublishSubject<String>()
+    let searchResult = BehaviorSubject<[Place]>(value: [])
+    
+    let searchSuccess = PublishSubject<[Place]>()
+    let searchError = PublishSubject<String>()
+    
+    input.searchTextFieldDidBeginEditing
+      .subscribe(onNext: { _ in
+        searchResult.onNext([])
+      }).disposed(by: disposeBag)
+    
+    input.searchButtonDidTap.flatMapLatest { [weak self] in
+      model.search($0, self?.locationManager.locationChanged.value, nextPage: false)
+    }.subscribe(onNext: { result in
+      switch result {
+      case .success(let places):
+        searchSuccess.onNext(places)
+      case .failure(_):
+        searchError.onNext("검색 결과를 불러올 수 없음.")
+      }
+    }).disposed(by: disposeBag)
+    
+    input.searchButtonDidTap
+      .subscribe(onNext: { [weak self] _ in
+        self?.isPaging = false
+      }).disposed(by: disposeBag)
+    
+    input.searchHistoryItemDidTap
+      .map {model.searchItem(at: $0.row)}
+      .bind(to: input.searchButtonDidTap, searchHistorySelected)
+      .disposed(by: disposeBag)
+    
+    
     
     input.removeSearchHistoryItem
       .subscribe(onNext: {
@@ -47,10 +78,25 @@ class MapSearchViewModel: ViewModel, ViewModelType {
         model.remove(nil) {searchHistory.onNext($0)}
       }).disposed(by: disposeBag)
     
-    input.searchHistoryItemDidTap
-      .map {model.searchItem(at: $0.row)}
-      .bind(to: input.searchButtonDidTap, searchHistorySelected)
-      .disposed(by: disposeBag)
+    input.resultTableViewReachedBottom
+      .subscribe(onNext: { [weak self] _ in
+        self?.isPaging = true
+      }).disposed(by: disposeBag)
+    
+    input.resultTableViewReachedBottom
+      .observeOn(MainScheduler.instance)
+      .filter{ $0 == true }
+      .withLatestFrom(input.searchButtonDidTap)
+      .flatMapLatest{ [weak self] in
+        model.search($0, self?.locationManager.locationChanged.value, nextPage: true)
+      }.subscribe(onNext: { result in
+        switch result {
+        case .success(let places):
+          searchSuccess.onNext(places)
+        case .failure(_):
+          searchError.onNext("검색 결과를 불러올 수 없습니다.")
+        }
+      }).disposed(by: disposeBag)
     
     input.searchButtonDidTap
       .filter { $0.count > 0 }
@@ -58,17 +104,12 @@ class MapSearchViewModel: ViewModel, ViewModelType {
         model.add($0) {searchHistory.onNext($0)}
       }).disposed(by: disposeBag)
     
-    input.searchButtonDidTap.flatMapLatest { [weak self] in
-      model.search($0, self?.locationManager.locationChanged.value, nextPage: false)
-    }.subscribe(onNext: { result in
-      switch result {
-      case .success(let places):
-        self.searchResult.onNext(places)
-        self.searchSuccess.onNext(places)
-      case .failure(_):
-        self.searchError.onNext("검색 결과를 불러올 수 없음.")
-      }
-    }).disposed(by: disposeBag)
+    Observable.combineLatest(searchResult, searchSuccess)
+      .sample(searchSuccess)
+      .map { current, next in
+        return self.isPaging ? current + next : next
+      }.bind(to: searchResult)
+      .disposed(by: disposeBag)
     
     let mapSearchResultViewModel = PublishRelay<MapSearchResultViewModel>()
     Observable.combineLatest(searchResult, input.searchResultItemDidTap)
@@ -81,7 +122,7 @@ class MapSearchViewModel: ViewModel, ViewModelType {
     
     return .init(
       searchHistory: searchHistory,
-      searchResult: searchSuccess,
+      searchResult: searchResult,
       searchError: searchError,
       searchHistorySelected: searchHistorySelected,
       searchResultView: mapSearchResultViewModel

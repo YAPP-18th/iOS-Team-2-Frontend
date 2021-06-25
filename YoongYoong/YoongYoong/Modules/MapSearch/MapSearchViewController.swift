@@ -25,6 +25,9 @@ class MapSearchViewController: ViewController {
     $0.setImage(UIImage(named: "icMapBtnMap"), for: .normal)
   }
   
+  
+  let tableViewReachedBottomTrigger = PublishRelay<Bool>()
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     
@@ -33,7 +36,8 @@ class MapSearchViewController: ViewController {
   override func bindViewModel() {
     super.bindViewModel()
     guard let viewModel = self.viewModel as? MapSearchViewModel else { return }
-    
+    let tableViewReachedBottom = tableViewReachedBottomTrigger
+      .distinctUntilChanged()
     let searchText = PublishSubject<String>()
     navView.searchButton.rx.tap
       .subscribe(onNext: { [weak self] in
@@ -50,7 +54,8 @@ class MapSearchViewController: ViewController {
       removeSearchHistoryItem: PublishSubject<Int>(),
       removeAllButtonDidTap: searchHistoryView.removeAllButton.rx.tap.asObservable(),
       searchHistoryItemDidTap: searchHistoryView.tableView.rx.itemSelected.asObservable(),
-      searchResultItemDidTap: searchResultView.tableView.rx.itemSelected.asObservable()
+      searchResultItemDidTap: searchResultView.tableView.rx.itemSelected.asObservable(),
+      resultTableViewReachedBottom: tableViewReachedBottom
     )
     let output = viewModel.transform(input: input)
     
@@ -107,6 +112,9 @@ class MapSearchViewController: ViewController {
     self.navigationItem.titleView = navView
     self.navigationItem.hidesBackButton = true
     navView.searchField.delegate = self
+    
+    searchResultView.tableView.delegate = nil
+    searchResultView.tableView.rx.setDelegate(self).disposed(by: disposeBag)
   }
   
   override func setupView() {
@@ -160,5 +168,20 @@ extension MapSearchViewController: UITextFieldDelegate {
     DispatchQueue.main.async {
       self.searchHistoryView.isHidden = true
     }
+  }
+}
+
+extension MapSearchViewController: UIScrollViewDelegate {
+  func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    let contentOffsetY = scrollView.contentOffset.y
+    let frameHeigth = scrollView.frame.size.height
+    let contentHeight = scrollView.contentSize.height
+    
+    if contentOffsetY >= (contentHeight - frameHeigth) {
+      tableViewReachedBottomTrigger.accept(true)
+    } else {
+      tableViewReachedBottomTrigger.accept(false)
+    }
+    
   }
 }
