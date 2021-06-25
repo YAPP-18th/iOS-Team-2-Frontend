@@ -21,6 +21,7 @@ class Navigator {
     case tabs(viewModel: TabBarViewModel)
     case login(viewModel: LoginViewModel)
     case findPassword(viewModel: FindPasswordViewModel)
+    case findPasswordCode(viewModel: FindPasswordCodeViewModel)
     case registrationTerms(viewModel: RegistrationTermsViewModel)
     case registrationEmail(viewModel: RegistrationEmailViewModel)
     case registrationPassword(viewModel: RegistrationPasswordViewModel)
@@ -76,6 +77,9 @@ class Navigator {
     case .findPassword(let viewModel):
       let findPasswordVC = FindPasswordViewController(viewModel: viewModel, navigator: self)
       return findPasswordVC
+    case .findPasswordCode(let viewModel):
+      let findPasswordCodeVC = FindPasswordCodeViewController(viewModel: viewModel, navigator: self)
+      return findPasswordCodeVC
     case .registrationTerms(let viewModel):
       let regTermsVC = RegistrationTermsViewController(viewModel: viewModel, navigator: self)
       return regTermsVC

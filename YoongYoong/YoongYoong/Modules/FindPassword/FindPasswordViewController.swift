@@ -66,6 +66,10 @@ class FindPasswordViewController: ViewController {
       self?.warningImageView.isHidden = $0
       self?.warningLabel.isHidden = $0
     }).disposed(by: disposeBag)
+    
+    output.findPasswordCode.subscribe(onNext: { viewModel in
+      self.navigator.show(segue: .findPasswordCode(viewModel: viewModel), sender: self, transition: .navigation(.right))
+    }).disposed(by: disposeBag)
   }
   
   override func configuration() {

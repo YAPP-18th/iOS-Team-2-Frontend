@@ -20,7 +20,11 @@ class FindPasswordViewModel: ViewModel, ViewModelType {
   }
   struct Output {
     let validEmail: Driver<Bool>
+    let findPasswordCode: Observable<FindPasswordCodeViewModel>
   }
+  
+  let findPasswordCode = PublishSubject<FindPasswordCodeViewModel>()
+  
   func transform(input: Input) -> Output {
         
     let validEmail = input.emailCheck
@@ -33,7 +37,8 @@ class FindPasswordViewModel: ViewModel, ViewModelType {
       self.findPassword(param: param)
     }).disposed(by: disposeBag)
     return .init(
-      validEmail: validEmail.asDriver(onErrorDriveWith: .empty())
+      validEmail: validEmail.asDriver(onErrorDriveWith: .empty()),
+      findPasswordCode: self.findPasswordCode
     )
   }
   
@@ -52,7 +57,8 @@ class FindPasswordViewModel: ViewModel, ViewModelType {
   private func findPassword(param: FindPasswordRequest) {
     self.service.findPassword(param).subscribe(onNext: { result in
       if result {
-        print("success")
+        let viewModel = FindPasswordCodeViewModel(email: param.email)
+        self.findPasswordCode.onNext(viewModel)
       } else {
         print("fail")
       }
