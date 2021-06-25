@@ -9,15 +9,57 @@ import UIKit
 import RxSwift
 import RxCocoa
 import Moya
+
+enum TabType: Int, CaseIterable{
+  case badge
+  case feed
+  case history
+  
+  var title: String {
+    switch self {
+    case .badge:
+      return "내 배지"
+    case .feed:
+      return "포스트"
+    case .history:
+      return "용기 보관함"
+    }
+  }
+  
+  var image: UIImage? {
+    switch self {
+    case .badge:
+      return UIImage(named: "MyBadge-Inactive")
+    case .feed:
+      return UIImage(named: "MyPost-Inactive")
+    case .history:
+      return UIImage(named: "MyYonggi-Inactive")
+    }
+  }
+  
+  var selectedImage: UIImage? {
+    switch self {
+    case .badge:
+      return UIImage(named: "MyBadge-Active")
+    case .feed:
+      return UIImage(named: "MyPost-Active")
+    case .history:
+      return UIImage(named: "MyYonggi-Active")
+    }
+  }
+}
+
 class MyPageViewController: ViewController {
   private let profileView = UIView().then{
     $0.backgroundColor = .white
   }
-  private let scrollView = UIScrollView()
+  private let scrollView = ScrollStackView()
   private let containerView = UIView().then{
     $0.backgroundColor = .white
   }
-  private let userProfile = UIImageView()
+  private let userProfile = UIImageView().then {
+    $0.image = UIImage(named: "iconUserAvater")
+  }
   private let userName = UILabel().then {
     $0.textColor = .black
     $0.font = .sdGhothicNeo(ofSize: 16, weight: .bold)
@@ -35,11 +77,22 @@ class MyPageViewController: ViewController {
     
     
   }
-  private let editProfileBtn = UIButton()
-  private let segmentView = UIView().then {
-    $0.backgroundColor = UIColor.brandColorTertiary01.withAlphaComponent(0.5)
+  private let editProfileBtn = UIButton().then {
+    $0.setImage(UIImage(named: "EditProfileBtn"), for: .normal)
   }
-  private var collectionView: UICollectionView!
+  private let segmentView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout()).then {
+    if let layout = $0.collectionViewLayout as? UICollectionViewFlowLayout {
+      let width = UIScreen.main.bounds.width / 3
+      let height: CGFloat = 92
+      layout.itemSize = .init(width: width, height: height)
+      layout.minimumLineSpacing = 0
+      layout.minimumInteritemSpacing = 0
+      layout.sectionInset = .zero
+    }
+    $0.backgroundColor = UIColor.brandColorTertiary01.withAlphaComponent(0.5)
+    $0.register(MyPageSegmentCell.self, forCellWithReuseIdentifier: MyPageSegmentCell.identifier)
+  }
+  private var collectionView = UIView()
   
   private let leftButtonItem = UIBarButtonItem(
     image: UIImage(named: "Bellstroked"),
@@ -62,7 +115,7 @@ class MyPageViewController: ViewController {
       $0.backgroundColor = .brandColorGreen02
     }
   private let yongyong = UIImageView().then{
-    $0.image = UIImage(named: "")
+    $0.image = UIImage(named: "yongyong1")
     $0.backgroundColor = .clear
   }
   private let yongyongCommentView = UIView().then{
@@ -79,61 +132,72 @@ class MyPageViewController: ViewController {
   var yongCommentList : [String] = ["용기를 내고 배지를 모아보세요",
                                     "지금까지 총 0개의 용기를 냈어요!",
                                     "자주 사용하는 용기를 등록하세요!"]
-  private let tabView : [UIView] = [UIView(),UIView(),UIView()]
-  private let tabs : [UIImageView] = [UIImageView(),
-                                      UIImageView(),
-                                      UIImageView()]
-  private let tabLabel : [UILabel] = [UILabel(),
-                                      UILabel(),
-                                      UILabel()]
+  let yongyongImg: [String] = ["yongyong1","yongyong2","yongyong3"]
   private let tabIndicator = UIView().then{
     $0.backgroundColor = .brandColorGreen03
     $0.frame.origin.x = CGFloat((UIScreen.main.bounds.width / 3.0 - 108)/2)
   }
+  
+  
+  
+  private var selectedTabIndex = 0
   
   private let tabBinder = BehaviorSubject<[TabType]>(value: [.badge,.feed,.history])
   private let loadTrigger = PublishSubject<Void>()
   private let jumpTrigger = PublishSubject<Void>()
   private let loginTrigger = PublishSubject<Void>()
   override func viewDidLoad() {
-    setupCollectionView()
+//    setupCollectionView()
     
     super.viewDidLoad()
     setupNavigationBar(.white)
     self.navigationItem.leftBarButtonItem = leftButtonItem
     self.navigationItem.rightBarButtonItem = rightButtonItem
   }
+  
+  override func configuration() {
+    super.configuration()
+    self.segmentView.dataSource = self
+    self.segmentView.delegate = self
+  }
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     tabIndicator.frame.origin.x = CGFloat((UIScreen.main.bounds.width / 3.0 - 108)/2)
     
   }
+  
+  override func setupView() {
+    self.view.addSubview(scrollView)
+    scrollView.addArrangedSubview(containerView)
+    [profileView, segmentView, yongyongView, collectionView].forEach {
+      containerView.addSubview($0)
+    }
+    
+    [userProfile, userName, comments, editProfileBtn].forEach {
+      profileView.addSubview($0)
+    }
+    [yongyong, yongyongCommentView].forEach {
+      yongyongView.addSubview($0)
+    }
+    yongyongCommentView.addSubview(yongyongCommentLable)
+  }
+  
   override func setupLayout() {
-    self.view.add(scrollView)
     scrollView.snp.makeConstraints{
-      $0.leading.trailing.top.bottom.equalToSuperview()
+      $0.edges.equalToSuperview()
     }
-    scrollView.add(containerView)
-    containerView.snp.makeConstraints{
-      $0.centerX.centerY.width.equalToSuperview()
-      $0.height.equalToSuperview().priority(.low)
-    }
-    containerView.adds([profileView,
-                        segmentView,
-                        yongyongView,
-                        collectionView])
+    
     profileView.snp.makeConstraints{
-      $0.centerX.equalTo(self.view.safeAreaLayoutGuide)
-      $0.leading.equalTo(self.view.safeAreaLayoutGuide).offset(15)
-      $0.top.equalTo(self.view.safeAreaLayoutGuide).offset(30)
+      $0.top.leading.trailing.equalToSuperview()
+      $0.height.equalTo(117)
     }
-    profileView.adds([userProfile, userName, comments, editProfileBtn])
+    
     userProfile.snp.makeConstraints{
-      $0.top.leading.equalToSuperview()
+      $0.centerY.equalToSuperview()
+      $0.leading.equalTo(16)
       $0.width.height.equalTo(50)
-      $0.bottom.equalToSuperview().offset(-20)
     }
-    userProfile.image = UIImage(named: "iconUserAvater")
+    
     userName.snp.makeConstraints{
       $0.top.equalTo(userProfile.snp.top)
       $0.leading.equalTo(userProfile.snp.trailing).offset(14)
@@ -146,51 +210,26 @@ class MyPageViewController: ViewController {
       $0.trailing.top.equalToSuperview()
       $0.width.height.equalTo(40)
     }
-    editProfileBtn.setImage(UIImage(named: "EditProfileBtn"), for: .normal)
-    segmentView.snp.makeConstraints{
-      $0.leading.centerX.equalToSuperview()
-      $0.top.equalTo(profileView.snp.bottom).offset(16)
-    }
-    segmentView.adds(tabView)
-    segmentView.add(tabIndicator)
-    for (index, tab) in tabView.enumerated() {
-      tab.isUserInteractionEnabled = true
-      tab.tag = index
-      tabView[index].adds([tabs[index],tabLabel[index]])
-      tab.snp.makeConstraints{
-        $0.centerX.equalToSuperview().offset(
-          (UIScreen.main.bounds.width / 6.0) * CGFloat((index*2) - 2)
-        )
-        $0.top.bottom.equalToSuperview()
-        $0.width.equalTo(UIScreen.main.bounds.width / 3.0)
-        $0.height.equalTo(92)
-      }
-      tabs[index].snp.makeConstraints{
-        $0.centerX.equalToSuperview()
-        $0.top.equalToSuperview().offset(12)
-        $0.width.height.equalTo(40)
-      }
-      tabLabel[index].snp.makeConstraints{
-        $0.centerX.equalToSuperview()
-        $0.top.equalTo(tabs[index].snp.bottom).offset(4)
-      }
-    }
-    tabView[0].addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tab1Action)))
-    tabView[1].addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tab2Action)))
-    tabView[2].addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tab3Action)))
     
-    tabIndicator.snp.makeConstraints{
-      $0.bottom.equalToSuperview()
-      $0.height.equalTo(4)
-      $0.width.equalTo(108)
-      $0.leading.greaterThanOrEqualToSuperview().offset(14)
+    segmentView.snp.makeConstraints{
+      $0.top.equalTo(profileView.snp.bottom)
+      $0.leading.trailing.equalToSuperview()
+      $0.height.equalTo(92)
     }
+    
+//    segmentView.add(tabIndicator)
+    
+//    tabIndicator.snp.makeConstraints{
+//      $0.bottom.equalToSuperview()
+//      $0.height.equalTo(4)
+//      $0.width.equalTo(108)
+//      $0.leading.greaterThanOrEqualToSuperview().offset(14)
+//    }
     yongyongView.snp.makeConstraints{
       $0.leading.trailing.equalToSuperview()
       $0.top.equalTo(segmentView.snp.bottom)
     }
-    yongyongView.adds([yongyong, yongyongCommentView])
-    yongyongCommentView.add(yongyongCommentLable)
+    
     yongyong.snp.makeConstraints{
       $0.centerY.equalToSuperview()
       $0.top.equalToSuperview().offset(10)
@@ -209,8 +248,7 @@ class MyPageViewController: ViewController {
     }
     collectionView.snp.makeConstraints{
       $0.top.equalTo(yongyongView.snp.bottom)
-      $0.width.equalTo(self.view.frame.width)
-      $0.centerX.equalToSuperview()
+      $0.leading.trailing.bottom.equalToSuperview()
       $0.bottom.equalTo(self.view.safeAreaLayoutGuide)
     }
     if !LoginManager.shared.isLogin {
@@ -247,14 +285,6 @@ class MyPageViewController: ViewController {
       self?.yongyongCommentLable.text = message
     }.disposed(by: disposeBag)
     
-    self.tabBinder.bind(to: collectionView.rx.items(cellIdentifier: MyPageCell.identifier,
-                                                    cellType: MyPageCell.self)){ row, data, cell in
-      self.setTabView(tabIndex: row)
-      cell.viewModel = viewModel
-      cell.type = data
-      cell.bind()
-      
-    }.disposed(by: disposeBag)
     editProfileBtn.rx.tap.bind{[weak self] in
       let vc = EditProfileViewController(viewModel: EditProfileViewModel(), navigator: self?.navigator ?? Navigator())
       vc.hidesBottomBarWhenPushed = true
@@ -299,90 +329,10 @@ extension MyPageViewController {
   func showSetting(sender: UIBarButtonItem) {
     print("세팅으로갑니다.")
   }
-  @objc
-  private func tab1Action(sender : UITapGestureRecognizer) {
-    moveColletionViewNextPage(tabIndex: 0)
-    setTabView(tabIndex: 0)
-  }
-  @objc
-  private func tab2Action(sender : UITapGestureRecognizer) {
-    moveColletionViewNextPage(tabIndex: 1)
-    setTabView(tabIndex: 1)
-  }
-  @objc
-  private func tab3Action(sender : UITapGestureRecognizer) {
-    moveColletionViewNextPage(tabIndex: 2)
-    setTabView(tabIndex: 2)
-    
-  }
-   func setTabView(tabIndex i : Int) {
-    // default, selected
-    
-    let tabImageName: [(String,String)] = [("MyBadge-Inactive","MyBadge-Active"),
-                                           ("MyPost-Inactive","MyPost-Active"),
-                                           ("MyYonggi-Inactive","MyYonggi-Active")]
-    let yongyongImg: [String] = ["yongyong1","yongyong2","yongyong3"]
-    let tabName = ["내 배지", "포스트", "용기 보관함"]
-    for idx in 0..<self.tabView.count {
-      self.tabs[idx].image = UIImage(named: i == idx ? tabImageName[idx].1 : tabImageName[idx].0)
-      self.tabLabel[idx].text = tabName[idx]
-      self.tabLabel[idx].textColor = idx == i ? .black : .white
-      self.tabLabel[idx].font = .sdGhothicNeo(ofSize: 12, weight: .bold)
-    }
-    self.yongyong.image = UIImage(named: yongyongImg[i])
-
-  }
   private func moveColletionViewNextPage(tabIndex:Int) {
-    UIView.animate(withDuration: 0.2) {
-      self.collectionView.contentOffset.x = CGFloat(tabIndex) * CGFloat(UIScreen.main.bounds.width)
-    }
-  }
-  
-}
-extension MyPageViewController : UICollectionViewDelegateFlowLayout {
-  private func setupCollectionView() {
-    let offset = Int((UIScreen.main.bounds.width / 3.0 - 108)/2)
-    let layout = UICollectionViewFlowLayout()
-    layout.scrollDirection = .horizontal
-    layout.minimumLineSpacing = 0
-    layout.itemSize = UICollectionViewFlowLayout.automaticSize
-    layout.estimatedItemSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
-    collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-    collectionView.backgroundColor = .white
-    collectionView.isPagingEnabled = true
-    collectionView.register(MyPageCell.self, forCellWithReuseIdentifier: MyPageCell.identifier)
-    collectionView.showsHorizontalScrollIndicator = false
-    collectionView.showsVerticalScrollIndicator = false
-    collectionView.bounces = false
-    collectionView.isHidden = false
-    collectionView.rx.setDelegate(self)
-      .disposed(by: disposeBag)
-    tabIndicator.frame.size.width = 108
-    tabIndicator.frame.origin.x = CGFloat(offset)
-    collectionView.rx.didScroll
-      .map{[unowned self] in self.collectionView.contentOffset.x}
-      .bind(onNext: { [unowned self] in
-        let itemIndex = Int(($0 / UIScreen.main.bounds.width).rounded())
-        let indicatorWidth = 108
-        UIView.animate(withDuration: 0.2) {
-          setTabView(tabIndex: itemIndex)
-          tabIndicator.frame.origin.x = CGFloat(itemIndex) * (CGFloat(indicatorWidth + offset * 2)) + CGFloat(offset)
-          self.view.layoutIfNeeded()
-        }
-        self.yongyongCommentLable.text = yongCommentList[itemIndex]
-      })
-      .disposed(by: disposeBag)
-  }
-  func collectionView(_ collectionView: UICollectionView,
-                      layout collectionViewLayout: UICollectionViewLayout,
-                      sizeForItemAt indexPath: IndexPath) -> CGSize {
-    let width = collectionView.frame.width
-    let height = collectionView.frame.height
-    return CGSize(width: width, height: height)
-  }
-  @objc
-  private func login(sender : UITapGestureRecognizer) {
-    self.loginTrigger.onNext(())
+//    UIView.animate(withDuration: 0.2) {
+//      self.collectionView.contentOffset.x = CGFloat(tabIndex) * CGFloat(UIScreen.main.bounds.width)
+//    }
   }
   private func checkLogin() {
     if !LoginManager.shared.isLogin {
@@ -392,9 +342,85 @@ extension MyPageViewController : UICollectionViewDelegateFlowLayout {
     }
   }
 }
-enum TabType : Int{
-  case badge = 0
-  case feed = 1
-  case history = 2
+
+extension MyPageViewController: UICollectionViewDataSource {
+  func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    return TabType.allCases.count
+  }
+  func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MyPageSegmentCell.identifier, for: indexPath) as? MyPageSegmentCell else { return .init() }
+    let tab = TabType.allCases[indexPath.item]
+    let title = tab.title
+    if indexPath.item == self.selectedTabIndex {
+      let image = tab.selectedImage
+      let textColor: UIColor = .black
+      cell.viewModel = .init(image: image, title: title, textColor: textColor)
+    } else {
+      let image = tab.image
+      let textColor: UIColor = .white
+      cell.viewModel = .init(image: image, title: title, textColor: textColor)
+    }
+    
+    return cell
+  }
 }
+
+extension MyPageViewController: UICollectionViewDelegate {
+  func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    if collectionView == self.segmentView {
+      self.selectedTabIndex = indexPath.item
+      collectionView.reloadData()
+    }
+  }
+}
+
+//extension MyPageViewController : UICollectionViewDelegateFlowLayout {
+//  private func setupCollectionView() {
+//    let offset = Int((UIScreen.main.bounds.width / 3.0 - 108)/2)
+//    let layout = UICollectionViewFlowLayout()
+//    layout.scrollDirection = .horizontal
+//    layout.minimumLineSpacing = 0
+//    layout.itemSize = UICollectionViewFlowLayout.automaticSize
+//    layout.estimatedItemSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+//    collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+//    collectionView.backgroundColor = .white
+//    collectionView.isPagingEnabled = true
+//    collectionView.register(MyPageCell.self, forCellWithReuseIdentifier: MyPageCell.identifier)
+//    collectionView.showsHorizontalScrollIndicator = false
+//    collectionView.showsVerticalScrollIndicator = false
+//    collectionView.bounces = false
+//    collectionView.isHidden = false
+//    collectionView.delegate = nil
+//    collectionView.rx.setDelegate(self)
+//      .disposed(by: disposeBag)
+//    tabIndicator.frame.size.width = 108
+//    tabIndicator.frame.origin.x = CGFloat(offset)
+//    collectionView.rx.didScroll
+//      .map{[unowned self] in self.collectionView.contentOffset.x}
+//      .bind(onNext: { [unowned self] in
+//        let itemIndex = Int(($0 / UIScreen.main.bounds.width).rounded())
+//        let indicatorWidth = 108
+//        UIView.animate(withDuration: 0.2) {
+//          self.segmentView.selectItem(at: IndexPath(item: itemIndex, section: 0), animated: false, scrollPosition: .centeredHorizontally)
+//          tabIndicator.frame.origin.x = CGFloat(itemIndex) * (CGFloat(indicatorWidth + offset * 2)) + CGFloat(offset)
+//          self.view.layoutIfNeeded()
+//        }
+//        self.yongyongCommentLable.text = yongCommentList[itemIndex]
+//      })
+//      .disposed(by: disposeBag)
+//  }
+//  func collectionView(_ collectionView: UICollectionView,
+//                      layout collectionViewLayout: UICollectionViewLayout,
+//                      sizeForItemAt indexPath: IndexPath) -> CGSize {
+//    let width = collectionView.frame.width
+//    let height = collectionView.frame.height
+//    return CGSize(width: width, height: height)
+//  }
+//  @objc
+//  private func login(sender : UITapGestureRecognizer) {
+//    self.loginTrigger.onNext(())
+//  }
+  
+//}
+
 

@@ -20,8 +20,8 @@ class MyPackageCollectionViewCell: UICollectionViewCell {
     $0.collectionViewLayout = flowlayout
     $0.backgroundColor = .white
     $0.showsHorizontalScrollIndicator = false
-    $0.delegate = self
-    $0.dataSource = self
+//    $0.delegate = self
+//    $0.dataSource = self
     $0.selectItem(at: IndexPath(row: 0, section: 0), animated: false, scrollPosition: .left)
   }
   let disposeBag = DisposeBag()
@@ -49,6 +49,7 @@ extension MyPackageCollectionViewCell: UITableViewDelegate {
                        forCellReuseIdentifier: MyPackageTableViewCell.identifier)
     tableView.register(ContainerListHeaderView.self,
                        forHeaderFooterViewReuseIdentifier: ContainerListHeaderView.reuseIdentifier)
+    tableView.delegate = nil
     tableView.rx.setDelegate(self)
       .disposed(by: disposeBag)
   }

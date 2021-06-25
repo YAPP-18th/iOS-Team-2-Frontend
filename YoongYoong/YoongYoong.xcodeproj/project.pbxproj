@@ -56,6 +56,7 @@
 		AA1446992685B2C300A149EE /* FindPasswordCodeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1446982685B2C300A149EE /* FindPasswordCodeViewModel.swift */; };
 		AA14469C2685BC9400A149EE /* KakaoLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA14469B2685BC9400A149EE /* KakaoLoginViewController.swift */; };
 		AA14469E2685BDE000A149EE /* KakaoLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA14469D2685BDE000A149EE /* KakaoLoginViewModel.swift */; };
+		AA1446A026863C0F00A149EE /* MyPageSegmentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA14469F26863C0F00A149EE /* MyPageSegmentCell.swift */; };
 		AA344617261B2F240034E1BC /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA344616261B2F240034E1BC /* MapViewController.swift */; };
 		AA53BE55265C0F07004A39E2 /* UserDefault+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA53BE54265C0F07004A39E2 /* UserDefault+Extensions.swift */; };
 		AA53BE5B265C1252004A39E2 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA53BE5A265C1252004A39E2 /* SplashViewController.swift */; };
@@ -286,6 +287,7 @@
 		AA1446982685B2C300A149EE /* FindPasswordCodeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindPasswordCodeViewModel.swift; sourceTree = "<group>"; };
 		AA14469B2685BC9400A149EE /* KakaoLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoLoginViewController.swift; sourceTree = "<group>"; };
 		AA14469D2685BDE000A149EE /* KakaoLoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoLoginViewModel.swift; sourceTree = "<group>"; };
+		AA14469F26863C0F00A149EE /* MyPageSegmentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageSegmentCell.swift; sourceTree = "<group>"; };
 		AA344616261B2F240034E1BC /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		AA53BE54265C0F07004A39E2 /* UserDefault+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefault+Extensions.swift"; sourceTree = "<group>"; };
 		AA53BE5A265C1252004A39E2 /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
@@ -851,6 +853,7 @@
 				AACCAAC826464669005C9FBC /* MyBadgeCollectionViewCell.swift */,
 				AACCAAC926464669005C9FBC /* MyPackageCollectionViewCell.swift */,
 				DACA9647264BAAE400E95165 /* AlertTableViewCell.swift */,
+				AA14469F26863C0F00A149EE /* MyPageSegmentCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -1621,6 +1624,7 @@
 				AACCAD2E264D76F1005C9FBC /* NavigationBar.swift in Sources */,
 				DA5D36E72661E4C500C41C82 /* PostResponse.swift in Sources */,
 				AACCAAD12646466A005C9FBC /* BadgeModel.swift in Sources */,
+				AA1446A026863C0F00A149EE /* MyPageSegmentCell.swift in Sources */,
 				AAC78FF0262A7027009CC84E /* TabBarController.swift in Sources */,
 				AAD023F72642A4D200F1EC2B /* UILabel+Extensions.swift in Sources */,
 				AACCAD6B264F4867005C9FBC /* PasswordField.swift in Sources */,
