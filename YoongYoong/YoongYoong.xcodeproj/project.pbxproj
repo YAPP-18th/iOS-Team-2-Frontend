@@ -50,6 +50,8 @@
 		AA14468A2684655100A149EE /* dangsan.gpx in Resources */ = {isa = PBXBuildFile; fileRef = AA1446892684655100A149EE /* dangsan.gpx */; };
 		AA14468D2684736800A149EE /* MapSearchResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA14468C2684736800A149EE /* MapSearchResultView.swift */; };
 		AA14468F26847B8300A149EE /* MapSearchResultHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA14468E26847B8300A149EE /* MapSearchResultHeaderView.swift */; };
+		AA1446922685937900A149EE /* MapSearchResultViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1446912685937900A149EE /* MapSearchResultViewModel.swift */; };
+		AA1446942685986400A149EE /* MapSearchResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1446932685986400A149EE /* MapSearchResultViewController.swift */; };
 		AA344617261B2F240034E1BC /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA344616261B2F240034E1BC /* MapViewController.swift */; };
 		AA53BE55265C0F07004A39E2 /* UserDefault+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA53BE54265C0F07004A39E2 /* UserDefault+Extensions.swift */; };
 		AA53BE5B265C1252004A39E2 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA53BE5A265C1252004A39E2 /* SplashViewController.swift */; };
@@ -274,6 +276,8 @@
 		AA1446892684655100A149EE /* dangsan.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = dangsan.gpx; sourceTree = "<group>"; };
 		AA14468C2684736800A149EE /* MapSearchResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapSearchResultView.swift; sourceTree = "<group>"; };
 		AA14468E26847B8300A149EE /* MapSearchResultHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapSearchResultHeaderView.swift; sourceTree = "<group>"; };
+		AA1446912685937900A149EE /* MapSearchResultViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapSearchResultViewModel.swift; sourceTree = "<group>"; };
+		AA1446932685986400A149EE /* MapSearchResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapSearchResultViewController.swift; sourceTree = "<group>"; };
 		AA344616261B2F240034E1BC /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		AA53BE54265C0F07004A39E2 /* UserDefault+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefault+Extensions.swift"; sourceTree = "<group>"; };
 		AA53BE5A265C1252004A39E2 /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
@@ -648,6 +652,15 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		AA1446902685935A00A149EE /* MapSearchResult */ = {
+			isa = PBXGroup;
+			children = (
+				AA1446912685937900A149EE /* MapSearchResultViewModel.swift */,
+				AA1446932685986400A149EE /* MapSearchResultViewController.swift */,
+			);
+			path = MapSearchResult;
+			sourceTree = "<group>";
+		};
 		AA344626261B31590034E1BC /* Application */ = {
 			isa = PBXGroup;
 			children = (
@@ -688,6 +701,7 @@
 		AAC78FE5262A6FAD009CC84E /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				AA1446902685935A00A149EE /* MapSearchResult */,
 				AA144647267DA68700A149EE /* MapSearch */,
 				AAD5DEDF2674407E00138605 /* FindPassword */,
 				AACCAD96264F6DE3005C9FBC /* FeedDetail */,
@@ -1556,6 +1570,7 @@
 				AACCADA0264F6FA3005C9FBC /* FeedDetailMessageTableViewCell.swift in Sources */,
 				AACCADAA264F7586005C9FBC /* FeedDetailMessageSection.swift in Sources */,
 				DA5D371F2662549B00C41C82 /* Date+Extensions.swift in Sources */,
+				AA1446922685937900A149EE /* MapSearchResultViewModel.swift in Sources */,
 				7E3710CF264124C10054B744 /* SelectContainerViewController.swift in Sources */,
 				AAD024122642A4FB00F1EC2B /* FeedProfileViewModel.swift in Sources */,
 				AAD0243A2643C13C00F1EC2B /* TipSection.swift in Sources */,
@@ -1616,6 +1631,7 @@
 				AACCAADB2646466A005C9FBC /* MyPackageCollectionViewCell.swift in Sources */,
 				AAD024152642A4FB00F1EC2B /* ProfilePostCollectionViewCellViewModel.swift in Sources */,
 				AAD0240F2642A4FB00F1EC2B /* FeedViewController.swift in Sources */,
+				AA1446942685986400A149EE /* MapSearchResultViewController.swift in Sources */,
 				AACCAD98264F6DEE005C9FBC /* FeedDetailViewController.swift in Sources */,
 				DA1284D12658956300764A2D /* AuthResponse.swift in Sources */,
 				DA579E7A2658B76B00E724A4 /* PostRouter.swift in Sources */,

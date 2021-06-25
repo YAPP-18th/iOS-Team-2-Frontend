@@ -16,6 +16,7 @@ class MapSearchViewModel: ViewModel, ViewModelType {
     let removeSearchHistoryItem: PublishSubject<Int>
     let removeAllButtonDidTap: Observable<Void>
     let searchHistoryItemDidTap: Observable<IndexPath>
+    let searchResultItemDidTap: Observable<IndexPath>
   }
   
   struct Output {
@@ -23,7 +24,7 @@ class MapSearchViewModel: ViewModel, ViewModelType {
     var searchResult: Observable<[Place]>
     var searchError: Observable<String>
     var searchHistorySelected: PublishSubject<String>
-    
+    var searchResultView: PublishRelay<MapSearchResultViewModel>
   }
   
   let searchHistorySelected = PublishSubject<String>()
@@ -62,19 +63,28 @@ class MapSearchViewModel: ViewModel, ViewModelType {
     }.subscribe(onNext: { result in
       switch result {
       case .success(let places):
+        self.searchResult.onNext(places)
         self.searchSuccess.onNext(places)
       case .failure(_):
         self.searchError.onNext("검색 결과를 불러올 수 없음.")
       }
     }).disposed(by: disposeBag)
     
-    
+    let mapSearchResultViewModel = PublishRelay<MapSearchResultViewModel>()
+    Observable.combineLatest(searchResult, input.searchResultItemDidTap)
+      .sample(input.searchResultItemDidTap)
+      .map { places, indexPath -> MapSearchResultViewModel in
+        let viewModel = MapSearchResultViewModel(place: places[indexPath.row])
+        return viewModel
+      }.bind(to: mapSearchResultViewModel)
+      .disposed(by: disposeBag)
     
     return .init(
       searchHistory: searchHistory,
       searchResult: searchSuccess,
       searchError: searchError,
-      searchHistorySelected: searchHistorySelected
+      searchHistorySelected: searchHistorySelected,
+      searchResultView: mapSearchResultViewModel
     )
   }
 }

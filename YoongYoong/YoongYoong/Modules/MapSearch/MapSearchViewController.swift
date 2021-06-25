@@ -49,7 +49,8 @@ class MapSearchViewController: ViewController {
       searchButtonDidTap: searchText,
       removeSearchHistoryItem: PublishSubject<Int>(),
       removeAllButtonDidTap: searchHistoryView.removeAllButton.rx.tap.asObservable(),
-      searchHistoryItemDidTap: searchHistoryView.tableView.rx.itemSelected.asObservable()
+      searchHistoryItemDidTap: searchHistoryView.tableView.rx.itemSelected.asObservable(),
+      searchResultItemDidTap: searchResultView.tableView.rx.itemSelected.asObservable()
     )
     let output = viewModel.transform(input: input)
     
@@ -84,6 +85,12 @@ class MapSearchViewController: ViewController {
       .map { $0.isEmpty }
       .subscribe(onNext: { [weak self] in
         self?.searchResultView.tableViewIsEmpty($0)
+      }).disposed(by: disposeBag)
+    
+    output.searchResultView
+      .observeOn(MainScheduler.instance)
+      .subscribe(onNext: { viewModel in
+        self.navigator.show(segue: .mapSearchResult(viewModel: viewModel), sender: self, transition: .navigation())
       }).disposed(by: disposeBag)
     
     self.navView.backButton.rx.tap.subscribe(onNext: {

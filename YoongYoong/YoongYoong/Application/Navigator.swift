@@ -27,6 +27,7 @@ class Navigator {
     case registrationProfile(viewModel: RegistrationProfileViewModel)
     case map(viewModel: MapViewModel)
     case mapSearch(viewModel: MapSearchViewModel)
+    case mapSearchResult(viewModel: MapSearchResultViewModel)
     case tip(viewModel: TipViewModel)
     case feedProfile(viewModel: FeedProfileViewModel)
     case feedDetail(viewModel: FeedDetailViewModel)
@@ -93,6 +94,9 @@ class Navigator {
     case let .mapSearch(viewModel):
       let mapSearchVC = MapSearchViewController(viewModel: viewModel, navigator: self)
       return mapSearchVC
+    case let .mapSearchResult(viewModel):
+      let mapSearchResultVC = MapSearchResultViewController(viewModel: viewModel, navigator: self)
+      return mapSearchResultVC
     case.tip(let viewModel):
       let tipVC = TipViewController(viewModel: viewModel, navigator: self)
       return tipVC
