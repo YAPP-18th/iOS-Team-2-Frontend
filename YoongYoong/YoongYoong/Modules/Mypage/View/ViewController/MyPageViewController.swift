@@ -92,7 +92,31 @@ class MyPageViewController: ViewController {
     $0.backgroundColor = UIColor.brandColorTertiary01.withAlphaComponent(0.5)
     $0.register(MyPageSegmentCell.self, forCellWithReuseIdentifier: MyPageSegmentCell.identifier)
   }
-  private var collectionView = UIView()
+  private lazy var collectionViewContainer = ScrollStackView().then {
+    $0.stackView.axis = .horizontal
+    $0.stackView.distribution = .fillEqually
+    $0.stackView.alignment = .fill
+    $0.containerView.snp.remakeConstraints {
+      $0.leading.trailing.top.bottom.height.equalToSuperview()
+      $0.width.equalTo(UIScreen.main.bounds.width * 3)
+    }
+    $0.isPagingEnabled = true
+    $0.showsHorizontalScrollIndicator = false
+    $0.showsVerticalScrollIndicator = false
+  }
+  
+  private let badgeCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout()).then {
+    $0.backgroundColor = .red
+  }
+  
+  private let postCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout()).then {
+    $0.backgroundColor = .green
+  }
+  
+  private let yonggiCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout()).then {
+    $0.backgroundColor = .blue
+  }
+  
   
   private let leftButtonItem = UIBarButtonItem(
     image: UIImage(named: "Bellstroked"),
@@ -133,8 +157,6 @@ class MyPageViewController: ViewController {
   private let jumpTrigger = PublishSubject<Void>()
   private let loginTrigger = PublishSubject<Void>()
   override func viewDidLoad() {
-//    setupCollectionView()
-    
     super.viewDidLoad()
     setupNavigationBar(.white)
     self.navigationItem.leftBarButtonItem = leftButtonItem
@@ -155,8 +177,12 @@ class MyPageViewController: ViewController {
   override func setupView() {
     self.view.addSubview(scrollView)
     scrollView.addArrangedSubview(containerView)
-    [profileView, segmentView, yongyongView, collectionView].forEach {
+    [profileView, segmentView, yongyongView, collectionViewContainer].forEach {
       containerView.addSubview($0)
+    }
+    
+    [badgeCollectionView, postCollectionView, yonggiCollectionView].forEach {
+      collectionViewContainer.addArrangedSubview($0)
     }
     
     [userProfile, userName, comments, editProfileBtn].forEach {
@@ -212,7 +238,7 @@ class MyPageViewController: ViewController {
       $0.leading.trailing.equalToSuperview()
       $0.height.equalTo(60)
     }
-    collectionView.snp.makeConstraints{
+    collectionViewContainer.snp.makeConstraints{
       $0.top.equalTo(yongyongView.snp.bottom)
       $0.leading.trailing.bottom.equalToSuperview()
       $0.bottom.equalTo(self.view.safeAreaLayoutGuide)
@@ -335,54 +361,3 @@ extension MyPageViewController: UICollectionViewDelegate {
     }
   }
 }
-
-//extension MyPageViewController : UICollectionViewDelegateFlowLayout {
-//  private func setupCollectionView() {
-//    let offset = Int((UIScreen.main.bounds.width / 3.0 - 108)/2)
-//    let layout = UICollectionViewFlowLayout()
-//    layout.scrollDirection = .horizontal
-//    layout.minimumLineSpacing = 0
-//    layout.itemSize = UICollectionViewFlowLayout.automaticSize
-//    layout.estimatedItemSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
-//    collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-//    collectionView.backgroundColor = .white
-//    collectionView.isPagingEnabled = true
-//    collectionView.register(MyPageCell.self, forCellWithReuseIdentifier: MyPageCell.identifier)
-//    collectionView.showsHorizontalScrollIndicator = false
-//    collectionView.showsVerticalScrollIndicator = false
-//    collectionView.bounces = false
-//    collectionView.isHidden = false
-//    collectionView.delegate = nil
-//    collectionView.rx.setDelegate(self)
-//      .disposed(by: disposeBag)
-//    tabIndicator.frame.size.width = 108
-//    tabIndicator.frame.origin.x = CGFloat(offset)
-//    collectionView.rx.didScroll
-//      .map{[unowned self] in self.collectionView.contentOffset.x}
-//      .bind(onNext: { [unowned self] in
-//        let itemIndex = Int(($0 / UIScreen.main.bounds.width).rounded())
-//        let indicatorWidth = 108
-//        UIView.animate(withDuration: 0.2) {
-//          self.segmentView.selectItem(at: IndexPath(item: itemIndex, section: 0), animated: false, scrollPosition: .centeredHorizontally)
-//          tabIndicator.frame.origin.x = CGFloat(itemIndex) * (CGFloat(indicatorWidth + offset * 2)) + CGFloat(offset)
-//          self.view.layoutIfNeeded()
-//        }
-//        self.yongyongCommentLable.text = yongCommentList[itemIndex]
-//      })
-//      .disposed(by: disposeBag)
-//  }
-//  func collectionView(_ collectionView: UICollectionView,
-//                      layout collectionViewLayout: UICollectionViewLayout,
-//                      sizeForItemAt indexPath: IndexPath) -> CGSize {
-//    let width = collectionView.frame.width
-//    let height = collectionView.frame.height
-//    return CGSize(width: width, height: height)
-//  }
-//  @objc
-//  private func login(sender : UITapGestureRecognizer) {
-//    self.loginTrigger.onNext(())
-//  }
-  
-//}
-
-
