@@ -19,7 +19,7 @@ class MapSearchResultViewModel: ViewModel, ViewModelType {
   }
   
   struct Output {
-    
+    let storeInfo: BehaviorRelay<Place>
   }
   
   init(place: Place) {
@@ -27,7 +27,10 @@ class MapSearchResultViewModel: ViewModel, ViewModelType {
   }
   
   func transform(input: Input) -> Output {
-    return .init()
+    let storeInfo = BehaviorRelay<Place>(value: self.place)
+    return .init(
+      storeInfo: storeInfo
+    )
   }
 }
   
