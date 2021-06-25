@@ -110,25 +110,7 @@ class MyPageViewController: ViewController {
   ).then{
     $0.tintColor = .black
   }
-  private let yongyongView = UIView()
-    .then{
-      $0.backgroundColor = .brandColorGreen02
-    }
-  private let yongyong = UIImageView().then{
-    $0.image = UIImage(named: "yongyong1")
-    $0.backgroundColor = .clear
-  }
-  private let yongyongCommentView = UIView().then{
-    $0.backgroundColor = .white
-    $0.layer.borderWidth = 1
-    $0.layer.borderColor = UIColor.brandColorGreen01.cgColor
-    $0.layer.cornerRadius = 16
-  }
-  private let yongyongCommentLable = UILabel().then{
-    $0.textColor = .black
-    $0.font = .sdGhothicNeo(ofSize: 12, weight: .regular)
-    $0.textAlignment = .center
-  }
+  private let yongyongView = MyPageYongYongView()
   var yongCommentList : [String] = ["용기를 내고 배지를 모아보세요",
                                     "지금까지 총 0개의 용기를 냈어요!",
                                     "자주 사용하는 용기를 등록하세요!"]
@@ -138,9 +120,13 @@ class MyPageViewController: ViewController {
     $0.frame.origin.x = CGFloat((UIScreen.main.bounds.width / 3.0 - 108)/2)
   }
   
-  
-  
-  private var selectedTabIndex = 0
+  private var selectedTabIndex = 0 {
+    didSet {
+      let comment = self.yongCommentList[selectedTabIndex]
+      let image = UIImage(named: self.yongyongImg[selectedTabIndex])
+      self.yongyongView.viewModel = .init(image: image, comment: comment)
+    }
+  }
   
   private let tabBinder = BehaviorSubject<[TabType]>(value: [.badge,.feed,.history])
   private let loadTrigger = PublishSubject<Void>()
@@ -176,10 +162,6 @@ class MyPageViewController: ViewController {
     [userProfile, userName, comments, editProfileBtn].forEach {
       profileView.addSubview($0)
     }
-    [yongyong, yongyongCommentView].forEach {
-      yongyongView.addSubview($0)
-    }
-    yongyongCommentView.addSubview(yongyongCommentLable)
   }
   
   override func setupLayout() {
@@ -226,25 +208,9 @@ class MyPageViewController: ViewController {
 //      $0.leading.greaterThanOrEqualToSuperview().offset(14)
 //    }
     yongyongView.snp.makeConstraints{
-      $0.leading.trailing.equalToSuperview()
       $0.top.equalTo(segmentView.snp.bottom)
-    }
-    
-    yongyong.snp.makeConstraints{
-      $0.centerY.equalToSuperview()
-      $0.top.equalToSuperview().offset(10)
-      $0.leading.equalToSuperview().offset(15)
-      $0.height.equalTo(40)
-      $0.width.equalTo(23)
-    }
-    yongyongCommentView.snp.makeConstraints{
-      $0.centerY.equalToSuperview()
-      $0.leading.equalTo(yongyong.snp.trailing).offset(19)
-      $0.top.equalToSuperview().offset(14)
-    }
-    yongyongCommentLable.snp.makeConstraints{
-      $0.centerX.centerY.equalToSuperview()
-      $0.leading.equalToSuperview().offset(8)
+      $0.leading.trailing.equalToSuperview()
+      $0.height.equalTo(60)
     }
     collectionView.snp.makeConstraints{
       $0.top.equalTo(yongyongView.snp.bottom)
@@ -268,7 +234,6 @@ class MyPageViewController: ViewController {
     guard let viewModel = viewModel as? MypageViewModel else { return }
     let input = MypageViewModel.Input(loadView: loadTrigger, containerSelect: .empty() )
     let profile = viewModel.getProfile(inputs: input)
-    let message = viewModel.yongyongMessage(inputs: input)
     let login = viewModel.logIn(inputs: loginTrigger)
     profile.drive{ [weak self] model in
       guard let self = self else{return}
@@ -280,9 +245,6 @@ class MyPageViewController: ViewController {
       }
       self.userName.text = model.name
       self.comments.text = model.message
-    }.disposed(by: disposeBag)
-    message.drive{ [weak self] message in
-      self?.yongyongCommentLable.text = message
     }.disposed(by: disposeBag)
     
     editProfileBtn.rx.tap.bind{[weak self] in
