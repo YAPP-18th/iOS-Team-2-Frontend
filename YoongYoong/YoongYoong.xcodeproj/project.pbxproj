@@ -54,6 +54,8 @@
 		AA1446942685986400A149EE /* MapSearchResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1446932685986400A149EE /* MapSearchResultViewController.swift */; };
 		AA1446972685B25900A149EE /* FindPasswordCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1446962685B25900A149EE /* FindPasswordCodeViewController.swift */; };
 		AA1446992685B2C300A149EE /* FindPasswordCodeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1446982685B2C300A149EE /* FindPasswordCodeViewModel.swift */; };
+		AA14469C2685BC9400A149EE /* KakaoLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA14469B2685BC9400A149EE /* KakaoLoginViewController.swift */; };
+		AA14469E2685BDE000A149EE /* KakaoLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA14469D2685BDE000A149EE /* KakaoLoginViewModel.swift */; };
 		AA344617261B2F240034E1BC /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA344616261B2F240034E1BC /* MapViewController.swift */; };
 		AA53BE55265C0F07004A39E2 /* UserDefault+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA53BE54265C0F07004A39E2 /* UserDefault+Extensions.swift */; };
 		AA53BE5B265C1252004A39E2 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA53BE5A265C1252004A39E2 /* SplashViewController.swift */; };
@@ -282,6 +284,8 @@
 		AA1446932685986400A149EE /* MapSearchResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapSearchResultViewController.swift; sourceTree = "<group>"; };
 		AA1446962685B25900A149EE /* FindPasswordCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindPasswordCodeViewController.swift; sourceTree = "<group>"; };
 		AA1446982685B2C300A149EE /* FindPasswordCodeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindPasswordCodeViewModel.swift; sourceTree = "<group>"; };
+		AA14469B2685BC9400A149EE /* KakaoLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoLoginViewController.swift; sourceTree = "<group>"; };
+		AA14469D2685BDE000A149EE /* KakaoLoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoLoginViewModel.swift; sourceTree = "<group>"; };
 		AA344616261B2F240034E1BC /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		AA53BE54265C0F07004A39E2 /* UserDefault+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefault+Extensions.swift"; sourceTree = "<group>"; };
 		AA53BE5A265C1252004A39E2 /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
@@ -674,6 +678,15 @@
 			path = FindPasswordCode;
 			sourceTree = "<group>";
 		};
+		AA14469A2685BC8400A149EE /* KakaoLogin */ = {
+			isa = PBXGroup;
+			children = (
+				AA14469B2685BC9400A149EE /* KakaoLoginViewController.swift */,
+				AA14469D2685BDE000A149EE /* KakaoLoginViewModel.swift */,
+			);
+			path = KakaoLogin;
+			sourceTree = "<group>";
+		};
 		AA344626261B31590034E1BC /* Application */ = {
 			isa = PBXGroup;
 			children = (
@@ -714,6 +727,7 @@
 		AAC78FE5262A6FAD009CC84E /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				AA14469A2685BC8400A149EE /* KakaoLogin */,
 				AA1446952685B24B00A149EE /* FindPasswordCode */,
 				AA1446902685935A00A149EE /* MapSearchResult */,
 				AA144647267DA68700A149EE /* MapSearch */,
@@ -1613,6 +1627,7 @@
 				AACCAD5E264F455D005C9FBC /* RegistrationEmailViewController.swift in Sources */,
 				7ED49A35264E480900E1F518 /* ContainerListModel.swift in Sources */,
 				7E608C07262E8E1A008708F7 /* PostSearchViewModel.swift in Sources */,
+				AA14469E2685BDE000A149EE /* KakaoLoginViewModel.swift in Sources */,
 				AACCAAD02646466A005C9FBC /* PackageSimpleModel.swift in Sources */,
 				7EF2DC69263077610002E1E3 /* PostMapViewModel.swift in Sources */,
 				DABDB0F0264F72CE00653739 /* UITextView + Extensions.swift in Sources */,
@@ -1671,6 +1686,7 @@
 				AACCAADC2646466A005C9FBC /* EditProfileViewController.swift in Sources */,
 				AACCAA9A264628EB005C9FBC /* TipDetailSecondListView.swift in Sources */,
 				AACCAAA426463A76005C9FBC /* TipDetailThirdListView.swift in Sources */,
+				AA14469C2685BC9400A149EE /* KakaoLoginViewController.swift in Sources */,
 				AAD024212642A56600F1EC2B /* TitleContentItem.swift in Sources */,
 				DA5D370D26621AC800C41C82 /* MyPageEmptyView.swift in Sources */,
 				DACA9680264F693300E95165 /* ManageEmailViewController.swift in Sources */,

@@ -10,9 +10,6 @@ import RxSwift
 import RxCocoa
 import Moya
 import AuthenticationServices
-import KakaoSDKCommon
-import KakaoSDKAuth
-import KakaoSDKUser
 
 class LoginViewModel : ViewModel, ViewModelType {
   private let service : AuthorizeServiceType = AuthorizeService(provider: MoyaProvider<AuthRouter>(plugins:[NetworkLoggerPlugin()]))
@@ -22,7 +19,6 @@ class LoginViewModel : ViewModel, ViewModelType {
     let login: Observable<Void>
     let guest: Observable<Void>
     let findPassword: Observable<Void>
-    let kakaoLogin: Observable<Void>
   }
   struct Output {
     let loginResult: Observable<(Bool, LoginResponse?)>
@@ -43,11 +39,6 @@ class LoginViewModel : ViewModel, ViewModelType {
       .flatMap(self!.service.guest)
       .map{ ((200...300).contains($0.statusCode) ,try? $0.map(LoginResponse.self, atKeyPath: "data"))}
     
-    input.kakaoLogin.subscribe(onNext: { _ in
-      guard let self = self else { return }
-      self.kakaoLogin()
-    }).disposed(by: disposeBag)
-    
     let registration = input.registration.asDriver(onErrorJustReturn: ()).map { () -> RegistrationTermsViewModel in
       let viewModel = RegistrationTermsViewModel()
       return viewModel
@@ -64,25 +55,5 @@ class LoginViewModel : ViewModel, ViewModelType {
       registration: registration,
       findPassword: findPassword
     )
-  }
-  
-  private func kakaoLogin() {
-    if UserApi.isKakaoTalkLoginAvailable() {
-      UserApi.shared.loginWithKakaoTalk { token, error in
-        if let error = error {
-          print(error.localizedDescription)
-        } else if let token = token {
-          print(token)
-        }
-      }
-    } else {
-      UserApi.shared.loginWithKakaoAccount { token, error in
-        if let error = error {
-          print(error.localizedDescription)
-        } else if let token = token {
-          print(token)
-        }
-      }
-    }
   }
 }

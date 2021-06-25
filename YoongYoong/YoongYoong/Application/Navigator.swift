@@ -20,6 +20,7 @@ class Navigator {
     case splash(viewModel: SplashViewModel)
     case tabs(viewModel: TabBarViewModel)
     case login(viewModel: LoginViewModel)
+    case kakaoLogin(viewModel: KakaoLoginViewModel)
     case findPassword(viewModel: FindPasswordViewModel)
     case findPasswordCode(viewModel: FindPasswordCodeViewModel)
     case registrationTerms(viewModel: RegistrationTermsViewModel)
@@ -74,6 +75,9 @@ class Navigator {
       let loginVC = LoginViewController(viewModel: viewModel, navigator: self)
       let nav = NavigationController(rootViewController: loginVC)
       return nav
+    case .kakaoLogin(let viewModel):
+      let kakaoLoginVC = KakaoLoginViewController(viewModel: viewModel, navigator: self)
+      return kakaoLoginVC
     case .findPassword(let viewModel):
       let findPasswordVC = FindPasswordViewController(viewModel: viewModel, navigator: self)
       return findPasswordVC

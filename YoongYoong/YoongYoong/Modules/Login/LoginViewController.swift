@@ -110,8 +110,7 @@ class LoginViewController: ViewController {
       registration: self.registButton.rx.tap.asObservable(),
       login: self.loginButton.rx.tap.asObservable(),
       guest: self.skipLoginButton.rx.tap.asObservable(),
-      findPassword: self.findPasswordButton.rx.tap.asObservable(),
-      kakaoLogin: self.signInWithKakaoButton.rx.tap.asObservable()
+      findPassword: self.findPasswordButton.rx.tap.asObservable()
     )
     
     let output = viewModel.transform(input: input)
@@ -151,6 +150,10 @@ class LoginViewController: ViewController {
     
     output.findPassword.drive(onNext: { viewModel in
       self.navigator.show(segue: .findPassword(viewModel: viewModel), sender: self, transition: .navigation(.right))
+    }).disposed(by: disposeBag)
+    
+    signInWithKakaoButton.rx.tap.subscribe(onNext: { _ in
+      self.navigator.show(segue: .kakaoLogin(viewModel: KakaoLoginViewModel()), sender: self, transition: .modalFullScreen)
     }).disposed(by: disposeBag)
   }
   override func configuration() {

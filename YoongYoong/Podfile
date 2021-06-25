@@ -19,11 +19,7 @@ target 'YoongYoong' do
     pod 'NMapsMap','3.10.0'
   # Network
     pod 'Moya/RxSwift', '~> 14.0'
-  # Kakao SDK
-  pod 'KakaoSDKCommon'
-  pod 'KakaoSDKAuth'
-  pod 'KakaoSDKUser'
-  
+    
   target 'YoongYoongTests' do
     inherit! :search_paths
     # Pods for testing

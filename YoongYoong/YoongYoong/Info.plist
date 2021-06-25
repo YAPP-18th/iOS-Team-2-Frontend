@@ -33,11 +33,6 @@
 	<false/>
 	<key>KAKAO_API_KEY</key>
 	<string>$(KAKAO_REST_API_KEY)</string>
-	<key>LSApplicationQueriesSchemes</key>
-	<array>
-		<string>kakaokompathauth</string>
-		<string>kakao0e426a464c126b8e2e44b159eb345e21</string>
-	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NMFClientId</key>
