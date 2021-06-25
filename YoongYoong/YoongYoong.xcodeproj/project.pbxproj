@@ -52,6 +52,8 @@
 		AA14468F26847B8300A149EE /* MapSearchResultHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA14468E26847B8300A149EE /* MapSearchResultHeaderView.swift */; };
 		AA1446922685937900A149EE /* MapSearchResultViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1446912685937900A149EE /* MapSearchResultViewModel.swift */; };
 		AA1446942685986400A149EE /* MapSearchResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1446932685986400A149EE /* MapSearchResultViewController.swift */; };
+		AA1446972685B25900A149EE /* FindPasswordCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1446962685B25900A149EE /* FindPasswordCodeViewController.swift */; };
+		AA1446992685B2C300A149EE /* FindPasswordCodeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1446982685B2C300A149EE /* FindPasswordCodeViewModel.swift */; };
 		AA344617261B2F240034E1BC /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA344616261B2F240034E1BC /* MapViewController.swift */; };
 		AA53BE55265C0F07004A39E2 /* UserDefault+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA53BE54265C0F07004A39E2 /* UserDefault+Extensions.swift */; };
 		AA53BE5B265C1252004A39E2 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA53BE5A265C1252004A39E2 /* SplashViewController.swift */; };
@@ -278,6 +280,8 @@
 		AA14468E26847B8300A149EE /* MapSearchResultHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapSearchResultHeaderView.swift; sourceTree = "<group>"; };
 		AA1446912685937900A149EE /* MapSearchResultViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapSearchResultViewModel.swift; sourceTree = "<group>"; };
 		AA1446932685986400A149EE /* MapSearchResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapSearchResultViewController.swift; sourceTree = "<group>"; };
+		AA1446962685B25900A149EE /* FindPasswordCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindPasswordCodeViewController.swift; sourceTree = "<group>"; };
+		AA1446982685B2C300A149EE /* FindPasswordCodeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindPasswordCodeViewModel.swift; sourceTree = "<group>"; };
 		AA344616261B2F240034E1BC /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		AA53BE54265C0F07004A39E2 /* UserDefault+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefault+Extensions.swift"; sourceTree = "<group>"; };
 		AA53BE5A265C1252004A39E2 /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
@@ -661,6 +665,15 @@
 			path = MapSearchResult;
 			sourceTree = "<group>";
 		};
+		AA1446952685B24B00A149EE /* FindPasswordCode */ = {
+			isa = PBXGroup;
+			children = (
+				AA1446962685B25900A149EE /* FindPasswordCodeViewController.swift */,
+				AA1446982685B2C300A149EE /* FindPasswordCodeViewModel.swift */,
+			);
+			path = FindPasswordCode;
+			sourceTree = "<group>";
+		};
 		AA344626261B31590034E1BC /* Application */ = {
 			isa = PBXGroup;
 			children = (
@@ -701,6 +714,7 @@
 		AAC78FE5262A6FAD009CC84E /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				AA1446952685B24B00A149EE /* FindPasswordCode */,
 				AA1446902685935A00A149EE /* MapSearchResult */,
 				AA144647267DA68700A149EE /* MapSearch */,
 				AAD5DEDF2674407E00138605 /* FindPassword */,
@@ -1633,6 +1647,7 @@
 				AAD0240F2642A4FB00F1EC2B /* FeedViewController.swift in Sources */,
 				AA1446942685986400A149EE /* MapSearchResultViewController.swift in Sources */,
 				AACCAD98264F6DEE005C9FBC /* FeedDetailViewController.swift in Sources */,
+				AA1446972685B25900A149EE /* FindPasswordCodeViewController.swift in Sources */,
 				DA1284D12658956300764A2D /* AuthResponse.swift in Sources */,
 				DA579E7A2658B76B00E724A4 /* PostRouter.swift in Sources */,
 				AACCAAD82646466A005C9FBC /* MyPostTableViewCell.swift in Sources */,
@@ -1667,6 +1682,7 @@
 				7E9F7B8726281D8B00051D03 /* PostSearchResultItemCell.swift in Sources */,
 				7E5D68AA2646389B0014E23A /* PostNavigationController.swift in Sources */,
 				7EC9BA002641531D007565C6 /* ContainerListHeaderView.swift in Sources */,
+				AA1446992685B2C300A149EE /* FindPasswordCodeViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
