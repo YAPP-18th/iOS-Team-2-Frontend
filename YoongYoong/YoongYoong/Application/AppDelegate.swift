@@ -7,6 +7,9 @@
 
 import UIKit
 import CoreData
+import KakaoSDKCommon
+import KakaoSDKAuth
+import KakaoSDKUser
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -19,6 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
     // Override point for customization after application launch.
+    KakaoSDKCommon.initSDK(appKey: "0e426a464c126b8e2e44b159eb345e21")
     window = UIWindow(frame: UIScreen.main.bounds)
     window?.makeKeyAndVisible()
     Application.shared.presentInitialScreen(in: window)
@@ -67,6 +71,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
               fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
           }
       }
+  }
+  
+  func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+    if (AuthApi.isKakaoTalkLoginUrl(url)) {
+      return AuthController.handleOpenUrl(url: url)
+    }
+    
+    return false
   }
 
 }
