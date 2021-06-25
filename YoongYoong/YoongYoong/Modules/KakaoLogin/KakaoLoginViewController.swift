@@ -48,7 +48,7 @@ extension KakaoLoginViewController: WKNavigationDelegate {
               AlertAction.shared.showAlertView(title: "로그인되었습니다", grantMessage: "확인", denyMessage: "취소")
               let viewModel = TabBarViewModel()
               self.navigator.show(segue: .tabs(viewModel: viewModel), sender: self, transition: .modalFullScreen)
-              if let token = response.data?.token{
+              if let token = response.data?.accessToken{
                 LoginManager.shared.makeLoginStatus(status: .logined, accessToken: token)
               }
               

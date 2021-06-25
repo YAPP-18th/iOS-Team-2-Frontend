@@ -119,12 +119,12 @@ class LoginViewController: ViewController {
         AlertAction.shared.showAlertView(title: "로그인되었습니다", grantMessage: "확인", denyMessage: "취소")
         let viewModel = TabBarViewModel()
         self?.navigator.show(segue: .tabs(viewModel: viewModel), sender: self, transition: .modalFullScreen)
-        if let token = response?.token {
+        if let token = response?.accessToken {
           AlertAction.shared.showAlertView(title: "로그인되었습니다", grantMessage: "확인", denyMessage: "취소" , okAction: {
             let viewModel = TabBarViewModel()
             self?.navigator.show(segue: .tabs(viewModel: viewModel), sender: self, transition: .modalFullScreen)
           })
-          if let token = response?.token{
+          if let token = response?.accessToken{
             LoginManager.shared.makeLoginStatus(status: .logined, accessToken: token)
           }
         }
@@ -138,7 +138,7 @@ class LoginViewController: ViewController {
           let viewModel = TabBarViewModel()
           self?.navigator.show(segue: .tabs(viewModel: viewModel), sender: self, transition: .modalFullScreen)
         })
-        if let token = response?.token {
+        if let token = response?.accessToken {
           LoginManager.shared.makeLoginStatus(status: .guest, accessToken: token)
         }
       }.disposed(by: disposeBag)
