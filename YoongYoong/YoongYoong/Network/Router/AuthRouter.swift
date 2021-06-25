@@ -17,6 +17,7 @@ enum AuthRouter {
   case nickNameCheck(param: String)
   case modifyProfiel(param: ModifyProfileParam)
   case findPassword(param: FindPasswordRequest)
+  case findPasswordCode(param: FindPasswordCodeRequest)
 }
 
 
@@ -43,12 +44,14 @@ extension AuthRouter: TargetType {
       return "/user/profile"
     case .findPassword:
       return "/user/password/email"
+    case .findPasswordCode:
+      return "/user/password/email"
     }
   }
   
   var method: Moya.Method {
     switch self {
-    case .register, .login, .guest:
+    case .register, .login, .guest, .findPasswordCode:
       return .post
     case .emailCheck,
          .nickNameCheck,
@@ -85,6 +88,8 @@ extension AuthRouter: TargetType {
       return .requestPlain
     case .findPassword(let param):
       return .requestParameters(parameters: try! param.asParameters(), encoding: URLEncoding.default)
+    case .findPasswordCode(let param):
+      return .requestJSONEncodable(param)
     }
   }
   

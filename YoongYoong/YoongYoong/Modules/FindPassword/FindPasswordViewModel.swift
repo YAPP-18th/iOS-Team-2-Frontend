@@ -56,7 +56,7 @@ class FindPasswordViewModel: ViewModel, ViewModelType {
       } else {
         print("fail")
       }
-    })
+    }).disposed(by: disposeBag)
   }
 }
 

@@ -8,8 +8,16 @@
 import Foundation
 import RxSwift
 import RxCocoa
+import Moya
 
 class FindPasswordCodeViewModel: ViewModel, ViewModelType {
+  private let service : AuthorizeServiceType = AuthorizeService(provider: MoyaProvider<AuthRouter>(plugins:[NetworkLoggerPlugin()]))
+  
+  let email: String
+  
+  init(email: String) {
+    self.email = email
+  }
   struct Input {
     let editingChanged: Observable<String>
     let nextButtonDidTap: Observable<Void>
@@ -29,7 +37,8 @@ class FindPasswordCodeViewModel: ViewModel, ViewModelType {
     
     input.nextButtonDidTap.subscribe(onNext: {
       let code = self.code.value
-      self.checkCode(code)
+      let param = FindPasswordCodeRequest(email: self.email, code: code)
+      self.checkCode(param: param)
     }).disposed(by: disposeBag)
     return .init(
       codeSuccess: self.codeSuccess,
@@ -37,7 +46,13 @@ class FindPasswordCodeViewModel: ViewModel, ViewModelType {
     )
   }
   
-  private func checkCode(_ code: String) {
-    
+  private func checkCode(param: FindPasswordCodeRequest) {
+    self.service.findPasswordCode(param).subscribe(onNext: { result in
+      if result {
+        self.codeSuccess.onNext(())
+      } else {
+        self.codeFail.onNext(())
+      }
+    }).disposed(by: disposeBag)
   }
 }
