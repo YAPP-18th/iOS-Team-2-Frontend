@@ -1,21 +1,18 @@
 {
   "images" : [
     {
-      "filename" : "containerIcon.png",
+      "filename" : "icBadge002.png",
       "idiom" : "universal",
-      "locale" : "YAPP",
       "scale" : "1x"
     },
     {
-      "filename" : "containerIcon@2x.png",
+      "filename" : "icBadge002@2x.png",
       "idiom" : "universal",
-      "locale" : "YAPP",
       "scale" : "2x"
     },
     {
-      "filename" : "containerIcon@3x.png",
+      "filename" : "icBadge002@3x.png",
       "idiom" : "universal",
-      "locale" : "YAPP",
       "scale" : "3x"
     }
   ],

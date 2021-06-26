@@ -9,7 +9,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class MyPostCollectionViewCell: UICollectionViewCell {
+class MyPostView: UIView {
   let disposeBag = DisposeBag()
   private let monthlyInformationView = UIView().then{
     $0.backgroundColor = UIColor.brandColorGreen03
@@ -18,18 +18,23 @@ class MyPostCollectionViewCell: UICollectionViewCell {
     $0.font = .sdGhothicNeo(ofSize: 12, weight: .bold)
     $0.textAlignment = .center
     $0.textColor = .black
+    $0.text = "2021년 6월"
   }
   private let postImage = UIImageView().then {
-    $0.image = UIImage(named: "postIcon")
+    $0.image = UIImage(named: "icMyPostCount")
   }
   private let postCount = UILabel().then{
     $0.font = .sdGhothicNeo(ofSize: 14, weight: .bold)
+    $0.textColor = .brandColorTertiary01
+    $0.text = "0개"
   }
   private let packageImage = UIImageView().then {
-    $0.image = UIImage(named: "containerIcon")
+    $0.image = UIImage(named: "icMyPostContainerCount")
   }
   private let packageCount = UILabel().then{
     $0.font = .sdGhothicNeo(ofSize: 14, weight: .bold)
+    $0.textColor = .brandColorTertiary01
+    $0.text = "0개"
   }
   private let tableView = UITableView().then{
     $0.rowHeight = UITableView.automaticDimension
@@ -41,23 +46,25 @@ class MyPostCollectionViewCell: UICollectionViewCell {
     $0.isScrollEnabled = false
   }
   let nextMonthBtn = UIButton().then{
-    
-    $0.setImage(UIImage(named: ""), for: .normal)
+    $0.setImage(UIImage(named: "icMyPostArrowRightActive"), for: .normal)
+    $0.contentMode = .center
   }
   let lastMonthBtn = UIButton().then{
-    $0.setImage(UIImage(named: ""), for: .normal)
+    $0.setImage(UIImage(named: "icMyPostArrowLeftActive"), for: .normal)
+    $0.contentMode = .center
   }
   private var cellCount = 0
   override init(frame: CGRect) {
     super.init(frame: frame)
-    layout()
+    setupView()
+    setupLayout()
   }
   
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
 }
-extension MyPostCollectionViewCell{
+extension MyPostView {
   func bindCell(model: PostListModel) {
     cellCount = model.postList.count
     let feedSelect = tableView.rx.modelSelected(PostSimpleModel.self).map{$0.feedId}
@@ -81,65 +88,58 @@ extension MyPostCollectionViewCell{
           }
         }
         .disposed(by: disposeBag)
-//    feedSelect.bind{[weak self] id in
-//      let viewModel = FeedDetailViewModel(feedId: id)
-//      if let top = UIApplication.shared.topViewController() as? MyPageViewController {
-//        top.navigator.show(segue: .feedDetail(viewModel: viewModel), sender: top, transition: .navigation())
-//      }
-//    }.disposed(by: disposeBag)
   }
   
 }
-extension MyPostCollectionViewCell {
-  private func layout() {
-    self.contentView.adds([monthlyInformationView,tableView])
-    monthlyInformationView.adds([timeStampLabel,
-                                 postImage,
-                                 postCount,
-                                 packageImage,
-                                 packageCount,
-                                 nextMonthBtn,
-                                 lastMonthBtn])
+extension MyPostView {
+  private func setupView() {
+    [monthlyInformationView,tableView].forEach {
+      self.addSubview($0)
+    }
+    [timeStampLabel, postImage, postCount, packageImage, packageCount, nextMonthBtn, lastMonthBtn].forEach {
+      monthlyInformationView.addSubview($0)
+    }
+    
+  }
+  
+  private func setupLayout() {
     monthlyInformationView.snp.makeConstraints{
-      $0.leading.trailing.top.equalToSuperview()
-      $0.height.equalTo(80)
+      $0.top.leading.trailing.equalToSuperview()
+      $0.height.equalTo(78)
     }
     timeStampLabel.snp.makeConstraints{
       $0.centerX.equalToSuperview()
-      $0.top.equalToSuperview().offset(12)
+      $0.top.equalTo(12)
     }
     nextMonthBtn.snp.makeConstraints{
       $0.centerY.trailing.equalToSuperview()
       $0.width.height.equalTo(40)
-      $0.top.equalToSuperview().offset(20)
     }
     lastMonthBtn.snp.makeConstraints{
       $0.centerY.leading.equalToSuperview()
       $0.width.height.equalTo(40)
-      $0.top.equalToSuperview().offset(20)
     }
     postImage.snp.makeConstraints{
       $0.top.equalTo(timeStampLabel.snp.bottom).offset(11)
-      $0.centerX.equalToSuperview().offset(-87)
       $0.width.height.equalTo(24)
+      $0.trailing.equalTo(postCount.snp.leading).offset(-8)
     }
     postCount.snp.makeConstraints{
       $0.centerY.equalTo(postImage)
-      $0.leading.equalTo(postImage.snp.trailing).offset(4)
+      $0.trailing.equalTo(monthlyInformationView.snp.centerX).offset(-16)
     }
     packageImage.snp.makeConstraints{
       $0.top.equalTo(timeStampLabel.snp.bottom).offset(11)
-      $0.centerX.equalToSuperview().offset(87)
+      $0.leading.equalTo(monthlyInformationView.snp.centerX).offset(16)
       $0.width.height.equalTo(24)
     }
     packageCount.snp.makeConstraints{
-        $0.centerY.equalTo(packageImage)
-        $0.leading.equalTo(packageImage.snp.trailing).offset(4)
+      $0.centerY.equalTo(packageImage)
+      $0.leading.equalTo(packageImage.snp.trailing).offset(8)
     }
     tableView.snp.makeConstraints{
       $0.top.equalTo(monthlyInformationView.snp.bottom)
       $0.leading.trailing.bottom.equalToSuperview()
-      $0.height.equalTo(300)
     }
   }
 }

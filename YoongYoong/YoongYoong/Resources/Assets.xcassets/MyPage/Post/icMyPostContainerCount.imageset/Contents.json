@@ -1,21 +1,18 @@
 {
   "images" : [
     {
-      "filename" : "postIcon.png",
+      "filename" : "icMyPostContainerCount.png",
       "idiom" : "universal",
-      "locale" : "YAPP",
       "scale" : "1x"
     },
     {
-      "filename" : "postIcon@2x.png",
+      "filename" : "icMyPostContainerCount@2x.png",
       "idiom" : "universal",
-      "locale" : "YAPP",
       "scale" : "2x"
     },
     {
-      "filename" : "postIcon@3x.png",
+      "filename" : "icMyPostContainerCount@3x.png",
       "idiom" : "universal",
-      "locale" : "YAPP",
       "scale" : "3x"
     }
   ],

@@ -9,6 +9,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 import Moya
+import RxDataSources
 
 enum TabType: Int, CaseIterable{
   case badge
@@ -105,13 +106,27 @@ class MyPageViewController: ViewController {
     $0.showsVerticalScrollIndicator = false
   }
   
-  private let badgeCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout()).then {
-    $0.backgroundColor = .red
+  let badgeDataSource = RxCollectionViewSectionedReloadDataSource<MyBadgeSection> { _, collectionView, indexPath, item in
+    guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MyBadgeCollectionViewCell.identifier, for: indexPath) as? MyBadgeCollectionViewCell else { return .init() }
+    cell.bindCell(ImagePath: item.imagePath, title: item.title, collected: indexPath.item % 2 == 0)
+    print(#function)
+    return cell
   }
   
-  private let postCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout()).then {
-    $0.backgroundColor = .green
+  private let badgeCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout()).then {
+    $0.backgroundColor = .white
+    $0.register(MyBadgeCollectionViewCell.self, forCellWithReuseIdentifier: MyBadgeCollectionViewCell.identifier)
+    if let layout = $0.collectionViewLayout as? UICollectionViewFlowLayout {
+      let width = UIScreen.main.bounds.width / 3
+      let height: CGFloat = 145
+      layout.scrollDirection = .vertical
+      layout.minimumLineSpacing = 0
+      layout.minimumInteritemSpacing = 0
+      layout.itemSize = .init(width: width, height: height)
+    }
   }
+  
+  private let postCollectionView = MyPostView()
   
   private let yonggiCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout()).then {
     $0.backgroundColor = .blue
@@ -149,6 +164,9 @@ class MyPageViewController: ViewController {
       let comment = self.yongCommentList[selectedTabIndex]
       let image = UIImage(named: self.yongyongImg[selectedTabIndex])
       self.yongyongView.viewModel = .init(image: image, comment: comment)
+      
+      let offset = UIScreen.main.bounds.width * CGFloat(selectedTabIndex)
+      self.collectionViewContainer.setContentOffset(.init(x: offset, y: 0), animated: false)
     }
   }
   
@@ -259,6 +277,7 @@ class MyPageViewController: ViewController {
   override func bindViewModel() {
     guard let viewModel = viewModel as? MypageViewModel else { return }
     let input = MypageViewModel.Input(loadView: loadTrigger, containerSelect: .empty() )
+    let output = viewModel.transform(input: input)
     let profile = viewModel.getProfile(inputs: input)
     let login = viewModel.logIn(inputs: loginTrigger)
     profile.drive{ [weak self] model in
@@ -303,7 +322,7 @@ class MyPageViewController: ViewController {
       }
     }.disposed(by: disposeBag)
     self.loadTrigger.onNext(())
-    
+    output.badgeList.drive(badgeCollectionView.rx.items(dataSource: badgeDataSource)).disposed(by: disposeBag)
   }
   
 }

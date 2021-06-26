@@ -6,12 +6,13 @@
 //
 
 import UIKit
-//import Kingfisher
+
 class MyBadgeCollectionViewCell: UICollectionViewCell {
-  private let badgeImage = UIImageView().then{
-    $0.backgroundColor = .gray
+  private let badgeImage = UIImageView().then {
+    $0.contentMode = .center
   }
-  private let badgeTitle = UILabel().then{
+  
+  private let badgeTitle = UILabel().then {
     $0.textColor = .black
     $0.font = .sdGhothicNeo(ofSize: 12, weight: .regular)
     $0.textAlignment = .center
@@ -20,21 +21,20 @@ class MyBadgeCollectionViewCell: UICollectionViewCell {
 extension MyBadgeCollectionViewCell {
   private func layout() {
     self.contentView.adds([badgeImage, badgeTitle])
-    badgeImage.snp.makeConstraints{
-      $0.leading.trailing.top.equalToSuperview()
-      $0.width.equalTo(UIScreen.main.bounds.width / 3.0 - 20)
-      $0.height.equalTo(badgeImage.snp.width)
+    badgeTitle.snp.makeConstraints {
+      $0.bottom.centerX.equalToSuperview()
+      $0.height.equalTo(32)
     }
-    badgeTitle.snp.makeConstraints{
+    badgeImage.snp.makeConstraints {
+      $0.bottom.equalTo(badgeTitle.snp.top)
       $0.centerX.equalToSuperview()
-      $0.top.equalTo(badgeImage.snp.bottom).offset(8)
     }
   }
   func bindCell(ImagePath : String, title: String, collected: Bool) {
     layout()
     badgeImage.image = UIImage(named: ImagePath)
     badgeTitle.text = title
-    badgeImage.alpha = collected ? 1.0 : 0.5
+    badgeImage.alpha = collected ? 1.0 : 0.3
     badgeTitle.textColor = collected ? .black : .black
   }
 }

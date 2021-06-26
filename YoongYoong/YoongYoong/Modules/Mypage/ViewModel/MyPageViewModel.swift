@@ -22,6 +22,7 @@ class MypageViewModel: ViewModel , ViewModelType {
     let badgeUsecase: Observable<[BadgeModel]>
     let postUsecase: Observable<PostListModel>
     let packageUsecase: Observable<[ContainerSection]>
+    let badgeList: Driver<[MyBadgeSection]>
   }
 }
 extension MypageViewModel {
@@ -33,16 +34,20 @@ extension MypageViewModel {
     weak var weakSelf = self
     let badgeUsecase = input.loadView.map{ _ -> [BadgeModel] in
       if LoginManager.shared.isLogin {
-        return [BadgeModel(badgeId: 0, imagePath: "", title: "관심도 용기", discription: "설명문내용설명문내용설명문내용설명문내용", condition: "관심을가져야합니다"),
-                BadgeModel(badgeId: 1, imagePath: "", title: "관심도 용기", discription: "설명문내용설명문내용설명문내용설명문내용", condition: "관심을가져야합니다"),
-                BadgeModel(badgeId: 2, imagePath: "", title: "관심도 용기", discription: "설명문내용설명문내용설명문내용설명문내용", condition: "관심을가져야합니다"),
-                BadgeModel(badgeId: 3, imagePath: "", title: "관심도 용기", discription: "설명문내용설명문내용설명문내용설명문내용", condition: "관심을가져야합니다"),
-                BadgeModel(badgeId: 4, imagePath: "", title: "관심도 용기", discription: "설명문내용설명문내용설명문내용설명문내용", condition: "관심을가져야합니다"),
-                BadgeModel(badgeId: 5, imagePath: "", title: "관심도 용기", discription: "설명문내용설명문내용설명문내용설명문내용", condition: "관심을가져야합니다"),
-                BadgeModel(badgeId: 6, imagePath: "", title: "관심도 용기", discription: "설명문내용설명문내용설명문내용설명문내용", condition: "관심을가져야합니다"),
-                BadgeModel(badgeId: 7, imagePath: "", title: "관심도 용기", discription: "설명문내용설명문내용설명문내용설명문내용", condition: "관심을가져야합니다"),
-                BadgeModel(badgeId: 8, imagePath: "", title: "관심도 용기", discription: "설명문내용설명문내용설명문내용설명문내용", condition: "관심을가져야합니다"),
-                BadgeModel(badgeId: 9, imagePath: "", title: "관심도 용기", discription: "설명문내용설명문내용설명문내용설명문내용", condition: "관심을가져야합니다")]
+        return [BadgeModel(badgeId: 0, imagePath: "icBadge001", title: "관심도 용기", discription: "설명문내용설명문내용설명문내용설명문내용", condition: "관심을가져야합니다"),
+                BadgeModel(badgeId: 1, imagePath: "icBadge002", title: "관심도 용기", discription: "설명문내용설명문내용설명문내용설명문내용", condition: "관심을가져야합니다"),
+                BadgeModel(badgeId: 2, imagePath: "icBadge003", title: "관심도 용기", discription: "설명문내용설명문내용설명문내용설명문내용", condition: "관심을가져야합니다"),
+                BadgeModel(badgeId: 3, imagePath: "icBadge004", title: "관심도 용기", discription: "설명문내용설명문내용설명문내용설명문내용", condition: "관심을가져야합니다"),
+                BadgeModel(badgeId: 4, imagePath: "icBadge005", title: "관심도 용기", discription: "설명문내용설명문내용설명문내용설명문내용", condition: "관심을가져야합니다"),
+                BadgeModel(badgeId: 5, imagePath: "icBadge006", title: "관심도 용기", discription: "설명문내용설명문내용설명문내용설명문내용", condition: "관심을가져야합니다"),
+                BadgeModel(badgeId: 6, imagePath: "icBadge007", title: "관심도 용기", discription: "설명문내용설명문내용설명문내용설명문내용", condition: "관심을가져야합니다"),
+                BadgeModel(badgeId: 7, imagePath: "icBadge008", title: "관심도 용기", discription: "설명문내용설명문내용설명문내용설명문내용", condition: "관심을가져야합니다"),
+                BadgeModel(badgeId: 8, imagePath: "icBadge009", title: "관심도 용기", discription: "설명문내용설명문내용설명문내용설명문내용", condition: "관심을가져야합니다"),
+                BadgeModel(badgeId: 9, imagePath: "icBadge010", title: "관심도 용기", discription: "설명문내용설명문내용설명문내용설명문내용", condition: "관심을가져야합니다"),
+                BadgeModel(badgeId: 10, imagePath: "icBadge011", title: "관심도 용기", discription: "설명문내용설명문내용설명문내용설명문내용", condition: "관심을가져야합니다"),
+                BadgeModel(badgeId: 11, imagePath: "icBadge012", title: "관심도 용기", discription: "설명문내용설명문내용설명문내용설명문내용", condition: "관심을가져야합니다"),
+                BadgeModel(badgeId: 12, imagePath: "icBadge013", title: "관심도 용기", discription: "설명문내용설명문내용설명문내용설명문내용", condition: "관심을가져야합니다")
+        ]
       }
       else {
         return []
@@ -103,10 +108,32 @@ extension MypageViewModel {
     let packageUsecase = input.loadView.flatMapLatest{_ -> Observable<[ContainerSection]> in
       self.mutateUsecase(select: input.containerSelect, origin: dummy)
     }
-    return .init(messageIndicator: message,
-                 badgeUsecase: badgeUsecase,
-                 postUsecase: postList,
-                 packageUsecase: packageUsecase)  }
+    
+    let badgeList = Observable.of([BadgeModel(badgeId: 0, imagePath: "icBadge001", title: "관심도 용기", discription: "설명문내용설명문내용설명문내용설명문내용", condition: "관심을가져야합니다"),
+                                   BadgeModel(badgeId: 1, imagePath: "icBadge002", title: "첫 용기", discription: "설명문내용설명문내용설명문내용설명문내용", condition: "관심을가져야합니다"),
+                                   BadgeModel(badgeId: 2, imagePath: "icBadge003", title: "작심삼일 극복!", discription: "설명문내용설명문내용설명문내용설명문내용", condition: "관심을가져야합니다"),
+                                   BadgeModel(badgeId: 3, imagePath: "icBadge004", title: "말 건내는 용기", discription: "설명문내용설명문내용설명문내용설명문내용", condition: "관심을가져야합니다"),
+                                   BadgeModel(badgeId: 4, imagePath: "icBadge005", title: "레스웨이스트", discription: "설명문내용설명문내용설명문내용설명문내용", condition: "관심을가져야합니다"),
+                                   BadgeModel(badgeId: 5, imagePath: "icBadge006", title: "이목집중 용기왕", discription: "설명문내용설명문내용설명문내용설명문내용", condition: "관심을가져야합니다"),
+                                   BadgeModel(badgeId: 6, imagePath: "icBadge007", title: "용기 마당발", discription: "설명문내용설명문내용설명문내용설명문내용", condition: "관심을가져야합니다"),
+                                   BadgeModel(badgeId: 7, imagePath: "icBadge008", title: "세계최고 환경 지킴이", discription: "설명문내용설명문내용설명문내용설명문내용", condition: "관심을가져야합니다"),
+                                   BadgeModel(badgeId: 8, imagePath: "icBadge009", title: "용기 매니아", discription: "설명문내용설명문내용설명문내용설명문내용", condition: "관심을가져야합니다"),
+                                   BadgeModel(badgeId: 9, imagePath: "icBadge010", title: "단골 손님", discription: "설명문내용설명문내용설명문내용설명문내용", condition: "관심을가져야합니다"),
+                                   BadgeModel(badgeId: 10, imagePath: "icBadge011", title: "제로 웨이스트", discription: "설명문내용설명문내용설명문내용설명문내용", condition: "관심을가져야합니다"),
+                                   BadgeModel(badgeId: 11, imagePath: "icBadge012", title: "용기의 달인", discription: "설명문내용설명문내용설명문내용설명문내용", condition: "관심을가져야합니다")
+                           ]).map { list -> [MyBadgeSection] in
+      let section = MyBadgeSection(items: list)
+      return [section]
+    }.asDriver(onErrorJustReturn: [])
+    return .init(
+      messageIndicator: message,
+      badgeUsecase: badgeUsecase,
+      postUsecase: postList,
+      packageUsecase: packageUsecase,
+      badgeList: badgeList
+    )
+    
+  }
   //메인 뷰에 바인딩하는 함수
   func getProfile(inputs: Input) -> Driver<ProfileModel> {
     weak var weakSelf = self
