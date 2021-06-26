@@ -1,0 +1,23 @@
+{
+  "images" : [
+    {
+      "filename" : "icMyPostArrowLeftInctive.png",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "icMyPostArrowLeftInctive@2x.png",
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "filename" : "icMyPostArrowLeftInctive@3x.png",
+      "idiom" : "universal",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

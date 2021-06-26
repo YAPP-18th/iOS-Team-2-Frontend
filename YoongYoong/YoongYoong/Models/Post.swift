@@ -50,8 +50,8 @@ class PostData {
       
     assets.forEach { asset in
       let options = PHImageRequestOptions()
-      options.isNetworkAccessAllowed = true
       options.isSynchronous = true
+      options.isNetworkAccessAllowed = true
       
       PHImageManager.default().requestImage(for: asset, targetSize: CGSize(width: asset.pixelWidth, height: asset.pixelHeight), contentMode: .aspectFit, options: options) { image, _ in
         

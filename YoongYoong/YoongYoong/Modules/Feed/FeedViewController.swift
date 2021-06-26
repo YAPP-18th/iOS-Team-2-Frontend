@@ -21,7 +21,7 @@ class FeedViewController: ViewController {
     $0.register(FeedListTableViewCell.self, forCellReuseIdentifier: "FeedListTableViewCell")
   }
   
-  let dataSource = RxTableViewSectionedReloadDataSource<FeedListSection>(configureCell: { dataSource, tableView, indexPath, item in
+  let dataSource = RxTableViewSectionedAnimatedDataSource<FeedListSection>(configureCell: { dataSource, tableView, indexPath, item in
     let cell = tableView.dequeueReusableCell(withIdentifier: "FeedListTableViewCell", for: indexPath) as! FeedListTableViewCell
     cell.bind(to: item)
     return cell
@@ -35,6 +35,11 @@ class FeedViewController: ViewController {
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     self.navigationController?.setNavigationBarHidden(true, animated: animated)
+  }
+  
+  override func viewWillDisappear(_ animated: Bool) {
+    super.viewWillDisappear(animated)
+    self.navigationController?.setNavigationBarHidden(false, animated: animated)
   }
   
   override func configuration() {

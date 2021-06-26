@@ -19,18 +19,38 @@ class FeedDetailViewModel : ViewModel, ViewModelType {
     super.init()
   }
   struct Input {
+    let addComment: Observable<String>
   }
   
   struct Output {
     let feed: Driver<PostResponse>
     let items: BehaviorRelay<[FeedDetailMessageSection]>
+    let images: Driver<[FeedContentImageSection]>
   }
   
   let feedMessageElements = PublishSubject<[CommentResponse]>()
+  let contentImageURL = BehaviorRelay<[String]>(value: [])
+  let deleteComment = PublishSubject<CommentResponse>()
   
   func transform(input: Input) -> Output {
-    let elements = BehaviorRelay<[FeedDetailMessageSection]>(value: [])
+    input.addComment.subscribe(onNext: { comment in
+      let requestDTO = CommentRequestDTO(content: comment)
+      self.addComment(requestDTO: requestDTO)
+    }).disposed(by: self.disposeBag)
     
+    deleteComment.subscribe(onNext: { comment in
+      self.deleteComment(commentId: comment.commentId)
+    }).disposed(by: self.disposeBag)
+    let elements = BehaviorRelay<[FeedDetailMessageSection]>(value: [])
+    contentImageURL.accept(feed.images)
+    let images = self.contentImageURL.map { list -> [FeedContentImageSection] in
+      var elements: [FeedContentImageSection] = []
+      let cellViewModel = list.map { url -> FeedContentImageSection.Item in
+        FeedContentCollectionViewCellViewModel.init(imageURL: url)
+      }
+      elements.append(FeedContentImageSection(items: cellViewModel))
+      return elements
+    }.asDriver(onErrorJustReturn: [])
     feedMessageElements.map { feedList -> [FeedDetailMessageSection] in
       var elements: [FeedDetailMessageSection] = []
       let cellViewModel = feedList.map { feed -> FeedDetailMessageSection.Item in
@@ -43,8 +63,15 @@ class FeedDetailViewModel : ViewModel, ViewModelType {
     fetchCommentList()
     return .init(
       feed: .just(self.feed),
-      items: elements
+      items: elements,
+      images: images
     )
+  }
+  
+  func addComment(requestDTO: CommentRequestDTO) {
+    self.provider.addCommentRequesst(postId: self.feed.postId, requestDTO: requestDTO).subscribe(onNext: { result in
+      self.fetchCommentList()
+    }).disposed(by: disposeBag)
   }
   
   func fetchCommentList() {
@@ -58,5 +85,12 @@ class FeedDetailViewModel : ViewModel, ViewModelType {
     }, onError: { (error) in
       print(error.localizedDescription)
     }).disposed(by: self.disposeBag)
+  }
+  
+  func deleteComment(commentId: Int) {
+    self.provider.deleteComment(postId: self.feed.postId, commentId: commentId)
+      .subscribe(onNext: { result in
+        self.fetchCommentList()
+      }).disposed(by: disposeBag)
   }
 }

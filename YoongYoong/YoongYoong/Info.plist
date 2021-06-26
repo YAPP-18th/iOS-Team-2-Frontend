@@ -16,16 +16,27 @@
 	<string>$(PRODUCT_BUNDLE_PACKAGE_TYPE)</string>
 	<key>CFBundleShortVersionString</key>
 	<string>$(MARKETING_VERSION)</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>kakao0e426a464c126b8e2e44b159eb345e21</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
+	<key>KAKAO_API_KEY</key>
+	<string>$(KAKAO_REST_API_KEY)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NMFClientId</key>
 	<string>$(NMAP_CLIENT_ID)</string>
-	<key>KAKAO_API_KEY</key>
-	<string>$(KAKAO_REST_API_KEY)</string>
 	<key>NSCameraUsageDescription</key>
 	<string>포스팅을 위한 카메라 사용.</string>
 	<key>NSLocationAlwaysUsageDescription</key>

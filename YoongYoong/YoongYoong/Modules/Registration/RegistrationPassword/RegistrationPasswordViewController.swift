@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 class RegistrationPasswordViewController: ViewController {
   
@@ -60,11 +62,29 @@ class RegistrationPasswordViewController: ViewController {
   override func bindViewModel() {
     super.bindViewModel()
     guard let viewModel = self.viewModel as? RegistrationPasswordViewModel else { return }
+    let password = self.passwordField.textField.rx.text.orEmpty.map { !$0.isEmpty ? $0 : "" }
+    let confirmPassword = self.passwordConfirmField.textField.rx.text.orEmpty.map { !$0.isEmpty ? $0 : "" }
+    let duplicate = Observable.combineLatest(password, confirmPassword)
+    
     let input = RegistrationPasswordViewModel.Input(
-      next: self.nextButton.rx.tap.asObservable()
+      passwordCheck: password.asObservable(),
+      confirmPasswordCheck: duplicate,
+      next: self.nextButton.rx.tap.map { return self.passwordField.textField.text ?? "" }.asObservable()
     )
     
     let output = viewModel.transform(input: input)
+    
+    Observable.combineLatest(
+      output.validPassword.asObservable(),
+      output.matchPassword.asObservable()
+    ).subscribe(onNext: {
+      self.passwordWarningLabel.isHidden = $0
+      self.passwordWarningImageView.isHidden = $0
+      self.passwordConfirmWarningLabel.isHidden = $1
+      self.passwordConfirmWarningImageView.isHidden = $1
+      
+      self.nextButton.isEnabled = $0 && $1
+    }).disposed(by: disposeBag)
     
     output.registrationProfile.drive(onNext: { viewModel in
       self.navigator.show(segue: .registrationProfile(viewModel: viewModel), sender: self, transition: .navigation(.right))
@@ -77,7 +97,7 @@ class RegistrationPasswordViewController: ViewController {
     self.view.backgroundColor = .systemGray00
     self.navigationItem.title = "비밀번호 입력하기"
     self.setupBackButton()
-    nextButton.isEnabled = true
+    nextButton.isEnabled = false
   }
   
   override func setupView() {
@@ -159,6 +179,10 @@ class RegistrationPasswordViewController: ViewController {
       $0.height.equalTo(44)
     }
     
+    passwordWarningImageView.isHidden = true
+    passwordWarningLabel.isHidden = true
+    passwordConfirmWarningImageView.isHidden = true
+    passwordConfirmWarningLabel.isHidden = true
     
   }
 }

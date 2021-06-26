@@ -11,16 +11,20 @@ import RxCocoa
 
 class RegistrationTermsViewModel : ViewModel, ViewModelType {
   struct Input {
-    let next: Observable<Void>
+    let next: Observable<Bool>
   }
   struct Output {
     let registrationEmail: Driver<RegistrationEmailViewModel>
   }
+  
+  var checkedAll = BehaviorRelay<Bool>(value: false)
+  
   func transform(input: Input) -> Output {
-    let registrationEmail = input.next.asDriver(onErrorJustReturn: ()).map { () -> RegistrationEmailViewModel in
-      let viewModel = RegistrationEmailViewModel()
+    let registrationEmail = input.next.asDriver(onErrorJustReturn: false).map { isMarkettingAgree -> RegistrationEmailViewModel in
+      let viewModel = RegistrationEmailViewModel(isMarketingAgree: isMarkettingAgree)
       return viewModel
     }
+    
     return .init(
       registrationEmail: registrationEmail
     )

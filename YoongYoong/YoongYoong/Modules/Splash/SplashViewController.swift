@@ -51,6 +51,10 @@ class SplashViewController: ViewController {
     output.onboard.bind { _ in
       self.navigator.show(segue: .onboarding(viewModel: nil), sender: self, transition: .root(in: self.view.window!))
     }.disposed(by: disposeBag)
+    
+    output.main.bind { viewModel in
+      self.navigator.show(segue: .tabs(viewModel: viewModel), sender: self, transition: .root(in: self.view.window!))
+    }.disposed(by: disposeBag)
   }
   
   override func configuration() {

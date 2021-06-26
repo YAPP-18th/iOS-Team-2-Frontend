@@ -12,12 +12,15 @@ struct FeedListSection {
   var items: [Item]
 }
 
-extension FeedListSection: SectionModelType {
+extension FeedListSection: AnimatableSectionModelType {
   typealias Item = FeedListTableViewCellViewModel
   
   init(original: FeedListSection, items: [FeedListTableViewCellViewModel]) {
     self = original
     self.items = items
+  }
+  var identity: Int {
+    return 0
   }
 }
 

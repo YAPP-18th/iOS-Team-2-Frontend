@@ -11,6 +11,15 @@ class UserDefaultStorage {
   static var accessToken: String? {
     return UserDefaultHelper<String>.value(forKey: .accessToken)
   }
+  
+  static var refreshToken: String? {
+    return UserDefaultHelper<String>.value(forKey: .refreshToken)
+  }
+  
+  static var expiredDate: String? {
+    return UserDefaultHelper<String>.value(forKey: .expiredDate)
+  }
+  
   static var userId: Int? {
     return UserDefaultHelper<Int>.value(forKey: .userId)
   }
@@ -65,6 +74,8 @@ class UserDefaultHelper<T> {
 enum DataKeys: String {
   case loginStatus = "loginStatus"
   case accessToken = "accessToken"
+  case refreshToken = "refreshToken"
+  case expiredDate = "expiredDate"
   case userId = "userId"
   case searchHistory = "searchHistory"
   case container = "container"

@@ -8,8 +8,13 @@
 import Foundation
 import RxSwift
 import RxCocoa
+import RxDataSources
 
-class FeedListTableViewCellViewModel: NSObject {
+class FeedListTableViewCellViewModel: NSObject, IdentifiableType {
+  var identity: PostResponse {
+    return feed
+  }
+  
   let profileImageURL = BehaviorRelay<String?>(value: nil)
   let nickname = BehaviorRelay<String?>(value: nil)
   let storeName = BehaviorRelay<String?>(value: nil)
@@ -18,8 +23,11 @@ class FeedListTableViewCellViewModel: NSObject {
   let containerList = BehaviorRelay<[PostContainerModel]>(value: [])
   let likecount = BehaviorRelay<String>(value: "0")
   let messageCount = BehaviorRelay<String>(value: "0")
+  let likePressed = BehaviorRelay<Bool>(value: false)
   
   let userSelection = PublishSubject<UserInfo>()
+  let likeButtonDidTap = PublishSubject<PostResponse>()
+  let commentButtonDidTap = PublishSubject<PostResponse>()
   
   let feed: PostResponse
   init(with feed: PostResponse) {
@@ -33,6 +41,7 @@ class FeedListTableViewCellViewModel: NSObject {
     containerList.accept(feed.postContainers)
     likecount.accept("\(feed.likeCount)")
     messageCount.accept("\(feed.commentCount)")
+    likePressed.accept(feed.isLikePressed)
   }
 }
 

@@ -9,13 +9,15 @@ import Foundation
 import Moya
 
 enum AuthRouter {
-  case register(param: SignupRequest)
+  case register(param: SignupRequest, image: Data)
   case login(param: LoginRequest)
   case guest
   case emailCheck(param: CheckEmailDuplicateRequest)
   case deleteAccount(id: Int)
   case nickNameCheck(param: String)
   case modifyProfiel(param: ModifyProfileParam)
+  case findPassword(param: FindPasswordRequest)
+  case findPasswordCode(param: FindPasswordCodeRequest)
 }
 
 
@@ -40,15 +42,20 @@ extension AuthRouter: TargetType {
       return "/user/check/nickname"
     case .modifyProfiel:
       return "/user/profile"
+    case .findPassword:
+      return "/user/password/email"
+    case .findPasswordCode:
+      return "/user/password/email"
     }
   }
   
   var method: Moya.Method {
     switch self {
-    case .register, .login, .guest:
+    case .register, .login, .guest, .findPasswordCode:
       return .post
     case .emailCheck,
-         .nickNameCheck:
+         .nickNameCheck,
+         .findPassword:
       return .get
     case .deleteAccount:
       return .delete
@@ -63,8 +70,8 @@ extension AuthRouter: TargetType {
   
   var task: Task {
     switch self {
-    case .register(let param):
-      let multipart = MultipartFormData(provider: .data(Data()), name: "profileImage")
+    case let .register(param, image):
+      let multipart = MultipartFormData(provider: .data(image), name: "profileImage", fileName: "profileImage.png", mimeType: "image/png")
       return .uploadCompositeMultipart([multipart], urlParameters: try! param.asParameters())
     case .login(let param):
       return .requestJSONEncodable(param)
@@ -79,6 +86,10 @@ extension AuthRouter: TargetType {
     case .modifyProfiel(param: let param):
       
       return .requestPlain
+    case .findPassword(let param):
+      return .requestParameters(parameters: try! param.asParameters(), encoding: URLEncoding.default)
+    case .findPasswordCode(let param):
+      return .requestJSONEncodable(param)
     }
   }
   

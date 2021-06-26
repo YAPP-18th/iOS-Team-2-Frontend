@@ -95,6 +95,11 @@ class LoginViewController: ViewController {
     self.navigationController?.setNavigationBarHidden(true, animated: animated)
   }
   
+  override func viewWillDisappear(_ animated: Bool) {
+    super.viewWillDisappear(animated)
+    self.navigationController?.setNavigationBarHidden(false, animated: animated)
+  }
+  
   override func bindViewModel() {
     super.bindViewModel()
     guard let viewModel = self.viewModel as? LoginViewModel else { return }
@@ -104,7 +109,8 @@ class LoginViewController: ViewController {
       param: loginParam,
       registration: self.registButton.rx.tap.asObservable(),
       login: self.loginButton.rx.tap.asObservable(),
-      guest: self.skipLoginButton.rx.tap.asObservable()
+      guest: self.skipLoginButton.rx.tap.asObservable(),
+      findPassword: self.findPasswordButton.rx.tap.asObservable()
     )
     
     let output = viewModel.transform(input: input)
@@ -113,12 +119,12 @@ class LoginViewController: ViewController {
         AlertAction.shared.showAlertView(title: "로그인되었습니다", grantMessage: "확인", denyMessage: "취소")
         let viewModel = TabBarViewModel()
         self?.navigator.show(segue: .tabs(viewModel: viewModel), sender: self, transition: .modalFullScreen)
-        if let token = response?.token {
+        if let token = response?.accessToken {
           AlertAction.shared.showAlertView(title: "로그인되었습니다", grantMessage: "확인", denyMessage: "취소" , okAction: {
             let viewModel = TabBarViewModel()
             self?.navigator.show(segue: .tabs(viewModel: viewModel), sender: self, transition: .modalFullScreen)
           })
-          if let token = response?.token{
+          if let token = response?.accessToken{
             LoginManager.shared.makeLoginStatus(status: .logined, accessToken: token)
           }
         }
@@ -132,7 +138,7 @@ class LoginViewController: ViewController {
           let viewModel = TabBarViewModel()
           self?.navigator.show(segue: .tabs(viewModel: viewModel), sender: self, transition: .modalFullScreen)
         })
-        if let token = response?.token {
+        if let token = response?.accessToken {
           LoginManager.shared.makeLoginStatus(status: .guest, accessToken: token)
         }
       }.disposed(by: disposeBag)
@@ -140,6 +146,14 @@ class LoginViewController: ViewController {
     
     output.registration.drive(onNext: { viewModel in
       self.navigator.show(segue: .registrationTerms(viewModel: viewModel), sender: self, transition: .navigation(.right))
+    }).disposed(by: disposeBag)
+    
+    output.findPassword.drive(onNext: { viewModel in
+      self.navigator.show(segue: .findPassword(viewModel: viewModel), sender: self, transition: .navigation(.right))
+    }).disposed(by: disposeBag)
+    
+    signInWithKakaoButton.rx.tap.subscribe(onNext: { _ in
+      self.navigator.show(segue: .kakaoLogin(viewModel: KakaoLoginViewModel()), sender: self, transition: .modalFullScreen)
     }).disposed(by: disposeBag)
   }
   override func configuration() {

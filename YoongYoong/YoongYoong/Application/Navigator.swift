@@ -20,10 +20,16 @@ class Navigator {
     case splash(viewModel: SplashViewModel)
     case tabs(viewModel: TabBarViewModel)
     case login(viewModel: LoginViewModel)
+    case kakaoLogin(viewModel: KakaoLoginViewModel)
+    case findPassword(viewModel: FindPasswordViewModel)
+    case findPasswordCode(viewModel: FindPasswordCodeViewModel)
     case registrationTerms(viewModel: RegistrationTermsViewModel)
     case registrationEmail(viewModel: RegistrationEmailViewModel)
     case registrationPassword(viewModel: RegistrationPasswordViewModel)
     case registrationProfile(viewModel: RegistrationProfileViewModel)
+    case map(viewModel: MapViewModel)
+    case mapSearch(viewModel: MapSearchViewModel)
+    case mapSearchResult(viewModel: MapSearchResultViewModel)
     case tip(viewModel: TipViewModel)
     case feedProfile(viewModel: FeedProfileViewModel)
     case feedDetail(viewModel: FeedDetailViewModel)
@@ -46,7 +52,7 @@ class Navigator {
     }
     
     case root(in: UIWindow)
-    case navigation(_ direction: Direction = .right)
+    case navigation(_ direction: Direction = .right, animated: Bool = true)
     case post
     case customModal
     case modal
@@ -69,6 +75,15 @@ class Navigator {
       let loginVC = LoginViewController(viewModel: viewModel, navigator: self)
       let nav = NavigationController(rootViewController: loginVC)
       return nav
+    case .kakaoLogin(let viewModel):
+      let kakaoLoginVC = KakaoLoginViewController(viewModel: viewModel, navigator: self)
+      return kakaoLoginVC
+    case .findPassword(let viewModel):
+      let findPasswordVC = FindPasswordViewController(viewModel: viewModel, navigator: self)
+      return findPasswordVC
+    case .findPasswordCode(let viewModel):
+      let findPasswordCodeVC = FindPasswordCodeViewController(viewModel: viewModel, navigator: self)
+      return findPasswordCodeVC
     case .registrationTerms(let viewModel):
       let regTermsVC = RegistrationTermsViewController(viewModel: viewModel, navigator: self)
       return regTermsVC
@@ -81,6 +96,15 @@ class Navigator {
     case .registrationProfile(let viewModel):
       let regProfileVC = RegistrationProfileViewController(viewModel: viewModel, navigator: self)
       return regProfileVC
+    case let .map(viewModel):
+      let mapVC = MapViewController(viewModel: viewModel, navigator: self)
+      return mapVC
+    case let .mapSearch(viewModel):
+      let mapSearchVC = MapSearchViewController(viewModel: viewModel, navigator: self)
+      return mapSearchVC
+    case let .mapSearchResult(viewModel):
+      let mapSearchResultVC = MapSearchResultViewController(viewModel: viewModel, navigator: self)
+      return mapSearchResultVC
     case.tip(let viewModel):
       let tipVC = TipViewController(viewModel: viewModel, navigator: self)
       return tipVC
@@ -126,6 +150,7 @@ class Navigator {
       return settingVC
     case .feedDetail(let viewModel):
       let feedDetailVC = FeedDetailViewController(viewModel: viewModel, navigator: self)
+      feedDetailVC.hidesBottomBarWhenPushed = true
       return feedDetailVC
     }
    
@@ -153,7 +178,7 @@ class Navigator {
     }
     
     switch transition {
-    case .navigation(let direction):
+    case let .navigation(direction, animated):
       if let nav = sender.navigationController {
         // push controller to navigation stack
         switch direction{
@@ -161,9 +186,9 @@ class Navigator {
           var vcs = nav.viewControllers
           vcs.insert(target, at: vcs.count - 1)
           nav.setViewControllers(vcs, animated: false)
-          nav.popViewController(animated: true)
+          nav.popViewController(animated: animated)
         case .right:
-          nav.pushViewController(target, animated: true)
+          nav.pushViewController(target, animated: animated)
         }
       }
     case .modal:
@@ -182,9 +207,8 @@ class Navigator {
       
     case .modalFullScreen:
       DispatchQueue.main.async {
-        let nav = NavigationController(rootViewController: target)
-        nav.modalPresentationStyle = .fullScreen
-        sender.present(nav, animated: true, completion: nil)
+        target.modalPresentationStyle = .fullScreen
+        sender.present(target, animated: true, completion: nil)
       }
       
     case .detail:

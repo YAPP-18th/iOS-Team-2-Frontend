@@ -26,7 +26,10 @@ class MapNavigationView: UIView {
     $0.font = .krBody1
     $0.placeholder = "가게명 검색"
     $0.textColor = .systemGrayText01
+    $0.isUserInteractionEnabled = false
   }
+  
+  let searchFieldButton = UIButton()
   
   let searchButton = UIButton().then {
     $0.setImage(UIImage(named: "icBtnNavSearch"), for: .normal)
@@ -58,7 +61,7 @@ class MapNavigationView: UIView {
 
 extension MapNavigationView {
   private func configuration() {
-
+    backgroundColor = isDarkMode ? .systemGray06 : .systemGray00
   }
   
   private func setupView() {
@@ -66,6 +69,7 @@ extension MapNavigationView {
     self.addSubview(searchContainerView)
     searchContainerView.addSubview(tipButton)
     searchContainerView.addSubview(searchField)
+    searchContainerView.addSubview(searchFieldButton)
     searchContainerView.addSubview(searchButton)
   }
   
@@ -95,6 +99,9 @@ extension MapNavigationView {
       $0.height.equalTo(24)
     }
     
+    searchFieldButton.snp.makeConstraints {
+      $0.edges.equalTo(searchField)
+    }
     
   }
   

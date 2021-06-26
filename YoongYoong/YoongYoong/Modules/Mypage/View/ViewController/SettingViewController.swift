@@ -39,6 +39,8 @@ class SettingViewController : ViewController {
 }
 extension SettingViewController : UITableViewDelegate, UITableViewDataSource {
   func setUpTableview() {
+    settingTableView.dataSource = nil
+    settingTableView.delegate = nil
     settingTableView.rx.setDelegate(self).disposed(by: disposeBag)
     settingTableView.rx.setDataSource(self).disposed(by: disposeBag)
   }

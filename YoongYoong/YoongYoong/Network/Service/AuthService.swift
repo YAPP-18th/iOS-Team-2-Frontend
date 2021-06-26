@@ -14,10 +14,12 @@ protocol AuthorizeServiceType: class {
   func checkEmailDuplicate(_ param: CheckEmailDuplicateRequest) -> Observable<Bool>
   func checkNickNameDuplicate(_ param: String) -> Observable<Bool>
 
-  func signup(_ param: SignupRequest) -> Observable<Response>
+  func signup(_ param: SignupRequest, image: Data) -> Observable<Response>
   func login(_ param : LoginRequest) -> Observable<Response>
   func guest() -> Observable<Response>
   func deletAccount(id: Int) -> Observable<Response>
+  func findPassword(_ param: FindPasswordRequest) -> Observable<Bool>
+  func findPasswordCode(_ param: FindPasswordCodeRequest) -> Observable<Bool>
 }
 
 class AuthorizeService: AuthorizeServiceType {
@@ -43,8 +45,8 @@ extension AuthorizeService {
       }
   }
 
-  func signup(_ param: SignupRequest) -> Observable<Response> {
-    provider.rx.request(.register(param: param))
+  func signup(_ param: SignupRequest, image: Data) -> Observable<Response> {
+    provider.rx.request(.register(param: param, image: image))
       .asObservable()
     
   }
@@ -59,5 +61,21 @@ extension AuthorizeService {
   func deletAccount(id : Int) -> Observable<Response> {
     provider.rx.request(.deleteAccount(id: id))
       .asObservable()
+  }
+  
+  func findPassword(_ param: FindPasswordRequest) -> Observable<Bool> {
+    return provider.rx.request(.findPassword(param: param))
+      .asObservable()
+      .map { response -> Bool in
+        (200...300).contains(response.statusCode)
+      }
+  }
+  
+  func findPasswordCode(_ param: FindPasswordCodeRequest) -> Observable<Bool> {
+    return provider.rx.request(.findPasswordCode(param: param))
+      .asObservable()
+      .map { response -> Bool in
+        (200...300).contains(response.statusCode)
+      }
   }
 }

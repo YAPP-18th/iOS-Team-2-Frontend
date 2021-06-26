@@ -7,5 +7,6 @@
 
 import Foundation
 struct LoginResponse : Decodable {
-  let token: String
+  let accessToken: String
+  let refreshToken: String
 }

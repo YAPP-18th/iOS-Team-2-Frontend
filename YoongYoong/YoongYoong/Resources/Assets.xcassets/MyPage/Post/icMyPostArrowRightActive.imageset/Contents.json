@@ -1,0 +1,23 @@
+{
+  "images" : [
+    {
+      "filename" : "icMyPostArrowRightActive.png",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "icMyPostArrowRightActive@2x.png",
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "filename" : "icMyPostArrowRightActive@3x.png",
+      "idiom" : "universal",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

@@ -11,12 +11,14 @@ import RxCocoa
 
 class RegistrationTermsViewController: ViewController {
   
-  let viewModels: [TermsCheckItemViewModel] = [
-    TermsCheckItemViewModel(title: "(필수) 서비스 이용약관", detail: ""),
-    TermsCheckItemViewModel(title: "(필수) 서비스 이용약관", detail: ""),
-    TermsCheckItemViewModel(title: "(필수) 서비스 이용약관", detail: ""),
-    TermsCheckItemViewModel(title: "(필수) 서비스 이용약관", detail: ""),
+  
+  var viewModels: [TermsCheckItem.ViewModel] = [
+    .init(id: 0, isChecked: false, title: "(필수) 서비스 이용약관"),
+    .init(id: 1, isChecked: false, title: "(필수) 서비스 이용약관"),
+    .init(id: 2, isChecked: false, title: "(필수) 서비스 이용약관"),
+    .init(id: 3, isChecked: false, title: "(필수) 서비스 이용약관")
   ]
+  var isCheckedAll: Bool = false
   
   let titleLabel = UILabel().then {
     $0.text = "환영합니다!"
@@ -56,16 +58,28 @@ class RegistrationTermsViewController: ViewController {
     super.bindViewModel()
     guard let viewModel = self.viewModel as? RegistrationTermsViewModel else { return }
     let input = RegistrationTermsViewModel.Input(
-      next: nextButton.rx.tap.asObservable()
+      next: nextButton.rx.tap.map { [weak self] _ -> Bool in
+        guard let self = self else { return false }
+        return self.isCheckedAll
+      }.asObservable()
     )
     
-    let output = viewModel.transform(input: input)
+    checkAllButton.rx.tap.subscribe(onNext: { [weak self ] in
+      guard let self = self else { return }
+      for item in self.vStackView.arrangedSubviews {
+        guard let v = item as? TermsCheckItem else {
+          continue
+        }
+        self.viewModels[v.viewModel!.id].isChecked = !self.isCheckedAll
+        v.viewModel?.isChecked = !self.isCheckedAll
+      }
+      self.validate()
+    }).disposed(by: disposeBag)
     
+    let output = viewModel.transform(input: input)
     output.registrationEmail.drive(onNext: { viewModel in
       self.navigator.show(segue: .registrationEmail(viewModel: viewModel), sender: self, transition: .navigation(.right))
     }).disposed(by: disposeBag)
-    
-    
   }
   
   override func viewWillAppear(_ animated: Bool) {
@@ -78,7 +92,27 @@ class RegistrationTermsViewController: ViewController {
     self.setupBackButton()
     
     self.navigationItem.title = "약관 및 정책"
-    self.nextButton.isEnabled = true
+    self.nextButton.isEnabled = false
+    
+    for item in self.viewModels {
+      let itemView = TermsCheckItem().then {
+        $0.checkClosure = { checked in
+          self.viewModels[item.id].isChecked = checked
+          self.validate()
+        }
+//        $0.detailClosure = { hostType in
+//          if let vc = self.parentViewController as? MembershipConnectTermsListViewController {
+//            vc.interactor?.hostType = hostType
+//            vc.router?.routeToMembershipConnectTermsDetail()
+//          }
+//        }
+      }
+      self.vStackView.addArrangedSubview(itemView)
+      itemView.viewModel = item
+      itemView.snp.makeConstraints {
+        $0.height.equalTo(32)
+      }
+    }
   }
 
   override func setupView() {
@@ -118,19 +152,28 @@ class RegistrationTermsViewController: ViewController {
       $0.leading.trailing.equalToSuperview()
     }
     
-    
-    
-    for viewModel in self.viewModels {
-      let checkItem = TermsCheckItem()
-      checkItem.bind(to: viewModel)
-      self.vStackView.addArrangedSubview(checkItem)
-    }
-    
     nextButton.snp.makeConstraints {
       $0.bottom.equalTo(self.view.safeAreaLayoutGuide).offset(-46)
       $0.leading.equalTo(24)
       $0.trailing.equalTo(-24)
       $0.height.equalTo(44)
+    }
+  }
+  
+  private func validate() {
+    if self.viewModels.filter({ $0.id != 3 }).contains(where: { $0.isChecked == false }) {
+      self.isCheckedAll = false
+      self.checkAllButton.setImage(UIImage(named: "icRegUnchecked"), for: .normal)
+      self.nextButton.isEnabled = false
+    } else {
+      if viewModels[3].isChecked {
+        self.isCheckedAll = true
+        self.checkAllButton.setImage(UIImage(named: "icRegChecked"), for: .normal)
+      } else {
+        self.isCheckedAll = false
+        self.checkAllButton.setImage(UIImage(named: "icRegUnchecked"), for: .normal)
+      }
+      self.nextButton.isEnabled = true
     }
   }
 }

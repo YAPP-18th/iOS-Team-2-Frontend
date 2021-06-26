@@ -113,6 +113,9 @@ class FeedListTableViewCell: UITableViewCell {
     viewModel.nickname.asDriver().drive(self.nameLabel.rx.text).disposed(by: bag)
     viewModel.storeName.asDriver().drive(self.storeNameLabel.rx.text).disposed(by: bag)
     viewModel.date.asDriver().drive(self.dateLabel.rx.text).disposed(by: bag)
+    viewModel.likePressed.asDriver().drive(onNext: { isLikePressed in
+      self.likeButton.setImage(UIImage(named: isLikePressed ? "icFeedLikeFilled" : "icFeedLikeStroked"), for: .normal)
+    }).disposed(by: bag)
     let containerViewModel = FeedListContainerListViewModel(with: viewModel.containerList.value)
     viewModel.profileImageURL.subscribe (onNext: { url in
       guard let url = url else { return }
@@ -134,6 +137,8 @@ class FeedListTableViewCell: UITableViewCell {
       .map { _ in viewModel.feed.user }
       .bind(to: viewModel.userSelection)
       .disposed(by: self.bag)
+    
+    likeButton.rx.tap.map { viewModel.feed }.bind(to: viewModel.likeButtonDidTap).disposed(by: bag)
   }
   
   @objc func profileTapped() {
