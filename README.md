@@ -35,7 +35,6 @@ Yapp 18기 iOS 2팀 개발 프로젝트입니다.
 
 👨‍💻 **FrontEnd**
 
-* [**김태훈**](https://github.com/iAmSomething)
 * [**원현식**](https://github.com/HyunSikWon)
 
 👨‍💻 **Designer**
