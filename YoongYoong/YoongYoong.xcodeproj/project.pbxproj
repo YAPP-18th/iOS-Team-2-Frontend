@@ -68,6 +68,8 @@
 		AA72B7DD261B3996001E959B /* MapNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA72B7DC261B3996001E959B /* MapNavigationView.swift */; };
 		AA836E25266214CB008B731B /* PostService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA836E24266214CB008B731B /* PostService.swift */; };
 		AA836E4126622792008B731B /* BaseResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA836E4026622792008B731B /* BaseResponse.swift */; };
+		AA85A8302689CBC600996E7A /* FindPasswordInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA85A82F2689CBC600996E7A /* FindPasswordInputViewController.swift */; };
+		AA85A8322689CE1C00996E7A /* FindPasswordInputViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA85A8312689CE1C00996E7A /* FindPasswordInputViewModel.swift */; };
 		AA875C00266B867600085A73 /* BraveWords.plist in Resources */ = {isa = PBXBuildFile; fileRef = AA099431263DA780002222D6 /* BraveWords.plist */; };
 		AAC78F91262A67FD009CC84E /* Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC78F90262A67FD009CC84E /* Application.swift */; };
 		AAC78F96262A6916009CC84E /* ViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC78F95262A6916009CC84E /* ViewModelType.swift */; };
@@ -300,6 +302,8 @@
 		AA72B7DC261B3996001E959B /* MapNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapNavigationView.swift; sourceTree = "<group>"; };
 		AA836E24266214CB008B731B /* PostService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostService.swift; sourceTree = "<group>"; };
 		AA836E4026622792008B731B /* BaseResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseResponse.swift; sourceTree = "<group>"; };
+		AA85A82F2689CBC600996E7A /* FindPasswordInputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindPasswordInputViewController.swift; sourceTree = "<group>"; };
+		AA85A8312689CE1C00996E7A /* FindPasswordInputViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindPasswordInputViewModel.swift; sourceTree = "<group>"; };
 		AAC78F90262A67FD009CC84E /* Application.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Application.swift; sourceTree = "<group>"; };
 		AAC78F95262A6916009CC84E /* ViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelType.swift; sourceTree = "<group>"; };
 		AAC78FE7262A6FC4009CC84E /* TabBarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewModel.swift; sourceTree = "<group>"; };
@@ -736,9 +740,19 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		AA85A82E2689C97E00996E7A /* FIndPasswordInput */ = {
+			isa = PBXGroup;
+			children = (
+				AA85A82F2689CBC600996E7A /* FindPasswordInputViewController.swift */,
+				AA85A8312689CE1C00996E7A /* FindPasswordInputViewModel.swift */,
+			);
+			path = FIndPasswordInput;
+			sourceTree = "<group>";
+		};
 		AAC78FE5262A6FAD009CC84E /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				AA85A82E2689C97E00996E7A /* FIndPasswordInput */,
 				AA14469A2685BC8400A149EE /* KakaoLogin */,
 				AA1446952685B24B00A149EE /* FindPasswordCode */,
 				AA1446902685935A00A149EE /* MapSearchResult */,
@@ -1531,6 +1545,7 @@
 			files = (
 				AAD0240A2642A4FB00F1EC2B /* FeedTipView.swift in Sources */,
 				DA1284BC2658941600764A2D /* Moya+RxSwift.swift in Sources */,
+				AA85A8322689CE1C00996E7A /* FindPasswordInputViewModel.swift in Sources */,
 				7E9F7B8226281D7100051D03 /* PostSearchResultView.swift in Sources */,
 				DA579E6D2658A91E00E724A4 /* NSMutableAttributedString+Extensions.swift in Sources */,
 				7EA4F3D826247E67001C754C /* PostSearchHistoryView.swift in Sources */,
@@ -1714,6 +1729,7 @@
 				7E9F7B8726281D8B00051D03 /* PostSearchResultItemCell.swift in Sources */,
 				7E5D68AA2646389B0014E23A /* PostNavigationController.swift in Sources */,
 				7EC9BA002641531D007565C6 /* ContainerListHeaderView.swift in Sources */,
+				AA85A8302689CBC600996E7A /* FindPasswordInputViewController.swift in Sources */,
 				AA1446992685B2C300A149EE /* FindPasswordCodeViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
