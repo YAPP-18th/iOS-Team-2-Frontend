@@ -18,6 +18,7 @@ enum AuthRouter {
   case modifyProfiel(param: ModifyProfileParam)
   case findPassword(param: FindPasswordRequest)
   case findPasswordCode(param: FindPasswordCodeRequest)
+  case resetPassword(param: ResetPasswordRequest)
 }
 
 
@@ -46,6 +47,8 @@ extension AuthRouter: TargetType {
       return "/user/password/email"
     case .findPasswordCode:
       return "/user/password/email"
+    case .resetPassword:
+      return "/user/password"
     }
   }
   
@@ -59,7 +62,7 @@ extension AuthRouter: TargetType {
       return .get
     case .deleteAccount:
       return .delete
-    case .modifyProfiel:
+    case .modifyProfiel, .resetPassword:
       return .put
     }
   }
@@ -84,11 +87,12 @@ extension AuthRouter: TargetType {
     case .nickNameCheck(param: let param):
       return .requestParameters(parameters: try! ["nickname" : param].asParameters(), encoding: URLEncoding.default)
     case .modifyProfiel(param: let param):
-      
       return .requestPlain
     case .findPassword(let param):
       return .requestParameters(parameters: try! param.asParameters(), encoding: URLEncoding.default)
     case .findPasswordCode(let param):
+      return .requestJSONEncodable(param)
+    case .resetPassword(let param):
       return .requestJSONEncodable(param)
     }
   }

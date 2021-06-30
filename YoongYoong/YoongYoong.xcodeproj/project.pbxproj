@@ -742,19 +742,19 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		AA85A82E2689C97E00996E7A /* FIndPasswordInput */ = {
+		AA85A82E2689C97E00996E7A /* FindPasswordInput */ = {
 			isa = PBXGroup;
 			children = (
 				AA85A82F2689CBC600996E7A /* FindPasswordInputViewController.swift */,
 				AA85A8312689CE1C00996E7A /* FindPasswordInputViewModel.swift */,
 			);
-			path = FIndPasswordInput;
+			path = FindPasswordInput;
 			sourceTree = "<group>";
 		};
 		AAC78FE5262A6FAD009CC84E /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				AA85A82E2689C97E00996E7A /* FIndPasswordInput */,
+				AA85A82E2689C97E00996E7A /* FindPasswordInput */,
 				AA14469A2685BC8400A149EE /* KakaoLogin */,
 				AA1446952685B24B00A149EE /* FindPasswordCode */,
 				AA1446902685935A00A149EE /* MapSearchResult */,

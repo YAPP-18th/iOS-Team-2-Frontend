@@ -8,8 +8,11 @@
 import Foundation
 import RxCocoa
 import RxSwift
+import Moya
 
 class FindPasswordInputViewModel: ViewModel, ViewModelType {
+  private let service : AuthorizeServiceType = AuthorizeService(provider: MoyaProvider<AuthRouter>(plugins:[NetworkLoggerPlugin()]))
+  
   struct Input {
     let passwordCheck: Observable<String>
     let confirmPasswordCheck: Observable<(String, String)>
@@ -19,8 +22,11 @@ class FindPasswordInputViewModel: ViewModel, ViewModelType {
   struct Output {
     let validPassword: Driver<Bool>
     let matchPassword: Driver<Bool>
-//    let registrationProfile: Driver<RegistrationProfileViewModel>
+    let resetPasswordSuccess: Observable<Void>
   }
+  
+  let resetPasswordSuccess = PublishSubject<Void>()
+  
   func transform(input: Input) -> Output {
     let validPassword = input.passwordCheck
       .flatMapLatest{ [weak self] password in
@@ -32,7 +38,8 @@ class FindPasswordInputViewModel: ViewModel, ViewModelType {
     
     return .init(
       validPassword: validPassword.asDriver(onErrorDriveWith: .empty()),
-      matchPassword: matchPassword.asDriver(onErrorDriveWith: .empty())
+      matchPassword: matchPassword.asDriver(onErrorDriveWith: .empty()),
+      resetPasswordSuccess: self.resetPasswordSuccess
     )
   }
   
@@ -45,5 +52,15 @@ class FindPasswordInputViewModel: ViewModel, ViewModelType {
       return Disposables.create()
     }
     
+  }
+  
+  private func resetPassword(_ param: ResetPasswordRequest) {
+    self.service.resetPassword(param).subscribe(onNext: { result in
+      if result {
+        self.resetPasswordSuccess.onNext(())
+      } else {
+        print("fail")
+      }
+    }).disposed(by: disposeBag)
   }
 }
