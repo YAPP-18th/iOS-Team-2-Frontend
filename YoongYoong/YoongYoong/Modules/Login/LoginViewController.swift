@@ -135,15 +135,21 @@ class LoginViewController: ViewController {
       }.disposed(by: self.disposeBag)
     output.guestLoginResult
       .bind{ [weak self] result, response in
-        AlertAction.shared.showAlertView(title: "로그인되었습니다", grantMessage: "확인", denyMessage: "취소")
-        let viewModel = TabBarViewModel()
-        
-        AlertAction.shared.showAlertView(title: "로그인되었습니다", grantMessage: "확인", denyMessage: "취소", okAction:  {
-          let viewModel = TabBarViewModel()
-          self?.navigator.show(segue: .tabs(viewModel: viewModel), sender: self, transition: .modalFullScreen)
-        })
-        if let token = response?.accessToken {
-          LoginManager.shared.makeLoginStatus(status: .guest, accessToken: token)
+        if result,
+           let token = response?.accessToken {
+          LoginManager.shared.makeLoginStatus(status: .logined, accessToken: token)
+          let alert = YYAlertController(title: "알림", message: "로그인이 정상적으로 완료되었씁니다.")
+          let okAction = YYAlertAction(title: "확인", style: .default) { [weak self] in
+            let viewModel = TabBarViewModel()
+            self?.navigator.show(segue: .tabs(viewModel: viewModel), sender: self, transition: .modalFullScreen)
+          }
+          alert.addAction(okAction)
+          self?.present(alert, animated: true, completion: nil)
+        } else {
+          let alert = YYAlertController(title: "등록되지 않은 계정입니다.", message: "이메일 혹은 비밀번호를 다시 입력해주세요")
+          let okAction = YYAlertAction(title: "확인", style: .default)
+          alert.addAction(okAction)
+          self?.present(alert, animated: true, completion: nil)
         }
       }.disposed(by: disposeBag)
     
