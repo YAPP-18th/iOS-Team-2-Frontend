@@ -55,7 +55,7 @@ class FindPasswordCodeViewModel: ViewModel, ViewModelType {
   private func checkCode(param: FindPasswordCodeRequest) {
     self.service.findPasswordCode(param).subscribe(onNext: { result in
       if result {
-        let viewModel = FindPasswordInputViewModel()
+        let viewModel = FindPasswordInputViewModel(email: self.email, code: self.code.value)
         self.codeSuccess.onNext(viewModel)
       } else {
         self.codeFail.onNext(())

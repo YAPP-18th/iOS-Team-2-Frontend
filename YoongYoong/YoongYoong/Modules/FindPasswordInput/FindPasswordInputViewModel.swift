@@ -13,6 +13,14 @@ import Moya
 class FindPasswordInputViewModel: ViewModel, ViewModelType {
   private let service : AuthorizeServiceType = AuthorizeService(provider: MoyaProvider<AuthRouter>(plugins:[NetworkLoggerPlugin()]))
   
+  let email: String
+  let code: String
+  
+  init(email: String, code: String) {
+    self.email = email
+    self.code = code
+  }
+  
   struct Input {
     let passwordCheck: Observable<String>
     let confirmPasswordCheck: Observable<(String, String)>
@@ -35,6 +43,15 @@ class FindPasswordInputViewModel: ViewModel, ViewModelType {
     let matchPassword = input.confirmPasswordCheck.map {
       return $0 == $1
     }
+    
+    input.next.subscribe(onNext: { newPassword in
+      let param = ResetPasswordRequest(
+        email: self.email,
+        code: self.code,
+        password: newPassword
+      )
+      self.resetPassword(param)
+    }).disposed(by: disposeBag)
     
     return .init(
       validPassword: validPassword.asDriver(onErrorDriveWith: .empty()),

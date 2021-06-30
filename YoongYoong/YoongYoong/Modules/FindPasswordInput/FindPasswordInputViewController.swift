@@ -84,6 +84,10 @@ class FindPasswordInputViewController: ViewController {
       
       self.nextButton.isEnabled = $0 && $1
     }).disposed(by: disposeBag)
+    
+    output.resetPasswordSuccess.subscribe(onNext: {
+      self.showSuccessAlert()
+    }).disposed(by: disposeBag)
   }
   
   override func configuration() {
@@ -179,5 +183,9 @@ class FindPasswordInputViewController: ViewController {
     
   }
   
-  
+  private func showSuccessAlert() {
+    AlertAction.shared.showAlertView(title: "비밀번호 변경이 완료되었씁니다.", grantMessage: "확인", denyMessage: "취소", okAction:  {
+      self.navigator.show(segue: .splash(viewModel: .init()), sender: self, transition: .root(in: self.view.window!))
+    })
+  }
 }
