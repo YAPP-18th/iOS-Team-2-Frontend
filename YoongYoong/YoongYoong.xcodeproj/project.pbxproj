@@ -71,6 +71,8 @@
 		AA85A8302689CBC600996E7A /* FindPasswordInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA85A82F2689CBC600996E7A /* FindPasswordInputViewController.swift */; };
 		AA85A8322689CE1C00996E7A /* FindPasswordInputViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA85A8312689CE1C00996E7A /* FindPasswordInputViewModel.swift */; };
 		AA85A8342689D18800996E7A /* MyPageYonggiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA85A8332689D18800996E7A /* MyPageYonggiView.swift */; };
+		AA85A836268CCD4A00996E7A /* YYAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA85A835268CCD4A00996E7A /* YYAlertController.swift */; };
+		AA85A838268CCECF00996E7A /* YYAlertAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA85A837268CCECF00996E7A /* YYAlertAction.swift */; };
 		AA875C00266B867600085A73 /* BraveWords.plist in Resources */ = {isa = PBXBuildFile; fileRef = AA099431263DA780002222D6 /* BraveWords.plist */; };
 		AAC78F91262A67FD009CC84E /* Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC78F90262A67FD009CC84E /* Application.swift */; };
 		AAC78F96262A6916009CC84E /* ViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC78F95262A6916009CC84E /* ViewModelType.swift */; };
@@ -306,6 +308,8 @@
 		AA85A82F2689CBC600996E7A /* FindPasswordInputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindPasswordInputViewController.swift; sourceTree = "<group>"; };
 		AA85A8312689CE1C00996E7A /* FindPasswordInputViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindPasswordInputViewModel.swift; sourceTree = "<group>"; };
 		AA85A8332689D18800996E7A /* MyPageYonggiView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageYonggiView.swift; sourceTree = "<group>"; };
+		AA85A835268CCD4A00996E7A /* YYAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YYAlertController.swift; sourceTree = "<group>"; };
+		AA85A837268CCECF00996E7A /* YYAlertAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YYAlertAction.swift; sourceTree = "<group>"; };
 		AAC78F90262A67FD009CC84E /* Application.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Application.swift; sourceTree = "<group>"; };
 		AAC78F95262A6916009CC84E /* ViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelType.swift; sourceTree = "<group>"; };
 		AAC78FE7262A6FC4009CC84E /* TabBarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewModel.swift; sourceTree = "<group>"; };
@@ -1238,6 +1242,8 @@
 				AACCAD8B264F68EC005C9FBC /* Button.swift */,
 				DACA9635264B93FD00E95165 /* SingleImagePicker.swift */,
 				AAC83410266265D000D3E267 /* ImageDownloadManager.swift */,
+				AA85A835268CCD4A00996E7A /* YYAlertController.swift */,
+				AA85A837268CCECF00996E7A /* YYAlertAction.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -1562,6 +1568,7 @@
 				DA1284E626589C3400764A2D /* LogInManager.swift in Sources */,
 				AAD45C582619C06800A6F4D6 /* UIFont+Extensions.swift in Sources */,
 				7EA8B42D264009E3003974D7 /* SelectMenuViewController.swift in Sources */,
+				AA85A836268CCD4A00996E7A /* YYAlertController.swift in Sources */,
 				7EA88B6E2654017C00D7CEEF /* SearchRouter.swift in Sources */,
 				DAF5C6462662C1AE00BF93E0 /* profileRequest.swift in Sources */,
 				AAD024132642A4FB00F1EC2B /* ProfilePostCollectionViewCell.swift in Sources */,
@@ -1719,6 +1726,7 @@
 				AACCAAF4264646E1005C9FBC /* AlertAction.swift in Sources */,
 				AAF67E09262AE69600F643E1 /* LocationManager.swift in Sources */,
 				AACCAADC2646466A005C9FBC /* EditProfileViewController.swift in Sources */,
+				AA85A838268CCECF00996E7A /* YYAlertAction.swift in Sources */,
 				AACCAA9A264628EB005C9FBC /* TipDetailSecondListView.swift in Sources */,
 				AACCAAA426463A76005C9FBC /* TipDetailThirdListView.swift in Sources */,
 				AA14469C2685BC9400A149EE /* KakaoLoginViewController.swift in Sources */,
