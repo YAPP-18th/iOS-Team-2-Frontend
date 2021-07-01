@@ -34,13 +34,13 @@ class FeedViewModel: ViewModel, ViewModelType {
   }()
   
   let feedElements = BehaviorRelay<[PostResponse]>(value: [])
+  let section = BehaviorRelay<[FeedListSection]>(value: [])
   let feedDetail = PublishSubject<FeedDetailViewModel>()
   let currentDate = BehaviorRelay<String>(value: "")
   let brave = BehaviorRelay<String>(value: BraveWord.default)
   let userSelection = PublishSubject<FeedProfileViewModel>()
   let likeChanged = PublishRelay<(IndexPath, FeedListTableViewCellViewModel)>()
   func transform(input: Input) -> Output {
-    let elements = BehaviorRelay<[FeedListSection]>(value: [])
     
     feedElements.map { feedList -> [FeedListSection] in
       let cellViewModel = feedList.map { feed -> FeedListSection.Item in
@@ -55,7 +55,7 @@ class FeedViewModel: ViewModel, ViewModelType {
       }
       
       return [FeedListSection(items: cellViewModel)]
-    }.bind(to: elements).disposed(by: disposeBag)
+    }.bind(to: self.section).disposed(by: disposeBag)
     
     currentDate.accept(dateFormatter.string(from: Date()))
     let braveWord = BraveWord()
@@ -70,7 +70,7 @@ class FeedViewModel: ViewModel, ViewModelType {
     fetchFeedList()
     
     return Output(
-      items: elements,
+      items: section,
       profile: self.userSelection,
       detail: self.feedDetail,
       likeChanged: self.likeChanged.asObservable()

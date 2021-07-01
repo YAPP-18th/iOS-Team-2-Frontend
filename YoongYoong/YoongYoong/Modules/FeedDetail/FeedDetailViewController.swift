@@ -49,13 +49,20 @@ class FeedDetailViewController: ViewController {
     $0.textAlignment = .right
   }
   
-  let contentImageCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout()).then {
+  lazy var contentImageCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout()).then {
     if let layout = $0.collectionViewLayout as? UICollectionViewFlowLayout {
       layout.scrollDirection = .horizontal
+      layout.minimumLineSpacing = 0
+      layout.minimumInteritemSpacing = 0
+      layout.sectionInset = .zero
+      
+      let width = UIScreen.main.bounds.size.width
+      layout.itemSize = .init(width: width, height: width)
     }
     $0.register(FeedContentCollectionViewCell.self, forCellWithReuseIdentifier: FeedContentCollectionViewCell.identifier)
     $0.isPagingEnabled = true
-    $0.backgroundColor = .white
+    $0.backgroundColor = .systemGray00
+    $0.showsHorizontalScrollIndicator = false
   }
   
   let containerTitleLabel = UILabel().then {
@@ -100,7 +107,7 @@ class FeedDetailViewController: ViewController {
     return cell
   }, canEditRowAtIndexPath: { _, _ in true })
   
-  let collectionDataSource = RxCollectionViewSectionedReloadDataSource<FeedContentImageSection> { _, collectionView, indexPath, viewModel in
+  let collectionDataSource = RxCollectionViewSectionedAnimatedDataSource<FeedContentImageSection> { _, collectionView, indexPath, viewModel in
     guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FeedContentCollectionViewCell.identifier, for: indexPath) as? FeedContentCollectionViewCell else { return .init() }
     cell.bind(to: viewModel)
     return cell
@@ -201,7 +208,6 @@ class FeedDetailViewController: ViewController {
     }).disposed(by: self.disposeBag)
     contentImageCollectionView.dataSource = nil
     output.images.drive(self.contentImageCollectionView.rx.items(dataSource: collectionDataSource)).disposed(by: disposeBag)
-    contentImageCollectionView.rx.setDelegate(self).disposed(by: disposeBag)
   }
   
   override func configuration() {
@@ -392,18 +398,5 @@ extension FeedDetailViewController: UITableViewDelegate {
     removeAction.backgroundColor = .brandColorSecondary01
     
     return UISwipeActionsConfiguration(actions: [editAction, removeAction])
-  }
-}
-extension FeedDetailViewController: UICollectionViewDelegateFlowLayout {
-  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-    return 0
-  }
-  
-  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-    return 0
-  }
-  
-  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-    return collectionView.frame.size
   }
 }

@@ -15,7 +15,7 @@ import RxDataSources
 class FeedListTableViewCell: UITableViewCell {
   private var bag = DisposeBag()
   
-  let dataSource = RxCollectionViewSectionedReloadDataSource<FeedContentImageSection> { _, collectionView, indexPath, viewModel in
+  let dataSource = RxCollectionViewSectionedAnimatedDataSource<FeedContentImageSection> { _, collectionView, indexPath, viewModel in
     guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FeedContentCollectionViewCell.identifier, for: indexPath) as? FeedContentCollectionViewCell else { return .init() }
     cell.bind(to: viewModel)
     return cell
@@ -49,9 +49,17 @@ class FeedListTableViewCell: UITableViewCell {
   let contentImageCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout()).then {
     if let layout = $0.collectionViewLayout as? UICollectionViewFlowLayout {
       layout.scrollDirection = .horizontal
+      layout.minimumLineSpacing = 0
+      layout.minimumInteritemSpacing = 0
+      layout.sectionInset = .zero
+      
+      let width = UIScreen.main.bounds.size.width
+      layout.itemSize = .init(width: width, height: width)
     }
     $0.register(FeedContentCollectionViewCell.self, forCellWithReuseIdentifier: FeedContentCollectionViewCell.identifier)
+    $0.backgroundColor = .systemGray00
     $0.isPagingEnabled = true
+    $0.showsHorizontalScrollIndicator = false
   }
   
   let containerTitleLabel = UILabel().then {
@@ -148,7 +156,6 @@ extension FeedListTableViewCell {
   private func configuration() {
     self.selectionStyle = .none
     self.contentView.backgroundColor = .systemGray00
-    self.contentImageCollectionView.rx.setDelegate(self).disposed(by: bag)
   }
   
   private func setupView() {
@@ -263,19 +270,5 @@ extension FeedListTableViewCell {
     
     height = profileHeight + contentImageViewHeight + containerHeight + likeMessagesHeight
     return height
-  }
-}
-
-extension FeedListTableViewCell: UICollectionViewDelegateFlowLayout {
-  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-    return 0
-  }
-  
-  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-    return 0
-  }
-  
-  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-    return collectionView.frame.size
   }
 }

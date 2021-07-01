@@ -11,8 +11,8 @@ import RxCocoa
 import RxDataSources
 
 class FeedListTableViewCellViewModel: NSObject, IdentifiableType {
-  var identity: PostResponse {
-    return feed
+  var identity: Int {
+    return feed.postId
   }
   
   let profileImageURL = BehaviorRelay<String?>(value: nil)
