@@ -62,7 +62,8 @@ class FeedViewController: ViewController {
   override func bindViewModel() {
     super.bindViewModel()
     guard let viewModel = viewModel as? FeedViewModel else { return }
-    let input = FeedViewModel.Input(feedSelected: self.tableView.rx.itemSelected.map { self.dataSource[$0.section].items[$0.row] }.asObservable())
+    let input = FeedViewModel.Input(
+      feedSelected: self.tableView.rx.itemSelected.asObservable())
     let output = viewModel.transform(input: input)
     
     output.items.asObservable()

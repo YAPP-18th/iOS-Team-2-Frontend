@@ -17,7 +17,7 @@ class FeedViewModel: ViewModel, ViewModelType {
     self.provider = provider
   }
   struct Input {
-    let feedSelected: Observable<FeedListTableViewCellViewModel>
+    let feedSelected: Observable<IndexPath>
   }
   
   struct Output {
@@ -34,48 +34,45 @@ class FeedViewModel: ViewModel, ViewModelType {
   }()
   
   let feedElements = BehaviorRelay<[PostResponse]>(value: [])
+  let feedDetail = PublishSubject<FeedDetailViewModel>()
   let currentDate = BehaviorRelay<String>(value: "")
   let brave = BehaviorRelay<String>(value: BraveWord.default)
-  let feedSelection = PublishSubject<PostResponse>()
-  let userSelection = PublishSubject<UserInfo>()
+  let userSelection = PublishSubject<FeedProfileViewModel>()
   let likeChanged = PublishRelay<(IndexPath, FeedListTableViewCellViewModel)>()
   func transform(input: Input) -> Output {
     let elements = BehaviorRelay<[FeedListSection]>(value: [])
     
     feedElements.map { feedList -> [FeedListSection] in
-      var elements: [FeedListSection] = []
       let cellViewModel = feedList.map { feed -> FeedListSection.Item in
         let viewModel = FeedListTableViewCellViewModel.init(with: feed)
-        viewModel.userSelection.bind(to: self.userSelection).disposed(by: self.disposeBag)
-        viewModel.likeButtonDidTap.bind { feed in
+        viewModel.userSelection.bind(onNext: {
+          self.selectUser(user: feed.user)
+        }).disposed(by: self.disposeBag)
+        viewModel.likeButtonDidTap.bind(onNext: {
           self.likePost(feed: feed)
-        }.disposed(by: self.disposeBag)
+        }).disposed(by: self.disposeBag)
         return viewModel
       }
       
-      elements.append(FeedListSection(items: cellViewModel))
-      return elements
+      return [FeedListSection(items: cellViewModel)]
     }.bind(to: elements).disposed(by: disposeBag)
-    
-    let profile = userSelection.map({ userInfo -> FeedProfileViewModel in
-      let viewModel = FeedProfileViewModel(userInfo: userInfo)
-      return viewModel
-    })
     
     currentDate.accept(dateFormatter.string(from: Date()))
     let braveWord = BraveWord()
     brave.accept(braveWord.randomBrave() ?? BraveWord.default)
     
-    let detail = input.feedSelected.map { data -> FeedDetailViewModel in
-      return FeedDetailViewModel(feed: data.feed)
-    }
+    input.feedSelected.subscribe(onNext: { IndexPath in
+      let feed = self.feedElements.value[IndexPath.row]
+      let viewModel = FeedDetailViewModel(feed: feed)
+      self.feedDetail.onNext(viewModel)
+    }).disposed(by: disposeBag)
     
     fetchFeedList()
     
     return Output(
       items: elements,
-      profile: profile,
-      detail: detail,
+      profile: self.userSelection,
+      detail: self.feedDetail,
       likeChanged: self.likeChanged.asObservable()
     )
   }
@@ -91,6 +88,11 @@ class FeedViewModel: ViewModel, ViewModelType {
     }, onError: { (error) in
       print(error.localizedDescription)
     }).disposed(by: self.disposeBag)
+  }
+  
+  func selectUser(user: UserInfo) {
+    let viewModel = FeedProfileViewModel(userInfo: user)
+    self.userSelection.onNext(viewModel)
   }
   
   func likePost(feed: PostResponse) {

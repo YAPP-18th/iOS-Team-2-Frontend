@@ -133,12 +133,14 @@ class FeedListTableViewCell: UITableViewCell {
     viewModel.likecount.bind(to: likeButton.rx.title(for: .normal)).disposed(by: bag)
     viewModel.messageCount.bind(to: messagesButton.rx.title(for: .normal)).disposed(by: bag)
     containerListView.bind(to: containerViewModel)
+    
     profileButton.rx.tap
-      .map { _ in viewModel.feed.user }
       .bind(to: viewModel.userSelection)
       .disposed(by: self.bag)
     
-    likeButton.rx.tap.map { viewModel.feed }.bind(to: viewModel.likeButtonDidTap).disposed(by: bag)
+    likeButton.rx.tap
+      .bind(to: viewModel.likeButtonDidTap)
+      .disposed(by: self.bag)
   }
   
   @objc func profileTapped() {

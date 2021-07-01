@@ -25,8 +25,8 @@ class FeedListTableViewCellViewModel: NSObject, IdentifiableType {
   let messageCount = BehaviorRelay<String>(value: "0")
   let likePressed = BehaviorRelay<Bool>(value: false)
   
-  let userSelection = PublishSubject<UserInfo>()
-  let likeButtonDidTap = PublishSubject<PostResponse>()
+  let userSelection = PublishSubject<Void>()
+  let likeButtonDidTap = PublishSubject<Void>()
   let commentButtonDidTap = PublishSubject<PostResponse>()
   
   let feed: PostResponse
