@@ -13,7 +13,7 @@ import RxCocoa
 import RxDataSources
 
 class FeedListTableViewCell: UITableViewCell {
-  private let bag = DisposeBag()
+  private var bag = DisposeBag()
   
   let dataSource = RxCollectionViewSectionedReloadDataSource<FeedContentImageSection> { _, collectionView, indexPath, viewModel in
     guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FeedContentCollectionViewCell.identifier, for: indexPath) as? FeedContentCollectionViewCell else { return .init() }
@@ -142,10 +142,6 @@ class FeedListTableViewCell: UITableViewCell {
       .bind(to: viewModel.likeButtonDidTap)
       .disposed(by: self.bag)
   }
-  
-  @objc func profileTapped() {
-
-  }
 }
 
 extension FeedListTableViewCell {
@@ -243,6 +239,11 @@ extension FeedListTableViewCell {
       $0.centerX.centerY.equalToSuperview()
     }
     
+  }
+  
+  override func prepareForReuse() {
+    super.prepareForReuse()
+    self.bag = DisposeBag()
   }
   
   private func updateView() {
