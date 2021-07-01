@@ -90,11 +90,9 @@ extension FeedViewController: UITableViewDelegate {
     viewModel.brave.bind(to: feedTipView.tipLabel.rx.text).disposed(by: disposeBag)
     return feedTipView
   }
-  
-  func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+  func tableView(_ tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {
     return 116
   }
-  
   func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
     let height = FeedListTableViewCell.getHeight(viewModel: dataSource[indexPath.section].items[indexPath.row])
     
