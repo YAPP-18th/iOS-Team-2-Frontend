@@ -34,9 +34,9 @@ struct BraveWord {
       guard let weekendWord = dictRoot["weekend"] as? String else { return nil }
       return weekendWord
     } else {
-      guard let normalWordList = dictRoot["normal"] as? [String: String] else { return nil }
-      let randomIndex = Int(arc4random_uniform(UInt32(normalWordList.values.count)))
-      return Array(normalWordList.values)[randomIndex]
+      guard let normalWordList = dictRoot["normal"] as? [String] else { return nil }
+      let randomIndex = Int(arc4random_uniform(UInt32(normalWordList.count)))
+      return normalWordList[randomIndex]
     }
   }
 }
