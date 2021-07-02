@@ -72,6 +72,7 @@
 		AA74A545268F346B00A14194 /* StoreYonggiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA74A544268F346B00A14194 /* StoreYonggiView.swift */; };
 		AA74A547268F351800A14194 /* StoreYonggiItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA74A546268F351800A14194 /* StoreYonggiItemView.swift */; };
 		AA74A54B268F3C3300A14194 /* StoreYonggiCommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA74A54A268F3C3300A14194 /* StoreYonggiCommentView.swift */; };
+		AA74A54E268F8BBD00A14194 /* StoreReviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA74A54D268F8BBD00A14194 /* StoreReviewCell.swift */; };
 		AA836E25266214CB008B731B /* PostService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA836E24266214CB008B731B /* PostService.swift */; };
 		AA836E4126622792008B731B /* BaseResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA836E4026622792008B731B /* BaseResponse.swift */; };
 		AA85A8302689CBC600996E7A /* FindPasswordInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA85A82F2689CBC600996E7A /* FindPasswordInputViewController.swift */; };
@@ -315,6 +316,7 @@
 		AA74A544268F346B00A14194 /* StoreYonggiView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreYonggiView.swift; sourceTree = "<group>"; };
 		AA74A546268F351800A14194 /* StoreYonggiItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreYonggiItemView.swift; sourceTree = "<group>"; };
 		AA74A54A268F3C3300A14194 /* StoreYonggiCommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreYonggiCommentView.swift; sourceTree = "<group>"; };
+		AA74A54D268F8BBD00A14194 /* StoreReviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreReviewCell.swift; sourceTree = "<group>"; };
 		AA836E24266214CB008B731B /* PostService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostService.swift; sourceTree = "<group>"; };
 		AA836E4026622792008B731B /* BaseResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseResponse.swift; sourceTree = "<group>"; };
 		AA85A82F2689CBC600996E7A /* FindPasswordInputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindPasswordInputViewController.swift; sourceTree = "<group>"; };
@@ -762,6 +764,7 @@
 		AA74A53E268F287300A14194 /* Store */ = {
 			isa = PBXGroup;
 			children = (
+				AA74A54C268F8AE400A14194 /* Cells */,
 				AA74A543268F346000A14194 /* Views */,
 				AA74A53F268F287E00A14194 /* StoreViewController.swift */,
 				AA74A541268F2F9D00A14194 /* StoreViewModel.swift */,
@@ -777,6 +780,14 @@
 				AA74A54A268F3C3300A14194 /* StoreYonggiCommentView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		AA74A54C268F8AE400A14194 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				AA74A54D268F8BBD00A14194 /* StoreReviewCell.swift */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 		AA85A82E2689C97E00996E7A /* FindPasswordInput */ = {
@@ -1597,6 +1608,7 @@
 				AA85A836268CCD4A00996E7A /* YYAlertController.swift in Sources */,
 				7EA88B6E2654017C00D7CEEF /* SearchRouter.swift in Sources */,
 				DAF5C6462662C1AE00BF93E0 /* profileRequest.swift in Sources */,
+				AA74A54E268F8BBD00A14194 /* StoreReviewCell.swift in Sources */,
 				AAD024132642A4FB00F1EC2B /* ProfilePostCollectionViewCell.swift in Sources */,
 				AACCAB062646485C005C9FBC /* UIApplication+Extensions.swift in Sources */,
 				AA74A547268F351800A14194 /* StoreYonggiItemView.swift in Sources */,

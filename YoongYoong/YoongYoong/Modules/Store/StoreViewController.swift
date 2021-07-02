@@ -47,6 +47,9 @@ class StoreViewController: ViewController {
   private let yonggiCommentView = StoreYonggiCommentView()
   private let tableView = DynamicHeightTableView().then {
     $0.backgroundColor = .brandColorBlue03
+    $0.register(StoreReviewCell.self, forCellReuseIdentifier: StoreReviewCell.identifier)
+    $0.separatorColor = .groupTableViewBackground
+    $0.separatorInset = .init(top: 0, left: 0, bottom: 0, right: 0)
   }
   
   private let postButton = UIButton().then {
@@ -85,6 +88,8 @@ class StoreViewController: ViewController {
   
   override func configuration() {
     super.configuration()
+    tableView.dataSource = self
+    tableView.delegate = self
   }
   
   override func setupView() {
@@ -106,7 +111,7 @@ class StoreViewController: ViewController {
     }
     
     backButton.snp.makeConstraints {
-      $0.top.equalTo(44)
+      $0.top.equalTo(16)
       $0.leading.equalToSuperview()
       $0.width.height.equalTo(40)
     }
@@ -131,10 +136,6 @@ class StoreViewController: ViewController {
     addressLabel.snp.makeConstraints {
       $0.leading.equalTo(locationImageView.snp.trailing).offset(2)
       $0.centerY.equalTo(locationImageView)
-    }
-    
-    tableView.snp.makeConstraints {
-      $0.height.equalTo(1000)
     }
     
     postButton.snp.makeConstraints {
@@ -185,5 +186,20 @@ class StoreViewController: ViewController {
   
   @objc func back() {
     self.navigationController?.popViewController(animated: true)
+  }
+}
+
+extension StoreViewController: UITableViewDataSource, UITableViewDelegate {
+  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    return 10
+  }
+  
+  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    guard let cell = tableView.dequeueReusableCell(withIdentifier: StoreReviewCell.identifier, for: indexPath) as? StoreReviewCell else { return .init() }
+    return cell
+  }
+  
+  func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    return UITableView.automaticDimension
   }
 }
