@@ -43,6 +43,10 @@ class FindPasswordCodeViewController: ViewController {
     
     let output = viewModel.transform(input: input)
     
+    output.validCode.drive(self.nextButton.rx.isEnabled).disposed(by: disposeBag)
+    output.codeSuccess.bind(onNext: { viewModel in
+      self.navigator.show(segue: .findPasswordInput(viewModel: viewModel), sender: self, transition: .navigation(.right))
+    }).disposed(by: disposeBag)
   }
   
   override func configuration() {

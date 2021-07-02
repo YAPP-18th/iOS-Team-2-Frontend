@@ -13,7 +13,8 @@ import RxCocoa
 import RxDataSources
 
 class FeedViewController: ViewController {
-  
+  var cellHeights = [IndexPath: CGFloat]()
+
   let tableView = UITableView(frame: .zero, style: .grouped).then {
     $0.backgroundColor = .systemGray06
     $0.separatorStyle = .none
@@ -21,7 +22,7 @@ class FeedViewController: ViewController {
     $0.register(FeedListTableViewCell.self, forCellReuseIdentifier: "FeedListTableViewCell")
   }
   
-  let dataSource = RxTableViewSectionedAnimatedDataSource<FeedListSection>(configureCell: { dataSource, tableView, indexPath, item in
+  let dataSource = RxTableViewSectionedAnimatedDataSource<FeedListSection>( configureCell: { dataSource, tableView, indexPath, item in
     let cell = tableView.dequeueReusableCell(withIdentifier: "FeedListTableViewCell", for: indexPath) as! FeedListTableViewCell
     cell.bind(to: item)
     return cell
@@ -62,13 +63,13 @@ class FeedViewController: ViewController {
   override func bindViewModel() {
     super.bindViewModel()
     guard let viewModel = viewModel as? FeedViewModel else { return }
-    let input = FeedViewModel.Input(feedSelected: self.tableView.rx.itemSelected.map { self.dataSource[$0.section].items[$0.row] }.asObservable())
+    let input = FeedViewModel.Input(
+      feedSelected: self.tableView.rx.itemSelected.asObservable())
     let output = viewModel.transform(input: input)
     
     output.items.asObservable()
-        .bind(to: tableView.rx.items(dataSource: dataSource))
-        .disposed(by: disposeBag)
-    
+      .bind(to: self.tableView.rx.items(dataSource: self.dataSource)).disposed(by: disposeBag)
+    self.tableView.delegate = nil
     self.tableView.rx.setDelegate(self).disposed(by: disposeBag)
     
     output.profile.bind(onNext: { [weak self] viewModel in
@@ -89,14 +90,16 @@ extension FeedViewController: UITableViewDelegate {
     viewModel.brave.bind(to: feedTipView.tipLabel.rx.text).disposed(by: disposeBag)
     return feedTipView
   }
-  
-  func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+  func tableView(_ tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {
     return 116
   }
-  
-  func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+  func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
     let height = FeedListTableViewCell.getHeight(viewModel: dataSource[indexPath.section].items[indexPath.row])
-    print(height)
-    return height
+    
+    cellHeights[indexPath] = height
+}
+
+  func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+    return cellHeights[indexPath] ?? UITableView.automaticDimension
   }
 }

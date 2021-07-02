@@ -8,8 +8,12 @@
 import UIKit
 import RxCocoa
 import RxSwift
+import RxDataSources
 
-class FeedContentCollectionViewCellViewModel: NSObject {
+class FeedContentCollectionViewCellViewModel: NSObject, IdentifiableType {
+  var identity: String {
+    return imageURL.value ?? ""
+  }
   var imageURL = BehaviorRelay<String?>(value: nil)
   
   init(imageURL: String) {
@@ -19,8 +23,10 @@ class FeedContentCollectionViewCellViewModel: NSObject {
 }
 
 class FeedContentCollectionViewCell: UICollectionViewCell {
-  let disposeBag = DisposeBag()
-  let imageView = UIImageView()
+  var disposeBag = DisposeBag()
+  let imageView = UIImageView().then {
+    $0.contentMode = .scaleAspectFit
+  }
   
   override init(frame: CGRect) {
     super.init(frame: frame)
@@ -38,6 +44,11 @@ class FeedContentCollectionViewCell: UICollectionViewCell {
       guard let imageURL = imageURL else { return }
       ImageDownloadManager.shared.downloadImage(url: imageURL).bind(to: self.imageView.rx.image).disposed(by: self.disposeBag)
     }).disposed(by: self.disposeBag)
+  }
+  
+  override func prepareForReuse() {
+    super.prepareForReuse()
+    self.disposeBag = DisposeBag()
   }
 }
 extension FeedContentCollectionViewCell {

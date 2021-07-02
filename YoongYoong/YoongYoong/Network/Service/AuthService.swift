@@ -9,7 +9,7 @@ import Foundation
 import Moya
 import RxSwift
 
-protocol AuthorizeServiceType: class {
+protocol AuthorizeServiceType: AnyObject {
   
   func checkEmailDuplicate(_ param: CheckEmailDuplicateRequest) -> Observable<Bool>
   func checkNickNameDuplicate(_ param: String) -> Observable<Bool>
@@ -20,6 +20,7 @@ protocol AuthorizeServiceType: class {
   func deletAccount(id: Int) -> Observable<Response>
   func findPassword(_ param: FindPasswordRequest) -> Observable<Bool>
   func findPasswordCode(_ param: FindPasswordCodeRequest) -> Observable<Bool>
+  func resetPassword(_ param: ResetPasswordRequest) -> Observable<Bool>
 }
 
 class AuthorizeService: AuthorizeServiceType {
@@ -77,5 +78,11 @@ extension AuthorizeService {
       .map { response -> Bool in
         (200...300).contains(response.statusCode)
       }
+  }
+  
+  func resetPassword(_ param: ResetPasswordRequest) -> Observable<Bool> {
+    return provider.rx.request(.resetPassword(param: param))
+      .asObservable()
+      .map { (200...300).contains($0.statusCode) }
   }
 }

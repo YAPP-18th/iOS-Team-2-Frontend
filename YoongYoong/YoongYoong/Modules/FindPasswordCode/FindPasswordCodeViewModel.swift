@@ -24,12 +24,14 @@ class FindPasswordCodeViewModel: ViewModel, ViewModelType {
   }
   
   struct Output {
-    let codeSuccess: Observable<Void>
+    let codeSuccess: Observable<FindPasswordInputViewModel>
     let codeFail: Observable<Void>
+    let validCode: Driver<Bool>
   }
   
   let code = BehaviorRelay<String>(value: "")
-  let codeSuccess = PublishSubject<Void>()
+  let validCode = BehaviorRelay<Bool>(value: false)
+  let codeSuccess = PublishSubject<FindPasswordInputViewModel>()
   let codeFail = PublishSubject<Void>()
   
   func transform(input: Input) -> Output {
@@ -40,16 +42,21 @@ class FindPasswordCodeViewModel: ViewModel, ViewModelType {
       let param = FindPasswordCodeRequest(email: self.email, code: code)
       self.checkCode(param: param)
     }).disposed(by: disposeBag)
+    
+    code.map { !$0.isEmpty }.asObservable().bind(to: validCode).disposed(by: disposeBag)
+    
     return .init(
       codeSuccess: self.codeSuccess,
-      codeFail: self.codeFail
+      codeFail: self.codeFail,
+      validCode: validCode.asDriver()
     )
   }
   
   private func checkCode(param: FindPasswordCodeRequest) {
     self.service.findPasswordCode(param).subscribe(onNext: { result in
       if result {
-        self.codeSuccess.onNext(())
+        let viewModel = FindPasswordInputViewModel(email: self.email, code: self.code.value)
+        self.codeSuccess.onNext(viewModel)
       } else {
         self.codeFail.onNext(())
       }

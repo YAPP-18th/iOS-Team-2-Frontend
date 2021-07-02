@@ -41,5 +41,6 @@ class LoginManager: NSObject {
       UserDefaultHelper<String>.set(LoginStatus.none.rawValue, forKey: .loginStatus)
       UserDefaultHelper<String>.set("", forKey: .refreshToken)
       UserDefaultHelper<String>.set("", forKey: .expiredDate)
+      UserDefaults.standard.set(true, forDefines: .hasTutorial)
     }
 }

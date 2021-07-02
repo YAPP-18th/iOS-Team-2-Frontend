@@ -46,3 +46,9 @@ struct FindPasswordCodeRequest: Encodable {
   let email: String
   let code: String
 }
+
+struct ResetPasswordRequest: Encodable {
+  let email: String
+  let code: String
+  let password: String
+}

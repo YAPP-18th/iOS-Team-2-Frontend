@@ -21,7 +21,7 @@ class MypageViewModel: ViewModel , ViewModelType {
     let messageIndicator: Observable<[String]>
     let badgeUsecase: Observable<[BadgeModel]>
     let postUsecase: Observable<PostListModel>
-    let packageUsecase: Observable<[ContainerSection]>
+    let containers: Observable<[ContainerSection]>
     let badgeList: Driver<[MyBadgeSection]>
   }
 }
@@ -73,41 +73,9 @@ extension MypageViewModel {
       }
     var dummy: [ContainerSection] = []
     if LoginManager.shared.isLogin {
-    dummy = [
-        .init(id: 1, items: [
-          .init(identity: "밀폐 용기/S", title: "밀폐 용기", size: "S", isFavorite: false),
-          .init(identity: "밀폐 용기/M", title: "밀폐 용기", size: "M", isFavorite: false),
-          .init(identity: "밀폐 용기/L", title: "밀폐 용기", size: "L", isFavorite: false)
-        ]),
-        
-        .init(id: 2, items: [
-          .init(identity: "냄비/S", title: "냄비", size: "S", isFavorite: false),
-          .init(identity: "냄비/M", title: "냄비", size: "M", isFavorite: false),
-          .init(identity: "냄비/L", title: "냄비", size: "L", isFavorite: false)
-        ]),
-        
-        .init(id: 3, items: [
-          .init(identity: "텀블러/S", title: "텀블러", size: "S", isFavorite: false),
-          .init(identity: "텀블러/M", title: "텀블러", size: "M", isFavorite: false),
-          .init(identity: "텀블러/L", title: "텀블러", size: "L", isFavorite: false)
-        ]),
-        
-        .init(id: 4, items: [
-          .init(identity: "보온 도시락/S", title: "보온 도시락", size: "S", isFavorite: false),
-          .init(identity: "보온 도시락/M", title: "보온 도시락", size: "M", isFavorite: false),
-          .init(identity: "보온 도시락/L", title: "보온 도시락", size: "L", isFavorite: false)
-        ]),
-        
-        .init(id: 5, items: [
-          .init(identity: "프라이팬/S", title: "프라이팬", size: "S", isFavorite: false),
-          .init(identity: "프라이팬/M", title: "프라이팬", size: "M", isFavorite: false),
-          .init(identity: "프라이팬/L", title: "프라이팬", size: "L", isFavorite: false)
-        ]),
-      ]
+      dummy = getContainers()
     }
-    let packageUsecase = input.loadView.flatMapLatest{_ -> Observable<[ContainerSection]> in
-      self.mutateUsecase(select: input.containerSelect, origin: dummy)
-    }
+    let containerItems = BehaviorSubject<[ContainerSection]>(value: dummy)
     
     let badgeList = Observable.of([BadgeModel(badgeId: 0, imagePath: "icBadge001", title: "관심도 용기", discription: "설명문내용설명문내용설명문내용설명문내용", condition: "관심을가져야합니다"),
                                    BadgeModel(badgeId: 1, imagePath: "icBadge002", title: "첫 용기", discription: "설명문내용설명문내용설명문내용설명문내용", condition: "관심을가져야합니다"),
@@ -129,7 +97,7 @@ extension MypageViewModel {
       messageIndicator: message,
       badgeUsecase: badgeUsecase,
       postUsecase: postList,
-      packageUsecase: packageUsecase,
+      containers: containerItems,
       badgeList: badgeList
     )
     
@@ -177,5 +145,40 @@ extension MypageViewModel {
         }
       }.startWith(origin)
       
+  }
+  
+  private func getContainers() -> [ContainerSection] {
+    return [
+      .init(id: 0, items: []),
+      .init(id: 1, items: [
+        .init(identity: "밀폐 용기/S", title: "밀폐 용기", size: "S", selected: false),
+        .init(identity: "밀폐 용기/M", title: "밀폐 용기", size: "M", selected: false),
+        .init(identity: "밀폐 용기/L", title: "밀폐 용기", size: "L", selected: false)
+      ]),
+      
+      .init(id: 2, items: [
+        .init(identity: "냄비/S", title: "냄비", size: "S", selected: false),
+        .init(identity: "냄비/M", title: "냄비", size: "M", selected: false),
+        .init(identity: "냄비/L", title: "냄비", size: "L", selected: false)
+      ]),
+      
+      .init(id: 3, items: [
+        .init(identity: "텀블러/S", title: "텀블러", size: "S", selected: false),
+        .init(identity: "텀블러/M", title: "텀블러", size: "M", selected: false),
+        .init(identity: "텀블러/L", title: "텀블러", size: "L", selected: false)
+      ]),
+      
+      .init(id: 4, items: [
+        .init(identity: "보온 도시락/S", title: "보온 도시락", size: "S", selected: false),
+        .init(identity: "보온 도시락/M", title: "보온 도시락", size: "M", selected: false),
+        .init(identity: "보온 도시락/L", title: "보온 도시락", size: "L", selected: false)
+      ]),
+      
+      .init(id: 5, items: [
+        .init(identity: "프라이팬/S", title: "프라이팬", size: "S", selected: false),
+        .init(identity: "프라이팬/M", title: "프라이팬", size: "M", selected: false),
+        .init(identity: "프라이팬/L", title: "프라이팬", size: "L", selected: false)
+      ]),
+    ]
   }
 }

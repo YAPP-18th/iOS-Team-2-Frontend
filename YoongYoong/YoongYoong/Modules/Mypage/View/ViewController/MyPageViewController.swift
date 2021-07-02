@@ -128,10 +128,7 @@ class MyPageViewController: ViewController {
   
   private let postCollectionView = MyPostView()
   
-  private let yonggiCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout()).then {
-    $0.backgroundColor = .blue
-  }
-  
+  private let yonggiCollectionView = MyPageYonggiView()
   
   private let leftButtonItem = UIBarButtonItem(
     image: UIImage(named: "Bellstroked"),
@@ -323,6 +320,7 @@ class MyPageViewController: ViewController {
     }.disposed(by: disposeBag)
     self.loadTrigger.onNext(())
     output.badgeList.drive(badgeCollectionView.rx.items(dataSource: badgeDataSource)).disposed(by: disposeBag)
+    output.containers.bind(to: yonggiCollectionView.tableView.rx.items(dataSource: yonggiCollectionView.datasource)).disposed(by: self.disposeBag)
   }
   
 }

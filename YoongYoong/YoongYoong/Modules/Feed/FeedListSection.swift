@@ -29,12 +29,16 @@ struct FeedContentImageSection {
   var items: [Item]
 }
 
-extension FeedContentImageSection: SectionModelType {
+extension FeedContentImageSection: AnimatableSectionModelType {
   typealias Item = FeedContentCollectionViewCellViewModel
 
   init(original: FeedContentImageSection, items: [FeedContentCollectionViewCellViewModel]) {
     self = original
     self.items = items
+  }
+  
+  var identity: Int {
+    return 0
   }
 }
 
