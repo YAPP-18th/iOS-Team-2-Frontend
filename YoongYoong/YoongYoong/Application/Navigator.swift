@@ -43,7 +43,7 @@ class Navigator {
     case addReview(viewModel: PostReviewViewModel)
     case alertList(viewModel: AlertViewModel)
     case settingList(viewModel: SettingViewModel)
-    
+    case store(viewModel: StoreViewModel)
   }
   
   enum Transition {
@@ -53,7 +53,7 @@ class Navigator {
     }
     
     case root(in: UIWindow)
-    case navigation(_ direction: Direction = .right, animated: Bool = true)
+    case navigation(_ direction: Direction = .right, animated: Bool = true, hidesTabbar: Bool = false)
     case post
     case customModal
     case modal
@@ -156,6 +156,9 @@ class Navigator {
       let feedDetailVC = FeedDetailViewController(viewModel: viewModel, navigator: self)
       feedDetailVC.hidesBottomBarWhenPushed = true
       return feedDetailVC
+    case .store(let viewModel):
+      let storeVC = StoreViewController(viewModel: viewModel, navigator: self)
+      return storeVC
     }
    
   }
@@ -182,7 +185,7 @@ class Navigator {
     }
     
     switch transition {
-    case let .navigation(direction, animated):
+    case let .navigation(direction, animated, hidesTabbar):
       if let nav = sender.navigationController {
         // push controller to navigation stack
         switch direction{
@@ -192,6 +195,7 @@ class Navigator {
           nav.setViewControllers(vcs, animated: false)
           nav.popViewController(animated: animated)
         case .right:
+          target.hidesBottomBarWhenPushed = hidesTabbar
           nav.pushViewController(target, animated: animated)
         }
       }

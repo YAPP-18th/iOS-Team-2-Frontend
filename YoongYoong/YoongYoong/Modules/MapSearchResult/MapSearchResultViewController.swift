@@ -61,6 +61,9 @@ class MapSearchResultViewController: ViewController {
   
   override func configuration() {
     super.configuration()
+    let gesture = UITapGestureRecognizer(target: self, action: #selector(goToStore))
+    self.storeInfoView.addGestureRecognizer(gesture)
+    self.storeInfoView.isUserInteractionEnabled = true
   }
   
   override func setupView() {
@@ -87,6 +90,11 @@ class MapSearchResultViewController: ViewController {
       $0.centerX.equalTo(view)
       $0.bottom.equalTo(self.view.safeAreaLayoutGuide).offset(-32)
     }
-    
+  }
+  
+  @objc func goToStore() {
+    guard let place = (self.viewModel as? MapSearchResultViewModel)?.place else { return }
+    let viewModel = StoreViewModel(place: place)
+    self.navigator.show(segue: .store(viewModel: viewModel), sender: self, transition: .navigation(.right, animated: true, hidesTabbar: true))
   }
 }

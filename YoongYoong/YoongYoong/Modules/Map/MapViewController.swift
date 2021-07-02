@@ -49,8 +49,7 @@ class MapViewController: ViewController {
     let input = MapViewModel.Input(
       tip: navView.tipButton.rx.tap.asObservable(),
       myLocation: myLocationButton.rx.tap.asObservable(),
-      search: Observable.merge(navView.searchButton.rx.tap.asObservable(), navView.searchFieldButton.rx.tap.asObservable()),
-      list: listButton.rx.tap.asObservable()
+      search: Observable.merge(navView.searchButton.rx.tap.asObservable(), navView.searchFieldButton.rx.tap.asObservable(), listButton.rx.tap.asObservable())
     )
     let output = viewModel.transform(input: input)
     

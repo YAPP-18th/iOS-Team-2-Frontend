@@ -19,7 +19,6 @@
 		7E42939E2648FF19005D7710 /* PostReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E42939D2648FF19005D7710 /* PostReviewViewController.swift */; };
 		7E4293A02648FF22005D7710 /* PostReviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E42939F2648FF22005D7710 /* PostReviewViewModel.swift */; };
 		7E5D68AA2646389B0014E23A /* PostNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E5D68A92646389B0014E23A /* PostNavigationController.swift */; };
-		7E5F841D2679B65000D8E325 /* SelectContainerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E5F841C2679B64F00D8E325 /* SelectContainerModel.swift */; };
 		7E608C07262E8E1A008708F7 /* PostSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E608C06262E8E1A008708F7 /* PostSearchViewModel.swift */; };
 		7E625F2B2654C9A900687EB2 /* PostSearchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E625F2A2654C9A900687EB2 /* PostSearchModel.swift */; };
 		7E67D131264127D7003C9E7A /* ContainerListItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E67D130264127D7003C9E7A /* ContainerListItemCell.swift */; };
@@ -67,6 +66,9 @@
 		AA6E013A261F611600318E30 /* MapStoreInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6E0139261F611600318E30 /* MapStoreInfoView.swift */; };
 		AA6E013F261F6A0D00318E30 /* CALayer+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6E013E261F6A0D00318E30 /* CALayer+Extensions.swift */; };
 		AA72B7DD261B3996001E959B /* MapNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA72B7DC261B3996001E959B /* MapNavigationView.swift */; };
+		AA74A53D268F264F00A14194 /* SelectContainerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA74A53C268F264F00A14194 /* SelectContainerModel.swift */; };
+		AA74A540268F287E00A14194 /* StoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA74A53F268F287E00A14194 /* StoreViewController.swift */; };
+		AA74A542268F2F9D00A14194 /* StoreViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA74A541268F2F9D00A14194 /* StoreViewModel.swift */; };
 		AA836E25266214CB008B731B /* PostService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA836E24266214CB008B731B /* PostService.swift */; };
 		AA836E4126622792008B731B /* BaseResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA836E4026622792008B731B /* BaseResponse.swift */; };
 		AA85A8302689CBC600996E7A /* FindPasswordInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA85A82F2689CBC600996E7A /* FindPasswordInputViewController.swift */; };
@@ -253,7 +255,6 @@
 		7E42939D2648FF19005D7710 /* PostReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostReviewViewController.swift; sourceTree = "<group>"; };
 		7E42939F2648FF22005D7710 /* PostReviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostReviewViewModel.swift; sourceTree = "<group>"; };
 		7E5D68A92646389B0014E23A /* PostNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostNavigationController.swift; sourceTree = "<group>"; };
-		7E5F841C2679B64F00D8E325 /* SelectContainerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SelectContainerModel.swift; path = "/Users/hyunsikwon/Desktop/iOS/Project/iOS-Team-2-Frontend/YoongYoong/YoongYoong/Modules/Post/SelectContainer/Model/SelectContainerModel.swift"; sourceTree = "<absolute>"; };
 		7E608C06262E8E1A008708F7 /* PostSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostSearchViewModel.swift; sourceTree = "<group>"; };
 		7E625F2A2654C9A900687EB2 /* PostSearchModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostSearchModel.swift; sourceTree = "<group>"; };
 		7E67D130264127D7003C9E7A /* ContainerListItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerListItemCell.swift; sourceTree = "<group>"; };
@@ -305,6 +306,9 @@
 		AA6E0139261F611600318E30 /* MapStoreInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapStoreInfoView.swift; sourceTree = "<group>"; };
 		AA6E013E261F6A0D00318E30 /* CALayer+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CALayer+Extensions.swift"; sourceTree = "<group>"; };
 		AA72B7DC261B3996001E959B /* MapNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapNavigationView.swift; sourceTree = "<group>"; };
+		AA74A53C268F264F00A14194 /* SelectContainerModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectContainerModel.swift; sourceTree = "<group>"; };
+		AA74A53F268F287E00A14194 /* StoreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreViewController.swift; sourceTree = "<group>"; };
+		AA74A541268F2F9D00A14194 /* StoreViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreViewModel.swift; sourceTree = "<group>"; };
 		AA836E24266214CB008B731B /* PostService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostService.swift; sourceTree = "<group>"; };
 		AA836E4026622792008B731B /* BaseResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseResponse.swift; sourceTree = "<group>"; };
 		AA85A82F2689CBC600996E7A /* FindPasswordInputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindPasswordInputViewController.swift; sourceTree = "<group>"; };
@@ -548,7 +552,6 @@
 				7ED49A33264E47F100E1F518 /* Model */,
 				7E3710CE264124C10054B744 /* SelectContainerViewController.swift */,
 				7E3710D0264124CA0054B744 /* SelectContainerViewModel.swift */,
-				7E5F841C2679B64F00D8E325 /* SelectContainerModel.swift */,
 				7E3710D5264127880054B744 /* Cell */,
 			);
 			path = SelectContainer;
@@ -639,6 +642,7 @@
 			isa = PBXGroup;
 			children = (
 				7ED49A34264E480900E1F518 /* ContainerListModel.swift */,
+				AA74A53C268F264F00A14194 /* SelectContainerModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -749,6 +753,15 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		AA74A53E268F287300A14194 /* Store */ = {
+			isa = PBXGroup;
+			children = (
+				AA74A53F268F287E00A14194 /* StoreViewController.swift */,
+				AA74A541268F2F9D00A14194 /* StoreViewModel.swift */,
+			);
+			path = Store;
+			sourceTree = "<group>";
+		};
 		AA85A82E2689C97E00996E7A /* FindPasswordInput */ = {
 			isa = PBXGroup;
 			children = (
@@ -761,6 +774,7 @@
 		AAC78FE5262A6FAD009CC84E /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				AA74A53E268F287300A14194 /* Store */,
 				AA85A82E2689C97E00996E7A /* FindPasswordInput */,
 				AA14469A2685BC8400A149EE /* KakaoLogin */,
 				AA1446952685B24B00A149EE /* FindPasswordCode */,
@@ -976,13 +990,6 @@
 			path = FeedDetail;
 			sourceTree = "<group>";
 		};
-		AAD023F32642A4B600F1EC2B /* Recovered References */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = "Recovered References";
-			sourceTree = "<group>";
-		};
 		AAD023FB2642A4FB00F1EC2B /* Feed */ = {
 			isa = PBXGroup;
 			children = (
@@ -1183,7 +1190,6 @@
 				DAB00024260F12CA00D8208F /* Products */,
 				E036F4A44D511B5C71BDCB3E /* Pods */,
 				CDA85A6B298B95FB1F3880D7 /* Frameworks */,
-				AAD023F32642A4B600F1EC2B /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1581,6 +1587,7 @@
 				AACCAA9F26463A0E005C9FBC /* TipDetailThirdView.swift in Sources */,
 				AACCAD7F264F5C89005C9FBC /* RegistrationProfileViewController.swift in Sources */,
 				DABDB0EB264F6C4F00653739 /* CheckTermsViewController.swift in Sources */,
+				AA74A542268F2F9D00A14194 /* StoreViewModel.swift in Sources */,
 				7EA041CE266274A30092AC46 /* PostService.swift in Sources */,
 				AA144649267DA69200A149EE /* MapSearchViewController.swift in Sources */,
 				AAD0240E2642A4FB00F1EC2B /* FeedViewModel.swift in Sources */,
@@ -1596,6 +1603,7 @@
 				AA6E013A261F611600318E30 /* MapStoreInfoView.swift in Sources */,
 				AAD5DEE12674408D00138605 /* FindPasswordViewController.swift in Sources */,
 				DAF5C5BD2662567D00BF93E0 /* PostService.swift in Sources */,
+				AA74A53D268F264F00A14194 /* SelectContainerModel.swift in Sources */,
 				AA14464D267DA8E300A149EE /* MapSearchNavigationView.swift in Sources */,
 				AAD0240D2642A4FB00F1EC2B /* FeedListSection.swift in Sources */,
 				DABDB0F5264F84CD00653739 /* TermViewController.swift in Sources */,
@@ -1634,6 +1642,7 @@
 				AAC78F96262A6916009CC84E /* ViewModelType.swift in Sources */,
 				AACCAA8826453786005C9FBC /* TipDetailFirstListView.swift in Sources */,
 				AACCAD71264F5446005C9FBC /* RegistrationPasswordViewController.swift in Sources */,
+				AA74A540268F287E00A14194 /* StoreViewController.swift in Sources */,
 				DACA9648264BAAE400E95165 /* AlertTableViewCell.swift in Sources */,
 				AACCAAD52646466A005C9FBC /* MyPostView.swift in Sources */,
 				DA579E752658B75700E724A4 /* PlaceRouter.swift in Sources */,
@@ -1734,7 +1743,6 @@
 				AACCAAA426463A76005C9FBC /* TipDetailThirdListView.swift in Sources */,
 				AA14469C2685BC9400A149EE /* KakaoLoginViewController.swift in Sources */,
 				AAD024212642A56600F1EC2B /* TitleContentItem.swift in Sources */,
-				7E5F841D2679B65000D8E325 /* SelectContainerModel.swift in Sources */,
 				DA5D370D26621AC800C41C82 /* MyPageEmptyView.swift in Sources */,
 				DACA9680264F693300E95165 /* ManageEmailViewController.swift in Sources */,
 				DAB00031260F12CA00D8208F /* YoongYoong.xcdatamodeld in Sources */,

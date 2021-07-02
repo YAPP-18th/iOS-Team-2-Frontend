@@ -15,7 +15,6 @@ class MapViewModel: ViewModel, ViewModelType {
     let tip: Observable<Void>
     let myLocation: Observable<Void>
     let search: Observable<Void>
-    let list: Observable<Void>
   }
   
   struct Output {
