@@ -29,6 +29,7 @@ extension showBadgeDetailView {
       style.alignment = .center
       buttonAction = conditionAction
       titleLabel.text = title
+    self.image.image = UIImage(named: image)
     blackView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(denyAction)))
     descriptionLabel.text = description
     conditionBtn.setTitle(condition, for: .normal)
@@ -116,12 +117,13 @@ class BadgeDetailView: UIView{
     $0.textAlignment = .center
   }
   let descriptionLabel = UILabel().then{
-    $0.textColor = .black
-    $0.font = .sdGhothicNeo(ofSize: 14, weight: .regular)
+    $0.textColor = .systemGrayText02
+    $0.font = .krBody2
     $0.textAlignment = .center
     $0.numberOfLines = 2
   }
   let conditionBtn = UIButton().then{
+    $0.setTitleColor(.brandColorTertiary01, for: .normal)
     $0.titleLabel?.font = .sdGhothicNeo(ofSize: 14, weight: .regular)
   }
   let dissmissBtn = UIButton()

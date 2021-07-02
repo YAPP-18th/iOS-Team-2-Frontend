@@ -273,7 +273,10 @@ class MyPageViewController: ViewController {
   }
   override func bindViewModel() {
     guard let viewModel = viewModel as? MypageViewModel else { return }
-    let input = MypageViewModel.Input(loadView: loadTrigger, containerSelect: .empty() )
+    let input = MypageViewModel.Input(
+      loadView: loadTrigger,
+      containerSelect: .empty(),
+      selectBadge: self.badgeCollectionView.rx.itemSelected.asObservable())
     let output = viewModel.transform(input: input)
     let profile = viewModel.getProfile(inputs: input)
     let login = viewModel.logIn(inputs: loginTrigger)
@@ -321,6 +324,9 @@ class MyPageViewController: ViewController {
     self.loadTrigger.onNext(())
     output.badgeList.drive(badgeCollectionView.rx.items(dataSource: badgeDataSource)).disposed(by: disposeBag)
     output.containers.bind(to: yonggiCollectionView.tableView.rx.items(dataSource: yonggiCollectionView.datasource)).disposed(by: self.disposeBag)
+    output.selectedBadge.subscribe(onNext: { badge in
+      showBadgeDetailView.shared.showBadge(image: badge.imagePath, title: badge.title, description: badge.discription, condition: badge.condition)
+    }).disposed(by: disposeBag)
   }
   
 }
