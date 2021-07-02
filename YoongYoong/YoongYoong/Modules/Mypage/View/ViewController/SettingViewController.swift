@@ -102,6 +102,7 @@ extension SettingViewController : UITableViewDelegate, UITableViewDataSource {
         print("탈퇴하기")
       case 2:
         let vc = CheckTermViewController(viewModel: nil, navigator: self.navigator)
+        vc.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(vc, animated: true)
         print("약관 뷰")
       default :
