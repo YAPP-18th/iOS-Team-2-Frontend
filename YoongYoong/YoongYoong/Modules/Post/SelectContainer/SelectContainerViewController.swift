@@ -170,7 +170,11 @@ extension SelectContainerViewController: UITableViewDelegate {
 extension SelectContainerViewController: UICollectionViewDelegate {
   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
     containerListTabBar.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
-    tableView.scrollToRow(at: IndexPath(row: 0, section: indexPath.row), at: .top, animated: true)
+    if indexPath.row == 0 {
+      tableView.setContentOffset(CGPoint.zero, animated: true)
+    } else {
+      tableView.scrollToRow(at: IndexPath(row: 0, section: indexPath.row), at: .top, animated: true)
+    }
     currentTopSection = indexPath.row
     flag = false
   }

@@ -19,12 +19,11 @@ class PostReviewModel {
   
   func addPost(_ requestDTO: PostRequestDTO) {
     service.addRequest(requestDTO)
-      .retry(2)
       .subscribe(onNext: { response in
         if !(200...300).contains(response.statusCode) {
-          AlertAction.shared.showAlertView(title: "게시물 등록 실패")
-          print("Post Request Error Code: \(response.statusCode)")
-
+          AlertAction.shared.showAlertView(title: "게시물 등록 실패, \(response.statusCode)")
+        } else {
+          AlertAction.shared.showAlertView(title: "게시물 등록 성공")
         }
       }).disposed(by: disposeBag)
   }

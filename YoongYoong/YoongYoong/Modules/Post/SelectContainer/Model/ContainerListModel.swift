@@ -75,7 +75,7 @@ struct ContainerCellModel: IdentifiableType {
   let identity: String
   let title: String
   let size: String
-  var selected: Bool
+  var isFavorite: Bool
 }
 
 extension ContainerCellModel: Equatable {}

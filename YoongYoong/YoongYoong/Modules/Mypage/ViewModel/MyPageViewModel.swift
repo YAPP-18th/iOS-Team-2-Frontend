@@ -73,7 +73,7 @@ extension MypageViewModel {
       }
     var dummy: [ContainerSection] = []
     if LoginManager.shared.isLogin {
-    dummy = getContainers()
+      dummy = getContainers()
     }
     let containerItems = BehaviorSubject<[ContainerSection]>(value: dummy)
     
@@ -128,7 +128,7 @@ extension MypageViewModel {
       .scan(into: origin) {state, action in
         switch action {
         case .select(model: let model):
-          if model.selected {
+          if model.isFavorite {
             model.delete()
           }
           else {

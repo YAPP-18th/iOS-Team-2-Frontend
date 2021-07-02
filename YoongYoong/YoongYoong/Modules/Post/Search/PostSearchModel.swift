@@ -20,7 +20,7 @@ class PostSearchModel {
     self.searchService = searchService
     self.placeService = placeService
     searchHistory = self.loadSearchHistory().reversed()
-//    getAllReviewCounts()
+    getAllReviewCounts()
   }
   
   private var page = 1
@@ -64,7 +64,6 @@ class PostSearchModel {
                                   long: String(coordinate.longitude),
                                   page: page).map{ [weak self] result -> Result<[Place], SearchAPIError> in
                                     switch result {
-                                    // TODO: Get Post Count
                                     case .success(let response):
                                       self?.isEnd = response.meta.isEnd
                                       let places = response.documents.map { Place(name: $0.name,

@@ -40,7 +40,7 @@ class MyPackageTableViewCell: UITableViewCell {
     layout()
     self.titleLabel.text = model.title
     self.sizeLabel.text = model.size
-    self.favorateBtn.isSelected = model.selected
+    self.favorateBtn.isSelected = model.isFavorite
   }
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)

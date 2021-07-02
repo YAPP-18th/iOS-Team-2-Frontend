@@ -34,7 +34,7 @@ class UserDefaultStorage {
       let splited = temp.map{$0.split(separator: "/").map{String($0)}}
       var sections = [ContainerCellModel]()
       for item in splited {
-        sections.append(ContainerCellModel.init(identity: item[0] + "/" + item[1], title: item[0], size: item[1], selected: true))
+        sections.append(ContainerCellModel.init(identity: item[0] + "/" + item[1], title: item[0], size: item[1], isFavorite: true))
       }
       return ContainerSection(id: 0, items: sections)
     }
