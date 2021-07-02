@@ -156,9 +156,11 @@ class PostReviewViewController: ViewController {
     
     output.uploadDidEnd
       .subscribe(onNext: { [weak self] in
-        self?.dismiss(animated: true, completion: nil)
+        guard let self = self,
+              let window = self.view.window else { return }
+        
+        self.navigator.show(segue: .splash(viewModel: SplashViewModel()), sender: self, transition: .root(in: window))
       }).disposed(by: disposeBag)
-    
   }
   
   override func setupView() {

@@ -28,6 +28,7 @@ class MapSearchResultViewModel: ViewModel, ViewModelType {
   
   func transform(input: Input) -> Output {
     let storeInfo = BehaviorRelay<Place>(value: self.place)
+    PostData.shared.place = self.place
     return .init(
       storeInfo: storeInfo
     )

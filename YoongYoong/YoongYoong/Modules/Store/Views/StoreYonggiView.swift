@@ -32,7 +32,7 @@ class StoreYonggiView: UIView {
   }
   
   let titleLabel = UILabel().then {
-    $0.textColor = .systemGray00
+    $0.textColor = .black
     $0.font = .krTitle1
     $0.text = "가장 많이 낸 용기"
   }

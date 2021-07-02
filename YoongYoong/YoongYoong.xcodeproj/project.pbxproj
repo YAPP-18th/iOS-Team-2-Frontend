@@ -71,6 +71,7 @@
 		AA74A542268F2F9D00A14194 /* StoreViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA74A541268F2F9D00A14194 /* StoreViewModel.swift */; };
 		AA74A545268F346B00A14194 /* StoreYonggiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA74A544268F346B00A14194 /* StoreYonggiView.swift */; };
 		AA74A547268F351800A14194 /* StoreYonggiItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA74A546268F351800A14194 /* StoreYonggiItemView.swift */; };
+		AA74A54B268F3C3300A14194 /* StoreYonggiCommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA74A54A268F3C3300A14194 /* StoreYonggiCommentView.swift */; };
 		AA836E25266214CB008B731B /* PostService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA836E24266214CB008B731B /* PostService.swift */; };
 		AA836E4126622792008B731B /* BaseResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA836E4026622792008B731B /* BaseResponse.swift */; };
 		AA85A8302689CBC600996E7A /* FindPasswordInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA85A82F2689CBC600996E7A /* FindPasswordInputViewController.swift */; };
@@ -313,6 +314,7 @@
 		AA74A541268F2F9D00A14194 /* StoreViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreViewModel.swift; sourceTree = "<group>"; };
 		AA74A544268F346B00A14194 /* StoreYonggiView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreYonggiView.swift; sourceTree = "<group>"; };
 		AA74A546268F351800A14194 /* StoreYonggiItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreYonggiItemView.swift; sourceTree = "<group>"; };
+		AA74A54A268F3C3300A14194 /* StoreYonggiCommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreYonggiCommentView.swift; sourceTree = "<group>"; };
 		AA836E24266214CB008B731B /* PostService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostService.swift; sourceTree = "<group>"; };
 		AA836E4026622792008B731B /* BaseResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseResponse.swift; sourceTree = "<group>"; };
 		AA85A82F2689CBC600996E7A /* FindPasswordInputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindPasswordInputViewController.swift; sourceTree = "<group>"; };
@@ -772,6 +774,7 @@
 			children = (
 				AA74A544268F346B00A14194 /* StoreYonggiView.swift */,
 				AA74A546268F351800A14194 /* StoreYonggiItemView.swift */,
+				AA74A54A268F3C3300A14194 /* StoreYonggiCommentView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1647,6 +1650,7 @@
 				AACCAADE2646466A005C9FBC /* BadgeDetailView.swift in Sources */,
 				AA53BE5B265C1252004A39E2 /* SplashViewController.swift in Sources */,
 				7E32AC622636F6F200E694EB /* PostImageContainer.swift in Sources */,
+				AA74A54B268F3C3300A14194 /* StoreYonggiCommentView.swift in Sources */,
 				7EA041CC266254B60092AC46 /* PostRequest.swift in Sources */,
 				7EB3A60F265F61F7009CED8B /* Post.swift in Sources */,
 				7E3191EC265B5FFC000326A7 /* Place.swift in Sources */,

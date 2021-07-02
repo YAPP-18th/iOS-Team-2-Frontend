@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 class StoreViewController: ViewController {
   let vStackView = ScrollStackView().then {
@@ -42,7 +44,7 @@ class StoreViewController: ViewController {
   }
   
   private let yonggiView = StoreYonggiView()
-  
+  private let yonggiCommentView = StoreYonggiCommentView()
   private let tableView = DynamicHeightTableView().then {
     $0.backgroundColor = .brandColorBlue03
   }
@@ -89,7 +91,7 @@ class StoreViewController: ViewController {
     super.setupView()
     self.view.addSubview(vStackView)
     self.view.addSubview(postButton)
-    [topContainerView, yonggiView, tableView].forEach {
+    [topContainerView, yonggiView, yonggiCommentView, tableView].forEach {
       vStackView.addArrangedSubview($0)
     }
     
@@ -145,7 +147,9 @@ class StoreViewController: ViewController {
   override func bindViewModel() {
     super.bindViewModel()
     guard let viewModel = self.viewModel as? StoreViewModel else { return }
-    let input = StoreViewModel.Input()
+    let input = StoreViewModel.Input(
+      post: self.postButton.rx.tap.asObservable()
+    )
     let output = viewModel.transform(input: input)
     
     output.place.drive(onNext: { place in
@@ -153,5 +157,33 @@ class StoreViewController: ViewController {
       self.distanceLabel.text = place.distance + "m"
       self.addressLabel.text = place.address
     }).disposed(by: disposeBag)
+    
+    output.imageSelectionView
+      .observeOn(MainScheduler.instance)
+      .subscribe(onNext: { [weak self] viewModel in
+        self?.navigator.show(segue: .selectImage(viewModel: viewModel), sender: self, transition: .navigation())
+      }).disposed(by: disposeBag)
+    
+    output.setting
+      .observeOn(MainScheduler.instance)
+      .subscribe(onNext: { [weak self] _ in
+        self?.showPermissionAlert()
+      }).disposed(by: disposeBag)
+    
+    self.backButton.addTarget(self, action: #selector(back), for: .touchUpInside)
+  }
+  
+  private func showPermissionAlert() {
+    let alertController = UIAlertController(title: nil, message: "사진 기능을 사용하려면 '사진' 접근권한을 허용해야 합니다.", preferredStyle: .alert)
+    alertController.addAction(.init(title: "설정", style: .default, handler: { _ in
+      guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
+      UIApplication.shared.open(url, options: [:], completionHandler: nil)
+    }))
+    alertController.addAction(.init(title: "취소", style: .cancel))
+    self.present(alertController, animated: true)
+  }
+  
+  @objc func back() {
+    self.navigationController?.popViewController(animated: true)
   }
 }
