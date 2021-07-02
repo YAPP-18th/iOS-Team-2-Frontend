@@ -26,10 +26,10 @@ class TermViewControlelr : ViewController {
       setupSimpleNavigationItem(title: "마케팅 정보 수신 동의")
     default:
       setupSimpleNavigationItem(title: "서비스 이용 약관")
-      self.view.add(Webkit)
-      Webkit.snp.makeConstraints{
-        $0.top.bottom.leading.trailing.equalTo(self.view.safeAreaLayoutGuide)
-      }
+    }
+    self.view.add(Webkit)
+    Webkit.snp.makeConstraints{
+      $0.top.bottom.leading.trailing.equalTo(self.view.safeAreaLayoutGuide)
     }
     makeWebViewLoad()
   }
