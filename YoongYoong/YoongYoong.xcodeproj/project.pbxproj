@@ -69,6 +69,8 @@
 		AA74A53D268F264F00A14194 /* SelectContainerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA74A53C268F264F00A14194 /* SelectContainerModel.swift */; };
 		AA74A540268F287E00A14194 /* StoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA74A53F268F287E00A14194 /* StoreViewController.swift */; };
 		AA74A542268F2F9D00A14194 /* StoreViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA74A541268F2F9D00A14194 /* StoreViewModel.swift */; };
+		AA74A545268F346B00A14194 /* StoreYonggiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA74A544268F346B00A14194 /* StoreYonggiView.swift */; };
+		AA74A547268F351800A14194 /* StoreYonggiItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA74A546268F351800A14194 /* StoreYonggiItemView.swift */; };
 		AA836E25266214CB008B731B /* PostService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA836E24266214CB008B731B /* PostService.swift */; };
 		AA836E4126622792008B731B /* BaseResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA836E4026622792008B731B /* BaseResponse.swift */; };
 		AA85A8302689CBC600996E7A /* FindPasswordInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA85A82F2689CBC600996E7A /* FindPasswordInputViewController.swift */; };
@@ -309,6 +311,8 @@
 		AA74A53C268F264F00A14194 /* SelectContainerModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectContainerModel.swift; sourceTree = "<group>"; };
 		AA74A53F268F287E00A14194 /* StoreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreViewController.swift; sourceTree = "<group>"; };
 		AA74A541268F2F9D00A14194 /* StoreViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreViewModel.swift; sourceTree = "<group>"; };
+		AA74A544268F346B00A14194 /* StoreYonggiView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreYonggiView.swift; sourceTree = "<group>"; };
+		AA74A546268F351800A14194 /* StoreYonggiItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreYonggiItemView.swift; sourceTree = "<group>"; };
 		AA836E24266214CB008B731B /* PostService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostService.swift; sourceTree = "<group>"; };
 		AA836E4026622792008B731B /* BaseResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseResponse.swift; sourceTree = "<group>"; };
 		AA85A82F2689CBC600996E7A /* FindPasswordInputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindPasswordInputViewController.swift; sourceTree = "<group>"; };
@@ -756,10 +760,20 @@
 		AA74A53E268F287300A14194 /* Store */ = {
 			isa = PBXGroup;
 			children = (
+				AA74A543268F346000A14194 /* Views */,
 				AA74A53F268F287E00A14194 /* StoreViewController.swift */,
 				AA74A541268F2F9D00A14194 /* StoreViewModel.swift */,
 			);
 			path = Store;
+			sourceTree = "<group>";
+		};
+		AA74A543268F346000A14194 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				AA74A544268F346B00A14194 /* StoreYonggiView.swift */,
+				AA74A546268F351800A14194 /* StoreYonggiItemView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		AA85A82E2689C97E00996E7A /* FindPasswordInput */ = {
@@ -1582,6 +1596,7 @@
 				DAF5C6462662C1AE00BF93E0 /* profileRequest.swift in Sources */,
 				AAD024132642A4FB00F1EC2B /* ProfilePostCollectionViewCell.swift in Sources */,
 				AACCAB062646485C005C9FBC /* UIApplication+Extensions.swift in Sources */,
+				AA74A547268F351800A14194 /* StoreYonggiItemView.swift in Sources */,
 				AACCAD35264D79E1005C9FBC /* RegistrationTermsViewController.swift in Sources */,
 				AAD0240E2642A4FB00F1EC2B /* FeedViewModel.swift in Sources */,
 				AACCAA9F26463A0E005C9FBC /* TipDetailThirdView.swift in Sources */,
@@ -1597,6 +1612,7 @@
 				7EDCDB6F262321D60029BE45 /* PostSearchViewController.swift in Sources */,
 				7E32AC652636F6F200E694EB /* PostImageSelectionViewController.swift in Sources */,
 				AAC78FE8262A6FC4009CC84E /* TabBarViewModel.swift in Sources */,
+				AA74A545268F346B00A14194 /* StoreYonggiView.swift in Sources */,
 				AAD024302643BE9000F1EC2B /* Tip.swift in Sources */,
 				7EC4DC5826416CCF00E51FC2 /* ContainerListTabBarCell.swift in Sources */,
 				AAD024102642A4FB00F1EC2B /* FeedListContainerListViewModel.swift in Sources */,

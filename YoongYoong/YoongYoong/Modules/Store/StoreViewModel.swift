@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 class StoreViewModel: ViewModel, ViewModelType {
   let place: Place
@@ -19,10 +21,12 @@ class StoreViewModel: ViewModel, ViewModelType {
   }
   
   struct Output {
-    
+    let place: Driver<Place>
   }
   
   func transform(input: Input) -> Output {
-    return .init()
+    return .init(
+      place: .just(self.place)
+    )
   }
 }

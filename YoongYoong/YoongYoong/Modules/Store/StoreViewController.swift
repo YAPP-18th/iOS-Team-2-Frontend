@@ -41,9 +41,8 @@ class StoreViewController: ViewController {
     $0.textColor = .white
   }
   
-  private let yonggiView = UIView().then {
-    $0.backgroundColor = .brandColorGreen03
-  }
+  private let yonggiView = StoreYonggiView()
+  
   private let tableView = DynamicHeightTableView().then {
     $0.backgroundColor = .brandColorBlue03
   }
@@ -132,10 +131,6 @@ class StoreViewController: ViewController {
       $0.centerY.equalTo(locationImageView)
     }
     
-    yonggiView.snp.makeConstraints {
-      $0.height.equalTo(200)
-    }
-    
     tableView.snp.makeConstraints {
       $0.height.equalTo(1000)
     }
@@ -145,5 +140,18 @@ class StoreViewController: ViewController {
       $0.leading.trailing.equalToSuperview()
       $0.height.equalTo(88)
     }
+  }
+  
+  override func bindViewModel() {
+    super.bindViewModel()
+    guard let viewModel = self.viewModel as? StoreViewModel else { return }
+    let input = StoreViewModel.Input()
+    let output = viewModel.transform(input: input)
+    
+    output.place.drive(onNext: { place in
+      self.nameLabel.text = place.name
+      self.distanceLabel.text = place.distance + "m"
+      self.addressLabel.text = place.address
+    }).disposed(by: disposeBag)
   }
 }

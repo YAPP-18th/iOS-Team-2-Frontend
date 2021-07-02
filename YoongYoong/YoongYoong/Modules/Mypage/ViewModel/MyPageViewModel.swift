@@ -151,33 +151,33 @@ extension MypageViewModel {
     return [
       .init(id: 0, items: []),
       .init(id: 1, items: [
-        .init(identity: "밀폐 용기/S", title: "밀폐 용기", size: "S", selected: false),
-        .init(identity: "밀폐 용기/M", title: "밀폐 용기", size: "M", selected: false),
-        .init(identity: "밀폐 용기/L", title: "밀폐 용기", size: "L", selected: false)
+        .init(identity: "밀폐 용기/S", title: "밀폐 용기", size: "S", isFavorite: false),
+        .init(identity: "밀폐 용기/M", title: "밀폐 용기", size: "M", isFavorite: false),
+        .init(identity: "밀폐 용기/L", title: "밀폐 용기", size: "L", isFavorite: false)
       ]),
       
       .init(id: 2, items: [
-        .init(identity: "냄비/S", title: "냄비", size: "S", selected: false),
-        .init(identity: "냄비/M", title: "냄비", size: "M", selected: false),
-        .init(identity: "냄비/L", title: "냄비", size: "L", selected: false)
+        .init(identity: "냄비/S", title: "냄비", size: "S", isFavorite: false),
+        .init(identity: "냄비/M", title: "냄비", size: "M", isFavorite: false),
+        .init(identity: "냄비/L", title: "냄비", size: "L", isFavorite: false)
       ]),
       
       .init(id: 3, items: [
-        .init(identity: "텀블러/S", title: "텀블러", size: "S", selected: false),
-        .init(identity: "텀블러/M", title: "텀블러", size: "M", selected: false),
-        .init(identity: "텀블러/L", title: "텀블러", size: "L", selected: false)
+        .init(identity: "텀블러/S", title: "텀블러", size: "S", isFavorite: false),
+        .init(identity: "텀블러/M", title: "텀블러", size: "M", isFavorite: false),
+        .init(identity: "텀블러/L", title: "텀블러", size: "L", isFavorite: false)
       ]),
       
       .init(id: 4, items: [
-        .init(identity: "보온 도시락/S", title: "보온 도시락", size: "S", selected: false),
-        .init(identity: "보온 도시락/M", title: "보온 도시락", size: "M", selected: false),
-        .init(identity: "보온 도시락/L", title: "보온 도시락", size: "L", selected: false)
+        .init(identity: "보온 도시락/S", title: "보온 도시락", size: "S", isFavorite: false),
+        .init(identity: "보온 도시락/M", title: "보온 도시락", size: "M", isFavorite: false),
+        .init(identity: "보온 도시락/L", title: "보온 도시락", size: "L", isFavorite: false)
       ]),
       
       .init(id: 5, items: [
-        .init(identity: "프라이팬/S", title: "프라이팬", size: "S", selected: false),
-        .init(identity: "프라이팬/M", title: "프라이팬", size: "M", selected: false),
-        .init(identity: "프라이팬/L", title: "프라이팬", size: "L", selected: false)
+        .init(identity: "프라이팬/S", title: "프라이팬", size: "S", isFavorite: false),
+        .init(identity: "프라이팬/M", title: "프라이팬", size: "M", isFavorite: false),
+        .init(identity: "프라이팬/L", title: "프라이팬", size: "L", isFavorite: false)
       ]),
     ]
   }
