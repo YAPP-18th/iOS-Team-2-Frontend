@@ -2,7 +2,7 @@
 //  LogInViewModel.swift
 //  YoongYoong
 //
-//  Created by 김태훈 on 2021/04/21.
+//  Copyright © 2021 YoongYoong. All rights reserved.
 //
 
 import Foundation
