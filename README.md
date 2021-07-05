@@ -36,6 +36,7 @@ Yapp 18기 iOS 2팀 개발 프로젝트입니다.
 👨‍💻 **FrontEnd**
 
 * [**원현식**](https://github.com/HyunSikWon)
+* [**김태인(용병)*](https://github.com/della-padula)
 
 👨‍💻 **Designer**
 
@@ -44,7 +45,6 @@ Yapp 18기 iOS 2팀 개발 프로젝트입니다.
 👨‍💻 **BackEnd**
 
 - [**김병준**](https://github.com/bangjom)
-- [**이다현**](https://github.com/leeda66)
 
 ## Coding Convention
 
