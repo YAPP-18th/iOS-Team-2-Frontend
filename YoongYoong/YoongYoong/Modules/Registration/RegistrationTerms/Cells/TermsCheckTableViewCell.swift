@@ -1,34 +1,19 @@
 //
-//  TermsCheckItem.swift
+//  TermsCheckTableViewCell.swift
 //  YoongYoong
 //
-//  Created by 손병근 on 2021/05/14.
+//  Created by 손병근 on 2021/07/05.
 //
 
 import UIKit
 import RxSwift
-import RxCocoa
 
-
-class TermsCheckItem: UIView {
-  struct ViewModel {
-    var id: Int
-    var isChecked: Bool
-    var title: String
-  }
-  
-  var viewModel: ViewModel? {
-    didSet {
-      self.updateView()
-    }
-  }
-  
-  var checkClosure: (_ checked: Bool) -> Void = { _ in }
-  
+class TermsCheckTableViewCell: UITableViewCell {
   let disposeBag = DisposeBag()
   
   let checkButton = UIButton(type: .custom).then {
     $0.setImage(UIImage(named: "icRegUnchecked"), for: .normal)
+    $0.setImage(UIImage(named: "icRegChecked"), for: .selected)
     $0.adjustsImageWhenHighlighted = false
   }
   
@@ -42,17 +27,14 @@ class TermsCheckItem: UIView {
     $0.setAttributedTitle(attributedString, for: .normal)
   }
   
-  // MARK: Object lifecycle
-  override init(frame: CGRect) {
-    super.init(frame: frame)
+  override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+    super.init(style: style, reuseIdentifier: reuseIdentifier)
     setup()
   }
   
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
-  
-  // MARK: Setup
   
   private func setup() {
     configuration()
@@ -61,15 +43,11 @@ class TermsCheckItem: UIView {
   }
 }
 
-extension TermsCheckItem {
+extension TermsCheckTableViewCell {
   private func configuration() {
-    self.checkButton.rx.tap.subscribe(onNext: { [weak self] in
-      guard let self = self else { return }
-      guard let vm = self.viewModel else { return }
-      self.viewModel?.isChecked = !vm.isChecked
-      self.checkClosure(!vm.isChecked)
-    }).disposed(by: disposeBag)
+    self.selectionStyle = .none
   }
+  
   private func setupView() {
     [checkButton, checkLabel, detailButton].forEach {
       self.addSubview($0)
@@ -96,10 +74,9 @@ extension TermsCheckItem {
     
     detailButton.setContentHuggingPriority(.required, for: .horizontal)
   }
-  private func updateView() {
-    guard let vm = self.viewModel else { return }
-    self.checkLabel.text = vm.title
-    let checkImage = vm.isChecked ? UIImage(named: "icRegChecked") : UIImage(named: "icRegUnchecked")
-    self.checkButton.setImage(checkImage, for: .normal)
+  
+  func bind(to viewModel: TermsCheckTableViewCellViewModel) {
+    viewModel.title.bind(to: self.checkLabel.rx.text).disposed(by: disposeBag)
+    viewModel.selected.bind(to: checkButton.rx.isSelected).disposed(by: disposeBag)
   }
 }

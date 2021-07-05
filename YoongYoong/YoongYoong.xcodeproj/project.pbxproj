@@ -73,6 +73,10 @@
 		AA74A547268F351800A14194 /* StoreYonggiItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA74A546268F351800A14194 /* StoreYonggiItemView.swift */; };
 		AA74A54B268F3C3300A14194 /* StoreYonggiCommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA74A54A268F3C3300A14194 /* StoreYonggiCommentView.swift */; };
 		AA74A54E268F8BBD00A14194 /* StoreReviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA74A54D268F8BBD00A14194 /* StoreReviewCell.swift */; };
+		AA74A56026931A0700A14194 /* TermsCheckItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA74A55F26931A0700A14194 /* TermsCheckItem.swift */; };
+		AA74A56326931AFD00A14194 /* TermsCheckTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA74A56226931AFD00A14194 /* TermsCheckTableViewCell.swift */; };
+		AA74A56526931E6500A14194 /* TermsCheckSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA74A56426931E6500A14194 /* TermsCheckSection.swift */; };
+		AA74A5672693214D00A14194 /* TermsCheckTableViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA74A5662693214D00A14194 /* TermsCheckTableViewCellViewModel.swift */; };
 		AA836E25266214CB008B731B /* PostService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA836E24266214CB008B731B /* PostService.swift */; };
 		AA836E4126622792008B731B /* BaseResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA836E4026622792008B731B /* BaseResponse.swift */; };
 		AA85A8302689CBC600996E7A /* FindPasswordInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA85A82F2689CBC600996E7A /* FindPasswordInputViewController.swift */; };
@@ -124,7 +128,6 @@
 		AACCAD2E264D76F1005C9FBC /* NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCAD2D264D76F1005C9FBC /* NavigationBar.swift */; };
 		AACCAD35264D79E1005C9FBC /* RegistrationTermsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCAD34264D79E1005C9FBC /* RegistrationTermsViewController.swift */; };
 		AACCAD3D264D7E19005C9FBC /* RegistrationTermsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCAD3C264D7E19005C9FBC /* RegistrationTermsViewModel.swift */; };
-		AACCAD42264D850D005C9FBC /* TermsCheckItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCAD41264D850D005C9FBC /* TermsCheckItem.swift */; };
 		AACCAD5E264F455D005C9FBC /* RegistrationEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCAD5D264F455D005C9FBC /* RegistrationEmailViewController.swift */; };
 		AACCAD66264F4833005C9FBC /* RegistrationEmailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCAD65264F4833005C9FBC /* RegistrationEmailViewModel.swift */; };
 		AACCAD6B264F4867005C9FBC /* PasswordField.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCAD6A264F4867005C9FBC /* PasswordField.swift */; };
@@ -317,6 +320,10 @@
 		AA74A546268F351800A14194 /* StoreYonggiItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreYonggiItemView.swift; sourceTree = "<group>"; };
 		AA74A54A268F3C3300A14194 /* StoreYonggiCommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreYonggiCommentView.swift; sourceTree = "<group>"; };
 		AA74A54D268F8BBD00A14194 /* StoreReviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreReviewCell.swift; sourceTree = "<group>"; };
+		AA74A55F26931A0700A14194 /* TermsCheckItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsCheckItem.swift; sourceTree = "<group>"; };
+		AA74A56226931AFD00A14194 /* TermsCheckTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsCheckTableViewCell.swift; sourceTree = "<group>"; };
+		AA74A56426931E6500A14194 /* TermsCheckSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsCheckSection.swift; sourceTree = "<group>"; };
+		AA74A5662693214D00A14194 /* TermsCheckTableViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsCheckTableViewCellViewModel.swift; sourceTree = "<group>"; };
 		AA836E24266214CB008B731B /* PostService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostService.swift; sourceTree = "<group>"; };
 		AA836E4026622792008B731B /* BaseResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseResponse.swift; sourceTree = "<group>"; };
 		AA85A82F2689CBC600996E7A /* FindPasswordInputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindPasswordInputViewController.swift; sourceTree = "<group>"; };
@@ -365,7 +372,6 @@
 		AACCAD2D264D76F1005C9FBC /* NavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBar.swift; sourceTree = "<group>"; };
 		AACCAD34264D79E1005C9FBC /* RegistrationTermsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationTermsViewController.swift; sourceTree = "<group>"; };
 		AACCAD3C264D7E19005C9FBC /* RegistrationTermsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationTermsViewModel.swift; sourceTree = "<group>"; };
-		AACCAD41264D850D005C9FBC /* TermsCheckItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsCheckItem.swift; sourceTree = "<group>"; };
 		AACCAD5D264F455D005C9FBC /* RegistrationEmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationEmailViewController.swift; sourceTree = "<group>"; };
 		AACCAD65264F4833005C9FBC /* RegistrationEmailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationEmailViewModel.swift; sourceTree = "<group>"; };
 		AACCAD6A264F4867005C9FBC /* PasswordField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordField.swift; sourceTree = "<group>"; };
@@ -790,6 +796,16 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
+		AA74A56126931AF200A14194 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				AA74A56226931AFD00A14194 /* TermsCheckTableViewCell.swift */,
+				AA74A56426931E6500A14194 /* TermsCheckSection.swift */,
+				AA74A5662693214D00A14194 /* TermsCheckTableViewCellViewModel.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
 		AA85A82E2689C97E00996E7A /* FindPasswordInput */ = {
 			isa = PBXGroup;
 			children = (
@@ -972,9 +988,9 @@
 		AACCAD33264D79C4005C9FBC /* RegistrationTerms */ = {
 			isa = PBXGroup;
 			children = (
+				AA74A56126931AF200A14194 /* Cells */,
 				AACCAD34264D79E1005C9FBC /* RegistrationTermsViewController.swift */,
 				AACCAD3C264D7E19005C9FBC /* RegistrationTermsViewModel.swift */,
-				AACCAD41264D850D005C9FBC /* TermsCheckItem.swift */,
 			);
 			path = RegistrationTerms;
 			sourceTree = "<group>";
@@ -1055,6 +1071,7 @@
 				7E3191EB265B5FFC000326A7 /* Place.swift */,
 				7EB3A60E265F61F7009CED8B /* Post.swift */,
 				AACCADB3264F75F2005C9FBC /* FeedMessage.swift */,
+				AA74A55F26931A0700A14194 /* TermsCheckItem.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1605,6 +1622,7 @@
 				DA1284E626589C3400764A2D /* LogInManager.swift in Sources */,
 				AAD45C582619C06800A6F4D6 /* UIFont+Extensions.swift in Sources */,
 				7EA8B42D264009E3003974D7 /* SelectMenuViewController.swift in Sources */,
+				AA74A56526931E6500A14194 /* TermsCheckSection.swift in Sources */,
 				AA85A836268CCD4A00996E7A /* YYAlertController.swift in Sources */,
 				7EA88B6E2654017C00D7CEEF /* SearchRouter.swift in Sources */,
 				DAF5C6462662C1AE00BF93E0 /* profileRequest.swift in Sources */,
@@ -1641,6 +1659,7 @@
 				DA5D36EC2661E5D300C41C82 /* CommentResponse.swift in Sources */,
 				AACCAADA2646466A005C9FBC /* MyBadgeCollectionViewCell.swift in Sources */,
 				AACCADB9264F79ED005C9FBC /* DynamicHeightTableView.swift in Sources */,
+				AA74A56326931AFD00A14194 /* TermsCheckTableViewCell.swift in Sources */,
 				AAC78F91262A67FD009CC84E /* Application.swift in Sources */,
 				AACCAADD2646466A005C9FBC /* MyPageViewController.swift in Sources */,
 				AACCAA952646285D005C9FBC /* TipDetailSecondView.swift in Sources */,
@@ -1660,6 +1679,7 @@
 				AA836E4126622792008B731B /* BaseResponse.swift in Sources */,
 				DAB00027260F12CA00D8208F /* AppDelegate.swift in Sources */,
 				AACCAADE2646466A005C9FBC /* BadgeDetailView.swift in Sources */,
+				AA74A5672693214D00A14194 /* TermsCheckTableViewCellViewModel.swift in Sources */,
 				AA53BE5B265C1252004A39E2 /* SplashViewController.swift in Sources */,
 				7E32AC622636F6F200E694EB /* PostImageContainer.swift in Sources */,
 				AA74A54B268F3C3300A14194 /* StoreYonggiCommentView.swift in Sources */,
@@ -1694,7 +1714,6 @@
 				7EF2DC64263076F80002E1E3 /* PostMapViewController.swift in Sources */,
 				AA14468F26847B8300A149EE /* MapSearchResultHeaderView.swift in Sources */,
 				AACCAAD62646466A005C9FBC /* MyPackageFilterCollectionViewCell.swift in Sources */,
-				AACCAD42264D850D005C9FBC /* TermsCheckItem.swift in Sources */,
 				7E3710D1264124CA0054B744 /* SelectContainerViewModel.swift in Sources */,
 				AA6E013F261F6A0D00318E30 /* CALayer+Extensions.swift in Sources */,
 				7E95988A265A6478000243B5 /* PlaceResponse.swift in Sources */,
@@ -1750,6 +1769,7 @@
 				AACCAD98264F6DEE005C9FBC /* FeedDetailViewController.swift in Sources */,
 				AA1446972685B25900A149EE /* FindPasswordCodeViewController.swift in Sources */,
 				DA1284D12658956300764A2D /* AuthResponse.swift in Sources */,
+				AA74A56026931A0700A14194 /* TermsCheckItem.swift in Sources */,
 				DA579E7A2658B76B00E724A4 /* PostRouter.swift in Sources */,
 				AACCAAD82646466A005C9FBC /* MyPostTableViewCell.swift in Sources */,
 				AA14468D2684736800A149EE /* MapSearchResultView.swift in Sources */,
@@ -1958,7 +1978,7 @@
 				CODE_SIGN_ENTITLEMENTS = YoongYoong/YoongYoongDebug.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_TEAM = 97C96KP84G;
 				INFOPLIST_FILE = YoongYoong/Info.plist;
 				KAKAO_REST_API_KEY = a30bb297576560dd0618e9d8e05bedb8;
@@ -1984,7 +2004,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_TEAM = 97C96KP84G;
 				INFOPLIST_FILE = YoongYoong/Info.plist;
 				KAKAO_REST_API_KEY = a30bb297576560dd0618e9d8e05bedb8;

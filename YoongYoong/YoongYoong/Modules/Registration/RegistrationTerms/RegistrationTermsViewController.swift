@@ -8,16 +8,9 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import RxDataSources
 
 class RegistrationTermsViewController: ViewController {
-  
-  
-  var viewModels: [TermsCheckItem.ViewModel] = [
-    .init(id: 0, isChecked: false, title: "(필수) 서비스 이용약관"),
-    .init(id: 1, isChecked: false, title: "(필수) 서비스 이용약관"),
-    .init(id: 2, isChecked: false, title: "(필수) 서비스 이용약관"),
-    .init(id: 3, isChecked: false, title: "(필수) 서비스 이용약관")
-  ]
   var isCheckedAll: Bool = false
   
   let titleLabel = UILabel().then {
@@ -41,9 +34,17 @@ class RegistrationTermsViewController: ViewController {
     $0.backgroundColor = .systemGray05
   }
   
-  let vStackView = UIStackView().then {
-    $0.axis = .vertical
-    $0.spacing = 16
+  let tableView = UITableView().then {
+    $0.separatorStyle = .none
+    $0.register(TermsCheckTableViewCell.self, forCellReuseIdentifier: TermsCheckTableViewCell.identifier)
+    $0.rowHeight = 40
+    $0.bounces = false
+  }
+  
+  let dataSource = RxTableViewSectionedReloadDataSource<TermsCheckSection> { dataSource, tableView, indexPath, item in
+    guard let cell = tableView.dequeueReusableCell(withIdentifier: TermsCheckTableViewCell.identifier, for: indexPath) as? TermsCheckTableViewCell else { return .init() }
+    cell.bind(to: item)
+    return cell
   }
   
   let nextButton = Button().then {
@@ -58,28 +59,28 @@ class RegistrationTermsViewController: ViewController {
     super.bindViewModel()
     guard let viewModel = self.viewModel as? RegistrationTermsViewModel else { return }
     let input = RegistrationTermsViewModel.Input(
+      checkAll: checkAllButton.rx.tap.map { self.isCheckedAll }.asObservable(),
+      check: tableView.rx.itemSelected.asObservable(),
       next: nextButton.rx.tap.map { [weak self] _ -> Bool in
         guard let self = self else { return false }
         return self.isCheckedAll
       }.asObservable()
     )
     
-    checkAllButton.rx.tap.subscribe(onNext: { [weak self ] in
-      guard let self = self else { return }
-      for item in self.vStackView.arrangedSubviews {
-        guard let v = item as? TermsCheckItem else {
-          continue
-        }
-        self.viewModels[v.viewModel!.id].isChecked = !self.isCheckedAll
-        v.viewModel?.isChecked = !self.isCheckedAll
-      }
-      self.validate()
+    let output = viewModel.transform(input: input)
+    output.checkedAll.subscribe(onNext: {
+      self.isCheckedAll = $0
+      self.checkAllButton.setImage(UIImage(named: $0 ? "icRegChecked" : "icRegUnchecked"), for: .normal)
     }).disposed(by: disposeBag)
     
-    let output = viewModel.transform(input: input)
+    output.terms.drive(self.tableView.rx.items(dataSource: self.dataSource)).disposed(by: disposeBag)
+    
+    output.nextEnabled.drive(self.nextButton.rx.isEnabled).disposed(by: disposeBag)
+    
     output.registrationEmail.drive(onNext: { viewModel in
       self.navigator.show(segue: .registrationEmail(viewModel: viewModel), sender: self, transition: .navigation(.right))
     }).disposed(by: disposeBag)
+    
   }
   
   override func viewWillAppear(_ animated: Bool) {
@@ -94,30 +95,11 @@ class RegistrationTermsViewController: ViewController {
     self.navigationItem.title = "약관 및 정책"
     self.nextButton.isEnabled = false
     
-    for item in self.viewModels {
-      let itemView = TermsCheckItem().then {
-        $0.checkClosure = { checked in
-          self.viewModels[item.id].isChecked = checked
-          self.validate()
-        }
-//        $0.detailClosure = { hostType in
-//          if let vc = self.parentViewController as? MembershipConnectTermsListViewController {
-//            vc.interactor?.hostType = hostType
-//            vc.router?.routeToMembershipConnectTermsDetail()
-//          }
-//        }
-      }
-      self.vStackView.addArrangedSubview(itemView)
-      itemView.viewModel = item
-      itemView.snp.makeConstraints {
-        $0.height.equalTo(32)
-      }
-    }
   }
 
   override func setupView() {
     super.setupView()
-    [titleLabel, checkAllButton, checkAllLabel, divider, vStackView, nextButton].forEach {
+    [titleLabel, checkAllButton, checkAllLabel, divider,tableView, nextButton].forEach {
       self.view.addSubview($0)
     }
   }
@@ -147,9 +129,10 @@ class RegistrationTermsViewController: ViewController {
       $0.height.equalTo(1)
     }
     
-    vStackView.snp.makeConstraints {
-      $0.top.equalTo(divider.snp.bottom).offset(8)
+    tableView.snp.makeConstraints {
+      $0.top.equalTo(divider.snp.bottom)
       $0.leading.trailing.equalToSuperview()
+      $0.bottom.equalTo(nextButton.snp.top)
     }
     
     nextButton.snp.makeConstraints {
@@ -157,23 +140,6 @@ class RegistrationTermsViewController: ViewController {
       $0.leading.equalTo(24)
       $0.trailing.equalTo(-24)
       $0.height.equalTo(44)
-    }
-  }
-  
-  private func validate() {
-    if self.viewModels.filter({ $0.id != 3 }).contains(where: { $0.isChecked == false }) {
-      self.isCheckedAll = false
-      self.checkAllButton.setImage(UIImage(named: "icRegUnchecked"), for: .normal)
-      self.nextButton.isEnabled = false
-    } else {
-      if viewModels[3].isChecked {
-        self.isCheckedAll = true
-        self.checkAllButton.setImage(UIImage(named: "icRegChecked"), for: .normal)
-      } else {
-        self.isCheckedAll = false
-        self.checkAllButton.setImage(UIImage(named: "icRegUnchecked"), for: .normal)
-      }
-      self.nextButton.isEnabled = true
     }
   }
 }
