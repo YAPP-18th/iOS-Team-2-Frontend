@@ -52,15 +52,12 @@ class LoginViewController: ViewController {
     }
     
     let signInWithAppleButton = UIButton().then {
-//        $0.setImage(UIImage(named: "icLoginButtonApple"), for: .normal)
-//        $0.imageView?.contentMode = .scaleAspectFit
         $0.backgroundColor = .systemGrayText01
         $0.layer.cornerRadius = 22
         $0.layer.masksToBounds = true
     }
     
     let signInWithKakaoButton = UIButton().then {
-//        $0.setImage(UIImage(named: "icLoginButtonKakao"), for: .normal)
         $0.backgroundColor = .kakaoLoginYellow
         $0.layer.cornerRadius = 22
         $0.layer.masksToBounds = true
@@ -152,13 +149,18 @@ class LoginViewController: ViewController {
             findPassword: self.findPasswordButton.rx.tap.asObservable()
         )
         
+        loginParam.bind{ [weak self] param in
+            guard let `self` = self else { return }
+            self.validate(email: param.0, password: param.1)
+        }.disposed(by: self.disposeBag)
+        
         let output = viewModel.transform(input: input)
         output.loginResult
             .bind{ [weak self] result, response in
                 if result,
                    let token = response?.accessToken {
                     LoginManager.shared.makeLoginStatus(status: .logined, accessToken: token)
-                    let alert = YYAlertController(title: "알림", message: "로그인이 정상적으로 완료되었씁니다.")
+                    let alert = YYAlertController(title: "알림", message: "로그인이 정상적으로 완료되었습니다.")
                     let okAction = YYAlertAction(title: "확인", style: .default) { [weak self] in
                         let viewModel = TabBarViewModel()
                         self?.navigator.show(segue: .tabs(viewModel: viewModel), sender: self, transition: .modalFullScreen)
@@ -177,7 +179,7 @@ class LoginViewController: ViewController {
                 if result,
                    let token = response?.accessToken {
                     LoginManager.shared.makeLoginStatus(status: .logined, accessToken: token)
-                    let alert = YYAlertController(title: "알림", message: "로그인이 정상적으로 완료되었씁니다.")
+                    let alert = YYAlertController(title: "알림", message: "로그인이 정상적으로 완료되었습니다.")
                     let okAction = YYAlertAction(title: "확인", style: .default) { [weak self] in
                         let viewModel = TabBarViewModel()
                         self?.navigator.show(segue: .tabs(viewModel: viewModel), sender: self, transition: .modalFullScreen)
@@ -205,6 +207,7 @@ class LoginViewController: ViewController {
             self.navigator.show(segue: .kakaoLogin(viewModel: KakaoLoginViewModel()), sender: self, transition: .modalFullScreen)
         }).disposed(by: disposeBag)
     }
+    
     override func configuration() {
         super.configuration()
         self.loginButton.isEnabled = true
@@ -213,6 +216,10 @@ class LoginViewController: ViewController {
         if #available(iOS 13.0, *) {
             signInWithAppleButton.addTarget(self, action: #selector(signInWithApple), for: .touchUpInside)
         }
+    }
+    
+    private func validate(email: String, password: String) {
+        loginButton.isEnabled = !email.isEmpty && !password.isEmpty
     }
     
     override func setupView() {
