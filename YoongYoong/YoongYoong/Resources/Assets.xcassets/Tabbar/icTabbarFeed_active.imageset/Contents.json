@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "icTabbarFeed_active.png",
+      "filename" : "Bottom Tab.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "icTabbarFeed_active@2x.png",
+      "filename" : "Bottom Tab-1.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "icTabbarFeed_active@3x.png",
+      "filename" : "Bottom Tab-2.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
@@ -19,5 +19,8 @@
   "info" : {
     "author" : "xcode",
     "version" : 1
+  },
+  "properties" : {
+    "template-rendering-intent" : "original"
   }
 }

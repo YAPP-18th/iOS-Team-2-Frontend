@@ -27,10 +27,20 @@ class MapViewController: ViewController {
   
   let listButton = UIButton().then {
     $0.setImage(UIImage(named:"icMapBtnMenu"), for: .normal)
+    $0.layer.cornerRadius = 15
+    $0.layer.shadowColor = UIColor.gray.cgColor
+    $0.layer.shadowOpacity = 0.5
+    $0.layer.shadowOffset = CGSize(width: 0, height: 4)
+    $0.layer.shadowRadius = 6
   }
   
   let myLocationButton = UIButton().then {
     $0.setImage(UIImage(named: "btnMapMyLocation"), for: .normal)
+    $0.layer.cornerRadius = 15
+    $0.layer.shadowColor = UIColor.gray.cgColor
+    $0.layer.shadowOpacity = 0.5
+    $0.layer.shadowOffset = CGSize(width: 0, height: 4)
+    $0.layer.shadowRadius = 6
   }
   
   let storeInfoView = MapStoreInfoView()
