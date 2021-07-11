@@ -77,6 +77,7 @@
 		AA74A56326931AFD00A14194 /* TermsCheckTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA74A56226931AFD00A14194 /* TermsCheckTableViewCell.swift */; };
 		AA74A56526931E6500A14194 /* TermsCheckSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA74A56426931E6500A14194 /* TermsCheckSection.swift */; };
 		AA74A5672693214D00A14194 /* TermsCheckTableViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA74A5662693214D00A14194 /* TermsCheckTableViewCellViewModel.swift */; };
+		AA7A3908269B4F5C00259358 /* UITableView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7A3907269B4F5C00259358 /* UITableView+Extensions.swift */; };
 		AA836E25266214CB008B731B /* PostService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA836E24266214CB008B731B /* PostService.swift */; };
 		AA836E4126622792008B731B /* BaseResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA836E4026622792008B731B /* BaseResponse.swift */; };
 		AA85A8302689CBC600996E7A /* FindPasswordInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA85A82F2689CBC600996E7A /* FindPasswordInputViewController.swift */; };
@@ -324,6 +325,7 @@
 		AA74A56226931AFD00A14194 /* TermsCheckTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsCheckTableViewCell.swift; sourceTree = "<group>"; };
 		AA74A56426931E6500A14194 /* TermsCheckSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsCheckSection.swift; sourceTree = "<group>"; };
 		AA74A5662693214D00A14194 /* TermsCheckTableViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsCheckTableViewCellViewModel.swift; sourceTree = "<group>"; };
+		AA7A3907269B4F5C00259358 /* UITableView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Extensions.swift"; sourceTree = "<group>"; };
 		AA836E24266214CB008B731B /* PostService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostService.swift; sourceTree = "<group>"; };
 		AA836E4026622792008B731B /* BaseResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseResponse.swift; sourceTree = "<group>"; };
 		AA85A82F2689CBC600996E7A /* FindPasswordInputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindPasswordInputViewController.swift; sourceTree = "<group>"; };
@@ -1133,6 +1135,7 @@
 				DABDB0EF264F72CE00653739 /* UITextView + Extensions.swift */,
 				AA53BE54265C0F07004A39E2 /* UserDefault+Extensions.swift */,
 				DA5D371E2662549B00C41C82 /* Date+Extensions.swift */,
+				AA7A3907269B4F5C00259358 /* UITableView+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1682,6 +1685,7 @@
 				AACCAADE2646466A005C9FBC /* BadgeDetailView.swift in Sources */,
 				AA74A5672693214D00A14194 /* TermsCheckTableViewCellViewModel.swift in Sources */,
 				AA53BE5B265C1252004A39E2 /* SplashViewController.swift in Sources */,
+				AA7A3908269B4F5C00259358 /* UITableView+Extensions.swift in Sources */,
 				7E32AC622636F6F200E694EB /* PostImageContainer.swift in Sources */,
 				AA74A54B268F3C3300A14194 /* StoreYonggiCommentView.swift in Sources */,
 				7EA041CC266254B60092AC46 /* PostRequest.swift in Sources */,
