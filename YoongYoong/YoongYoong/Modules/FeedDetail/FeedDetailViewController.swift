@@ -203,8 +203,6 @@ class FeedDetailViewController: ViewController {
       self.storeNameLabel.text = feed.placeName
       self.likeButton.setTitle("\(feed.likeCount)", for: .normal)
       self.messagesButton.setTitle("\(feed.commentCount)", for: .normal)
-      
-      self.containerListView.bind(to: .init(with: feed.postContainers.map { .init(container: $0.container, containerCount: $0.containerCount, food: $0.food, foodCount: $0.foodCount)}))
     }).disposed(by: self.disposeBag)
     contentImageCollectionView.dataSource = nil
     output.images.drive(self.contentImageCollectionView.rx.items(dataSource: collectionDataSource)).disposed(by: disposeBag)
