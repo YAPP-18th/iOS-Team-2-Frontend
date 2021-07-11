@@ -22,4 +22,26 @@ extension UILabel {
       self.attributedText = attrString
     }
   }
+  
+  func getHeight() -> CGFloat {
+    guard let text = self.text,
+          !text.isEmpty,
+          let font = self.font
+    else { return 0 }
+    let str = NSString(string: text)
+    let width = bounds.size.width
+    let height: CGFloat = .greatestFiniteMagnitude
+    let size = CGSize(width: width, height: height)
+    
+    let boundingRect = str.boundingRect(
+      with: size,
+      options: .usesLineFragmentOrigin,
+      attributes: [
+        .font: font
+      ],
+      context: nil
+    )
+    
+    return boundingRect.height
+  }
 }
