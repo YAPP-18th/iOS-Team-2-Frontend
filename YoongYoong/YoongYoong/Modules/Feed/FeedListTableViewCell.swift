@@ -29,6 +29,8 @@ class FeedListTableViewCell: UITableViewCell {
     }
   }
   
+  var onReuse: () -> Void = { }
+  
   let profileButton = UIButton().then {
     $0.contentMode = .scaleAspectFit
     $0.backgroundColor = .lightGray
@@ -222,7 +224,8 @@ extension FeedListTableViewCell {
   
   override func prepareForReuse() {
     super.prepareForReuse()
-    
+    self.onReuse()
+    self.profileButton.setImage(nil, for: .normal)
   }
   
   private func updateView() {

@@ -87,7 +87,9 @@ extension FeedViewController: UITableViewDataSource {
     guard let viewModel = self.viewModel as? FeedViewModel,
           let cell = tableView.dequeueReusableCell(withIdentifier: FeedListTableViewCell.identifier, for: indexPath) as? FeedListTableViewCell else { return .init() }
     let item = viewModel.feedElements.value[indexPath.row]
-    
+    let token = ImageDownloadManager.shared.downloadImage(with: item.user.imageUrl) { image in
+      cell.profileButton.setImage(image, for: .normal)
+    }
     cell.viewModel = .init(
       profile: item.user.imageUrl,
       name: item.user.nickname,
@@ -99,6 +101,12 @@ extension FeedViewController: UITableViewDataSource {
       likeCount: item.likeCount,
       commentCount: item.commentCount
     )
+    
+    cell.onReuse = {
+      if let token = token {
+        ImageDownloadManager.shared.cancelLoad(token)
+      }
+    }
     return cell
   }
 }

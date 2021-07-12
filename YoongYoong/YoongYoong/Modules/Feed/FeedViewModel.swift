@@ -21,7 +21,7 @@ class FeedViewModel: ViewModel, ViewModelType {
   }
   
   struct Output {
-    let items: BehaviorRelay<[FeedListSection]>
+    let items: BehaviorRelay<[PostResponse]>
     let profile: Observable<FeedProfileViewModel>
     let detail: Observable<FeedDetailViewModel>
     let likeChanged: Observable<(IndexPath, FeedListTableViewCellViewModel)>
@@ -34,28 +34,12 @@ class FeedViewModel: ViewModel, ViewModelType {
   }()
   
   let feedElements = BehaviorRelay<[PostResponse]>(value: [])
-  let section = BehaviorRelay<[FeedListSection]>(value: [])
   let feedDetail = PublishSubject<FeedDetailViewModel>()
   let currentDate = BehaviorRelay<String>(value: "")
   let brave = BehaviorRelay<String>(value: BraveWord.default)
   let userSelection = PublishSubject<FeedProfileViewModel>()
   let likeChanged = PublishRelay<(IndexPath, FeedListTableViewCellViewModel)>()
   func transform(input: Input) -> Output {
-    
-    feedElements.map { feedList -> [FeedListSection] in
-      let cellViewModel = feedList.map { feed -> FeedListSection.Item in
-        let viewModel = FeedListTableViewCellViewModel.init(with: feed)
-        viewModel.userSelection.bind(onNext: {
-          self.selectUser(user: feed.user)
-        }).disposed(by: self.disposeBag)
-        viewModel.likeButtonDidTap.bind(onNext: {
-          self.likePost(feed: feed)
-        }).disposed(by: self.disposeBag)
-        return viewModel
-      }
-      
-      return [FeedListSection(items: cellViewModel)]
-    }.bind(to: self.section).disposed(by: disposeBag)
     
     currentDate.accept(dateFormatter.string(from: Date()))
     let braveWord = BraveWord()
@@ -70,7 +54,7 @@ class FeedViewModel: ViewModel, ViewModelType {
     fetchFeedList()
     
     return Output(
-      items: section,
+      items: feedElements,
       profile: self.userSelection,
       detail: self.feedDetail,
       likeChanged: self.likeChanged.asObservable()
