@@ -117,8 +117,8 @@ final class PostService: PostServiceType {
       }
   }
   
-  func likePost(feed: PostResponse) -> Observable<Result<Void, PostAPIError>> {
-    return provider.rx.request(.likePost(id: feed.postId))
+  func likePost(feedId: Int) -> Observable<Result<Void, PostAPIError>> {
+    return provider.rx.request(.likePost(id: feedId))
       .asObservable()
       .map { response -> Result<Void, PostAPIError> in
         switch response.statusCode {

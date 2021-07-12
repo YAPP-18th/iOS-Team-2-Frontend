@@ -72,7 +72,7 @@ class FeedViewController: ViewController {
     output.items
       .observeOn(MainScheduler.instance)
       .subscribe(onNext: { _ in
-      self.tableView.reloadDataAndKeepOffset()
+      self.tableView.reloadData()
       }).disposed(by: disposeBag)
   }
 }
@@ -107,6 +107,10 @@ extension FeedViewController: UITableViewDataSource {
         ImageDownloadManager.shared.cancelLoad(token)
       }
     }
+    
+    cell.onLike = {
+      viewModel.likeChanged.accept(indexPath)
+    }
     return cell
   }
 }
@@ -123,8 +127,30 @@ extension FeedViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {
     return 116
   }
+  
+  func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+    guard let vm = self.viewModel as? FeedViewModel else { return }
+    let item = vm.feedElements.value[indexPath.row]
+    let viewModel = FeedListTableViewCell.ViewModel(
+      profile: item.user.imageUrl,
+      name: item.user.nickname,
+      storeName: item.placeName,
+      date: item.createdDate,
+      imageList: item.images,
+      menus: item.postContainers,
+      isLiked: item.isLikePressed,
+      likeCount: item.likeCount,
+      commentCount: item.commentCount
+    )
+    let height = FeedListTableViewCell.getHeight(viewModel: viewModel)
+    cellHeights[indexPath] = height
+  }
 
   func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+    return cellHeights[indexPath] ?? UITableView.automaticDimension
+  }
+  
+  func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
     return cellHeights[indexPath] ?? UITableView.automaticDimension
   }
 }

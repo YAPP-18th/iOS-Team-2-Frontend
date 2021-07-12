@@ -24,7 +24,6 @@ class FeedViewModel: ViewModel, ViewModelType {
     let items: BehaviorRelay<[PostResponse]>
     let profile: Observable<FeedProfileViewModel>
     let detail: Observable<FeedDetailViewModel>
-    let likeChanged: Observable<(IndexPath, FeedListTableViewCellViewModel)>
   }
   
   private let dateFormatter: DateFormatter = {
@@ -38,7 +37,7 @@ class FeedViewModel: ViewModel, ViewModelType {
   let currentDate = BehaviorRelay<String>(value: "")
   let brave = BehaviorRelay<String>(value: BraveWord.default)
   let userSelection = PublishSubject<FeedProfileViewModel>()
-  let likeChanged = PublishRelay<(IndexPath, FeedListTableViewCellViewModel)>()
+  let likeChanged = PublishRelay<(IndexPath)>()
   func transform(input: Input) -> Output {
     
     currentDate.accept(dateFormatter.string(from: Date()))
@@ -53,11 +52,15 @@ class FeedViewModel: ViewModel, ViewModelType {
     
     fetchFeedList()
     
+    likeChanged.subscribe(onNext: { indexPath in
+      let feed = self.feedElements.value[indexPath.row]
+      self.likePost(feed: feed)
+    }).disposed(by: disposeBag)
+    
     return Output(
       items: feedElements,
       profile: self.userSelection,
-      detail: self.feedDetail,
-      likeChanged: self.likeChanged.asObservable()
+      detail: self.feedDetail
     )
   }
   
@@ -80,7 +83,7 @@ class FeedViewModel: ViewModel, ViewModelType {
   }
   
   func likePost(feed: PostResponse) {
-    provider.likePost(feed: feed)
+    provider.likePost(feedId: feed.postId)
       .subscribe(onNext: { result in
         switch result {
         case .success:

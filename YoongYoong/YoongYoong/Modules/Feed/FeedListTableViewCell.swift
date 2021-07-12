@@ -30,6 +30,7 @@ class FeedListTableViewCell: UITableViewCell {
   }
   
   var onReuse: () -> Void = { }
+  var onLike: () -> Void = { }
   
   let profileButton = UIButton().then {
     $0.contentMode = .scaleAspectFit
@@ -126,6 +127,10 @@ class FeedListTableViewCell: UITableViewCell {
     containerListView.layer.borderWidth = 1
     containerListView.layer.borderColor = UIColor(hexString: "#ADADB1").cgColor
   }
+  
+  @objc func likeButtonTapped() {
+    self.onLike()
+  }
 }
 
 extension FeedListTableViewCell {
@@ -133,6 +138,8 @@ extension FeedListTableViewCell {
     self.selectionStyle = .none
     self.contentView.backgroundColor = .systemGray00
     self.contentImageCollectionView.dataSource = self
+    
+    likeButton.addTarget(self, action: #selector(likeButtonTapped), for: .touchUpInside)
   }
   
   private func setupView() {
@@ -200,7 +207,6 @@ extension FeedListTableViewCell {
     }
     
     likeContainer.snp.makeConstraints {
-      $0.top.equalTo(containerListView.snp.bottom).offset(21)
       $0.leading.bottom.equalToSuperview()
       $0.width.equalToSuperview().multipliedBy(0.5)
       $0.height.equalTo(30)
@@ -211,10 +217,9 @@ extension FeedListTableViewCell {
     }
     
     messagesContainer.snp.makeConstraints {
-      $0.top.equalTo(containerListView.snp.bottom).offset(21)
       $0.trailing.bottom.equalToSuperview()
       $0.width.equalToSuperview().multipliedBy(0.5)
-      $0.height.equalTo(30)
+      $0.height.equalTo(likeContainer)
     }
     
     messagesButton.snp.makeConstraints {
@@ -234,6 +239,9 @@ extension FeedListTableViewCell {
     self.nameLabel.text = vm.name
     self.storeNameLabel.text = vm.storeName
     self.containerListView.viewModel = .init(menus: vm.menus)
+    self.likeButton.setImage(UIImage(named: vm.isLiked ? "icFeedLikeFilled": "icFeedLikeStroked"), for: .normal)
+    self.likeButton.setTitle("\(vm.likeCount)", for: .normal)
+    self.messagesButton.setTitle("\(vm.commentCount)", for: .normal)
   }
   
   static func getHeight(viewModel: ViewModel) -> CGFloat {
@@ -244,17 +252,19 @@ extension FeedListTableViewCell {
     // containerList
     let containerListTop: CGFloat = 16
     let containerTitleHeight = getContainerTitleHeight()
+    let containerBottmHeight: CGFloat = 8
     var containerHeight: CGFloat = 16
     let count = viewModel.menus.count
     containerHeight += CGFloat(18 * count)
     containerHeight += CGFloat(4 * (count - 1))
     containerHeight += containerListTop
     containerHeight += containerTitleHeight
+    containerHeight += containerBottmHeight
     
-      
+    let likeMessagesTop: CGFloat = 21.0
     let likeMessagesHeight: CGFloat = 30.0
     
-    height = profileHeight + contentImageViewHeight + containerHeight + likeMessagesHeight
+    height = profileHeight + contentImageViewHeight + containerHeight + likeMessagesTop + likeMessagesHeight
     return height
   }
   

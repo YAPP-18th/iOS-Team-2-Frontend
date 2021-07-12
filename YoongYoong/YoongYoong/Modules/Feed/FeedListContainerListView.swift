@@ -19,7 +19,7 @@ class FeedListContainerListView: UIView {
       self.updateView()
     }
   }
-  let stackView = UIStackView().then {
+  var stackView = UIStackView().then {
     $0.axis = .vertical
   }
   
@@ -57,11 +57,10 @@ extension FeedListContainerListView {
     guard let vm = self.viewModel else { return }
     
     self.stackView.arrangedSubviews.forEach {
-      $0.removeFromSuperview()
       self.stackView.removeArrangedSubview($0)
+      $0.isHidden = true
     }
-    
-    let itemList = vm.menus.map { TitleContentItem(title:"\($0.food) \($0.foodCount) \($0.container) \($0.containerCount)")}
+    let itemList = vm.menus.map { TitleContentItem(title:"\($0.food) \($0.foodCount) \($0.container.name)\($0.container.size) \($0.containerCount)")}
     
     itemList.forEach { item in
       let view = UIView()
@@ -95,6 +94,7 @@ extension FeedListContainerListView {
       }
       
       self.stackView.addArrangedSubview(view)
+      view.isHidden = false
     }
   }
 }
