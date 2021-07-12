@@ -132,6 +132,7 @@ extension FeedListTableViewCell {
   private func configuration() {
     self.selectionStyle = .none
     self.contentView.backgroundColor = .systemGray00
+    self.contentImageCollectionView.dataSource = self
   }
   
   private func setupView() {
@@ -264,5 +265,28 @@ extension FeedListTableViewCell {
       $0.textColor = .systemGrayText01
     }
     return containerTitleLabel.getHeight()
+  }
+}
+
+extension FeedListTableViewCell: UICollectionViewDataSource {
+  func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    return self.viewModel?.imageList.count ?? 0
+  }
+  
+  func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    guard let vm = self.viewModel,
+          let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FeedContentCollectionViewCell.identifier, for: indexPath) as? FeedContentCollectionViewCell
+    else { return .init() }
+    
+    let token = ImageDownloadManager.shared.downloadImage(with: vm.imageList[indexPath.item]) { image in
+      cell.imageView.image = image
+    }
+    
+    cell.onReuse = {
+      if let token = token {
+        ImageDownloadManager.shared.cancelLoad(token)
+      }
+    }
+    return cell
   }
 }

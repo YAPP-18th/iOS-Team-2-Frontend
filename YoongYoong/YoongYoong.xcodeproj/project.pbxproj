@@ -149,7 +149,6 @@
 		AAD0240A2642A4FB00F1EC2B /* FeedTipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAD023FC2642A4FB00F1EC2B /* FeedTipView.swift */; };
 		AAD0240B2642A4FB00F1EC2B /* FeedListTableViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAD023FD2642A4FB00F1EC2B /* FeedListTableViewCellViewModel.swift */; };
 		AAD0240C2642A4FB00F1EC2B /* FeedListContainerListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAD023FE2642A4FB00F1EC2B /* FeedListContainerListView.swift */; };
-		AAD0240D2642A4FB00F1EC2B /* FeedListSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAD023FF2642A4FB00F1EC2B /* FeedListSection.swift */; };
 		AAD0240E2642A4FB00F1EC2B /* FeedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAD024002642A4FB00F1EC2B /* FeedViewModel.swift */; };
 		AAD0240F2642A4FB00F1EC2B /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAD024012642A4FB00F1EC2B /* FeedViewController.swift */; };
 		AAD024102642A4FB00F1EC2B /* FeedListContainerListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAD024022642A4FB00F1EC2B /* FeedListContainerListViewModel.swift */; };
@@ -394,7 +393,6 @@
 		AAD023FC2642A4FB00F1EC2B /* FeedTipView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedTipView.swift; sourceTree = "<group>"; };
 		AAD023FD2642A4FB00F1EC2B /* FeedListTableViewCellViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedListTableViewCellViewModel.swift; sourceTree = "<group>"; };
 		AAD023FE2642A4FB00F1EC2B /* FeedListContainerListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedListContainerListView.swift; sourceTree = "<group>"; };
-		AAD023FF2642A4FB00F1EC2B /* FeedListSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedListSection.swift; sourceTree = "<group>"; };
 		AAD024002642A4FB00F1EC2B /* FeedViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedViewModel.swift; sourceTree = "<group>"; };
 		AAD024012642A4FB00F1EC2B /* FeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
 		AAD024022642A4FB00F1EC2B /* FeedListContainerListViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedListContainerListViewModel.swift; sourceTree = "<group>"; };
@@ -1042,7 +1040,6 @@
 				AAD023FC2642A4FB00F1EC2B /* FeedTipView.swift */,
 				AAD023FD2642A4FB00F1EC2B /* FeedListTableViewCellViewModel.swift */,
 				AAD023FE2642A4FB00F1EC2B /* FeedListContainerListView.swift */,
-				AAD023FF2642A4FB00F1EC2B /* FeedListSection.swift */,
 				AAD024002642A4FB00F1EC2B /* FeedViewModel.swift */,
 				AAD024012642A4FB00F1EC2B /* FeedViewController.swift */,
 				AAD024022642A4FB00F1EC2B /* FeedListContainerListViewModel.swift */,
@@ -1658,7 +1655,6 @@
 				DAF5C5BD2662567D00BF93E0 /* PostService.swift in Sources */,
 				AA74A53D268F264F00A14194 /* SelectContainerModel.swift in Sources */,
 				AA14464D267DA8E300A149EE /* MapSearchNavigationView.swift in Sources */,
-				AAD0240D2642A4FB00F1EC2B /* FeedListSection.swift in Sources */,
 				DABDB0F5264F84CD00653739 /* TermViewController.swift in Sources */,
 				DA5D36EC2661E5D300C41C82 /* CommentResponse.swift in Sources */,
 				AACCAADA2646466A005C9FBC /* MyBadgeCollectionViewCell.swift in Sources */,

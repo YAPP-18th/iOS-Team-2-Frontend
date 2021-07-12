@@ -107,11 +107,6 @@ class FeedDetailViewController: ViewController {
     return cell
   }, canEditRowAtIndexPath: { _, _ in true })
   
-  let collectionDataSource = RxCollectionViewSectionedAnimatedDataSource<FeedContentImageSection> { _, collectionView, indexPath, viewModel in
-    guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FeedContentCollectionViewCell.identifier, for: indexPath) as? FeedContentCollectionViewCell else { return .init() }
-    cell.bind(to: viewModel)
-    return cell
-  }
   
   let commentInputContainer = UIView().then {
     $0.backgroundColor = .white
@@ -205,7 +200,6 @@ class FeedDetailViewController: ViewController {
       self.messagesButton.setTitle("\(feed.commentCount)", for: .normal)
     }).disposed(by: self.disposeBag)
     contentImageCollectionView.dataSource = nil
-    output.images.drive(self.contentImageCollectionView.rx.items(dataSource: collectionDataSource)).disposed(by: disposeBag)
   }
   
   override func configuration() {

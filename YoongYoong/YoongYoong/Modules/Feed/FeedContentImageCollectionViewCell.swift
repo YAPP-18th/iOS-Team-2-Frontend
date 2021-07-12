@@ -6,27 +6,13 @@
 //
 
 import UIKit
-import RxCocoa
-import RxSwift
-import RxDataSources
-
-class FeedContentCollectionViewCellViewModel: NSObject, IdentifiableType {
-  var identity: String {
-    return imageURL.value ?? ""
-  }
-  var imageURL = BehaviorRelay<String?>(value: nil)
-  
-  init(imageURL: String) {
-    super.init()
-    self.imageURL.accept(imageURL)
-  }
-}
 
 class FeedContentCollectionViewCell: UICollectionViewCell {
-  var disposeBag = DisposeBag()
   let imageView = UIImageView().then {
     $0.contentMode = .scaleAspectFit
   }
+  
+  var onReuse: () -> Void = { }
   
   override init(frame: CGRect) {
     super.init(frame: frame)
@@ -39,16 +25,10 @@ class FeedContentCollectionViewCell: UICollectionViewCell {
     fatalError("init(coder:) has not been implemented")
   }
   
-  func bind(to viewModel: FeedContentCollectionViewCellViewModel) {
-    viewModel.imageURL.subscribe(onNext: { imageURL in
-      guard let imageURL = imageURL else { return }
-      ImageDownloadManager.shared.downloadImage(url: imageURL).bind(to: self.imageView.rx.image).disposed(by: self.disposeBag)
-    }).disposed(by: self.disposeBag)
-  }
-  
   override func prepareForReuse() {
     super.prepareForReuse()
-    self.disposeBag = DisposeBag()
+    self.onReuse()
+    self.imageView.image = nil
   }
 }
 extension FeedContentCollectionViewCell {
