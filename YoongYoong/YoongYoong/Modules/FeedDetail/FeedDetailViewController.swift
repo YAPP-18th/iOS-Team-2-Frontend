@@ -174,7 +174,7 @@ class FeedDetailViewController: ViewController {
       guard let keyboardFrame = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
       else { return assertionFailure() }
 
-      let offset = (keyboardFrame.height * -1) - 20
+      let offset = ((keyboardFrame.height - self.view.safeAreaInsets.bottom) * -1) - 20
       self.commentFieldBotton.update(offset: offset)
     } else if notification.name == UIResponder.keyboardWillHideNotification {
       self.commentFieldBotton.update(offset: -20)
