@@ -137,7 +137,7 @@ final class PostService: PostServiceType {
   }
 }
 
-protocol MyPostServiceType: class {
+protocol MyPostServiceType: AnyObject {
   func fetchMyPost(month: Int) -> Observable<[PostResponse]>
 }
 

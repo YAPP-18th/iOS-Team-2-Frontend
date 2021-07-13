@@ -22,11 +22,16 @@ class FeedDetailMessageTableViewCell: UITableViewCell {
   }
   
   var height: CGFloat = 0.0
-  
+  let divider = UIView().then {
+    $0.backgroundColor = .systemGray06
+  }
   let profileImageView = UIImageView().then {
     $0.contentMode = .scaleAspectFit
     $0.backgroundColor = .lightGray
     $0.isUserInteractionEnabled = true
+    $0.layer.cornerRadius = 12
+    $0.layer.masksToBounds = true
+    $0.image = UIImage(named: "icFeedCommentUserThumbnail")
   }
   
   let nameLabel = UILabel().then {
@@ -69,7 +74,7 @@ class FeedDetailMessageTableViewCell: UITableViewCell {
     let width = UIScreen.main.bounds.width - 32
     
     
-    var height: CGFloat = 0
+    var height: CGFloat = 4
     let profileHeight: CGFloat = 40.0
     let messageHeight = messageLabel.sizeThatFits(.init(width: width, height: 0)).height
     let dateHeight: CGFloat = 34.0
@@ -85,14 +90,19 @@ extension FeedDetailMessageTableViewCell {
   }
   
   private func setupView() {
-    [profileImageView, nameLabel, messageLabel, dateLabel].forEach {
+    [divider, profileImageView, nameLabel, messageLabel, dateLabel].forEach {
       contentView.addSubview($0)
     }
   }
   
   private func setupLayout() {
+    divider.snp.makeConstraints {
+      $0.top.leading.trailing.equalToSuperview()
+      $0.height.equalTo(4)
+    }
+    
     profileImageView.snp.makeConstraints {
-      $0.top.equalTo(8)
+      $0.top.equalTo(divider.snp.bottom).offset(8)
       $0.leading.equalTo(16)
       $0.width.height.equalTo(24)
     }

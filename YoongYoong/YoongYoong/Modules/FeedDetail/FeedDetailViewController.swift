@@ -97,8 +97,13 @@ class FeedDetailViewController: ViewController {
     $0.centerTextAndImage(spacing: 2)
   }
   
+  let tableViewDivider = UIView().then {
+    $0.backgroundColor = .systemGray06
+  }
+  
   let messagesTableView = DynamicHeightTableView().then {
     $0.register(FeedDetailMessageTableViewCell.self, forCellReuseIdentifier: FeedDetailMessageTableViewCell.identifier)
+    $0.separatorStyle = .none
   }
   
   let commentInputContainer = UIView().then {
@@ -196,7 +201,12 @@ class FeedDetailViewController: ViewController {
       self.messagesTableView.reloadData()
     })
       .disposed(by: self.disposeBag)
-    contentImageCollectionView.dataSource = nil
+    
+    viewModel.commentAddSuccess
+      .observeOn(MainScheduler.instance)
+      .subscribe(onNext: { _ in
+      self.commentField.text = ""
+    }).disposed(by: disposeBag)
   }
   
   override func configuration() {
@@ -211,7 +221,7 @@ class FeedDetailViewController: ViewController {
     self.view.addSubview(commentInputContainer)
     scrollView.addArrangedSubview(contentView)
     
-    [authorContainer, contentImageCollectionView, containerTitleLabel, containerListView, divider, likeContainer, messagesContainer, messagesTableView].forEach {
+    [authorContainer, contentImageCollectionView, containerTitleLabel, containerListView, divider, likeContainer, messagesContainer, tableViewDivider, messagesTableView].forEach {
       contentView.addSubview($0)
     }
     
@@ -240,7 +250,7 @@ class FeedDetailViewController: ViewController {
     commentInputProfileImageView.snp.makeConstraints {
       self.commentFieldBotton = $0.bottom.equalTo(self.view.safeAreaLayoutGuide).offset(-20).constraint
       $0.leading.equalTo(16)
-      $0.top.equalTo(8)
+      $0.top.equalTo(4)
       $0.width.height.equalTo(40)
     }
     
@@ -353,8 +363,14 @@ class FeedDetailViewController: ViewController {
       $0.height.equalTo(16)
     }
     
-    messagesTableView.snp.makeConstraints {
+    tableViewDivider.snp.makeConstraints {
       $0.top.equalTo(messagesContainer.snp.bottom)
+      $0.leading.trailing.equalToSuperview()
+      $0.height.equalTo(4)
+    }
+    
+    messagesTableView.snp.makeConstraints {
+      $0.top.equalTo(tableViewDivider.snp.bottom)
       $0.leading.trailing.bottom.equalToSuperview()
     }
   }

@@ -29,6 +29,7 @@ class FeedDetailViewModel : ViewModel, ViewModelType {
   let feedMessageElements = BehaviorRelay<[CommentResponse]>(value: [])
   let contentImageURL = BehaviorRelay<[String]>(value: [])
   let deleteComment = PublishSubject<CommentResponse>()
+  let commentAddSuccess = PublishSubject<Void>()
   
   func transform(input: Input) -> Output {
     input.addComment.subscribe(onNext: { comment in
@@ -47,6 +48,7 @@ class FeedDetailViewModel : ViewModel, ViewModelType {
   
   func addComment(requestDTO: CommentRequestDTO) {
     self.provider.addCommentRequesst(postId: self.feed.postId, requestDTO: requestDTO).subscribe(onNext: { result in
+      self.commentAddSuccess.onNext(())
       self.fetchCommentList()
     }).disposed(by: disposeBag)
   }
