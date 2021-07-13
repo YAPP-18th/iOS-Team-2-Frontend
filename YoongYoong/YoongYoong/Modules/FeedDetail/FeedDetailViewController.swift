@@ -213,6 +213,8 @@ class FeedDetailViewController: ViewController {
     super.configuration()
     messagesTableView.dataSource = self
     messagesTableView.delegate = self
+    
+    contentImageCollectionView.dataSource = self
   }
   
   override func setupView() {
@@ -427,5 +429,26 @@ extension FeedDetailViewController: UITableViewDelegate {
     removeAction.backgroundColor = .brandColorSecondary01
     
     return UISwipeActionsConfiguration(actions: [editAction, removeAction])
+  }
+}
+
+extension FeedDetailViewController: UICollectionViewDataSource {
+  func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    return (self.viewModel as? FeedDetailViewModel)?.contentImageURL.value.count ?? 0
+  }
+  
+  func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    guard let vm = self.viewModel as? FeedDetailViewModel,
+          let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FeedContentCollectionViewCell.identifier, for: indexPath) as? FeedContentCollectionViewCell else { return .init() }
+    let token = ImageDownloadManager.shared.downloadImage(with: vm.contentImageURL.value[indexPath.item]) { image in
+      cell.imageView.image = image
+    }
+    
+    cell.onReuse = {
+      if let token = token {
+        ImageDownloadManager.shared.cancelLoad(token)
+      }
+    }
+    return cell
   }
 }
