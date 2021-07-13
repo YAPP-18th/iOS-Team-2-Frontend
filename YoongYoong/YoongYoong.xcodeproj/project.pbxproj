@@ -140,8 +140,6 @@
 		AACCAD98264F6DEE005C9FBC /* FeedDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCAD97264F6DEE005C9FBC /* FeedDetailViewController.swift */; };
 		AACCADA0264F6FA3005C9FBC /* FeedDetailMessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCAD9F264F6FA3005C9FBC /* FeedDetailMessageTableViewCell.swift */; };
 		AACCADA5264F72AF005C9FBC /* FeedDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCADA4264F72AF005C9FBC /* FeedDetailViewModel.swift */; };
-		AACCADAA264F7586005C9FBC /* FeedDetailMessageSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCADA9264F7586005C9FBC /* FeedDetailMessageSection.swift */; };
-		AACCADAF264F75A8005C9FBC /* FeedDetailMessageTableViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCADAE264F75A8005C9FBC /* FeedDetailMessageTableViewCellViewModel.swift */; };
 		AACCADB4264F75F2005C9FBC /* FeedMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCADB3264F75F2005C9FBC /* FeedMessage.swift */; };
 		AACCADB9264F79ED005C9FBC /* DynamicHeightTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCADB8264F79ED005C9FBC /* DynamicHeightTableView.swift */; };
 		AAD023F62642A4D200F1EC2B /* UIButton+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAD023F42642A4D200F1EC2B /* UIButton+Extensions.swift */; };
@@ -384,8 +382,6 @@
 		AACCAD97264F6DEE005C9FBC /* FeedDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedDetailViewController.swift; sourceTree = "<group>"; };
 		AACCAD9F264F6FA3005C9FBC /* FeedDetailMessageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedDetailMessageTableViewCell.swift; sourceTree = "<group>"; };
 		AACCADA4264F72AF005C9FBC /* FeedDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedDetailViewModel.swift; sourceTree = "<group>"; };
-		AACCADA9264F7586005C9FBC /* FeedDetailMessageSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedDetailMessageSection.swift; sourceTree = "<group>"; };
-		AACCADAE264F75A8005C9FBC /* FeedDetailMessageTableViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedDetailMessageTableViewCellViewModel.swift; sourceTree = "<group>"; };
 		AACCADB3264F75F2005C9FBC /* FeedMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedMessage.swift; sourceTree = "<group>"; };
 		AACCADB8264F79ED005C9FBC /* DynamicHeightTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicHeightTableView.swift; sourceTree = "<group>"; };
 		AAD023F42642A4D200F1EC2B /* UIButton+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+Extensions.swift"; sourceTree = "<group>"; };
@@ -1028,8 +1024,6 @@
 				AACCAD97264F6DEE005C9FBC /* FeedDetailViewController.swift */,
 				AACCAD9F264F6FA3005C9FBC /* FeedDetailMessageTableViewCell.swift */,
 				AACCADA4264F72AF005C9FBC /* FeedDetailViewModel.swift */,
-				AACCADAE264F75A8005C9FBC /* FeedDetailMessageTableViewCellViewModel.swift */,
-				AACCADA9264F7586005C9FBC /* FeedDetailMessageSection.swift */,
 			);
 			path = FeedDetail;
 			sourceTree = "<group>";
@@ -1702,7 +1696,6 @@
 				AA85A8342689D18800996E7A /* MyPageYonggiView.swift in Sources */,
 				DABB2CF9263033F60061EC98 /* UIView+Extensions.swift in Sources */,
 				AACCADA0264F6FA3005C9FBC /* FeedDetailMessageTableViewCell.swift in Sources */,
-				AACCADAA264F7586005C9FBC /* FeedDetailMessageSection.swift in Sources */,
 				DA5D371F2662549B00C41C82 /* Date+Extensions.swift in Sources */,
 				AA1446922685937900A149EE /* MapSearchResultViewModel.swift in Sources */,
 				7E3710CF264124C10054B744 /* SelectContainerViewController.swift in Sources */,
@@ -1711,7 +1704,6 @@
 				AACCAAD42646466A005C9FBC /* ProfileModel.swift in Sources */,
 				AA836E25266214CB008B731B /* PostService.swift in Sources */,
 				AAC79002262A7A1D009CC84E /* NavigationController.swift in Sources */,
-				AACCADAF264F75A8005C9FBC /* FeedDetailMessageTableViewCellViewModel.swift in Sources */,
 				7EF2DC64263076F80002E1E3 /* PostMapViewController.swift in Sources */,
 				AA14468F26847B8300A149EE /* MapSearchResultHeaderView.swift in Sources */,
 				AACCAAD62646466A005C9FBC /* MyPackageFilterCollectionViewCell.swift in Sources */,

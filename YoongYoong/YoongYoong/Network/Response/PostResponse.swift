@@ -25,7 +25,7 @@ struct UserInfo : Decodable, Hashable {
   let email: String
   let id: Int
   let imageUrl: String
-  let introduction: String
+  let introduction: String?
   let nickname: String
 }
 struct PostContainerModel : Decodable, Hashable {

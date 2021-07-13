@@ -24,10 +24,9 @@ class FeedDetailViewModel : ViewModel, ViewModelType {
   
   struct Output {
     let feed: Driver<PostResponse>
-    let items: BehaviorRelay<[FeedDetailMessageSection]>
   }
   
-  let feedMessageElements = PublishSubject<[CommentResponse]>()
+  let feedMessageElements = BehaviorRelay<[CommentResponse]>(value: [])
   let contentImageURL = BehaviorRelay<[String]>(value: [])
   let deleteComment = PublishSubject<CommentResponse>()
   
@@ -40,21 +39,9 @@ class FeedDetailViewModel : ViewModel, ViewModelType {
     deleteComment.subscribe(onNext: { comment in
       self.deleteComment(commentId: comment.commentId)
     }).disposed(by: self.disposeBag)
-    let elements = BehaviorRelay<[FeedDetailMessageSection]>(value: [])
     contentImageURL.accept(feed.images)
-    feedMessageElements.map { feedList -> [FeedDetailMessageSection] in
-      var elements: [FeedDetailMessageSection] = []
-      let cellViewModel = feedList.map { feed -> FeedDetailMessageSection.Item in
-        FeedDetailMessageTableViewCellViewModel.init(with: feed)
-      }
-      elements.append(FeedDetailMessageSection(items: cellViewModel))
-      return elements
-    }.bind(to: elements).disposed(by: disposeBag)
-    
-    fetchCommentList()
     return .init(
-      feed: .just(self.feed),
-      items: elements
+      feed: .just(self.feed)
     )
   }
   
@@ -68,7 +55,7 @@ class FeedDetailViewModel : ViewModel, ViewModelType {
     self.provider.fetchComments(postId: self.feed.postId).subscribe(onNext: { result in
       switch result {
       case let .success(list):
-        self.feedMessageElements.onNext(list.data ?? [])
+        self.feedMessageElements.accept(list.data ?? [])
       case let .failure(error):
         print(error.localizedDescription)
       }

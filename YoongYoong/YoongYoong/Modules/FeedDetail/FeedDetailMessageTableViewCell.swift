@@ -6,11 +6,21 @@
 //
 
 import UIKit
-import RxSwift
-import RxCocoa
 
 class FeedDetailMessageTableViewCell: UITableViewCell {
-  let bag = DisposeBag()
+  struct ViewModel {
+    let profileImage: String?
+    let name: String?
+    let message: String?
+    let date: String?
+  }
+  
+  var viewModel: ViewModel? {
+    didSet {
+      self.updateView()
+    }
+  }
+  
   var height: CGFloat = 0.0
   
   let profileImageView = UIImageView().then {
@@ -50,23 +60,12 @@ class FeedDetailMessageTableViewCell: UITableViewCell {
     fatalError("init(coder:) has not been implemented")
   }
   
-  func bind(to viewModel: FeedDetailMessageTableViewCellViewModel) {
-    viewModel.nickname.asDriver().drive(self.nameLabel.rx.text).disposed(by: bag)
-    viewModel.message.asDriver().drive(self.messageLabel.rx.text).disposed(by: bag)
-    viewModel.date.asDriver().drive(self.dateLabel.rx.text).disposed(by: bag)
-    viewModel.profileImageURL.subscribe(onNext: { url in
-      guard let url = url else { return }
-      ImageDownloadManager.shared.downloadImage(url: url).bind(to: self.profileImageView.rx.image).disposed(by: self.bag)
-    }).disposed(by: bag)
-    self.height = Self.getHeight(viewModel: viewModel)
-  }
-  
-  static func getHeight(viewModel: FeedDetailMessageTableViewCellViewModel) -> CGFloat {
+  static func getHeight(viewModel: ViewModel) -> CGFloat {
     let messageLabel = UILabel()
     messageLabel.font = .krBody3
     messageLabel.textColor = .systemGrayText01
     messageLabel.numberOfLines = 0
-    messageLabel.text = viewModel.message.value
+    messageLabel.text = viewModel.message
     let width = UIScreen.main.bounds.width - 32
     
     
@@ -119,6 +118,9 @@ extension FeedDetailMessageTableViewCell {
   }
   
   private func updateView() {
-    
+    guard let vm = self.viewModel else { return }
+    nameLabel.text = vm.name
+    messageLabel.text = vm.message
+    dateLabel.text = vm.date
   }
 }

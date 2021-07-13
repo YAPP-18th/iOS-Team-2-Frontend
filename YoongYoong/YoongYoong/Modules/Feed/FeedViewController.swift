@@ -28,6 +28,8 @@ class FeedViewController: ViewController {
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     self.navigationController?.setNavigationBarHidden(true, animated: animated)
+    
+    (viewModel as? FeedViewModel)?.fetchFeedList()
   }
   
   override func viewWillDisappear(_ animated: Bool) {

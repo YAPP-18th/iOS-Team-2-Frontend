@@ -101,13 +101,6 @@ class FeedDetailViewController: ViewController {
     $0.register(FeedDetailMessageTableViewCell.self, forCellReuseIdentifier: FeedDetailMessageTableViewCell.identifier)
   }
   
-  let dataSource = RxTableViewSectionedReloadDataSource<FeedDetailMessageSection>(configureCell: { dataSource, tableView, indexPath, item in
-    let cell = tableView.dequeueReusableCell(withIdentifier: FeedDetailMessageTableViewCell.identifier, for: indexPath) as! FeedDetailMessageTableViewCell
-    cell.bind(to: item)
-    return cell
-  }, canEditRowAtIndexPath: { _, _ in true })
-  
-  
   let commentInputContainer = UIView().then {
     $0.backgroundColor = .white
   }
@@ -144,6 +137,7 @@ class FeedDetailViewController: ViewController {
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     registerForKeyboardNotifications()
+    (viewModel as? FeedDetailViewModel)?.fetchCommentList()
   }
   
   override func viewWillDisappear(_ animated: Bool) {
@@ -187,10 +181,6 @@ class FeedDetailViewController: ViewController {
     guard let viewModel = self.viewModel as? FeedDetailViewModel else { return }
     let input = FeedDetailViewModel.Input(addComment: self.sendCommentButton.rx.tap.map { self.commentField.text ?? "" }.filter { !$0.isEmpty }.asObservable() )
     let output = viewModel.transform(input: input)
-    
-    output.items.asObservable()
-        .bind(to: messagesTableView.rx.items(dataSource: dataSource))
-        .disposed(by: disposeBag)
     output.feed.drive(onNext: { feed in
       ImageDownloadManager.shared.downloadImage(url: feed.user.imageUrl).bind(to: self.profileImageView.rx.image).disposed(by: self.disposeBag)
       self.nameLabel.text = feed.user.nickname
@@ -199,12 +189,20 @@ class FeedDetailViewController: ViewController {
       self.likeButton.setTitle("\(feed.likeCount)", for: .normal)
       self.messagesButton.setTitle("\(feed.commentCount)", for: .normal)
     }).disposed(by: self.disposeBag)
+    
+    viewModel.feedMessageElements
+      .observeOn(MainScheduler.instance)
+      .bind(onNext: { _ in
+      self.messagesTableView.reloadData()
+    })
+      .disposed(by: self.disposeBag)
     contentImageCollectionView.dataSource = nil
   }
   
   override func configuration() {
     super.configuration()
-    
+    messagesTableView.dataSource = self
+    messagesTableView.delegate = self
   }
   
   override func setupView() {
@@ -359,14 +357,39 @@ class FeedDetailViewController: ViewController {
       $0.top.equalTo(messagesContainer.snp.bottom)
       $0.leading.trailing.bottom.equalToSuperview()
     }
-    
-    messagesTableView.rx.setDelegate(self).disposed(by: disposeBag)
   }
 }
+
+extension FeedDetailViewController: UITableViewDataSource {
+  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    return (viewModel as? FeedDetailViewModel)?.feedMessageElements.value.count ?? 0
+  }
+  
+  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    guard let vm = viewModel as? FeedDetailViewModel,
+          let cell = tableView.dequeueReusableCell(withIdentifier: FeedDetailMessageTableViewCell.identifier, for: indexPath) as? FeedDetailMessageTableViewCell else { return .init() }
+    let item = vm.feedMessageElements.value[indexPath.row]
+    cell.viewModel = .init(
+      profileImage: item.user.imageUrl,
+      name: item.user.nickname,
+      message: item.content,
+      date: item.createdDate
+    )
+    return cell
+  }
+}
+
 extension FeedDetailViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-    let item = self.dataSource[indexPath.section].items[indexPath.row]
-    let height = FeedDetailMessageTableViewCell.getHeight(viewModel: item)
+    guard let vm = viewModel as? FeedDetailViewModel else { return .init() }
+    let item = vm.feedMessageElements.value[indexPath.row]
+    let viewModel = FeedDetailMessageTableViewCell.ViewModel(
+      profileImage: item.user.imageUrl,
+      name: item.user.nickname,
+      message: item.content,
+      date: item.createdDate
+    )
+    let height = FeedDetailMessageTableViewCell.getHeight(viewModel: viewModel)
     return height
   }
   
@@ -381,8 +404,6 @@ extension FeedDetailViewController: UITableViewDelegate {
     let removeAction = UIContextualAction(style: .normal, title: nil) { [weak self]  action, view, completion in
       guard let self = self,
             let viewModel = self.viewModel as? FeedDetailViewModel else { completion(false); return}
-      let item = self.dataSource[indexPath.section].items[indexPath.row]
-      viewModel.deleteComment.onNext(item.feedMessage)
       completion(true)
     }
     

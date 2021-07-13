@@ -50,8 +50,6 @@ class FeedViewModel: ViewModel, ViewModelType {
       self.feedDetail.onNext(viewModel)
     }).disposed(by: disposeBag)
     
-    fetchFeedList()
-    
     likeChanged.subscribe(onNext: { indexPath in
       let feed = self.feedElements.value[indexPath.row]
       self.likePost(feed: feed)
