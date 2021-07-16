@@ -60,6 +60,8 @@ class MyPageViewController: ViewController {
   }
   private let userProfile = UIImageView().then {
     $0.image = UIImage(named: "iconUserAvater")
+    $0.layer.cornerRadius = 25
+    $0.layer.masksToBounds = true
   }
   private let userName = UILabel().then {
     $0.textColor = .black
@@ -178,6 +180,7 @@ class MyPageViewController: ViewController {
     self.navigationItem.rightBarButtonItem = rightButtonItem
   }
   
+  
   override func configuration() {
     super.configuration()
     self.segmentView.dataSource = self
@@ -186,7 +189,7 @@ class MyPageViewController: ViewController {
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     tabIndicator.frame.origin.x = CGFloat((UIScreen.main.bounds.width / 3.0 - 108)/2)
-    
+    (viewModel as? MypageViewModel)?.getUserInfo()
   }
   
   override func setupView() {
@@ -327,6 +330,17 @@ class MyPageViewController: ViewController {
     output.selectedBadge.subscribe(onNext: { badge in
       showBadgeDetailView.shared.showBadge(image: badge.imagePath, title: badge.title, description: badge.discription, condition: badge.condition)
     }).disposed(by: disposeBag)
+    
+    viewModel.user
+      .observeOn(MainScheduler.instance)
+      .subscribe(onNext: { [weak self] userInfo in
+        guard let self = self else { return }
+        
+        ImageDownloadManager.shared.downloadImage(url: userInfo.imageUrl).asDriver(onErrorJustReturn: nil).drive(self.userProfile.rx.image)
+          .disposed(by: self.disposeBag)
+        self.userName.text = userInfo.nickname
+        self.comments.text = userInfo.introduction
+      }).disposed(by: self.disposeBag)
   }
   
 }

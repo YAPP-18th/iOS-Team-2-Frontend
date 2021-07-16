@@ -12,6 +12,8 @@ import Moya
 
 class MypageViewModel: ViewModel , ViewModelType {
   private let service = MyPostService(provider: MoyaProvider<PostRouter>(plugins:[NetworkLoggerPlugin()]))
+  private let authService : AuthorizeServiceType = AuthorizeService(provider: MoyaProvider<AuthRouter>(plugins:[NetworkLoggerPlugin()]))
+  
   let currentMonth = BehaviorSubject<Int>(value: Int(Date().month) ?? 6)
   struct Input {
     let loadView : Observable<Void>
@@ -26,6 +28,8 @@ class MypageViewModel: ViewModel , ViewModelType {
     let badgeList: Driver<[MyBadgeSection]>
     let selectedBadge: Observable<BadgeModel>
   }
+  
+  let user = PublishSubject<UserInfo>()
 }
 extension MypageViewModel {
   // contentCell에 바인딩
@@ -185,5 +189,18 @@ extension MypageViewModel {
         .init(identity: "프라이팬/L", title: "프라이팬", size: "L", isFavorite: false)
       ]),
     ]
+  }
+  
+  func getUserInfo() {
+    authService.getProfile().subscribe(onNext: { result in
+      switch result {
+      case .success(let userInfo):
+        if let userInfo = userInfo.data {
+          self.user.onNext(userInfo)
+        }
+      case .failure(let error):
+        break
+      }
+    }).disposed(by: disposeBag)
   }
 }

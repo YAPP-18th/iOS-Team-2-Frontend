@@ -9,6 +9,16 @@ import Foundation
 import Moya
 import RxSwift
 
+enum AuthAPIError: Error {
+  case error(String)
+  
+  var message: String {
+    switch self {
+    case .error(let msg):
+      return msg
+    }
+  }
+}
 protocol AuthorizeServiceType: AnyObject {
   
   func checkEmailDuplicate(_ param: CheckEmailDuplicateRequest) -> Observable<Bool>
@@ -21,6 +31,9 @@ protocol AuthorizeServiceType: AnyObject {
   func findPassword(_ param: FindPasswordRequest) -> Observable<Bool>
   func findPasswordCode(_ param: FindPasswordCodeRequest) -> Observable<Bool>
   func resetPassword(_ param: ResetPasswordRequest) -> Observable<Bool>
+  
+  func getProfile() -> Observable<Result<BaseResponse<UserInfo>, AuthAPIError>>
+  
 }
 
 class AuthorizeService: AuthorizeServiceType {
@@ -84,5 +97,29 @@ extension AuthorizeService {
     return provider.rx.request(.resetPassword(param: param))
       .asObservable()
       .map { (200...300).contains($0.statusCode) }
+  }
+  
+  func getProfile() -> Observable<Result<BaseResponse<UserInfo>, AuthAPIError>> {
+    return provider.rx.request(.profile)
+      .asObservable()
+      .map { response -> Result<BaseResponse<UserInfo>, AuthAPIError> in
+        switch response.statusCode {
+        case (200...300):
+          do {
+            let results = try JSONDecoder().decode(BaseResponse<UserInfo>.self, from: response.data)
+            return .success(results)
+          } catch {
+            return .failure(.error("JSON Parsing Error"))
+          }
+        case 400:
+          // 잘못된 parameter를 전달한 경우
+          return .failure(.error("Bad Request"))
+        case 500:
+          // parameter가 누락된 경우
+          return .failure(.error("Internal Server Error"))
+        default:
+          return .failure(.error("원인 모를 에러"))
+        }
+      }
   }
 }
