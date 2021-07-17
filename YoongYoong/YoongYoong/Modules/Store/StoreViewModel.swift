@@ -12,9 +12,11 @@ import RxCocoa
 
 class StoreViewModel: ViewModel, ViewModelType {
   let place: Place
+  private let provider: PostService
   
-  init(place: Place) {
+  init(place: Place, provider: PostService = .init()) {
     self.place = place
+    self.provider = provider
   }
   
   struct Input {
@@ -66,6 +68,14 @@ class StoreViewModel: ViewModel, ViewModelType {
     default:
       break
     }
+    
+  }
+  
+  func getContainerInfo() {
+    
+  }
+  
+  func getPostList() {
     
   }
 }

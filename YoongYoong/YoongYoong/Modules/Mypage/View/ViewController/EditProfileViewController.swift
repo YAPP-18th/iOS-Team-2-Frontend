@@ -111,7 +111,7 @@ class EditProfileViewController : ViewController {
     guard let viewModel = viewModel as? EditProfileViewModel else { return }
     let inputs = EditProfileViewModel.Input(loadView: Observable.just(()),
                                             ProfileImage: Observable.just(profileBtn.image(for: .normal) ?? UIImage()),
-                                            nameText: nameTextField.rx.text.orEmpty.filter { !$0.isEmpty }.throttle(DispatchTimeInterval.milliseconds(800), latest: true, scheduler: MainScheduler.instance),
+                                            nameText: nameTextField.rx.text.orEmpty.filter { !$0.isEmpty }.debounce(DispatchTimeInterval.milliseconds(800), scheduler: MainScheduler.instance),
                                             commentText: commentTextView.rx.text.orEmpty.asObservable(),
                                             changeAction: submitBtn.rx.tap.asObservable())
     let output = viewModel.transform(input: inputs)

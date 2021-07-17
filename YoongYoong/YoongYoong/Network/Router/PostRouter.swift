@@ -20,6 +20,8 @@ enum PostRouter {
   case fetchMyPost(month: Int)
   case fetchOtherPost(id: Int)
   case likePost(id: Int)
+  case fetchStorePost(place: Place)
+  case fetchStoreContainer(place: Place)
 }
 
 
@@ -50,6 +52,10 @@ extension PostRouter: TargetType {
       return "/post/user"
     case .likePost(let id):
       return "/post/\(id)/like"
+    case .fetchStorePost:
+      return "/post/place"
+    case .fetchStoreContainer:
+      return "/place"
     }
   }
   
@@ -59,7 +65,9 @@ extension PostRouter: TargetType {
          .fetchCommentList,
          .fetchPostBy,
          .fetchMyPost,
-         .fetchOtherPost:
+         .fetchOtherPost,
+         .fetchStorePost,
+         .fetchStoreContainer:
       return .get
     case .addPost,
          .addComment:
@@ -126,6 +134,22 @@ extension PostRouter: TargetType {
       return .requestParameters(parameters: ["userId": id], encoding: URLEncoding.default)
     case .likePost:
       return .requestPlain
+    case let .fetchStorePost(place):
+      return .requestParameters(
+        parameters: [
+          "location": place.address,
+          "name": place.name
+        ],
+        encoding: URLEncoding.default
+      )
+    case let .fetchStoreContainer(place):
+      return .requestParameters(
+        parameters: [
+          "location": place.address,
+          "name": place.name
+        ],
+        encoding: URLEncoding.default
+      )
     }
   }
   
