@@ -412,6 +412,8 @@ extension FeedDetailViewController: UITableViewDelegate {
   }
   
   func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+    guard let viewModel = self.viewModel as? FeedDetailViewModel else { return nil }
+    
     let editAction = UIContextualAction(style: .normal, title: nil) { action, view, completion in
       
       completion(true)
@@ -419,16 +421,17 @@ extension FeedDetailViewController: UITableViewDelegate {
     editAction.image = UIImage(named: "icFeedCommentEdit")
     editAction.backgroundColor = .brandColorTertiary01
     
-    let removeAction = UIContextualAction(style: .normal, title: nil) { [weak self]  action, view, completion in
-      guard let self = self,
-            let viewModel = self.viewModel as? FeedDetailViewModel else { completion(false); return}
+    let removeAction = UIContextualAction(style: .normal, title: nil) {   action, view, completion in
+      let comment = viewModel.feedMessageElements.value[indexPath.row]
+      viewModel.deleteComment(commentId: comment.commentId)
       completion(true)
     }
     
     removeAction.image = UIImage(named: "icFeedCommentRemove")
     removeAction.backgroundColor = .brandColorSecondary01
-    
-    return UISwipeActionsConfiguration(actions: [editAction, removeAction])
+    let config = UISwipeActionsConfiguration(actions: [editAction, removeAction])
+    config.performsFirstActionWithFullSwipe = false
+    return config
   }
 }
 
