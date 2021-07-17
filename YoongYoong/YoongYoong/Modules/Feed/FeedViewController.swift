@@ -113,8 +113,13 @@ extension FeedViewController: UITableViewDataSource {
     cell.onLike = {
       viewModel.likeChanged.accept(indexPath)
     }
+    
+    cell.onProfile = {
+      viewModel.selectUser(user: item.user)
+    }
     return cell
   }
+  
 }
 
 extension FeedViewController: UITableViewDelegate {

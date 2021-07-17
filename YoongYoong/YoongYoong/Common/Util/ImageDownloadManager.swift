@@ -9,78 +9,83 @@ import UIKit
 import Alamofire
 import RxSwift
 class ImageDownloadManager{
-  private let cache = NSCache<NSString, UIImage>()
   static let shared = ImageDownloadManager()
-  
+  private let cache = MemoryCache()
   private var runningRequests: [UUID: DataRequest] = [:]
-  
+  private let thumbnailImage = UIImage(named: "icPostThumbnail")!
   private init() { }
-  func downloadImage(url: String) -> Observable<UIImage?>{
+  
+  func downloadImage(url: String) -> Observable<UIImage>{
+    
     return Observable.create { observer in
-      let thumbnailImage = UIImage(named: "thumbnail")
-      if let cachedImage = self.cache.object(forKey: NSString(string: url)){
-        observer.onNext(cachedImage)
-      }else{
-        AF.request(url).responseData { (response) in
-          switch response.result{
-          case .success(let data):
-            if let imageToCache = UIImage(data: data){
-              self.cache.setObject(imageToCache, forKey: NSString(string: url))
-              DispatchQueue.main.async {
-                observer.onNext(imageToCache)
+      self.cache.retrieve(url) { (image: UIImage?) in
+        if let image = image {
+          observer.onNext(image)
+          observer.onCompleted()
+          
+        } else {
+          AF.request(url).responseData { (response) in
+            switch response.result{
+            case .success(let data):
+              if let imageToCache = UIImage(data: data){
+                self.cache.store(key: url, object: imageToCache) {
+                  observer.onNext(imageToCache)
+                  observer.onCompleted()
+                }
+              }else{
+                observer.onNext(UIImage())
+                observer.onCompleted()
               }
-            }else{
-              DispatchQueue.main.async {
-                observer.onNext(thumbnailImage)
-              }
+            case .failure(let error):
+              observer.onError(error)
             }
-          case .failure(let error):
-            print(error.localizedDescription)
-            observer.onNext(thumbnailImage)
           }
         }
       }
-      return Disposables.create()
-    }
-    
-  }
-  
-  func downloadImage(with url: String, completion: @escaping (UIImage?) -> Void) -> UUID? {
-    if let cachedImage = self.cache.object(forKey: NSString(string: url)){
-      completion(cachedImage)
-      return nil
-    }
-    
-    let uuid = UUID()
-    let request = AF.request(url).responseData { (response) in
-      defer {
-        self.runningRequests.removeValue(forKey: uuid)
+        return Disposables.create()
       }
-      switch response.result{
-      case .success(let data):
-        if let imageToCache = UIImage(data: data){
-          self.cache.setObject(imageToCache, forKey: NSString(string: url))
-          DispatchQueue.main.async {
-            completion(imageToCache)
+      
+    }
+    
+    
+    @discardableResult
+    func downloadImage(with url: String, completion: @escaping (UIImage) -> Void) -> UUID? {
+      var uuid: UUID?
+      self.cache.retrieve(url) { (image: UIImage?) in
+        if let image = image {
+          completion(image)
+        } else {
+          uuid = UUID()
+          let request = AF.request(url).responseData { (response) in
+            defer {
+              self.runningRequests.removeValue(forKey: uuid!)
+            }
+            switch response.result{
+            case .success(let data):
+              if let imageToCache = UIImage(data: data){
+                self.cache.store(key: url, object: imageToCache) {
+                  DispatchQueue.main.async {
+                    completion(imageToCache)
+                  }
+                }
+              }else{
+                DispatchQueue.main.async {
+                  completion(self.thumbnailImage)
+                }
+              }
+            case .failure:
+              completion(self.thumbnailImage)
+            }
           }
-        }else{
-          DispatchQueue.main.async {
-            completion(nil)
-          }
+          self.runningRequests[uuid!] = request
         }
-      case .failure(let error):
-        print(error.localizedDescription)
-        completion(nil)
       }
+      
+      return uuid
     }
     
-    runningRequests[uuid] = request
-    return uuid
-    
+    func cancelLoad(_ uuid: UUID) {
+      runningRequests[uuid]?.cancel()
+      runningRequests.removeValue(forKey: uuid)
+    }
   }
-  
-  func cancelLoad(_ uuid: UUID) {
-    runningRequests[uuid]?.cancel()
-    runningRequests.removeValue(forKey: uuid)
-  }
-}

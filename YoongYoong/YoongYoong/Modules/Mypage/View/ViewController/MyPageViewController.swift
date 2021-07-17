@@ -336,7 +336,7 @@ class MyPageViewController: ViewController {
       .subscribe(onNext: { [weak self] userInfo in
         guard let self = self else { return }
         
-        ImageDownloadManager.shared.downloadImage(url: userInfo.imageUrl).asDriver(onErrorJustReturn: nil).drive(self.userProfile.rx.image)
+        ImageDownloadManager.shared.downloadImage(url: userInfo.imageUrl).asDriver(onErrorJustReturn: UIImage(named: "icPostThumbnail")!).drive(self.userProfile.rx.image)
           .disposed(by: self.disposeBag)
         self.userName.text = userInfo.nickname
         self.comments.text = userInfo.introduction

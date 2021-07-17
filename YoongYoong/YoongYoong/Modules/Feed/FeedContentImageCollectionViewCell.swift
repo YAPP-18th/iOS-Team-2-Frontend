@@ -27,8 +27,6 @@ class FeedContentCollectionViewCell: UICollectionViewCell {
   
   override func prepareForReuse() {
     super.prepareForReuse()
-    self.onReuse()
-    self.imageView.image = nil
   }
 }
 extension FeedContentCollectionViewCell {

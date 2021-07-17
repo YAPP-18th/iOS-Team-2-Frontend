@@ -31,7 +31,7 @@ class FeedListTableViewCell: UITableViewCell {
   
   var onReuse: () -> Void = { }
   var onLike: () -> Void = { }
-  
+  var onProfile: () -> Void = { }
   let profileButton = UIButton().then {
     $0.contentMode = .scaleAspectFit
     $0.backgroundColor = .lightGray
@@ -131,6 +131,9 @@ class FeedListTableViewCell: UITableViewCell {
   @objc func likeButtonTapped() {
     self.onLike()
   }
+  @objc func profileButtonTapped() {
+    self.onProfile()
+  }
 }
 
 extension FeedListTableViewCell {
@@ -140,6 +143,7 @@ extension FeedListTableViewCell {
     self.contentImageCollectionView.dataSource = self
     
     likeButton.addTarget(self, action: #selector(likeButtonTapped), for: .touchUpInside)
+    profileButton.addTarget(self, action: #selector(profileButtonTapped), for: .touchUpInside)
   }
   
   private func setupView() {
@@ -231,7 +235,6 @@ extension FeedListTableViewCell {
   override func prepareForReuse() {
     super.prepareForReuse()
     self.onReuse()
-    self.profileButton.setImage(nil, for: .normal)
   }
   
   private func updateView() {
@@ -242,6 +245,7 @@ extension FeedListTableViewCell {
     self.likeButton.setImage(UIImage(named: vm.isLiked ? "icFeedLikeFilled": "icFeedLikeStroked"), for: .normal)
     self.likeButton.setTitle("\(vm.likeCount)", for: .normal)
     self.messagesButton.setTitle("\(vm.commentCount)", for: .normal)
+    self.contentImageCollectionView.reloadData()
   }
   
   static func getHeight(viewModel: ViewModel) -> CGFloat {
@@ -280,19 +284,18 @@ extension FeedListTableViewCell {
 
 extension FeedListTableViewCell: UICollectionViewDataSource {
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    return self.viewModel?.imageList.count ?? 0
+    guard let vm = self.viewModel else { return 0 }
+    return vm.imageList.count
   }
   
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     guard let vm = self.viewModel,
           let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FeedContentCollectionViewCell.identifier, for: indexPath) as? FeedContentCollectionViewCell
     else { return .init() }
-    
     let token = ImageDownloadManager.shared.downloadImage(with: vm.imageList[indexPath.item]) { image in
       cell.imageView.image = image
     }
-    
-    cell.onReuse = {
+    onReuse = {
       if let token = token {
         ImageDownloadManager.shared.cancelLoad(token)
       }

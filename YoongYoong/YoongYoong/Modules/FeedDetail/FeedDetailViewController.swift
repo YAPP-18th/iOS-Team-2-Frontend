@@ -153,6 +153,9 @@ class FeedDetailViewController: ViewController {
   override func viewDidLayoutSubviews() {
     super.viewDidLayoutSubviews()
     self.commentInputContainer.layer.applySketchShadow(color: .black, alpha: 0.07, x: 0, y: -2, blur: 8, spread: 0)
+    containerListView.layer.cornerRadius = 8
+    containerListView.layer.borderWidth = 1
+    containerListView.layer.borderColor = UIColor(hexString: "#ADADB1").cgColor
   }
   
   private func registerForKeyboardNotifications() {
@@ -184,16 +187,23 @@ class FeedDetailViewController: ViewController {
   override func bindViewModel() {
     super.bindViewModel()
     guard let viewModel = self.viewModel as? FeedDetailViewModel else { return }
-    let input = FeedDetailViewModel.Input(addComment: self.sendCommentButton.rx.tap.map { self.commentField.text ?? "" }.filter { !$0.isEmpty }.asObservable() )
+    let input = FeedDetailViewModel.Input(
+      addComment: self.sendCommentButton.rx.tap.map { self.commentField.text ?? "" }.filter { !$0.isEmpty }.asObservable(),
+      like: self.likeButton.rx.tap.asObservable()
+      )
     let output = viewModel.transform(input: input)
     output.feed.drive(onNext: { feed in
       ImageDownloadManager.shared.downloadImage(url: feed.user.imageUrl).bind(to: self.profileImageView.rx.image).disposed(by: self.disposeBag)
       self.nameLabel.text = feed.user.nickname
       self.dateLabel.text = feed.createdDate
       self.storeNameLabel.text = feed.placeName
+      self.likeButton.setImage(UIImage(named: feed.isLikePressed ? "icFeedLikeFilled": "icFeedLikeStroked"), for: .normal)
       self.likeButton.setTitle("\(feed.likeCount)", for: .normal)
       self.messagesButton.setTitle("\(feed.commentCount)", for: .normal)
+      self.containerListView.viewModel = .init(menus: feed.postContainers)
     }).disposed(by: self.disposeBag)
+    
+    
     
     viewModel.feedMessageElements
       .observeOn(MainScheduler.instance)

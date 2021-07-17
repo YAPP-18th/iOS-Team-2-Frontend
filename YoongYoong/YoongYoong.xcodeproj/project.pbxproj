@@ -61,6 +61,7 @@
 		AA1446A52686E00300A149EE /* MyBadgeSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1446A42686E00300A149EE /* MyBadgeSection.swift */; };
 		AA344617261B2F240034E1BC /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA344616261B2F240034E1BC /* MapViewController.swift */; };
 		AA37545A26A267840027E4B2 /* AppVariables.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA37545926A267840027E4B2 /* AppVariables.swift */; };
+		AA37545D26A3070E0027E4B2 /* Cashable.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA37545C26A3070E0027E4B2 /* Cashable.swift */; };
 		AA53BE55265C0F07004A39E2 /* UserDefault+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA53BE54265C0F07004A39E2 /* UserDefault+Extensions.swift */; };
 		AA53BE5B265C1252004A39E2 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA53BE5A265C1252004A39E2 /* SplashViewController.swift */; };
 		AA53BE63265C13C2004A39E2 /* SplashViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA53BE62265C13C2004A39E2 /* SplashViewModel.swift */; };
@@ -307,6 +308,7 @@
 		AA1446A42686E00300A149EE /* MyBadgeSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBadgeSection.swift; sourceTree = "<group>"; };
 		AA344616261B2F240034E1BC /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		AA37545926A267840027E4B2 /* AppVariables.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppVariables.swift; sourceTree = "<group>"; };
+		AA37545C26A3070E0027E4B2 /* Cashable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cashable.swift; sourceTree = "<group>"; };
 		AA53BE54265C0F07004A39E2 /* UserDefault+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefault+Extensions.swift"; sourceTree = "<group>"; };
 		AA53BE5A265C1252004A39E2 /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
 		AA53BE62265C13C2004A39E2 /* SplashViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewModel.swift; sourceTree = "<group>"; };
@@ -1295,6 +1297,7 @@
 				AAC83410266265D000D3E267 /* ImageDownloadManager.swift */,
 				AA85A835268CCD4A00996E7A /* YYAlertController.swift */,
 				AA85A837268CCECF00996E7A /* YYAlertAction.swift */,
+				AA37545C26A3070E0027E4B2 /* Cashable.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -1781,6 +1784,7 @@
 				AA14464B267DA77B00A149EE /* MapSearchViewModel.swift in Sources */,
 				AAD024222642A56600F1EC2B /* BraveWord.swift in Sources */,
 				AAC79020262AA7E3009CC84E /* TipViewController.swift in Sources */,
+				AA37545D26A3070E0027E4B2 /* Cashable.swift in Sources */,
 				DACA964D264BAD8700E95165 /* AlertModel.swift in Sources */,
 				AACCAA7826451B64005C9FBC /* TipDetailViewController.swift in Sources */,
 				AACCAAF4264646E1005C9FBC /* AlertAction.swift in Sources */,
