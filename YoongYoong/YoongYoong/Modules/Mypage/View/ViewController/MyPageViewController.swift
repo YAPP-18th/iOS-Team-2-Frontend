@@ -331,7 +331,7 @@ class MyPageViewController: ViewController {
       showBadgeDetailView.shared.showBadge(image: badge.imagePath, title: badge.title, description: badge.discription, condition: badge.condition)
     }).disposed(by: disposeBag)
     
-    viewModel.user
+    globalUser
       .observeOn(MainScheduler.instance)
       .subscribe(onNext: { [weak self] userInfo in
         guard let self = self else { return }

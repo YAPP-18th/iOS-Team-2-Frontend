@@ -413,6 +413,10 @@ extension FeedDetailViewController: UITableViewDelegate {
   
   func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
     guard let viewModel = self.viewModel as? FeedDetailViewModel else { return nil }
+    let comment = viewModel.feedMessageElements.value[indexPath.row]
+    guard comment.user.id == globalUser.value.id else {
+      return nil
+    }
     
     let editAction = UIContextualAction(style: .normal, title: nil) { action, view, completion in
       
@@ -422,7 +426,6 @@ extension FeedDetailViewController: UITableViewDelegate {
     editAction.backgroundColor = .brandColorTertiary01
     
     let removeAction = UIContextualAction(style: .normal, title: nil) {   action, view, completion in
-      let comment = viewModel.feedMessageElements.value[indexPath.row]
       viewModel.deleteComment(commentId: comment.commentId)
       completion(true)
     }

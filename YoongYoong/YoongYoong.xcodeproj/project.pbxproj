@@ -60,6 +60,7 @@
 		AA1446A226864E5F00A149EE /* MyPageYongYongView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1446A126864E5F00A149EE /* MyPageYongYongView.swift */; };
 		AA1446A52686E00300A149EE /* MyBadgeSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1446A42686E00300A149EE /* MyBadgeSection.swift */; };
 		AA344617261B2F240034E1BC /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA344616261B2F240034E1BC /* MapViewController.swift */; };
+		AA37545A26A267840027E4B2 /* AppVariables.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA37545926A267840027E4B2 /* AppVariables.swift */; };
 		AA53BE55265C0F07004A39E2 /* UserDefault+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA53BE54265C0F07004A39E2 /* UserDefault+Extensions.swift */; };
 		AA53BE5B265C1252004A39E2 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA53BE5A265C1252004A39E2 /* SplashViewController.swift */; };
 		AA53BE63265C13C2004A39E2 /* SplashViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA53BE62265C13C2004A39E2 /* SplashViewModel.swift */; };
@@ -305,6 +306,7 @@
 		AA1446A126864E5F00A149EE /* MyPageYongYongView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageYongYongView.swift; sourceTree = "<group>"; };
 		AA1446A42686E00300A149EE /* MyBadgeSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBadgeSection.swift; sourceTree = "<group>"; };
 		AA344616261B2F240034E1BC /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		AA37545926A267840027E4B2 /* AppVariables.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppVariables.swift; sourceTree = "<group>"; };
 		AA53BE54265C0F07004A39E2 /* UserDefault+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefault+Extensions.swift"; sourceTree = "<group>"; };
 		AA53BE5A265C1252004A39E2 /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
 		AA53BE62265C13C2004A39E2 /* SplashViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewModel.swift; sourceTree = "<group>"; };
@@ -733,6 +735,7 @@
 				AAC78F90262A67FD009CC84E /* Application.swift */,
 				AAC78FF4262A7150009CC84E /* Navigator.swift */,
 				DA1284E026589B9500764A2D /* UserDefaultStorage.swift */,
+				AA37545926A267840027E4B2 /* AppVariables.swift */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -1792,6 +1795,7 @@
 				DACA9680264F693300E95165 /* ManageEmailViewController.swift in Sources */,
 				DAB00031260F12CA00D8208F /* YoongYoong.xcdatamodeld in Sources */,
 				7E7F80AD2653F8380035EDED /* SearchResponse.swift in Sources */,
+				AA37545A26A267840027E4B2 /* AppVariables.swift in Sources */,
 				7E42939E2648FF19005D7710 /* PostReviewViewController.swift in Sources */,
 				AAD024352643C0D400F1EC2B /* TipTableViewCellViewModel.swift in Sources */,
 				AAC834132662691200D3E267 /* FeedContentImageCollectionViewCell.swift in Sources */,

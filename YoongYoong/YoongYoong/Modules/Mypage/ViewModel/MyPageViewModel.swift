@@ -28,8 +28,6 @@ class MypageViewModel: ViewModel , ViewModelType {
     let badgeList: Driver<[MyBadgeSection]>
     let selectedBadge: Observable<BadgeModel>
   }
-  
-  let user = PublishSubject<UserInfo>()
 }
 extension MypageViewModel {
   // contentCell에 바인딩
@@ -192,15 +190,6 @@ extension MypageViewModel {
   }
   
   func getUserInfo() {
-    authService.getProfile().subscribe(onNext: { result in
-      switch result {
-      case .success(let userInfo):
-        if let userInfo = userInfo.data {
-          self.user.onNext(userInfo)
-        }
-      case .failure(let error):
-        break
-      }
-    }).disposed(by: disposeBag)
+    authService.getProfile()
   }
 }

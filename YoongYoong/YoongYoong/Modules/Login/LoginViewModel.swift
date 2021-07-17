@@ -59,4 +59,8 @@ class LoginViewModel : ViewModel, ViewModelType {
             findPassword: findPassword
         )
     }
+  
+  func getUserInfo() {
+    service.getProfile()
+  }
 }

@@ -32,11 +32,12 @@ protocol AuthorizeServiceType: AnyObject {
   func findPasswordCode(_ param: FindPasswordCodeRequest) -> Observable<Bool>
   func resetPassword(_ param: ResetPasswordRequest) -> Observable<Bool>
   
-  func getProfile() -> Observable<Result<BaseResponse<UserInfo>, AuthAPIError>>
+  func getProfile()
   
 }
 
 class AuthorizeService: AuthorizeServiceType {
+  let disposeBag = DisposeBag()
   private let provider: MoyaProvider<AuthRouter>
   init(provider: MoyaProvider<AuthRouter>) {
     self.provider = provider
@@ -99,27 +100,18 @@ extension AuthorizeService {
       .map { (200...300).contains($0.statusCode) }
   }
   
-  func getProfile() -> Observable<Result<BaseResponse<UserInfo>, AuthAPIError>> {
-    return provider.rx.request(.profile)
+  func getProfile() {
+    provider.rx.request(.profile)
       .asObservable()
-      .map { response -> Result<BaseResponse<UserInfo>, AuthAPIError> in
-        switch response.statusCode {
-        case (200...300):
-          do {
-            let results = try JSONDecoder().decode(BaseResponse<UserInfo>.self, from: response.data)
-            return .success(results)
-          } catch {
-            return .failure(.error("JSON Parsing Error"))
-          }
-        case 400:
-          // 잘못된 parameter를 전달한 경우
-          return .failure(.error("Bad Request"))
-        case 500:
-          // parameter가 누락된 경우
-          return .failure(.error("Internal Server Error"))
-        default:
-          return .failure(.error("원인 모를 에러"))
+      .map { response -> UserInfo in
+        if case (200...300) = response.statusCode,
+           let result = try? JSONDecoder().decode(BaseResponse<UserInfo>.self, from: response.data),
+           let userInfo = result.data {
+          return userInfo
+        } else {
+          return .init(email: "", id: 0, imageUrl: "", introduction: "", nickname: "")
         }
-      }
+      }.bind(to: globalUser)
+      .disposed(by: self.disposeBag)
   }
 }
