@@ -38,20 +38,7 @@ class MapViewModel: ViewModel, ViewModelType {
     //1 -
     input.myLocation.subscribe(onNext: { [weak self] in
       guard let self = self else { return }
-      if LocationManager.shared.locationServicesEnabled {
-        switch self.locationManager.permissionStatus.value {
-        case .authorizedWhenInUse, .authorizedAlways:
-          self.location.onNext(self.locationManager.locationChanged.value)
-        case .denied:
-          self.appSettingTrigger.onNext(())
-        case .notDetermined:
-          self.locationManager.requestPermission()
-        default:
-          break
-        }
-      } else {
-        self.settingTrigger.onNext(())
-      }
+      self.myLocation()
     }).disposed(by: disposeBag)
     
     let setting = self.settingTrigger.asObservable()
@@ -68,5 +55,22 @@ class MapViewModel: ViewModel, ViewModelType {
       location: location,
       search: search
     )
+  }
+  
+  func myLocation() {
+    if LocationManager.shared.locationServicesEnabled {
+      switch self.locationManager.permissionStatus.value {
+      case .authorizedWhenInUse, .authorizedAlways:
+        self.location.onNext(self.locationManager.locationChanged.value)
+      case .denied:
+        self.appSettingTrigger.onNext(())
+      case .notDetermined:
+        self.locationManager.requestPermission()
+      default:
+        self.location.onNext(.init(latitude: 37.5662952, longitude: 126.9757564))
+      }
+    } else {
+      self.settingTrigger.onNext(())
+    }
   }
 }
