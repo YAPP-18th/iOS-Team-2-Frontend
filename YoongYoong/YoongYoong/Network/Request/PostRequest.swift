@@ -23,7 +23,7 @@ struct PostContainerDTO: Encodable {
   let foodCount: Int
 }
 
-struct ContainerDTO: Encodable {
+struct ContainerDTO: Codable {
   let name: String
   let size: String
 }

@@ -9,9 +9,24 @@ import UIKit
 
 class StoreReviewCell: UITableViewCell {
   
+  struct ViewModel {
+    var name: String
+    var date: String
+    var menu: String
+  }
+  
+  var viewModel: ViewModel? {
+    didSet{
+      self.updateView()
+    }
+  }
+  
+  var onReuse: () -> Void = { }
+  
   let profileImageView = UIImageView().then {
-    $0.image = UIImage(named: "imgDummyProfile")
     $0.contentMode = .scaleAspectFit
+    $0.layer.cornerRadius = 16
+    $0.layer.masksToBounds = true
   }
   
   let menuImageView = UIImageView().then {
@@ -116,6 +131,16 @@ extension StoreReviewCell {
   }
   
   private func updateView() {
-    
+    guard let vm = self.viewModel else { return }
+    nameLabel.text = vm.name
+    dateLabel.text = vm.date
+    menuLabel.text = vm.menu
+  }
+  
+  override func prepareForReuse() {
+    super.prepareForReuse()
+    self.onReuse()
+    self.profileImageView.image = nil
+    self.menuImageView.image = nil
   }
 }

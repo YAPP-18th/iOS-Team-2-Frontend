@@ -135,6 +135,54 @@ final class PostService: PostServiceType {
         }
       }
   }
+  
+  func storeContainer(place: Place) -> Observable<Result<[ContainerDTO], PostAPIError>> {
+    return provider.rx.request(.fetchStoreContainer(place: place))
+      .asObservable()
+      .map { response -> Result<[ContainerDTO], PostAPIError> in
+        switch response.statusCode {
+        case 200:
+          do {
+            let results = try JSONDecoder().decode(BaseResponse<[ContainerDTO]>.self, from: response.data)
+            return .success(results.data ?? [])
+          } catch {
+            return .failure(.error("JSON Parsing Error"))
+          }
+        case 400:
+          // 잘못된 parameter를 전달한 경우
+          return .failure(.error("Bad Request"))
+        case 500:
+          // parameter가 누락된 경우
+          return .failure(.error("Internal Server Error"))
+        default:
+          return .failure(.error("원인 모를 에러"))
+        }
+      }
+  }
+  
+  func storePosts(place: Place) -> Observable<Result<[PostResponse], PostAPIError>> {
+    return provider.rx.request(.fetchStorePost(place: place))
+      .asObservable()
+      .map { response -> Result<[PostResponse], PostAPIError> in
+        switch response.statusCode {
+        case 200:
+          do {
+            let results = try JSONDecoder().decode(BaseResponse<[PostResponse]>.self, from: response.data)
+            return .success(results.data ?? [])
+          } catch {
+            return .failure(.error("JSON Parsing Error"))
+          }
+        case 400:
+          // 잘못된 parameter를 전달한 경우
+          return .failure(.error("Bad Request"))
+        case 500:
+          // parameter가 누락된 경우
+          return .failure(.error("Internal Server Error"))
+        default:
+          return .failure(.error("원인 모를 에러"))
+        }
+      }
+  }
 }
 
 protocol MyPostServiceType: AnyObject {

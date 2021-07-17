@@ -8,6 +8,17 @@
 import UIKit
 
 class StoreYonggiCommentView: UIView {
+  
+  struct ViewModel {
+    let count: Int
+  }
+  
+  var viewModel: ViewModel? {
+    didSet {
+      self.updateView()
+    }
+  }
+  
   let titleLabel = UILabel().then {
     $0.font = .krTitle1
     $0.text = "포스트"
@@ -91,6 +102,7 @@ extension StoreYonggiCommentView {
   }
   
   private func updateView() {
-    
+    guard let vm = self.viewModel else { return }
+    self.commentLabel.text = "지금까지 총 \(vm.count)개의 용기를 냈어요"
   }
 }

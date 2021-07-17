@@ -29,6 +29,10 @@ class StoreViewModel: ViewModel, ViewModelType {
     let setting: PublishRelay<Void>
   }
   
+  let containerList = BehaviorRelay<[ContainerDTO]>(value: [])
+  let postList = BehaviorRelay<[PostResponse]>(value: [])
+  let detail = PublishSubject<FeedDetailViewModel>()
+  
   func transform(input: Input) -> Output {
     let imageSelectionView = PublishRelay<PostImageSelectionViewModel>()
     let setting = PublishRelay<Void>()
@@ -72,10 +76,32 @@ class StoreViewModel: ViewModel, ViewModelType {
   }
   
   func getContainerInfo() {
-    
+    provider.storeContainer(place: place)
+      .subscribe(onNext: { result in
+        switch result {
+        case .success(let list):
+          self.containerList.accept(list)
+        case .failure(let error):
+          print(error.localizedDescription)
+        }
+      }).disposed(by: self.disposeBag)
   }
   
   func getPostList() {
-    
+    provider.storePosts(place: place)
+      .subscribe(onNext: { result in
+          switch result {
+          case .success(let list):
+            self.postList.accept(list)
+          case .failure(let error):
+            print(error.localizedDescription)
+          }
+      }).disposed(by: self.disposeBag)
+  }
+  
+  func goToFeedDetail(_ indexPath: IndexPath) {
+    let value = self.postList.value[indexPath.row]
+    let viewModel = FeedDetailViewModel(feed: value)
+    self.detail.onNext(viewModel)
   }
 }
