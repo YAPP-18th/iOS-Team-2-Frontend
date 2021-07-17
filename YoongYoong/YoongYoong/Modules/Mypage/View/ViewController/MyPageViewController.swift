@@ -295,10 +295,10 @@ class MyPageViewController: ViewController {
       self.comments.text = model.message
     }.disposed(by: disposeBag)
     
-    editProfileBtn.rx.tap.bind{[weak self] in
-      let vc = EditProfileViewController(viewModel: EditProfileViewModel(), navigator: self?.navigator ?? Navigator())
-      vc.hidesBottomBarWhenPushed = true
-      self?.navigationController?.pushViewController(vc, animated: true)
+    editProfileBtn.rx.tap.bind{ [weak self] in
+      guard let self = self else { return }
+      let viewModel = EditProfileViewModel()
+      self.navigator.show(segue: .editProfile(viewModel: viewModel), sender: self, transition: .navigation(.right, animated: true, hidesTabbar: true))
     }.disposed(by: disposeBag)
     leftButtonItem.rx.tap.bind{ [weak self] in
       if LoginManager.shared.isLogin {

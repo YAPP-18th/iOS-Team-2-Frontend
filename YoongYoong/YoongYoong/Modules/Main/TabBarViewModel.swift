@@ -8,8 +8,10 @@
 import Foundation
 import RxCocoa
 import RxSwift
+import Moya
 
 class TabBarViewModel: ViewModel, ViewModelType {
+  private let service : AuthorizeServiceType = AuthorizeService(provider: MoyaProvider<AuthRouter>(plugins:[NetworkLoggerPlugin()]))
     struct Input {
         let postTapDidTap: Observable<Void>
     }
@@ -49,7 +51,7 @@ class TabBarViewModel: ViewModel, ViewModelType {
         let tabBarItems = Observable<[TabBarItem]>
             .just([.home,.feed,.post,.myPage])
             .asDriver(onErrorJustReturn: [])
-        
+        getUser()
         return Output(tabBarItems: tabBarItems,
                       postView: postView,
                       setting: setting)
@@ -72,4 +74,8 @@ class TabBarViewModel: ViewModel, ViewModelType {
             return ViewModel()
         }
     }
+  
+  private func getUser() {
+    service.getProfile()
+  }
 }

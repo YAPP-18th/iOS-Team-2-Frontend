@@ -162,7 +162,6 @@ class LoginViewController: ViewController {
                     LoginManager.shared.makeLoginStatus(status: .logined, accessToken: token)
                     let alert = YYAlertController(title: "알림", message: "로그인이 정상적으로 완료되었습니다.")
                     let okAction = YYAlertAction(title: "확인", style: .default) { [weak self] in
-                      viewModel.getUserInfo()
                         let viewModel = TabBarViewModel()
                         self?.navigator.show(segue: .tabs(viewModel: viewModel), sender: self, transition: .modalFullScreen)
                     }
