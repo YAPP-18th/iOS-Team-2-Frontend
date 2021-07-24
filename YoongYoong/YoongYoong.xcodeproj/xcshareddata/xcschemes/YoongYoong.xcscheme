@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "DAB00022260F12CA00D8208F"
-               BuildableName = "YoongYoong.app"
-               BlueprintName = "YoongYoong"
+               BuildableName = "&#x110b;&#x116d;&#x11bc;&#x1100;&#x1175;&#x1102;&#x1162;&#x110b;&#x116d;&#x11bc;.app"
+               BlueprintName = "&#xc6a9;&#xae30;&#xb0b4;&#xc6a9;"
                ReferencedContainer = "container:YoongYoong.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -65,8 +65,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "DAB00022260F12CA00D8208F"
-            BuildableName = "YoongYoong.app"
-            BlueprintName = "YoongYoong"
+            BuildableName = "&#x110b;&#x116d;&#x11bc;&#x1100;&#x1175;&#x1102;&#x1162;&#x110b;&#x116d;&#x11bc;.app"
+            BlueprintName = "&#xc6a9;&#xae30;&#xb0b4;&#xc6a9;"
             ReferencedContainer = "container:YoongYoong.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -82,8 +82,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "DAB00022260F12CA00D8208F"
-            BuildableName = "YoongYoong.app"
-            BlueprintName = "YoongYoong"
+            BuildableName = "&#x110b;&#x116d;&#x11bc;&#x1100;&#x1175;&#x1102;&#x1162;&#x110b;&#x116d;&#x11bc;.app"
+            BlueprintName = "&#xc6a9;&#xae30;&#xb0b4;&#xc6a9;"
             ReferencedContainer = "container:YoongYoong.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

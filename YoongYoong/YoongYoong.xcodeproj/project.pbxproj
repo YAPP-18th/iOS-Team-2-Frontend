@@ -439,7 +439,7 @@
 		DA5D36EB2661E5D300C41C82 /* CommentResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentResponse.swift; sourceTree = "<group>"; };
 		DA5D370C26621AC800C41C82 /* MyPageEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageEmptyView.swift; sourceTree = "<group>"; };
 		DA5D371E2662549B00C41C82 /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
-		DAB00023260F12CA00D8208F /* YoongYoong.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YoongYoong.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DAB00023260F12CA00D8208F /* 용기내용.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "용기내용.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAB00026260F12CA00D8208F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DAB00030260F12CA00D8208F /* YoongYoong.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = YoongYoong.xcdatamodel; sourceTree = "<group>"; };
 		DAB00032260F12CD00D8208F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -505,6 +505,49 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7A3B366526AC08DC00D9886D /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				DACA9656264BC5BB00E95165 /* SettingViewModel.swift */,
+				DACA9651264BBE6A00E95165 /* SettingViewController.swift */,
+			);
+			path = Setting;
+			sourceTree = "<group>";
+		};
+		7A3B366626AC08EE00D9886D /* EditProfile */ = {
+			isa = PBXGroup;
+			children = (
+				AACCAACB26464669005C9FBC /* EditProfileViewController.swift */,
+				AACCAAB926464669005C9FBC /* EditProfileViewModel.swift */,
+			);
+			path = EditProfile;
+			sourceTree = "<group>";
+		};
+		7A3B366726AC09AF00D9886D /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				DACA9647264BAAE400E95165 /* AlertTableViewCell.swift */,
+				DACA9642264BAA1000E95165 /* AlertListViewController.swift */,
+				AACCAAC426464669005C9FBC /* MyPackageFilterCollectionViewCell.swift */,
+				AACCAAC526464669005C9FBC /* MyPackageTableViewCell.swift */,
+				AACCAAC626464669005C9FBC /* MyPostTableViewCell.swift */,
+				AACCAAC826464669005C9FBC /* MyBadgeCollectionViewCell.swift */,
+				AACCAAC926464669005C9FBC /* MyPackageCollectionViewCell.swift */,
+				AA14469F26863C0F00A149EE /* MyPageSegmentCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		7A3B366826AC09CD00D9886D /* Others */ = {
+			isa = PBXGroup;
+			children = (
+				DACA967F264F693300E95165 /* ManageEmailViewController.swift */,
+				DABDB0EA264F6C4F00653739 /* CheckTermsViewController.swift */,
+				DABDB0F4264F84CD00653739 /* TermViewController.swift */,
+			);
+			path = Others;
+			sourceTree = "<group>";
+		};
 		7E209973262DB53900A43E70 /* Search */ = {
 			isa = PBXGroup;
 			children = (
@@ -875,22 +918,16 @@
 		AACCAAB726464669005C9FBC /* Mypage */ = {
 			isa = PBXGroup;
 			children = (
-				AACCAAB826464669005C9FBC /* ViewModel */,
+				7A3B366826AC09CD00D9886D /* Others */,
+				AACCAABA26464669005C9FBC /* MyPageViewModel.swift */,
+				AACCAACC26464669005C9FBC /* MyPageViewController.swift */,
+				DACA963D264BA9CC00E95165 /* AlertViewModel.swift */,
+				7A3B366626AC08EE00D9886D /* EditProfile */,
+				7A3B366526AC08DC00D9886D /* Setting */,
 				AACCAABB26464669005C9FBC /* Model */,
-				AACCAAC126464669005C9FBC /* View */,
+				AACCAAC126464669005C9FBC /* Views */,
 			);
 			path = Mypage;
-			sourceTree = "<group>";
-		};
-		AACCAAB826464669005C9FBC /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				AACCAAB926464669005C9FBC /* EditProfileViewModel.swift */,
-				AACCAABA26464669005C9FBC /* MyPageViewModel.swift */,
-				DACA963D264BA9CC00E95165 /* AlertViewModel.swift */,
-				DACA9656264BC5BB00E95165 /* SettingViewModel.swift */,
-			);
-			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		AACCAABB26464669005C9FBC /* Model */ = {
@@ -906,47 +943,18 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		AACCAAC126464669005C9FBC /* View */ = {
+		AACCAAC126464669005C9FBC /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				7A3B366726AC09AF00D9886D /* Cell */,
 				AA1446A32686DFF800A149EE /* Sections */,
-				AACCAAC226464669005C9FBC /* Cell */,
-				AACCAACA26464669005C9FBC /* ViewController */,
 				AACCAACD26464669005C9FBC /* BadgeDetailView.swift */,
 				DA5D370C26621AC800C41C82 /* MyPageEmptyView.swift */,
 				AACCAAC326464669005C9FBC /* MyPostView.swift */,
 				AA1446A126864E5F00A149EE /* MyPageYongYongView.swift */,
 				AA85A8332689D18800996E7A /* MyPageYonggiView.swift */,
 			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		AACCAAC226464669005C9FBC /* Cell */ = {
-			isa = PBXGroup;
-			children = (
-				AACCAAC426464669005C9FBC /* MyPackageFilterCollectionViewCell.swift */,
-				AACCAAC526464669005C9FBC /* MyPackageTableViewCell.swift */,
-				AACCAAC626464669005C9FBC /* MyPostTableViewCell.swift */,
-				AACCAAC826464669005C9FBC /* MyBadgeCollectionViewCell.swift */,
-				AACCAAC926464669005C9FBC /* MyPackageCollectionViewCell.swift */,
-				DACA9647264BAAE400E95165 /* AlertTableViewCell.swift */,
-				AA14469F26863C0F00A149EE /* MyPageSegmentCell.swift */,
-			);
-			path = Cell;
-			sourceTree = "<group>";
-		};
-		AACCAACA26464669005C9FBC /* ViewController */ = {
-			isa = PBXGroup;
-			children = (
-				AACCAACB26464669005C9FBC /* EditProfileViewController.swift */,
-				AACCAACC26464669005C9FBC /* MyPageViewController.swift */,
-				DACA9642264BAA1000E95165 /* AlertListViewController.swift */,
-				DACA9651264BBE6A00E95165 /* SettingViewController.swift */,
-				DACA967F264F693300E95165 /* ManageEmailViewController.swift */,
-				DABDB0EA264F6C4F00653739 /* CheckTermsViewController.swift */,
-				DABDB0F4264F84CD00653739 /* TermViewController.swift */,
-			);
-			path = ViewController;
+			path = Views;
 			sourceTree = "<group>";
 		};
 		AACCAC3F264C3B4C005C9FBC /* Login */ = {
@@ -1224,7 +1232,7 @@
 		DAB00024260F12CA00D8208F /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				DAB00023260F12CA00D8208F /* YoongYoong.app */,
+				DAB00023260F12CA00D8208F /* 용기내용.app */,
 				DAB0003C260F12CE00D8208F /* YoongYoongTests.xctest */,
 				DAB00047260F12CE00D8208F /* YoongYoongUITests.xctest */,
 			);
@@ -1339,9 +1347,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		DAB00022260F12CA00D8208F /* YoongYoong */ = {
+		DAB00022260F12CA00D8208F /* 용기내용 */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = DAB00050260F12CE00D8208F /* Build configuration list for PBXNativeTarget "YoongYoong" */;
+			buildConfigurationList = DAB00050260F12CE00D8208F /* Build configuration list for PBXNativeTarget "용기내용" */;
 			buildPhases = (
 				7CB8543938EE7069FADD2959 /* [CP] Check Pods Manifest.lock */,
 				DAB0001F260F12CA00D8208F /* Sources */,
@@ -1353,9 +1361,9 @@
 			);
 			dependencies = (
 			);
-			name = YoongYoong;
+			name = "용기내용";
 			productName = YoongYoong;
-			productReference = DAB00023260F12CA00D8208F /* YoongYoong.app */;
+			productReference = DAB00023260F12CA00D8208F /* 용기내용.app */;
 			productType = "com.apple.product-type.application";
 		};
 		DAB0003B260F12CE00D8208F /* YoongYoongTests */ = {
@@ -1433,7 +1441,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				DAB00022260F12CA00D8208F /* YoongYoong */,
+				DAB00022260F12CA00D8208F /* 용기내용 */,
 				DAB0003B260F12CE00D8208F /* YoongYoongTests */,
 				DAB00046260F12CE00D8208F /* YoongYoongUITests */,
 			);
@@ -1812,12 +1820,12 @@
 /* Begin PBXTargetDependency section */
 		DAB0003E260F12CE00D8208F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = DAB00022260F12CA00D8208F /* YoongYoong */;
+			target = DAB00022260F12CA00D8208F /* 용기내용 */;
 			targetProxy = DAB0003D260F12CE00D8208F /* PBXContainerItemProxy */;
 		};
 		DAB00049260F12CE00D8208F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = DAB00022260F12CA00D8208F /* YoongYoong */;
+			target = DAB00022260F12CA00D8208F /* 용기내용 */;
 			targetProxy = DAB00048260F12CE00D8208F /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -2103,7 +2111,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		DAB00050260F12CE00D8208F /* Build configuration list for PBXNativeTarget "YoongYoong" */ = {
+		DAB00050260F12CE00D8208F /* Build configuration list for PBXNativeTarget "용기내용" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DAB00051260F12CE00D8208F /* Debug */,
