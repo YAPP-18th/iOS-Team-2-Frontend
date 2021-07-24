@@ -25,7 +25,7 @@ final class OnboradingViewController : ViewController {
     private var skipBtn = UIButton().then{
         $0.setTitle("건너뛰기", for: .normal)
         $0.titleLabel?.font = .krButton1
-        $0.setTitleColor(.gray030, for: .normal)
+        $0.setTitleColor(.gray03, for: .normal)
     }
     
     private var pageController = UIPageControl().then{
