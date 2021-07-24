@@ -27,6 +27,7 @@ class MapSearchNavigationView: UIView {
     $0.font = .krBody1
     $0.placeholder = "가게명 검색"
     $0.clearButtonMode = .whileEditing
+    $0.returnKeyType = .search
     $0.textColor = .systemGrayText01
   }
   
