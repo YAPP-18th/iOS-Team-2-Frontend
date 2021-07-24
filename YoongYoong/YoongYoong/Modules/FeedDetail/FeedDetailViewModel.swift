@@ -10,6 +10,13 @@ import RxSwift
 import RxCocoa
 
 class FeedDetailViewModel : ViewModel, ViewModelType {
+    
+    enum CommentMode {
+        case normal
+        case edit(Int)
+    }
+    
+    
   private var feed: PostResponse
   private let provider: PostService
   
@@ -33,6 +40,7 @@ class FeedDetailViewModel : ViewModel, ViewModelType {
   let contentImageURL = BehaviorRelay<[String]>(value: [])
   let deleteComment = PublishSubject<CommentResponse>()
   let commentAddSuccess = PublishSubject<Void>()
+    let commentMode = BehaviorRelay<CommentMode>(value: .normal)
   
   func transform(input: Input) -> Output {
     input.addComment.subscribe(onNext: { comment in
@@ -52,10 +60,20 @@ class FeedDetailViewModel : ViewModel, ViewModelType {
   }
   
   func addComment(requestDTO: CommentRequestDTO) {
-    self.provider.addCommentRequesst(postId: self.feed.postId, requestDTO: requestDTO).subscribe(onNext: { result in
-      self.commentAddSuccess.onNext(())
-      self.fetchCommentList()
-    }).disposed(by: disposeBag)
+    if case .normal = commentMode.value {
+        self.provider.addCommentRequesst(postId: self.feed.postId, requestDTO: requestDTO).subscribe(onNext: { result in
+          self.commentAddSuccess.onNext(())
+          self.fetchCommentList()
+        }).disposed(by: disposeBag)
+    } else if case .edit(let commentId) = commentMode.value {
+        self.provider.editCommentRequest(postId: self.feed.postId, commentId: commentId, requestDTO: requestDTO).subscribe(onNext: { result in
+          self.commentAddSuccess.onNext(())
+          self.fetchCommentList()
+            self.commentMode.accept(.normal)
+        }).disposed(by: disposeBag)
+    }
+    
+    
   }
   
   func fetchCommentList() {

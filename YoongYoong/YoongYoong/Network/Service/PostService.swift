@@ -87,7 +87,14 @@ final class PostService: PostServiceType {
         (200...300).contains(response.statusCode)
       }
   }
-  
+    
+    func editCommentRequest(postId: Int, commentId: Int, requestDTO: CommentRequestDTO) -> Observable<Bool> {
+        return provider.rx.request(.modifyComment(postId: postId, commentId: commentId, param: requestDTO)).asObservable()
+            .map { response -> Bool in
+                (200...300).contains(response.statusCode)
+            }
+    }
+    
   func deleteComment(postId: Int, commentId: Int) -> Observable<Bool>{
     return provider.rx.request(.deleteComment(postId: postId, commentId: commentId)).asObservable().map { response -> Bool in
       (200...300).contains(response.statusCode)

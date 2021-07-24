@@ -22,6 +22,8 @@ class FeedDetailViewController: ViewController {
   let profileImageView = UIImageView().then {
     $0.contentMode = .scaleAspectFit
     $0.backgroundColor = .lightGray
+    $0.layer.cornerRadius = 19
+    $0.layer.masksToBounds = true
     $0.isUserInteractionEnabled = true
   }
   
@@ -429,7 +431,9 @@ extension FeedDetailViewController: UITableViewDelegate {
     }
     
     let editAction = UIContextualAction(style: .normal, title: nil) { action, view, completion in
-      
+        self.commentField.text = comment.content
+        self.commentField.becomeFirstResponder()
+        viewModel.commentMode.accept(.edit(comment.commentId))
       completion(true)
     }
     editAction.image = UIImage(named: "icFeedCommentEdit")
