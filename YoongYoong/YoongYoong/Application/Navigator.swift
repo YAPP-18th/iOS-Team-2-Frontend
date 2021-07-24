@@ -44,6 +44,7 @@ class Navigator {
     case alertList(viewModel: AlertViewModel)
     case settingList(viewModel: SettingViewModel)
     case store(viewModel: StoreViewModel)
+    case manageEmail(viewModel: ViewModel? = nil)
   }
   
   enum Transition {
@@ -159,6 +160,9 @@ class Navigator {
     case .store(let viewModel):
       let storeVC = StoreViewController(viewModel: viewModel, navigator: self)
       return storeVC
+    case .manageEmail:
+        let manageEmailVC = ManageEmailViewController(viewModel: nil, navigator: self)
+        return manageEmailVC
     }
    
   }

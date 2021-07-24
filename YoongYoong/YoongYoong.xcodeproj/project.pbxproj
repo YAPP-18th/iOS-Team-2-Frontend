@@ -508,6 +508,7 @@
 		7A3B366526AC08DC00D9886D /* Setting */ = {
 			isa = PBXGroup;
 			children = (
+				7A3B366826AC09CD00D9886D /* Others */,
 				DACA9656264BC5BB00E95165 /* SettingViewModel.swift */,
 				DACA9651264BBE6A00E95165 /* SettingViewController.swift */,
 			);
@@ -918,7 +919,6 @@
 		AACCAAB726464669005C9FBC /* Mypage */ = {
 			isa = PBXGroup;
 			children = (
-				7A3B366826AC09CD00D9886D /* Others */,
 				AACCAABA26464669005C9FBC /* MyPageViewModel.swift */,
 				AACCAACC26464669005C9FBC /* MyPageViewController.swift */,
 				DACA963D264BA9CC00E95165 /* AlertViewModel.swift */,

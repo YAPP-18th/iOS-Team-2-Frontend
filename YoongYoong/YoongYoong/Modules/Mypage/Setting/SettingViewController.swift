@@ -82,7 +82,7 @@ extension SettingViewController : UITableViewDelegate, UITableViewDataSource {
         case 0:
             print("알림 선택")
         case 1:
-            print("계정 이메일 뷰로")
+            self.navigator.show(segue: .manageEmail(viewModel: nil), sender: self, transition: .navigation(.right))
         case 2 :
             switch indexPath.row {
             case 0 :
@@ -118,7 +118,6 @@ extension SettingViewController : UITableViewDelegate, UITableViewDataSource {
                 })
                 
                 let noAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
-                
                 alert.addAction(okAction)
                 alert.addAction(noAction)
                 
