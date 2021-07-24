@@ -8,9 +8,35 @@
 import UIKit
 
 class StoreYonggiItemView: UIView {
+    
+    enum Container: String {
+        case 밀폐용기
+        case 텀블러
+        case 도시락
+        case 냄비
+        case 프라이팬
+        case 없음
+        
+        var image: UIImage? {
+            switch self {
+            case .밀폐용기:
+                return UIImage(named: "icContainer001")
+            case .텀블러:
+                return UIImage(named: "icContainer002")
+            case .도시락:
+                return UIImage(named: "icContainer003")
+            case .냄비:
+                return UIImage(named: "icContainer004")
+            case .프라이팬:
+                return UIImage(named: "icContainer005")
+            case .없음:
+                return UIImage(named: "icContainerEmpty")
+            }
+        }
+    }
   struct ViewModel {
-    let image: UIImage?
-    let title: String
+    let container: Container
+    let size: String
   }
   
   var viewModel: ViewModel? {
@@ -73,7 +99,8 @@ extension StoreYonggiItemView {
   
   private func updateView() {
     guard let vm = self.viewModel else { return }
-    self.iconImageView.image = vm.image
-    self.titleLabel.text = vm.title
+    self.iconImageView.image = vm.container.image
+    self.titleLabel.text = vm.container == .없음 ? "" : vm.container.rawValue + " \(vm.size)"
+    
   }
 }
