@@ -142,67 +142,79 @@ extension UIColor {
     }
     
     // MARK: New Color Set
-    @nonobjc class var green010: UIColor {
-        return UIColor(named: "green010")!
+    @nonobjc class var green01: UIColor {
+        return UIColor(named: "green01")!
     }
     
-    @nonobjc class var green020: UIColor {
-        return UIColor(named: "green020")!
+    @nonobjc class var green02: UIColor {
+        return UIColor(named: "green02")!
     }
     
-    @nonobjc class var green030: UIColor {
-        return UIColor(named: "green030")!
+    @nonobjc class var green03: UIColor {
+        return UIColor(named: "green03")!
     }
     
-    @nonobjc class var blue010: UIColor {
-        return UIColor(named: "blue010")!
+    @nonobjc class var green04: UIColor {
+        return UIColor(named: "green04")!
     }
     
-    @nonobjc class var blue020: UIColor {
-        return UIColor(named: "blue020")!
+    @nonobjc class var blue01: UIColor {
+        return UIColor(named: "blue01")!
     }
     
-    @nonobjc class var blue030: UIColor {
-        return UIColor(named: "blue030")!
+    @nonobjc class var blue02: UIColor {
+        return UIColor(named: "blue02")!
     }
     
-    @nonobjc class var red010: UIColor {
-        return UIColor(named: "red010")!
+    @nonobjc class var blue03: UIColor {
+        return UIColor(named: "blue03")!
     }
     
-    @nonobjc class var red020: UIColor {
-        return UIColor(named: "red020")!
+    @nonobjc class var red01: UIColor {
+        return UIColor(named: "red01")!
     }
     
-    @nonobjc class var gray010: UIColor {
-        return UIColor(named: "gray010")!
+    @nonobjc class var red02: UIColor {
+        return UIColor(named: "red02")!
     }
     
-    @nonobjc class var gray020: UIColor {
-        return UIColor(named: "gray020")!
+    @nonobjc class var gray01: UIColor {
+        return UIColor(named: "gray01")!
     }
     
-    @nonobjc class var gray030: UIColor {
-        return UIColor(named: "gray030")!
+    @nonobjc class var gray02: UIColor {
+        return UIColor(named: "gray02")!
     }
     
-    @nonobjc class var gray040: UIColor {
-        return UIColor(named: "gray040")!
+    @nonobjc class var gray03: UIColor {
+        return UIColor(named: "gray03")!
     }
     
-    @nonobjc class var gray050: UIColor {
-        return UIColor(named: "gray050")!
+    @nonobjc class var gray04: UIColor {
+        return UIColor(named: "gray04")!
     }
     
-    @nonobjc class var gray060: UIColor {
-        return UIColor(named: "gray060")!
+    @nonobjc class var gray05: UIColor {
+        return UIColor(named: "gray05")!
     }
     
-    @nonobjc class var gray070: UIColor {
-        return UIColor(named: "gray070")!
+    @nonobjc class var gray06: UIColor {
+        return UIColor(named: "gray06")!
     }
     
-    @nonobjc class var gray000: UIColor {
-        return UIColor(named: "gray000")!
+    @nonobjc class var text01: UIColor {
+        return UIColor(named: "text01")!
+    }
+    
+    @nonobjc class var text02: UIColor {
+        return UIColor(named: "text02")!
+    }
+    
+    @nonobjc class var white000: UIColor {
+        return UIColor(named: "white000")!
+    }
+    
+    @nonobjc class var balck000: UIColor {
+        return UIColor(named: "black000")!
     }
 }

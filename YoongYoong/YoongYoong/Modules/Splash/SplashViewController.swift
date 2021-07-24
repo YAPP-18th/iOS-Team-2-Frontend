@@ -19,7 +19,7 @@ class SplashViewController: ViewController {
   
   let bottomLabel = UILabel().then {
     $0.text = "지금까지 낸 용기 8937개"
-    $0.textColor = .white
+    $0.textColor = .white000
     $0.font = .krTitle2
   }
   
