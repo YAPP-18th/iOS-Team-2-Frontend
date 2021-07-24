@@ -110,16 +110,11 @@ extension StoreYonggiView {
     
     let restCount = 3 - viewModelList.count
     
-    
-    //밀폐용기
-    //텀블러
-    //도시락
-    //냄비
-    //프라이펜
-    
     if restCount > 0 {
-        for i in 0..<restCount {
-            
+        for _ in 0..<restCount {
+            let itemView = StoreYonggiItemView()
+            itemView.viewModel = .init(container: .없음, size: "")
+            hStackView.addArrangedSubview(itemView)
         }
     }
   }

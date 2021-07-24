@@ -227,6 +227,10 @@ class StoreViewController: ViewController {
       self.navigator.show(segue: .feedDetail(viewModel: viewModel), sender: self, transition: .navigation(.right, animated: true, hidesTabbar: true))
     }).disposed(by: self.disposeBag)
     self.backButton.addTarget(self, action: #selector(back), for: .touchUpInside)
+    viewModel.containerList.subscribe(onNext: { item in
+        let list = item.map { StoreYonggiItemView.ViewModel(container: (.init(rawValue: $0.name) ?? .없음), size: $0.size) }
+        self.yonggiView.viewModelList = list
+    }).disposed(by: disposeBag)
   }
   
   private func showPermissionAlert() {

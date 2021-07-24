@@ -145,7 +145,7 @@ extension PostRouter: TargetType {
     case let .fetchStoreContainer(place):
       return .requestParameters(
         parameters: [
-          "location": place.address,
+          "place": place.address,
           "name": place.name
         ],
         encoding: URLEncoding.default
