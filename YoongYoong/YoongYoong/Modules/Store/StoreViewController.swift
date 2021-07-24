@@ -218,7 +218,8 @@ class StoreViewController: ViewController {
     
     viewModel.postList
       .observeOn(MainScheduler.instance)
-      .subscribe(onNext: { _ in
+        .subscribe(onNext: { list in
+            self.yonggiCommentView.commentLabel.text = "지금까지 총 \(list.count)개의 용기를 냈어요"
         self.tableView.reloadData()
       }).disposed(by: self.disposeBag)
     
@@ -245,7 +246,10 @@ class StoreViewController: ViewController {
 
 extension StoreViewController: UITableViewDataSource, UITableViewDelegate {
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return (viewModel as? StoreViewModel)?.postList.value.count ?? 0
+    let count = (viewModel as? StoreViewModel)?.postList.value.count ?? 0
+    self.emptyImageView.isHidden = count != 0
+    self.emptyLabel.isHidden = count != 0
+    return count
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
