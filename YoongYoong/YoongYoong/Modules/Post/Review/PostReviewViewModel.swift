@@ -43,7 +43,10 @@ class PostReviewViewModel: ViewModel, ViewModelType {
     input.uploadButtonDidTap
       .subscribe(onNext: {
         PostData.shared.toDTO { model.addPost($0) }
-        uploadDidEnd.onNext(())
+        DispatchQueue.main.asyncAfter(deadline: .now() + 10.0) {
+          uploadDidEnd.onNext(())
+        }
+        
       }).disposed(by: disposeBag)
     
     return Output(uploadButtonIsEnabled: buttonEnabled,

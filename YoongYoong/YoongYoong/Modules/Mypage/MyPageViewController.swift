@@ -324,8 +324,25 @@ class MyPageViewController: ViewController {
           .disposed(by: self.disposeBag)
         self.userName.text = userInfo.nickname
         self.comments.text = userInfo.introduction
-        viewModel.getPostList(month: 6)
+        viewModel.getPostList()
       }).disposed(by: self.disposeBag)
+    
+    postListView.didSelectPost = { post in
+      let viewModel = FeedDetailViewModel(feed: post)
+      self.navigator.show(segue: .feedDetail(viewModel: viewModel), sender: self, transition: .navigation(.right, animated: true, hidesTabbar: true))
+    }
+    
+    postListView.didTapNextMonth = {
+      let currentMonth = viewModel.currentMonth.value
+      let nextMonth = min(12, currentMonth + 1)
+      viewModel.changeCurrentMonth(for: nextMonth)
+    }
+    
+    postListView.didTapLastMonth = {
+      let currentMonth = viewModel.currentMonth.value
+      let lastMonth = max(1, currentMonth - 1)
+      viewModel.changeCurrentMonth(for: lastMonth)
+    }
   }
   
 }

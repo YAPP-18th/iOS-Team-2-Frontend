@@ -13,6 +13,11 @@ class MyPostView: UIView {
   let disposeBag = DisposeBag()
   
   var postList: [PostResponse] = []
+  
+  var didSelectPost: (PostResponse) -> Void = { _ in }
+  var didTapLastMonth: () -> Void = { }
+  var didTapNextMonth: () -> Void = { }
+  
   private let monthlyInformationView = UIView().then{
     $0.backgroundColor = UIColor.brandColorGreen03
   }
@@ -39,6 +44,7 @@ class MyPostView: UIView {
     $0.text = "0개"
   }
   private let tableView = UITableView().then{
+    $0.backgroundColor = .clear
     $0.separatorStyle = .none
     $0.register(StoreReviewCell.self,
                 forCellReuseIdentifier: StoreReviewCell.identifier)
@@ -51,11 +57,22 @@ class MyPostView: UIView {
     $0.setImage(UIImage(named: "icMyPostArrowLeftActive"), for: .normal)
     $0.contentMode = .center
   }
+  
+  private let emptyImageView = UIImageView().then {
+    $0.image = UIImage(named: "icStorePostEmpty")
+    $0.contentMode = .scaleAspectFit
+  }
+  
+  private let emptyLabel = UILabel().then {
+    $0.text = "첫 포스트를 남겨보세요"
+    $0.font = .krBody2
+    $0.textColor = .systemGray02
+  }
+  
   private var cellCount = 0
   override init(frame: CGRect) {
     super.init(frame: frame)
-    self.tableView.dataSource = self
-    self.tableView.delegate = self
+    configuration()
     setupView()
     setupLayout()
   }
@@ -76,8 +93,21 @@ extension MyPostView {
   
 }
 extension MyPostView {
+  
+  private func configuration() {
+    
+    self.tableView.dataSource = self
+    self.tableView.delegate = self
+    self.lastMonthBtn.rx.tap.bind(onNext: { _ in
+      self.didTapLastMonth()
+    }).disposed(by: self.disposeBag)
+    
+    self.nextMonthBtn.rx.tap.bind(onNext: { _ in
+      self.didTapNextMonth()
+    }).disposed(by: self.disposeBag)
+  }
   private func setupView() {
-    [monthlyInformationView,tableView].forEach {
+    [monthlyInformationView, emptyImageView, emptyLabel, tableView].forEach {
       self.addSubview($0)
     }
     [timeStampLabel, postImage, postCount, packageImage, packageCount, nextMonthBtn, lastMonthBtn].forEach {
@@ -121,6 +151,17 @@ extension MyPostView {
       $0.centerY.equalTo(packageImage)
       $0.leading.equalTo(packageImage.snp.trailing).offset(8)
     }
+    
+    emptyImageView.snp.makeConstraints {
+      $0.top.equalTo(monthlyInformationView.snp.bottom).offset(32)
+      $0.centerX.equalToSuperview()
+    }
+    
+    emptyLabel.snp.makeConstraints {
+      $0.top.equalTo(emptyImageView.snp.bottom).offset(26)
+      $0.centerX.equalToSuperview()
+    }
+    
     tableView.snp.makeConstraints{
       $0.top.equalTo(monthlyInformationView.snp.bottom)
       $0.leading.trailing.bottom.equalToSuperview()
@@ -130,7 +171,10 @@ extension MyPostView {
 
 extension MyPostView: UITableViewDataSource, UITableViewDelegate {
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return self.postList.count
+    let count = self.postList.count
+    emptyImageView.isHidden = count > 0
+    emptyLabel.isHidden = count > 0
+    return count
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -159,5 +203,10 @@ extension MyPostView: UITableViewDataSource, UITableViewDelegate {
   
   func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
     return UITableView.automaticDimension
+  }
+  
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    let item = self.postList[indexPath.row]
+    self.didSelectPost(item)
   }
 }

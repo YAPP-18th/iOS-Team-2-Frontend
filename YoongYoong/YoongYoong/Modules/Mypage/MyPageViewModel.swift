@@ -14,7 +14,7 @@ class MypageViewModel: ViewModel , ViewModelType {
   private let service = MyPostService(provider: MoyaProvider<PostRouter>(plugins:[NetworkLoggerPlugin()]))
   private let authService : AuthorizeServiceType = AuthorizeService(provider: MoyaProvider<AuthRouter>(plugins:[NetworkLoggerPlugin()]))
   
-  let currentMonth = BehaviorSubject<Int>(value: Int(Date().month) ?? 6)
+  let currentMonth = BehaviorRelay<Int>(value: Int(Date().month) ?? 6)
   let postList = BehaviorRelay<PostListModel>(value: .sample)
   struct Input {
     let containerSelect: Observable<ContainerCellModel>
@@ -30,11 +30,10 @@ class MypageViewModel: ViewModel , ViewModelType {
 extension MypageViewModel {
   // contentCell에 바인딩
   func changeCurrentMonth(for changed: Int) {
-    currentMonth.onNext(changed)
+    currentMonth.accept(changed)
+    getPostList()
   }
   func transform(input: Input) -> Output {
-    weak var weakSelf = self
-    
     let message = postList.map{ model -> [String] in
         return ["용기를 내고 배지를 모아보세요",
                 "지금까지 총 \(model.packageCount)개의 용기를 냈어요!",
@@ -142,9 +141,10 @@ extension MypageViewModel {
     authService.getProfile()
   }
   
-  func getPostList(month: Int) {
+  func getPostList() {
+    let month = currentMonth.value
     if LoginManager.shared.isLogin {
-      let myPost =  self.service.fetchMyPost(month: month).share(replay: 1)
+      let myPost =  self.service.fetchMyPost(month: month)
       myPost.subscribe(onNext: { response in
         let containerCount = response.map {
           $0.postContainers.reduce(0) {
