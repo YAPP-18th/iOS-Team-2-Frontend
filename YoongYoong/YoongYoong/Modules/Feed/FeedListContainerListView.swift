@@ -8,12 +8,18 @@
 import UIKit
 import Then
 import SnapKit
-import RxSwift
-import RxCocoa
 
 class FeedListContainerListView: UIView {
-  let bag = DisposeBag()
-  let stackView = UIStackView().then {
+  struct ViewModel {
+    let menus: [PostContainerModel]
+  }
+  
+  var viewModel: ViewModel? {
+    didSet {
+      self.updateView()
+    }
+  }
+  var stackView = UIStackView().then {
     $0.axis = .vertical
   }
   
@@ -26,12 +32,6 @@ class FeedListContainerListView: UIView {
   
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
-  }
-  
-  func bind(to viewModel: FeedListContainerListViewModel) {
-    viewModel.menuList.subscribe(onNext: { list in
-      self.updateList(list)
-    }).disposed(by: bag)
   }
 }
 
@@ -53,11 +53,14 @@ extension FeedListContainerListView {
     }
   }
   
-  private func updateList(_ itemList: [TitleContentItem]) {
+  private func updateView() {
+    guard let vm = self.viewModel else { return }
+    
     self.stackView.arrangedSubviews.forEach {
-      $0.removeFromSuperview()
       self.stackView.removeArrangedSubview($0)
+      $0.isHidden = true
     }
+    let itemList = vm.menus.map { TitleContentItem(title:"\($0.food) \($0.foodCount) \($0.container.name)\($0.container.size) \($0.containerCount)")}
     
     itemList.forEach { item in
       let view = UIView()
@@ -91,6 +94,7 @@ extension FeedListContainerListView {
       }
       
       self.stackView.addArrangedSubview(view)
+      view.isHidden = false
     }
   }
 }

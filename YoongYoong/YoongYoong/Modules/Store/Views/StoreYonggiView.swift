@@ -8,11 +8,11 @@
 import UIKit
 
 class StoreYonggiView: UIView {
-  let viewModelList: [StoreYonggiItemView.ViewModel] = [
-    .init(image: UIImage(named: "icContainer001"), title: "밀폐용기 L"),
-    .init(image: UIImage(named: "icContainer002"), title: "텀블러 M"),
-    .init(image: UIImage(named: "icContainer003"), title: "도시락 M")
-  ]
+    public var viewModelList: [StoreYonggiItemView.ViewModel] = [] {
+        didSet {
+            self.updateView()
+        }
+    }
   
   let hStackView = UIStackView().then {
     $0.axis = .horizontal
@@ -68,12 +68,6 @@ extension StoreYonggiView {
       containerView.addSubview($0)
     }
     titleView.addSubview(titleLabel)
-    
-    viewModelList.forEach {
-      let itemView = StoreYonggiItemView()
-      itemView.viewModel = $0
-      hStackView.addArrangedSubview(itemView)
-    }
   }
   
   private func setupLayout() {
@@ -102,6 +96,26 @@ extension StoreYonggiView {
   }
   
   private func updateView() {
+    // 기존 리스트 제거
+    hStackView.arrangedSubviews.forEach {
+        hStackView.removeArrangedSubview($0)
+        $0.removeFromSuperview()
+    }
     
+    viewModelList.forEach {
+      let itemView = StoreYonggiItemView()
+      itemView.viewModel = $0
+      hStackView.addArrangedSubview(itemView)
+    }
+    
+    let restCount = 3 - viewModelList.count
+    
+    if restCount > 0 {
+        for _ in 0..<restCount {
+            let itemView = StoreYonggiItemView()
+            itemView.viewModel = .init(container: .없음, size: "")
+            hStackView.addArrangedSubview(itemView)
+        }
+    }
   }
 }

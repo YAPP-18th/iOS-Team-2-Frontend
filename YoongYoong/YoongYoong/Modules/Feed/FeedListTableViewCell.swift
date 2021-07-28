@@ -8,19 +8,30 @@
 import UIKit
 import Then
 import SnapKit
-import RxSwift
-import RxCocoa
-import RxDataSources
 
 class FeedListTableViewCell: UITableViewCell {
-  private var bag = DisposeBag()
-  
-  let dataSource = RxCollectionViewSectionedAnimatedDataSource<FeedContentImageSection> { _, collectionView, indexPath, viewModel in
-    guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FeedContentCollectionViewCell.identifier, for: indexPath) as? FeedContentCollectionViewCell else { return .init() }
-    cell.bind(to: viewModel)
-    return cell
+
+  struct ViewModel {
+    let profile: String?
+    let name: String?
+    let storeName: String?
+    let date: String?
+    let imageList: [String]
+    let menus: [PostContainerModel]
+    let isLiked: Bool
+    let likeCount: Int
+    let commentCount: Int
   }
   
+  var viewModel: ViewModel? {
+    didSet {
+      self.updateView()
+    }
+  }
+  
+  var onReuse: () -> Void = { }
+  var onLike: () -> Void = { }
+  var onProfile: () -> Void = { }
   let profileButton = UIButton().then {
     $0.contentMode = .scaleAspectFit
     $0.backgroundColor = .lightGray
@@ -117,38 +128,11 @@ class FeedListTableViewCell: UITableViewCell {
     containerListView.layer.borderColor = UIColor(hexString: "#ADADB1").cgColor
   }
   
-  func bind(to viewModel: FeedListTableViewCellViewModel) {
-    viewModel.nickname.asDriver().drive(self.nameLabel.rx.text).disposed(by: bag)
-    viewModel.storeName.asDriver().drive(self.storeNameLabel.rx.text).disposed(by: bag)
-    viewModel.date.asDriver().drive(self.dateLabel.rx.text).disposed(by: bag)
-    viewModel.likePressed.asDriver().drive(onNext: { isLikePressed in
-      self.likeButton.setImage(UIImage(named: isLikePressed ? "icFeedLikeFilled" : "icFeedLikeStroked"), for: .normal)
-    }).disposed(by: bag)
-    let containerViewModel = FeedListContainerListViewModel(with: viewModel.containerList.value)
-    viewModel.profileImageURL.subscribe (onNext: { url in
-      guard let url = url else { return }
-      ImageDownloadManager.shared.downloadImage(url: url).bind(to: self.profileButton.rx.image(for: .normal)).disposed(by: self.bag)
-    }).disposed(by: bag)
-    contentImageCollectionView.dataSource = nil
-    viewModel.contentImageURL.map { list -> [FeedContentImageSection] in
-      var elements: [FeedContentImageSection] = []
-      let cellViewModel = list.map { url -> FeedContentImageSection.Item in
-        FeedContentCollectionViewCellViewModel.init(imageURL: url)
-      }
-      elements.append(FeedContentImageSection(items: cellViewModel))
-      return elements
-    }.bind(to: contentImageCollectionView.rx.items(dataSource: dataSource)).disposed(by: bag)
-    viewModel.likecount.bind(to: likeButton.rx.title(for: .normal)).disposed(by: bag)
-    viewModel.messageCount.bind(to: messagesButton.rx.title(for: .normal)).disposed(by: bag)
-    containerListView.bind(to: containerViewModel)
-    
-    profileButton.rx.tap
-      .bind(to: viewModel.userSelection)
-      .disposed(by: self.bag)
-    
-    likeButton.rx.tap
-      .bind(to: viewModel.likeButtonDidTap)
-      .disposed(by: self.bag)
+  @objc func likeButtonTapped() {
+    self.onLike()
+  }
+  @objc func profileButtonTapped() {
+    self.onProfile()
   }
 }
 
@@ -156,6 +140,10 @@ extension FeedListTableViewCell {
   private func configuration() {
     self.selectionStyle = .none
     self.contentView.backgroundColor = .systemGray00
+    self.contentImageCollectionView.dataSource = self
+    
+    likeButton.addTarget(self, action: #selector(likeButtonTapped), for: .touchUpInside)
+    profileButton.addTarget(self, action: #selector(profileButtonTapped), for: .touchUpInside)
   }
   
   private func setupView() {
@@ -181,27 +169,25 @@ extension FeedListTableViewCell {
     }
     
     nameLabel.snp.makeConstraints {
-      $0.top.equalTo(25)
       $0.leading.equalTo(profileButton.snp.trailing).offset(8)
-      $0.height.equalTo(18)
+      $0.top.equalTo(profileButton.snp.top)
     }
     
     dateLabel.snp.makeConstraints {
-      $0.top.equalTo(nameLabel.snp.bottom).offset(2)
+      $0.bottom.equalTo(profileButton.snp.bottom)
       $0.trailing.equalTo(-15)
     }
     
     dateLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
     
     storeNameLabel.snp.makeConstraints {
-      $0.top.equalTo(nameLabel.snp.bottom).offset(2)
+      $0.bottom.equalTo(profileButton.snp.bottom)
       $0.leading.equalTo(profileButton.snp.trailing).offset(8)
       $0.trailing.equalTo(dateLabel.snp.leading).offset(-20)
-      $0.height.equalTo(18)
     }
     
     contentImageCollectionView.snp.makeConstraints {
-      $0.top.equalTo(storeNameLabel.snp.bottom).offset(16)
+      $0.top.equalTo(profileButton.snp.bottom).offset(16)
       $0.leading.trailing.equalToSuperview()
       $0.height.equalTo(contentImageCollectionView.snp.width)
     }
@@ -225,7 +211,6 @@ extension FeedListTableViewCell {
     }
     
     likeContainer.snp.makeConstraints {
-      $0.top.equalTo(containerListView.snp.bottom).offset(21)
       $0.leading.bottom.equalToSuperview()
       $0.width.equalToSuperview().multipliedBy(0.5)
       $0.height.equalTo(30)
@@ -236,10 +221,9 @@ extension FeedListTableViewCell {
     }
     
     messagesContainer.snp.makeConstraints {
-      $0.top.equalTo(containerListView.snp.bottom).offset(21)
       $0.trailing.bottom.equalToSuperview()
       $0.width.equalToSuperview().multipliedBy(0.5)
-      $0.height.equalTo(30)
+      $0.height.equalTo(likeContainer)
     }
     
     messagesButton.snp.makeConstraints {
@@ -250,25 +234,72 @@ extension FeedListTableViewCell {
   
   override func prepareForReuse() {
     super.prepareForReuse()
-    self.bag = DisposeBag()
+    self.onReuse()
   }
   
   private func updateView() {
-    
+    guard let vm = self.viewModel else { return }
+    self.nameLabel.text = vm.name
+    self.storeNameLabel.text = vm.storeName
+    self.containerListView.viewModel = .init(menus: vm.menus)
+    self.likeButton.setImage(UIImage(named: vm.isLiked ? "icFeedLikeFilled": "icFeedLikeStroked"), for: .normal)
+    self.likeButton.setTitle("\(vm.likeCount)", for: .normal)
+    self.messagesButton.setTitle("\(vm.commentCount)", for: .normal)
+    self.contentImageCollectionView.reloadData()
   }
   
-  static func getHeight(viewModel: FeedListTableViewCellViewModel) -> CGFloat {
+  static func getHeight(viewModel: ViewModel) -> CGFloat {
     var height: CGFloat = 0
     let profileHeight: CGFloat = 79.0
     let contentImageViewHeight: CGFloat = UIScreen.main.bounds.size.width
-    var containerHeight: CGFloat = 35.0 + 24.0 + 21.0
-    let count = viewModel.containerList.value.count
-    containerHeight += CGFloat(18 * count)
     
-      
+    // containerList
+    let containerListTop: CGFloat = 16
+    let containerTitleHeight = getContainerTitleHeight()
+    let containerBottmHeight: CGFloat = 8
+    var containerHeight: CGFloat = 16
+    let count = viewModel.menus.count
+    containerHeight += CGFloat(18 * count)
+    containerHeight += CGFloat(4 * (count - 1))
+    containerHeight += containerListTop
+    containerHeight += containerTitleHeight
+    containerHeight += containerBottmHeight
+    
+    let likeMessagesTop: CGFloat = 21.0
     let likeMessagesHeight: CGFloat = 30.0
     
-    height = profileHeight + contentImageViewHeight + containerHeight + likeMessagesHeight
+    height = profileHeight + contentImageViewHeight + containerHeight + likeMessagesTop + likeMessagesHeight
     return height
+  }
+  
+  private static func getContainerTitleHeight() -> CGFloat {
+    let containerTitleLabel = UILabel().then {
+      $0.text = "용기정보"
+      $0.font = .krTitle2
+      $0.textColor = .systemGrayText01
+    }
+    return containerTitleLabel.getHeight()
+  }
+}
+
+extension FeedListTableViewCell: UICollectionViewDataSource {
+  func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    guard let vm = self.viewModel else { return 0 }
+    return vm.imageList.count
+  }
+  
+  func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    guard let vm = self.viewModel,
+          let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FeedContentCollectionViewCell.identifier, for: indexPath) as? FeedContentCollectionViewCell
+    else { return .init() }
+    let token = ImageDownloadManager.shared.downloadImage(with: vm.imageList[indexPath.item]) { image in
+      cell.imageView.image = image
+    }
+    onReuse = {
+      if let token = token {
+        ImageDownloadManager.shared.cancelLoad(token)
+      }
+    }
+    return cell
   }
 }

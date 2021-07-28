@@ -12,6 +12,8 @@ import Moya
 
 class MypageViewModel: ViewModel , ViewModelType {
   private let service = MyPostService(provider: MoyaProvider<PostRouter>(plugins:[NetworkLoggerPlugin()]))
+  private let authService : AuthorizeServiceType = AuthorizeService(provider: MoyaProvider<AuthRouter>(plugins:[NetworkLoggerPlugin()]))
+  
   let currentMonth = BehaviorSubject<Int>(value: Int(Date().month) ?? 6)
   struct Input {
     let loadView : Observable<Void>
@@ -185,5 +187,9 @@ extension MypageViewModel {
         .init(identity: "프라이팬/L", title: "프라이팬", size: "L", isFavorite: false)
       ]),
     ]
+  }
+  
+  func getUserInfo() {
+    authService.getProfile()
   }
 }

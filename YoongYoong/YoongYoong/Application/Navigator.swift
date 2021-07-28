@@ -44,6 +44,7 @@ class Navigator {
     case alertList(viewModel: AlertViewModel)
     case settingList(viewModel: SettingViewModel)
     case store(viewModel: StoreViewModel)
+    case editProfile(viewModel: EditProfileViewModel)
   }
   
   enum Transition {
@@ -159,6 +160,10 @@ class Navigator {
     case .store(let viewModel):
       let storeVC = StoreViewController(viewModel: viewModel, navigator: self)
       return storeVC
+    case .editProfile(let viewModel):
+      let editProfileVC = EditProfileViewController(viewModel: viewModel, navigator: self)
+      editProfileVC.hidesBottomBarWhenPushed = true
+      return editProfileVC
     }
    
   }

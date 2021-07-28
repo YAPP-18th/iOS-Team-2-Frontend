@@ -45,8 +45,24 @@ class StoreViewController: ViewController {
   
   private let yonggiView = StoreYonggiView()
   private let yonggiCommentView = StoreYonggiCommentView()
+  
+  let tableViewContainer = UIView().then {
+    $0.backgroundColor = .clear
+  }
+  
+  private let emptyImageView = UIImageView().then {
+    $0.image = UIImage(named: "icStorePostEmpty")
+    $0.contentMode = .scaleAspectFit
+  }
+  
+  private let emptyLabel = UILabel().then {
+    $0.text = "첫 포스트를 남겨보세요"
+    $0.font = .krBody2
+    $0.textColor = .systemGray02
+  }
+  
   private let tableView = DynamicHeightTableView().then {
-    $0.backgroundColor = .brandColorBlue03
+    $0.backgroundColor = .clear
     $0.register(StoreReviewCell.self, forCellReuseIdentifier: StoreReviewCell.identifier)
     $0.separatorColor = .groupTableViewBackground
     $0.separatorInset = .init(top: 0, left: 0, bottom: 0, right: 0)
@@ -72,6 +88,10 @@ class StoreViewController: ViewController {
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     self.navigationController?.setNavigationBarHidden(true, animated: animated)
+    
+    guard let viewModel = self.viewModel as? StoreViewModel else { return }
+    viewModel.getContainerInfo()
+    viewModel.getPostList()
   }
   
   
@@ -88,6 +108,7 @@ class StoreViewController: ViewController {
   
   override func configuration() {
     super.configuration()
+    self.view.backgroundColor = .systemGray06
     tableView.dataSource = self
     tableView.delegate = self
   }
@@ -96,12 +117,18 @@ class StoreViewController: ViewController {
     super.setupView()
     self.view.addSubview(vStackView)
     self.view.addSubview(postButton)
-    [topContainerView, yonggiView, yonggiCommentView, tableView].forEach {
+    [topContainerView, yonggiView, yonggiCommentView, tableViewContainer].forEach {
       vStackView.addArrangedSubview($0)
     }
     
+    
+    
     [backButton, nameLabel, distanceLabel, locationImageView, addressLabel].forEach {
       topContainerView.addSubview($0)
+    }
+    
+    [emptyImageView, emptyLabel, tableView].forEach {
+      tableViewContainer.addSubview($0)
     }
   }
   
@@ -143,6 +170,24 @@ class StoreViewController: ViewController {
       $0.leading.trailing.equalToSuperview()
       $0.height.equalTo(88)
     }
+    
+    emptyImageView.snp.makeConstraints {
+      $0.top.equalTo(88)
+      $0.centerX.equalToSuperview()
+    }
+    
+    tableViewContainer.snp.makeConstraints {
+      $0.height.greaterThanOrEqualTo(300)
+    }
+    
+    emptyLabel.snp.makeConstraints {
+      $0.top.equalTo(emptyImageView.snp.bottom).offset(26)
+      $0.centerX.equalToSuperview()
+    }
+    
+    tableView.snp.makeConstraints {
+      $0.edges.equalToSuperview()
+    }
   }
   
   override func bindViewModel() {
@@ -171,7 +216,21 @@ class StoreViewController: ViewController {
         self?.showPermissionAlert()
       }).disposed(by: disposeBag)
     
+    viewModel.postList
+      .observeOn(MainScheduler.instance)
+        .subscribe(onNext: { list in
+            self.yonggiCommentView.commentLabel.text = "지금까지 총 \(list.count)개의 용기를 냈어요"
+        self.tableView.reloadData()
+      }).disposed(by: self.disposeBag)
+    
+    viewModel.detail.subscribe(onNext: { viewModel in
+      self.navigator.show(segue: .feedDetail(viewModel: viewModel), sender: self, transition: .navigation(.right, animated: true, hidesTabbar: true))
+    }).disposed(by: self.disposeBag)
     self.backButton.addTarget(self, action: #selector(back), for: .touchUpInside)
+    viewModel.containerList.subscribe(onNext: { item in
+        let list = item.map { StoreYonggiItemView.ViewModel(container: (.init(rawValue: $0.name) ?? .없음), size: $0.size) }
+        self.yonggiView.viewModelList = list
+    }).disposed(by: disposeBag)
   }
   
   private func showPermissionAlert() {
@@ -191,15 +250,44 @@ class StoreViewController: ViewController {
 
 extension StoreViewController: UITableViewDataSource, UITableViewDelegate {
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return 10
+    let count = (viewModel as? StoreViewModel)?.postList.value.count ?? 0
+    self.emptyImageView.isHidden = count != 0
+    self.emptyLabel.isHidden = count != 0
+    return count
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    guard let cell = tableView.dequeueReusableCell(withIdentifier: StoreReviewCell.identifier, for: indexPath) as? StoreReviewCell else { return .init() }
+    guard let cell = tableView.dequeueReusableCell(withIdentifier: StoreReviewCell.identifier, for: indexPath) as? StoreReviewCell,
+          let viewModel = self.viewModel as? StoreViewModel else { return .init() }
+    let item = viewModel.postList.value[indexPath.row]
+    let menu = item.postContainers.map { "\($0.food) \($0.foodCount) "}.joined(separator: "/ ")
+    cell.viewModel = .init(name: item.user.nickname, date: item.createdDate, menu: menu)
+    
+    let profileToken = ImageDownloadManager.shared.downloadImage(with: item.user.imageUrl) { image in
+      cell.profileImageView.image = image
+    }
+    
+    let menuToken = ImageDownloadManager.shared.downloadImage(with: item.images[0]) { image in
+      cell.menuImageView.image = image
+    }
+    
+    cell.onReuse = {
+      if let profileToken = profileToken,
+         let menuToken = menuToken {
+        ImageDownloadManager.shared.cancelLoad(profileToken)
+        ImageDownloadManager.shared.cancelLoad(menuToken)
+      }
+    }
+    
     return cell
   }
   
   func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
     return UITableView.automaticDimension
+  }
+  
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    guard let viewModel = self.viewModel as? StoreViewModel else { return }
+    viewModel.goToFeedDetail(indexPath)
   }
 }

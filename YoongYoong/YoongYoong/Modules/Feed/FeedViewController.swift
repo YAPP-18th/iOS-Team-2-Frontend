@@ -9,8 +9,6 @@ import UIKit
 import SnapKit
 import Then
 import RxSwift
-import RxCocoa
-import RxDataSources
 
 class FeedViewController: ViewController {
   var cellHeights = [IndexPath: CGFloat]()
@@ -22,12 +20,6 @@ class FeedViewController: ViewController {
     $0.register(FeedListTableViewCell.self, forCellReuseIdentifier: "FeedListTableViewCell")
   }
   
-  let dataSource = RxTableViewSectionedAnimatedDataSource<FeedListSection>( configureCell: { dataSource, tableView, indexPath, item in
-    let cell = tableView.dequeueReusableCell(withIdentifier: "FeedListTableViewCell", for: indexPath) as! FeedListTableViewCell
-    cell.bind(to: item)
-    return cell
-  })
-  
   override func viewDidLoad() {
     super.viewDidLoad()
     
@@ -36,6 +28,8 @@ class FeedViewController: ViewController {
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     self.navigationController?.setNavigationBarHidden(true, animated: animated)
+    
+    (viewModel as? FeedViewModel)?.fetchFeedList()
   }
   
   override func viewWillDisappear(_ animated: Bool) {
@@ -46,6 +40,8 @@ class FeedViewController: ViewController {
   override func configuration() {
     super.configuration()
     self.view.backgroundColor = .systemGray06
+    self.tableView.dataSource = self
+    self.tableView.delegate = self
   }
   
   override func setupView() {
@@ -67,11 +63,6 @@ class FeedViewController: ViewController {
       feedSelected: self.tableView.rx.itemSelected.asObservable())
     let output = viewModel.transform(input: input)
     
-    output.items.asObservable()
-      .bind(to: self.tableView.rx.items(dataSource: self.dataSource)).disposed(by: disposeBag)
-    self.tableView.delegate = nil
-    self.tableView.rx.setDelegate(self).disposed(by: disposeBag)
-    
     output.profile.bind(onNext: { [weak self] viewModel in
       self?.navigator.show(segue: .feedProfile(viewModel: viewModel), sender: self, transition: .navigation())
     }).disposed(by: disposeBag)
@@ -79,7 +70,56 @@ class FeedViewController: ViewController {
     output.detail.bind(onNext: { [weak self] viewModel in
       self?.navigator.show(segue: .feedDetail(viewModel: viewModel), sender: self, transition: .navigation(.right))
     }).disposed(by: disposeBag)
+    
+    output.items
+      .observeOn(MainScheduler.instance)
+      .subscribe(onNext: { _ in
+      self.tableView.reloadData()
+      }).disposed(by: disposeBag)
   }
+}
+
+extension FeedViewController: UITableViewDataSource {
+  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    guard let viewModel = self.viewModel as? FeedViewModel else { return 0 }
+    return viewModel.feedElements.value.count
+  }
+  
+  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    guard let viewModel = self.viewModel as? FeedViewModel,
+          let cell = tableView.dequeueReusableCell(withIdentifier: FeedListTableViewCell.identifier, for: indexPath) as? FeedListTableViewCell else { return .init() }
+    let item = viewModel.feedElements.value[indexPath.row]
+    let token = ImageDownloadManager.shared.downloadImage(with: item.user.imageUrl) { image in
+      cell.profileButton.setImage(image, for: .normal)
+    }
+    cell.viewModel = .init(
+      profile: item.user.imageUrl,
+      name: item.user.nickname,
+      storeName: item.placeName,
+      date: item.createdDate,
+      imageList: item.images,
+      menus: item.postContainers,
+      isLiked: item.isLikePressed,
+      likeCount: item.likeCount,
+      commentCount: item.commentCount
+    )
+    
+    cell.onReuse = {
+      if let token = token {
+        ImageDownloadManager.shared.cancelLoad(token)
+      }
+    }
+    
+    cell.onLike = {
+      viewModel.likeChanged.accept(indexPath)
+    }
+    
+    cell.onProfile = {
+      viewModel.selectUser(user: item.user)
+    }
+    return cell
+  }
+  
 }
 
 extension FeedViewController: UITableViewDelegate {
@@ -90,16 +130,34 @@ extension FeedViewController: UITableViewDelegate {
     viewModel.brave.bind(to: feedTipView.tipLabel.rx.text).disposed(by: disposeBag)
     return feedTipView
   }
+  
   func tableView(_ tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {
     return 116
   }
+  
   func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-    let height = FeedListTableViewCell.getHeight(viewModel: dataSource[indexPath.section].items[indexPath.row])
-    
+    guard let vm = self.viewModel as? FeedViewModel else { return }
+    let item = vm.feedElements.value[indexPath.row]
+    let viewModel = FeedListTableViewCell.ViewModel(
+      profile: item.user.imageUrl,
+      name: item.user.nickname,
+      storeName: item.placeName,
+      date: item.createdDate,
+      imageList: item.images,
+      menus: item.postContainers,
+      isLiked: item.isLikePressed,
+      likeCount: item.likeCount,
+      commentCount: item.commentCount
+    )
+    let height = FeedListTableViewCell.getHeight(viewModel: viewModel)
     cellHeights[indexPath] = height
-}
+  }
 
   func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+    return cellHeights[indexPath] ?? UITableView.automaticDimension
+  }
+  
+  func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
     return cellHeights[indexPath] ?? UITableView.automaticDimension
   }
 }

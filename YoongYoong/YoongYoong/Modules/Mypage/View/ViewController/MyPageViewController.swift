@@ -60,6 +60,8 @@ class MyPageViewController: ViewController {
   }
   private let userProfile = UIImageView().then {
     $0.image = UIImage(named: "iconUserAvater")
+    $0.layer.cornerRadius = 25
+    $0.layer.masksToBounds = true
   }
   private let userName = UILabel().then {
     $0.textColor = .black
@@ -178,6 +180,7 @@ class MyPageViewController: ViewController {
     self.navigationItem.rightBarButtonItem = rightButtonItem
   }
   
+  
   override func configuration() {
     super.configuration()
     self.segmentView.dataSource = self
@@ -186,7 +189,7 @@ class MyPageViewController: ViewController {
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     tabIndicator.frame.origin.x = CGFloat((UIScreen.main.bounds.width / 3.0 - 108)/2)
-    
+    (viewModel as? MypageViewModel)?.getUserInfo()
   }
   
   override func setupView() {
@@ -292,10 +295,10 @@ class MyPageViewController: ViewController {
       self.comments.text = model.message
     }.disposed(by: disposeBag)
     
-    editProfileBtn.rx.tap.bind{[weak self] in
-      let vc = EditProfileViewController(viewModel: EditProfileViewModel(), navigator: self?.navigator ?? Navigator())
-      vc.hidesBottomBarWhenPushed = true
-      self?.navigationController?.pushViewController(vc, animated: true)
+    editProfileBtn.rx.tap.bind{ [weak self] in
+      guard let self = self else { return }
+      let viewModel = EditProfileViewModel()
+      self.navigator.show(segue: .editProfile(viewModel: viewModel), sender: self, transition: .navigation(.right, animated: true, hidesTabbar: true))
     }.disposed(by: disposeBag)
     leftButtonItem.rx.tap.bind{ [weak self] in
       if LoginManager.shared.isLogin {
@@ -327,6 +330,17 @@ class MyPageViewController: ViewController {
     output.selectedBadge.subscribe(onNext: { badge in
       showBadgeDetailView.shared.showBadge(image: badge.imagePath, title: badge.title, description: badge.discription, condition: badge.condition)
     }).disposed(by: disposeBag)
+    
+    globalUser
+      .observeOn(MainScheduler.instance)
+      .subscribe(onNext: { [weak self] userInfo in
+        guard let self = self else { return }
+        
+        ImageDownloadManager.shared.downloadImage(url: userInfo.imageUrl).asDriver(onErrorJustReturn: UIImage(named: "icPostThumbnail")!).drive(self.userProfile.rx.image)
+          .disposed(by: self.disposeBag)
+        self.userName.text = userInfo.nickname
+        self.comments.text = userInfo.introduction
+      }).disposed(by: self.disposeBag)
   }
   
 }

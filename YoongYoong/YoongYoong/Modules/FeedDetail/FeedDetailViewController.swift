@@ -22,6 +22,8 @@ class FeedDetailViewController: ViewController {
   let profileImageView = UIImageView().then {
     $0.contentMode = .scaleAspectFit
     $0.backgroundColor = .lightGray
+    $0.layer.cornerRadius = 19
+    $0.layer.masksToBounds = true
     $0.isUserInteractionEnabled = true
   }
   
@@ -97,20 +99,13 @@ class FeedDetailViewController: ViewController {
     $0.centerTextAndImage(spacing: 2)
   }
   
-  let messagesTableView = DynamicHeightTableView().then {
-    $0.register(FeedDetailMessageTableViewCell.self, forCellReuseIdentifier: FeedDetailMessageTableViewCell.identifier)
+  let tableViewDivider = UIView().then {
+    $0.backgroundColor = .systemGray06
   }
   
-  let dataSource = RxTableViewSectionedReloadDataSource<FeedDetailMessageSection>(configureCell: { dataSource, tableView, indexPath, item in
-    let cell = tableView.dequeueReusableCell(withIdentifier: FeedDetailMessageTableViewCell.identifier, for: indexPath) as! FeedDetailMessageTableViewCell
-    cell.bind(to: item)
-    return cell
-  }, canEditRowAtIndexPath: { _, _ in true })
-  
-  let collectionDataSource = RxCollectionViewSectionedAnimatedDataSource<FeedContentImageSection> { _, collectionView, indexPath, viewModel in
-    guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FeedContentCollectionViewCell.identifier, for: indexPath) as? FeedContentCollectionViewCell else { return .init() }
-    cell.bind(to: viewModel)
-    return cell
+  let messagesTableView = DynamicHeightTableView().then {
+    $0.register(FeedDetailMessageTableViewCell.self, forCellReuseIdentifier: FeedDetailMessageTableViewCell.identifier)
+    $0.separatorStyle = .none
   }
   
   let commentInputContainer = UIView().then {
@@ -149,6 +144,7 @@ class FeedDetailViewController: ViewController {
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     registerForKeyboardNotifications()
+    (viewModel as? FeedDetailViewModel)?.fetchCommentList()
   }
   
   override func viewWillDisappear(_ animated: Bool) {
@@ -159,6 +155,9 @@ class FeedDetailViewController: ViewController {
   override func viewDidLayoutSubviews() {
     super.viewDidLayoutSubviews()
     self.commentInputContainer.layer.applySketchShadow(color: .black, alpha: 0.07, x: 0, y: -2, blur: 8, spread: 0)
+    containerListView.layer.cornerRadius = 8
+    containerListView.layer.borderWidth = 1
+    containerListView.layer.borderColor = UIColor(hexString: "#ADADB1").cgColor
   }
   
   private func registerForKeyboardNotifications() {
@@ -180,7 +179,7 @@ class FeedDetailViewController: ViewController {
       guard let keyboardFrame = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
       else { return assertionFailure() }
 
-      let offset = (keyboardFrame.height * -1) - 20
+      let offset = ((keyboardFrame.height - self.view.safeAreaInsets.bottom) * -1) - 20
       self.commentFieldBotton.update(offset: offset)
     } else if notification.name == UIResponder.keyboardWillHideNotification {
       self.commentFieldBotton.update(offset: -20)
@@ -190,29 +189,44 @@ class FeedDetailViewController: ViewController {
   override func bindViewModel() {
     super.bindViewModel()
     guard let viewModel = self.viewModel as? FeedDetailViewModel else { return }
-    let input = FeedDetailViewModel.Input(addComment: self.sendCommentButton.rx.tap.map { self.commentField.text ?? "" }.filter { !$0.isEmpty }.asObservable() )
+    let input = FeedDetailViewModel.Input(
+      addComment: self.sendCommentButton.rx.tap.map { self.commentField.text ?? "" }.filter { !$0.isEmpty }.asObservable(),
+      like: self.likeButton.rx.tap.asObservable()
+      )
     let output = viewModel.transform(input: input)
-    
-    output.items.asObservable()
-        .bind(to: messagesTableView.rx.items(dataSource: dataSource))
-        .disposed(by: disposeBag)
     output.feed.drive(onNext: { feed in
       ImageDownloadManager.shared.downloadImage(url: feed.user.imageUrl).bind(to: self.profileImageView.rx.image).disposed(by: self.disposeBag)
       self.nameLabel.text = feed.user.nickname
       self.dateLabel.text = feed.createdDate
       self.storeNameLabel.text = feed.placeName
+      self.likeButton.setImage(UIImage(named: feed.isLikePressed ? "icFeedLikeFilled": "icFeedLikeStroked"), for: .normal)
       self.likeButton.setTitle("\(feed.likeCount)", for: .normal)
       self.messagesButton.setTitle("\(feed.commentCount)", for: .normal)
-      
-      self.containerListView.bind(to: .init(with: feed.postContainers.map { .init(container: $0.container, containerCount: $0.containerCount, food: $0.food, foodCount: $0.foodCount)}))
+      self.containerListView.viewModel = .init(menus: feed.postContainers)
     }).disposed(by: self.disposeBag)
-    contentImageCollectionView.dataSource = nil
-    output.images.drive(self.contentImageCollectionView.rx.items(dataSource: collectionDataSource)).disposed(by: disposeBag)
+    
+    
+    
+    viewModel.feedMessageElements
+      .observeOn(MainScheduler.instance)
+      .bind(onNext: { _ in
+      self.messagesTableView.reloadData()
+    })
+      .disposed(by: self.disposeBag)
+    
+    viewModel.commentAddSuccess
+      .observeOn(MainScheduler.instance)
+      .subscribe(onNext: { _ in
+      self.commentField.text = ""
+    }).disposed(by: disposeBag)
   }
   
   override func configuration() {
     super.configuration()
+    messagesTableView.dataSource = self
+    messagesTableView.delegate = self
     
+    contentImageCollectionView.dataSource = self
   }
   
   override func setupView() {
@@ -221,7 +235,7 @@ class FeedDetailViewController: ViewController {
     self.view.addSubview(commentInputContainer)
     scrollView.addArrangedSubview(contentView)
     
-    [authorContainer, contentImageCollectionView, containerTitleLabel, containerListView, divider, likeContainer, messagesContainer, messagesTableView].forEach {
+    [authorContainer, contentImageCollectionView, containerTitleLabel, containerListView, divider, likeContainer, messagesContainer, tableViewDivider, messagesTableView].forEach {
       contentView.addSubview($0)
     }
     
@@ -250,7 +264,7 @@ class FeedDetailViewController: ViewController {
     commentInputProfileImageView.snp.makeConstraints {
       self.commentFieldBotton = $0.bottom.equalTo(self.view.safeAreaLayoutGuide).offset(-20).constraint
       $0.leading.equalTo(16)
-      $0.top.equalTo(8)
+      $0.top.equalTo(4)
       $0.width.height.equalTo(40)
     }
     
@@ -363,40 +377,98 @@ class FeedDetailViewController: ViewController {
       $0.height.equalTo(16)
     }
     
-    messagesTableView.snp.makeConstraints {
+    tableViewDivider.snp.makeConstraints {
       $0.top.equalTo(messagesContainer.snp.bottom)
-      $0.leading.trailing.bottom.equalToSuperview()
+      $0.leading.trailing.equalToSuperview()
+      $0.height.equalTo(4)
     }
     
-    messagesTableView.rx.setDelegate(self).disposed(by: disposeBag)
+    messagesTableView.snp.makeConstraints {
+      $0.top.equalTo(tableViewDivider.snp.bottom)
+      $0.leading.trailing.bottom.equalToSuperview()
+    }
   }
 }
+
+extension FeedDetailViewController: UITableViewDataSource {
+  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    return (viewModel as? FeedDetailViewModel)?.feedMessageElements.value.count ?? 0
+  }
+  
+  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    guard let vm = viewModel as? FeedDetailViewModel,
+          let cell = tableView.dequeueReusableCell(withIdentifier: FeedDetailMessageTableViewCell.identifier, for: indexPath) as? FeedDetailMessageTableViewCell else { return .init() }
+    let item = vm.feedMessageElements.value[indexPath.row]
+    cell.viewModel = .init(
+      profileImage: item.user.imageUrl,
+      name: item.user.nickname,
+      message: item.content,
+      date: item.createdDate
+    )
+    return cell
+  }
+}
+
 extension FeedDetailViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-    let item = self.dataSource[indexPath.section].items[indexPath.row]
-    let height = FeedDetailMessageTableViewCell.getHeight(viewModel: item)
+    guard let vm = viewModel as? FeedDetailViewModel else { return .init() }
+    let item = vm.feedMessageElements.value[indexPath.row]
+    let viewModel = FeedDetailMessageTableViewCell.ViewModel(
+      profileImage: item.user.imageUrl,
+      name: item.user.nickname,
+      message: item.content,
+      date: item.createdDate
+    )
+    let height = FeedDetailMessageTableViewCell.getHeight(viewModel: viewModel)
     return height
   }
   
   func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+    guard let viewModel = self.viewModel as? FeedDetailViewModel else { return nil }
+    let comment = viewModel.feedMessageElements.value[indexPath.row]
+    guard comment.user.id == globalUser.value.id else {
+      return nil
+    }
+    
     let editAction = UIContextualAction(style: .normal, title: nil) { action, view, completion in
-      
+        self.commentField.text = comment.content
+        self.commentField.becomeFirstResponder()
+        viewModel.commentMode.accept(.edit(comment.commentId))
       completion(true)
     }
     editAction.image = UIImage(named: "icFeedCommentEdit")
     editAction.backgroundColor = .brandColorTertiary01
     
-    let removeAction = UIContextualAction(style: .normal, title: nil) { [weak self]  action, view, completion in
-      guard let self = self,
-            let viewModel = self.viewModel as? FeedDetailViewModel else { completion(false); return}
-      let item = self.dataSource[indexPath.section].items[indexPath.row]
-      viewModel.deleteComment.onNext(item.feedMessage)
+    let removeAction = UIContextualAction(style: .normal, title: nil) {   action, view, completion in
+      viewModel.deleteComment(commentId: comment.commentId)
       completion(true)
     }
     
     removeAction.image = UIImage(named: "icFeedCommentRemove")
     removeAction.backgroundColor = .brandColorSecondary01
+    let config = UISwipeActionsConfiguration(actions: [editAction, removeAction])
+    config.performsFirstActionWithFullSwipe = false
+    return config
+  }
+}
+
+extension FeedDetailViewController: UICollectionViewDataSource {
+  func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    return (self.viewModel as? FeedDetailViewModel)?.contentImageURL.value.count ?? 0
+  }
+  
+  func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    guard let vm = self.viewModel as? FeedDetailViewModel,
+          let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FeedContentCollectionViewCell.identifier, for: indexPath) as? FeedContentCollectionViewCell else { return .init() }
+    let token = ImageDownloadManager.shared.downloadImage(with: vm.contentImageURL.value[indexPath.item]) { image in
+      cell.imageView.image = image
+    }
     
-    return UISwipeActionsConfiguration(actions: [editAction, removeAction])
+    cell.onReuse = {
+      if let token = token {
+        ImageDownloadManager.shared.cancelLoad(token)
+      }
+    }
+    return cell
   }
 }

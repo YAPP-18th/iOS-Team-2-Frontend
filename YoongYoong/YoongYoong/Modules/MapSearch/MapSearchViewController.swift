@@ -48,6 +48,15 @@ class MapSearchViewController: ViewController {
         self.searchButtonDidTap()
       }).disposed(by: disposeBag)
     
+    navView.searchField.rx.controlEvent([.primaryActionTriggered])
+        .subscribe(onNext: { [weak self] in
+        guard let self = self else { return }
+        guard let text = self.navView.searchField.text, text.count
+                > 0 else { return }
+        searchText.onNext(text)
+        self.searchButtonDidTap()
+      }).disposed(by: disposeBag)
+    
     let input = MapSearchViewModel.Input(
       searchTextFieldDidBeginEditing: navView.searchField.rx.controlEvent(.editingDidBegin).asObservable(),
       searchButtonDidTap: searchText,

@@ -21,10 +21,9 @@ class FeedViewModel: ViewModel, ViewModelType {
   }
   
   struct Output {
-    let items: BehaviorRelay<[FeedListSection]>
+    let items: BehaviorRelay<[PostResponse]>
     let profile: Observable<FeedProfileViewModel>
     let detail: Observable<FeedDetailViewModel>
-    let likeChanged: Observable<(IndexPath, FeedListTableViewCellViewModel)>
   }
   
   private let dateFormatter: DateFormatter = {
@@ -34,28 +33,12 @@ class FeedViewModel: ViewModel, ViewModelType {
   }()
   
   let feedElements = BehaviorRelay<[PostResponse]>(value: [])
-  let section = BehaviorRelay<[FeedListSection]>(value: [])
   let feedDetail = PublishSubject<FeedDetailViewModel>()
   let currentDate = BehaviorRelay<String>(value: "")
   let brave = BehaviorRelay<String>(value: BraveWord.default)
   let userSelection = PublishSubject<FeedProfileViewModel>()
-  let likeChanged = PublishRelay<(IndexPath, FeedListTableViewCellViewModel)>()
+  let likeChanged = PublishRelay<(IndexPath)>()
   func transform(input: Input) -> Output {
-    
-    feedElements.map { feedList -> [FeedListSection] in
-      let cellViewModel = feedList.map { feed -> FeedListSection.Item in
-        let viewModel = FeedListTableViewCellViewModel.init(with: feed)
-        viewModel.userSelection.bind(onNext: {
-          self.selectUser(user: feed.user)
-        }).disposed(by: self.disposeBag)
-        viewModel.likeButtonDidTap.bind(onNext: {
-          self.likePost(feed: feed)
-        }).disposed(by: self.disposeBag)
-        return viewModel
-      }
-      
-      return [FeedListSection(items: cellViewModel)]
-    }.bind(to: self.section).disposed(by: disposeBag)
     
     currentDate.accept(dateFormatter.string(from: Date()))
     let braveWord = BraveWord()
@@ -67,13 +50,15 @@ class FeedViewModel: ViewModel, ViewModelType {
       self.feedDetail.onNext(viewModel)
     }).disposed(by: disposeBag)
     
-    fetchFeedList()
+    likeChanged.subscribe(onNext: { indexPath in
+      let feed = self.feedElements.value[indexPath.row]
+      self.likePost(feed: feed)
+    }).disposed(by: disposeBag)
     
     return Output(
-      items: section,
+      items: feedElements,
       profile: self.userSelection,
-      detail: self.feedDetail,
-      likeChanged: self.likeChanged.asObservable()
+      detail: self.feedDetail
     )
   }
   
@@ -96,7 +81,7 @@ class FeedViewModel: ViewModel, ViewModelType {
   }
   
   func likePost(feed: PostResponse) {
-    provider.likePost(feed: feed)
+    provider.likePost(feedId: feed.postId)
       .subscribe(onNext: { result in
         switch result {
         case .success:

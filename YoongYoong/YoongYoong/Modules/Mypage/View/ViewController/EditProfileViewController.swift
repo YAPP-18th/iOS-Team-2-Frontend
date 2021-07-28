@@ -111,7 +111,7 @@ class EditProfileViewController : ViewController {
     guard let viewModel = viewModel as? EditProfileViewModel else { return }
     let inputs = EditProfileViewModel.Input(loadView: Observable.just(()),
                                             ProfileImage: Observable.just(profileBtn.image(for: .normal) ?? UIImage()),
-                                            nameText: nameTextField.rx.text.orEmpty.asObservable(),
+                                            nameText: nameTextField.rx.text.orEmpty.filter { !$0.isEmpty }.debounce(DispatchTimeInterval.milliseconds(800), scheduler: MainScheduler.instance),
                                             commentText: commentTextView.rx.text.orEmpty.asObservable(),
                                             changeAction: submitBtn.rx.tap.asObservable())
     let output = viewModel.transform(input: inputs)
@@ -128,6 +128,11 @@ class EditProfileViewController : ViewController {
     profileBtn.rx.tap.bind{ [weak self] in
       self?.profileImagePicker.present(from: self?.view ?? UIView())
     }.disposed(by: disposeBag)
+    
+    let user = globalUser.value
+    self.nameTextField.text = user.nickname
+    self.commentTextView.text = user.introduction
+    ImageDownloadManager.shared.downloadImage(url: user.imageUrl).bind(to: self.profileBtn.rx.image(for: .normal)).disposed(by: self.disposeBag)
   }
   
 }

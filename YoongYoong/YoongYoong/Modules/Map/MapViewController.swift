@@ -49,7 +49,7 @@ class MapViewController: ViewController {
   var myLocationButtonBottomToStoreInfo: Constraint!
   override func viewDidLoad() {
     super.viewDidLoad()
-    
+    (self.viewModel as? MapViewModel)?.myLocation()
   }
   
   override func bindViewModel() {

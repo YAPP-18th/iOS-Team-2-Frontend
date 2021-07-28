@@ -6,17 +6,32 @@
 //
 
 import UIKit
-import RxSwift
-import RxCocoa
 
 class FeedDetailMessageTableViewCell: UITableViewCell {
-  let bag = DisposeBag()
-  var height: CGFloat = 0.0
+  struct ViewModel {
+    let profileImage: String?
+    let name: String?
+    let message: String?
+    let date: String?
+  }
   
+  var viewModel: ViewModel? {
+    didSet {
+      self.updateView()
+    }
+  }
+  
+  var height: CGFloat = 0.0
+  let divider = UIView().then {
+    $0.backgroundColor = .systemGray06
+  }
   let profileImageView = UIImageView().then {
     $0.contentMode = .scaleAspectFit
     $0.backgroundColor = .lightGray
     $0.isUserInteractionEnabled = true
+    $0.layer.cornerRadius = 12
+    $0.layer.masksToBounds = true
+    $0.image = UIImage(named: "icFeedCommentUserThumbnail")
   }
   
   let nameLabel = UILabel().then {
@@ -50,27 +65,16 @@ class FeedDetailMessageTableViewCell: UITableViewCell {
     fatalError("init(coder:) has not been implemented")
   }
   
-  func bind(to viewModel: FeedDetailMessageTableViewCellViewModel) {
-    viewModel.nickname.asDriver().drive(self.nameLabel.rx.text).disposed(by: bag)
-    viewModel.message.asDriver().drive(self.messageLabel.rx.text).disposed(by: bag)
-    viewModel.date.asDriver().drive(self.dateLabel.rx.text).disposed(by: bag)
-    viewModel.profileImageURL.subscribe(onNext: { url in
-      guard let url = url else { return }
-      ImageDownloadManager.shared.downloadImage(url: url).bind(to: self.profileImageView.rx.image).disposed(by: self.bag)
-    }).disposed(by: bag)
-    self.height = Self.getHeight(viewModel: viewModel)
-  }
-  
-  static func getHeight(viewModel: FeedDetailMessageTableViewCellViewModel) -> CGFloat {
+  static func getHeight(viewModel: ViewModel) -> CGFloat {
     let messageLabel = UILabel()
     messageLabel.font = .krBody3
     messageLabel.textColor = .systemGrayText01
     messageLabel.numberOfLines = 0
-    messageLabel.text = viewModel.message.value
+    messageLabel.text = viewModel.message
     let width = UIScreen.main.bounds.width - 32
     
     
-    var height: CGFloat = 0
+    var height: CGFloat = 4
     let profileHeight: CGFloat = 40.0
     let messageHeight = messageLabel.sizeThatFits(.init(width: width, height: 0)).height
     let dateHeight: CGFloat = 34.0
@@ -86,14 +90,19 @@ extension FeedDetailMessageTableViewCell {
   }
   
   private func setupView() {
-    [profileImageView, nameLabel, messageLabel, dateLabel].forEach {
+    [divider, profileImageView, nameLabel, messageLabel, dateLabel].forEach {
       contentView.addSubview($0)
     }
   }
   
   private func setupLayout() {
+    divider.snp.makeConstraints {
+      $0.top.leading.trailing.equalToSuperview()
+      $0.height.equalTo(4)
+    }
+    
     profileImageView.snp.makeConstraints {
-      $0.top.equalTo(8)
+      $0.top.equalTo(divider.snp.bottom).offset(8)
       $0.leading.equalTo(16)
       $0.width.height.equalTo(24)
     }
@@ -119,6 +128,9 @@ extension FeedDetailMessageTableViewCell {
   }
   
   private func updateView() {
-    
+    guard let vm = self.viewModel else { return }
+    nameLabel.text = vm.name
+    messageLabel.text = vm.message
+    dateLabel.text = vm.date
   }
 }

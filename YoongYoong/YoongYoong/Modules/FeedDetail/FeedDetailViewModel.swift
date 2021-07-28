@@ -10,6 +10,13 @@ import RxSwift
 import RxCocoa
 
 class FeedDetailViewModel : ViewModel, ViewModelType {
+    
+    enum CommentMode {
+        case normal
+        case edit(Int)
+    }
+    
+    
   private var feed: PostResponse
   private let provider: PostService
   
@@ -20,65 +27,60 @@ class FeedDetailViewModel : ViewModel, ViewModelType {
   }
   struct Input {
     let addComment: Observable<String>
+    let like: Observable<Void>
   }
   
   struct Output {
     let feed: Driver<PostResponse>
-    let items: BehaviorRelay<[FeedDetailMessageSection]>
-    let images: Driver<[FeedContentImageSection]>
   }
   
-  let feedMessageElements = PublishSubject<[CommentResponse]>()
+  
+  lazy var currentFeed = BehaviorRelay<PostResponse>(value: self.feed)
+  let feedMessageElements = BehaviorRelay<[CommentResponse]>(value: [])
   let contentImageURL = BehaviorRelay<[String]>(value: [])
   let deleteComment = PublishSubject<CommentResponse>()
+  let commentAddSuccess = PublishSubject<Void>()
+    let commentMode = BehaviorRelay<CommentMode>(value: .normal)
   
   func transform(input: Input) -> Output {
     input.addComment.subscribe(onNext: { comment in
       let requestDTO = CommentRequestDTO(content: comment)
       self.addComment(requestDTO: requestDTO)
     }).disposed(by: self.disposeBag)
-    
+    input.like.subscribe(onNext: { _ in
+      self.likePost(feed: self.currentFeed.value)
+    }).disposed(by: self.disposeBag)
     deleteComment.subscribe(onNext: { comment in
       self.deleteComment(commentId: comment.commentId)
     }).disposed(by: self.disposeBag)
-    let elements = BehaviorRelay<[FeedDetailMessageSection]>(value: [])
     contentImageURL.accept(feed.images)
-    let images = self.contentImageURL.map { list -> [FeedContentImageSection] in
-      var elements: [FeedContentImageSection] = []
-      let cellViewModel = list.map { url -> FeedContentImageSection.Item in
-        FeedContentCollectionViewCellViewModel.init(imageURL: url)
-      }
-      elements.append(FeedContentImageSection(items: cellViewModel))
-      return elements
-    }.asDriver(onErrorJustReturn: [])
-    feedMessageElements.map { feedList -> [FeedDetailMessageSection] in
-      var elements: [FeedDetailMessageSection] = []
-      let cellViewModel = feedList.map { feed -> FeedDetailMessageSection.Item in
-        FeedDetailMessageTableViewCellViewModel.init(with: feed)
-      }
-      elements.append(FeedDetailMessageSection(items: cellViewModel))
-      return elements
-    }.bind(to: elements).disposed(by: disposeBag)
-    
-    fetchCommentList()
     return .init(
-      feed: .just(self.feed),
-      items: elements,
-      images: images
+      feed: currentFeed.asDriver()
     )
   }
   
   func addComment(requestDTO: CommentRequestDTO) {
-    self.provider.addCommentRequesst(postId: self.feed.postId, requestDTO: requestDTO).subscribe(onNext: { result in
-      self.fetchCommentList()
-    }).disposed(by: disposeBag)
+    if case .normal = commentMode.value {
+        self.provider.addCommentRequesst(postId: self.feed.postId, requestDTO: requestDTO).subscribe(onNext: { result in
+          self.commentAddSuccess.onNext(())
+          self.fetchCommentList()
+        }).disposed(by: disposeBag)
+    } else if case .edit(let commentId) = commentMode.value {
+        self.provider.editCommentRequest(postId: self.feed.postId, commentId: commentId, requestDTO: requestDTO).subscribe(onNext: { result in
+          self.commentAddSuccess.onNext(())
+          self.fetchCommentList()
+            self.commentMode.accept(.normal)
+        }).disposed(by: disposeBag)
+    }
+    
+    
   }
   
   func fetchCommentList() {
     self.provider.fetchComments(postId: self.feed.postId).subscribe(onNext: { result in
       switch result {
       case let .success(list):
-        self.feedMessageElements.onNext(list.data ?? [])
+        self.feedMessageElements.accept(list.data ?? [])
       case let .failure(error):
         print(error.localizedDescription)
       }
@@ -92,5 +94,21 @@ class FeedDetailViewModel : ViewModel, ViewModelType {
       .subscribe(onNext: { result in
         self.fetchCommentList()
       }).disposed(by: disposeBag)
+  }
+  
+  func likePost(feed: PostResponse) {
+    provider.likePost(feedId: feed.postId)
+      .subscribe(onNext: { result in
+        switch result {
+        case .success:
+          var newFeed = self.currentFeed.value
+          newFeed.isLikePressed = !feed.isLikePressed
+          newFeed.likeCount = newFeed.isLikePressed ? newFeed.likeCount + 1 : newFeed.likeCount - 1
+          self.currentFeed.accept(newFeed)
+          
+        case let .failure(error):
+          print(error.localizedDescription)
+        }
+      }).disposed(by: self.disposeBag)
   }
 }

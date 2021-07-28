@@ -9,6 +9,16 @@ import Foundation
 import Moya
 import RxSwift
 
+enum AuthAPIError: Error {
+  case error(String)
+  
+  var message: String {
+    switch self {
+    case .error(let msg):
+      return msg
+    }
+  }
+}
 protocol AuthorizeServiceType: AnyObject {
   
   func checkEmailDuplicate(_ param: CheckEmailDuplicateRequest) -> Observable<Bool>
@@ -21,9 +31,13 @@ protocol AuthorizeServiceType: AnyObject {
   func findPassword(_ param: FindPasswordRequest) -> Observable<Bool>
   func findPasswordCode(_ param: FindPasswordCodeRequest) -> Observable<Bool>
   func resetPassword(_ param: ResetPasswordRequest) -> Observable<Bool>
+  
+  func getProfile()
+  
 }
 
 class AuthorizeService: AuthorizeServiceType {
+  let disposeBag = DisposeBag()
   private let provider: MoyaProvider<AuthRouter>
   init(provider: MoyaProvider<AuthRouter>) {
     self.provider = provider
@@ -84,5 +98,20 @@ extension AuthorizeService {
     return provider.rx.request(.resetPassword(param: param))
       .asObservable()
       .map { (200...300).contains($0.statusCode) }
+  }
+  
+  func getProfile() {
+    provider.rx.request(.profile)
+      .asObservable()
+      .map { response -> UserInfo in
+        if case (200...300) = response.statusCode,
+           let result = try? JSONDecoder().decode(BaseResponse<UserInfo>.self, from: response.data),
+           let userInfo = result.data {
+          return userInfo
+        } else {
+          return .init(email: "", id: 0, imageUrl: "", introduction: "", nickname: "")
+        }
+      }.bind(to: globalUser)
+      .disposed(by: self.disposeBag)
   }
 }
