@@ -36,6 +36,29 @@ class FeedDetailViewController: ViewController {
   
   let moreButton = UIButton().then {
     $0.setImage(UIImage(named: "icFeedDetailMore"), for: .normal)
+    $0.contentMode = .center
+  }
+  let moreContainer = UIStackView().then {
+    $0.backgroundColor = .white
+    $0.axis = .vertical
+    $0.distribution = .fillEqually
+    $0.layer.borderWidth = 1
+    $0.layer.borderColor = UIColor.systemGray06.cgColor
+  }
+  let editButton = UIButton().then {
+    $0.setTitle("수정하기", for: .normal)
+    $0.titleLabel?.font = .krBody2
+    $0.setTitleColor(.systemGray01, for: .normal)
+  }
+  
+  let deleteButton = UIButton().then {
+    $0.setTitle("삭제하기", for: .normal)
+    $0.titleLabel?.font = .krBody2
+    $0.setTitleColor(.systemGray01, for: .normal)
+  }
+  
+  let buttonDivider = UIView().then {
+    $0.backgroundColor = .systemGray05
   }
   
   let storeNameLabel = UILabel().then {
@@ -253,6 +276,24 @@ class FeedDetailViewController: ViewController {
     [commentField, sendCommentButton].forEach {
       commentFieldContainer.addSubview($0)
     }
+    
+    self.view.addSubview(moreContainer)
+    [editButton, deleteButton].forEach {
+      moreContainer.addArrangedSubview($0)
+    }
+    moreContainer.addSubview(buttonDivider)
+    
+    moreButton.rx.tap.bind(onNext: {
+      self.moreContainer.isHidden = !self.moreContainer.isHidden
+    }).disposed(by: disposeBag)
+    
+    editButton.rx.tap.bind(onNext: {
+      print("editButtonTapped")
+    }).disposed(by: disposeBag)
+    
+    deleteButton.rx.tap.bind(onNext: {
+      print("deleteButtonTapped")
+    }).disposed(by: disposeBag)
   }
   
   override func setupLayout() {
@@ -304,9 +345,8 @@ class FeedDetailViewController: ViewController {
     }
     
     moreButton.snp.makeConstraints {
-      $0.top.equalTo(8)
-      $0.trailing.equalTo(-8)
-      $0.width.height.equalTo(24)
+      $0.top.trailing.equalToSuperview()
+      $0.width.height.equalTo(40)
     }
     
     nameLabel.snp.makeConstraints {
@@ -387,6 +427,22 @@ class FeedDetailViewController: ViewController {
       $0.top.equalTo(tableViewDivider.snp.bottom)
       $0.leading.trailing.bottom.equalToSuperview()
     }
+    
+    moreContainer.snp.makeConstraints {
+      $0.top.equalTo(moreButton.snp.bottom)
+      $0.trailing.equalTo(-15)
+      $0.width.equalTo(86)
+      $0.height.equalTo(88)
+    }
+    
+    buttonDivider.snp.makeConstraints {
+      $0.centerY.equalToSuperview()
+      $0.leading.equalTo(8)
+      $0.trailing.equalTo(-8)
+      $0.height.equalTo(1)
+    }
+    
+    moreContainer.isHidden = true
   }
 }
 
