@@ -100,6 +100,7 @@
 		AAC79020262AA7E3009CC84E /* TipViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC7901F262AA7E3009CC84E /* TipViewController.swift */; };
 		AAC83411266265D000D3E267 /* ImageDownloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC83410266265D000D3E267 /* ImageDownloadManager.swift */; };
 		AAC834132662691200D3E267 /* FeedContentImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC834122662691200D3E267 /* FeedContentImageCollectionViewCell.swift */; };
+		AAC8653A26B1A3FD000FEA07 /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC8653926B1A3FD000FEA07 /* MyPageViewController.swift */; };
 		AACCAA7826451B64005C9FBC /* TipDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCAA7726451B64005C9FBC /* TipDetailViewController.swift */; };
 		AACCAA8326451CBE005C9FBC /* TipDetailFirstView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCAA8226451CBE005C9FBC /* TipDetailFirstView.swift */; };
 		AACCAA8826453786005C9FBC /* TipDetailFirstListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCAA8726453786005C9FBC /* TipDetailFirstListView.swift */; };
@@ -122,7 +123,6 @@
 		AACCAADA2646466A005C9FBC /* MyBadgeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCAAC826464669005C9FBC /* MyBadgeCollectionViewCell.swift */; };
 		AACCAADB2646466A005C9FBC /* MyPackageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCAAC926464669005C9FBC /* MyPackageCollectionViewCell.swift */; };
 		AACCAADC2646466A005C9FBC /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCAACB26464669005C9FBC /* EditProfileViewController.swift */; };
-		AACCAADD2646466A005C9FBC /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCAACC26464669005C9FBC /* MyPageViewController.swift */; };
 		AACCAADE2646466A005C9FBC /* BadgeDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCAACD26464669005C9FBC /* BadgeDetailView.swift */; };
 		AACCAAF4264646E1005C9FBC /* AlertAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCAAF3264646E1005C9FBC /* AlertAction.swift */; };
 		AACCAAFE2646484C005C9FBC /* UITextField+Extenstions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0F5B18263E9BFD003AE118 /* UITextField+Extenstions.swift */; };
@@ -347,6 +347,7 @@
 		AAC8340F2662596C00D3E267 /* YoongYoongDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = YoongYoongDebug.entitlements; sourceTree = "<group>"; };
 		AAC83410266265D000D3E267 /* ImageDownloadManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDownloadManager.swift; sourceTree = "<group>"; };
 		AAC834122662691200D3E267 /* FeedContentImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedContentImageCollectionViewCell.swift; sourceTree = "<group>"; };
+		AAC8653926B1A3FD000FEA07 /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
 		AACCAA7726451B64005C9FBC /* TipDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipDetailViewController.swift; sourceTree = "<group>"; };
 		AACCAA8226451CBE005C9FBC /* TipDetailFirstView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipDetailFirstView.swift; sourceTree = "<group>"; };
 		AACCAA8726453786005C9FBC /* TipDetailFirstListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipDetailFirstListView.swift; sourceTree = "<group>"; };
@@ -369,7 +370,6 @@
 		AACCAAC826464669005C9FBC /* MyBadgeCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyBadgeCollectionViewCell.swift; sourceTree = "<group>"; };
 		AACCAAC926464669005C9FBC /* MyPackageCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyPackageCollectionViewCell.swift; sourceTree = "<group>"; };
 		AACCAACB26464669005C9FBC /* EditProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
-		AACCAACC26464669005C9FBC /* MyPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
 		AACCAACD26464669005C9FBC /* BadgeDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BadgeDetailView.swift; sourceTree = "<group>"; };
 		AACCAAF3264646E1005C9FBC /* AlertAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertAction.swift; sourceTree = "<group>"; };
 		AACCAD2D264D76F1005C9FBC /* NavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBar.swift; sourceTree = "<group>"; };
@@ -937,12 +937,12 @@
 			isa = PBXGroup;
 			children = (
 				AACCAABA26464669005C9FBC /* MyPageViewModel.swift */,
-				AACCAACC26464669005C9FBC /* MyPageViewController.swift */,
 				DACA963D264BA9CC00E95165 /* AlertViewModel.swift */,
 				7A3B366626AC08EE00D9886D /* EditProfile */,
 				7A3B366526AC08DC00D9886D /* Setting */,
 				AACCAABB26464669005C9FBC /* Model */,
 				AACCAAC126464669005C9FBC /* Views */,
+				AAC8653926B1A3FD000FEA07 /* MyPageViewController.swift */,
 			);
 			path = Mypage;
 			sourceTree = "<group>";
@@ -1669,7 +1669,6 @@
 				AACCADB9264F79ED005C9FBC /* DynamicHeightTableView.swift in Sources */,
 				AA74A56326931AFD00A14194 /* TermsCheckTableViewCell.swift in Sources */,
 				AAC78F91262A67FD009CC84E /* Application.swift in Sources */,
-				AACCAADD2646466A005C9FBC /* MyPageViewController.swift in Sources */,
 				AACCAA952646285D005C9FBC /* TipDetailSecondView.swift in Sources */,
 				AA344617261B2F240034E1BC /* MapViewController.swift in Sources */,
 				DA1284C72658952600764A2D /* AuthRouter.swift in Sources */,
@@ -1698,6 +1697,7 @@
 				AAD45C582619C06800A6F4D6 /* UIFont+Extensions.swift in Sources */,
 				7EA8B42F264009EE003974D7 /* SelectMenuViewModel.swift in Sources */,
 				AACCAB0226464855005C9FBC /* String+Extensions.swift in Sources */,
+				AAC8653A26B1A3FD000FEA07 /* MyPageViewController.swift in Sources */,
 				DAE3E4C526302EAD005A0A61 /* OnboardingViewController.swift in Sources */,
 				AACCAA8326451CBE005C9FBC /* TipDetailFirstView.swift in Sources */,
 				AAC78F96262A6916009CC84E /* ViewModelType.swift in Sources */,
