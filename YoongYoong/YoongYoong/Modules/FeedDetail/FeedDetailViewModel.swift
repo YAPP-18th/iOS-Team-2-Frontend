@@ -34,6 +34,8 @@ class FeedDetailViewModel : ViewModel, ViewModelType {
     let feed: Driver<PostResponse>
   }
   
+  let back = PublishSubject<Void>()
+  
   
   lazy var currentFeed = BehaviorRelay<PostResponse>(value: self.feed)
   let feedMessageElements = BehaviorRelay<[CommentResponse]>(value: [])
@@ -110,5 +112,15 @@ class FeedDetailViewModel : ViewModel, ViewModelType {
           print(error.localizedDescription)
         }
       }).disposed(by: self.disposeBag)
+  }
+  
+  func deletePost() {
+    provider.deletePost(feedId: feed.postId)
+      .subscribe(onNext: { [weak self] result in
+        guard let self = self else { return }
+        if case .success = result {
+          self.back.onNext(())
+        }
+      }).disposed(by: disposeBag)
   }
 }

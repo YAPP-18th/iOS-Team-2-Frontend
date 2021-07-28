@@ -242,6 +242,30 @@ class FeedDetailViewController: ViewController {
       .subscribe(onNext: { _ in
       self.commentField.text = ""
     }).disposed(by: disposeBag)
+    
+    moreButton.rx.tap.bind(onNext: {
+      self.moreContainer.isHidden = !self.moreContainer.isHidden
+    }).disposed(by: disposeBag)
+    
+    editButton.rx.tap.bind(onNext: {
+      print("editButtonTapped")
+    }).disposed(by: disposeBag)
+    
+    deleteButton.rx.tap.bind(onNext: {
+      print("deleteButtonTapped")
+      let alert = UIAlertController(title: "정말 삭제하시겠습니까?", message: "삭제된 게시물은 보관되지 않습니다", preferredStyle: .alert)
+      alert.addAction(UIAlertAction(title: "확인", style: .default, handler: { _ in
+        viewModel.deletePost()
+      }))
+      alert.addAction(UIAlertAction(title: "취소", style: .cancel, handler: .none))
+      self.present(alert, animated: true, completion: nil)
+    }).disposed(by: disposeBag)
+    
+    viewModel.back.subscribe(onNext: { _ in
+      self.navigationController?.popViewController(animated: true)
+    }).disposed(by: disposeBag)
+    
+    self.moreButton.isHidden = globalUser.value.id != viewModel.currentFeed.value.user.id
   }
   
   override func configuration() {
@@ -282,18 +306,6 @@ class FeedDetailViewController: ViewController {
       moreContainer.addArrangedSubview($0)
     }
     moreContainer.addSubview(buttonDivider)
-    
-    moreButton.rx.tap.bind(onNext: {
-      self.moreContainer.isHidden = !self.moreContainer.isHidden
-    }).disposed(by: disposeBag)
-    
-    editButton.rx.tap.bind(onNext: {
-      print("editButtonTapped")
-    }).disposed(by: disposeBag)
-    
-    deleteButton.rx.tap.bind(onNext: {
-      print("deleteButtonTapped")
-    }).disposed(by: disposeBag)
   }
   
   override func setupLayout() {

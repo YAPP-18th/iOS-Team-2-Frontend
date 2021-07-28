@@ -22,6 +22,7 @@ enum PostRouter {
   case likePost(id: Int)
   case fetchStorePost(place: Place)
   case fetchStoreContainer(place: Place)
+  case deletePost(id: Int)
 }
 
 
@@ -56,6 +57,8 @@ extension PostRouter: TargetType {
       return "/post/place"
     case .fetchStoreContainer:
       return "/place"
+    case .deletePost(let id):
+      return "/post/\(id)"
     }
   }
   
@@ -74,7 +77,7 @@ extension PostRouter: TargetType {
       return .post
     case .modifyComment, .likePost:
       return .put
-    case .deleteComment:
+    case .deleteComment, .deletePost:
       return .delete
     }
   }
@@ -150,6 +153,8 @@ extension PostRouter: TargetType {
         ],
         encoding: URLEncoding.default
       )
+    case .deletePost:
+      return .requestPlain
     }
   }
   

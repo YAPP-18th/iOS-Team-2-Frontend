@@ -143,6 +143,25 @@ final class PostService: PostServiceType {
       }
   }
   
+  func deletePost(feedId: Int) -> Observable<Result<Void, PostAPIError>> {
+    return provider.rx.request(.deletePost(id: feedId))
+      .asObservable()
+      .map { response -> Result<Void, PostAPIError> in
+        switch response.statusCode {
+        case 200...399:
+          return .success(())
+        case 400...499:
+          // 잘못된 parameter를 전달한 경우
+          return .failure(.error("Bad Request"))
+        case 500...:
+          // parameter가 누락된 경우
+          return .failure(.error("Internal Server Error"))
+        default:
+          return .failure(.error("원인 모를 에러"))
+        }
+      }
+  }
+  
   func storeContainer(place: Place) -> Observable<Result<[ContainerDTO], PostAPIError>> {
     return provider.rx.request(.fetchStoreContainer(place: place))
       .asObservable()
