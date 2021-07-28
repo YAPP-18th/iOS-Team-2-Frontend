@@ -2,13 +2,15 @@
 //  ManageEmailViewController.swift
 //  YoongYoong
 //
-//  Created by 김태훈 on 2021/05/15.
+//  Created by denny on 2021/05/15.
 //
 
 import Foundation
 import RxSwift
+
 class ManageEmailViewController : ViewController {
-  override func viewDidLoad() {
-    super.viewDidLoad()
-  }
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        title = "계정 관리"
+    }
 }

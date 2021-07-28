@@ -140,4 +140,81 @@ extension UIColor {
     @nonobjc class var skipLoginButtonBg: UIColor {
         return UIColor(named: "skipLoginButtonBg")!
     }
+    
+    // MARK: New Color Set
+    @nonobjc class var green01: UIColor {
+        return UIColor(named: "green01")!
+    }
+    
+    @nonobjc class var green02: UIColor {
+        return UIColor(named: "green02")!
+    }
+    
+    @nonobjc class var green03: UIColor {
+        return UIColor(named: "green03")!
+    }
+    
+    @nonobjc class var green04: UIColor {
+        return UIColor(named: "green04")!
+    }
+    
+    @nonobjc class var blue01: UIColor {
+        return UIColor(named: "blue01")!
+    }
+    
+    @nonobjc class var blue02: UIColor {
+        return UIColor(named: "blue02")!
+    }
+    
+    @nonobjc class var blue03: UIColor {
+        return UIColor(named: "blue03")!
+    }
+    
+    @nonobjc class var red01: UIColor {
+        return UIColor(named: "red01")!
+    }
+    
+    @nonobjc class var red02: UIColor {
+        return UIColor(named: "red02")!
+    }
+    
+    @nonobjc class var gray01: UIColor {
+        return UIColor(named: "gray01")!
+    }
+    
+    @nonobjc class var gray02: UIColor {
+        return UIColor(named: "gray02")!
+    }
+    
+    @nonobjc class var gray03: UIColor {
+        return UIColor(named: "gray03")!
+    }
+    
+    @nonobjc class var gray04: UIColor {
+        return UIColor(named: "gray04")!
+    }
+    
+    @nonobjc class var gray05: UIColor {
+        return UIColor(named: "gray05")!
+    }
+    
+    @nonobjc class var gray06: UIColor {
+        return UIColor(named: "gray06")!
+    }
+    
+    @nonobjc class var text01: UIColor {
+        return UIColor(named: "text01")!
+    }
+    
+    @nonobjc class var text02: UIColor {
+        return UIColor(named: "text02")!
+    }
+    
+    @nonobjc class var white000: UIColor {
+        return UIColor(named: "white000")!
+    }
+    
+    @nonobjc class var balck000: UIColor {
+        return UIColor(named: "black000")!
+    }
 }
