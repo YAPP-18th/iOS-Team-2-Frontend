@@ -14,6 +14,8 @@ struct PostRequestDTO: Encodable {
   let placeName: String
   let containers: [PostContainerDTO]
   let reviewBadge: String
+  let placeLatitude: String
+  let placeLongitude: String
 }
 
 struct PostContainerDTO: Encodable {

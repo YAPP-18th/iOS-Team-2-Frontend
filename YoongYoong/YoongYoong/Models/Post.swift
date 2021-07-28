@@ -38,7 +38,10 @@ class PostData {
                                 placeLocation: self.place!.address,
                                 placeName: self.place!.name,
                                 containers: containersDTO,
-                                reviewBadge: self.reviewBadges!))
+                                reviewBadge: self.reviewBadges!,
+                                placeLatitude: self.place!.latitude,
+                                placeLongitude: self.place!.longtitude
+                                ))
       
     }
         
