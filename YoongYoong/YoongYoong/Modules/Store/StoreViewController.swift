@@ -261,7 +261,7 @@ extension StoreViewController: UITableViewDataSource, UITableViewDelegate {
           let viewModel = self.viewModel as? StoreViewModel else { return .init() }
     let item = viewModel.postList.value[indexPath.row]
     let menu = item.postContainers.map { "\($0.food) \($0.foodCount) "}.joined(separator: "/ ")
-    cell.viewModel = .init(name: item.user.nickname, date: item.createdDate, menu: menu)
+    cell.viewModel = .init(name: item.user.nickname, date: item.createdDate, menu: menu, content: item.content ?? "")
     
     let profileToken = ImageDownloadManager.shared.downloadImage(with: item.user.imageUrl) { image in
       cell.profileImageView.image = image

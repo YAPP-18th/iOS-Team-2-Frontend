@@ -128,7 +128,7 @@ class MyPageViewController: ViewController {
     }
   }
   
-  private let postCollectionView = MyPostView()
+  private let postListView = MyPostView()
   
   private let yonggiCollectionView = MyPageYonggiView()
   
@@ -199,7 +199,7 @@ class MyPageViewController: ViewController {
       containerView.addSubview($0)
     }
     
-    [badgeCollectionView, postCollectionView, yonggiCollectionView].forEach {
+    [badgeCollectionView, postListView, yonggiCollectionView].forEach {
       collectionViewContainer.addArrangedSubview($0)
     }
     
@@ -243,24 +243,18 @@ class MyPageViewController: ViewController {
       $0.height.equalTo(92)
     }
     
-//    segmentView.add(tabIndicator)
-    
-//    tabIndicator.snp.makeConstraints{
-//      $0.bottom.equalToSuperview()
-//      $0.height.equalTo(4)
-//      $0.width.equalTo(108)
-//      $0.leading.greaterThanOrEqualToSuperview().offset(14)
-//    }
     yongyongView.snp.makeConstraints{
       $0.top.equalTo(segmentView.snp.bottom)
       $0.leading.trailing.equalToSuperview()
       $0.height.equalTo(60)
     }
+    
     collectionViewContainer.snp.makeConstraints{
       $0.top.equalTo(yongyongView.snp.bottom)
       $0.leading.trailing.bottom.equalToSuperview()
       $0.bottom.equalTo(self.view.safeAreaLayoutGuide)
     }
+    
     if !LoginManager.shared.isLogin {
       userName.isHidden = true
       userProfile.image = UIImage()
@@ -277,23 +271,10 @@ class MyPageViewController: ViewController {
   override func bindViewModel() {
     guard let viewModel = viewModel as? MypageViewModel else { return }
     let input = MypageViewModel.Input(
-      loadView: loadTrigger,
       containerSelect: .empty(),
       selectBadge: self.badgeCollectionView.rx.itemSelected.asObservable())
     let output = viewModel.transform(input: input)
-    let profile = viewModel.getProfile(inputs: input)
     let login = viewModel.logIn(inputs: loginTrigger)
-    profile.drive{ [weak self] model in
-      guard let self = self else{return}
-      if let image = model.imagePath {
-        self.userProfile.image = UIImage(named: image)
-      }
-      else {
-        self.userProfile.image = UIImage(named: "iconUserAvater")
-      }
-      self.userName.text = model.name
-      self.comments.text = model.message
-    }.disposed(by: disposeBag)
     
     editProfileBtn.rx.tap.bind{ [weak self] in
       guard let self = self else { return }
@@ -324,11 +305,14 @@ class MyPageViewController: ViewController {
         self.navigator.show(segue: .splash(viewModel: $0), sender: self, transition: .root(in: window))
       }
     }.disposed(by: disposeBag)
-    self.loadTrigger.onNext(())
     output.badgeList.drive(badgeCollectionView.rx.items(dataSource: badgeDataSource)).disposed(by: disposeBag)
     output.containers.bind(to: yonggiCollectionView.tableView.rx.items(dataSource: yonggiCollectionView.datasource)).disposed(by: self.disposeBag)
     output.selectedBadge.subscribe(onNext: { badge in
       showBadgeDetailView.shared.showBadge(image: badge.imagePath, title: badge.title, description: badge.discription, condition: badge.condition)
+    }).disposed(by: disposeBag)
+    
+    viewModel.postList.subscribe(onNext: { model in
+      self.postListView.bindCell(model: model)
     }).disposed(by: disposeBag)
     
     globalUser
@@ -340,6 +324,7 @@ class MyPageViewController: ViewController {
           .disposed(by: self.disposeBag)
         self.userName.text = userInfo.nickname
         self.comments.text = userInfo.introduction
+        viewModel.getPostList(month: 6)
       }).disposed(by: self.disposeBag)
   }
   

@@ -119,7 +119,6 @@
 		AACCAAD52646466A005C9FBC /* MyPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCAAC326464669005C9FBC /* MyPostView.swift */; };
 		AACCAAD62646466A005C9FBC /* MyPackageFilterCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCAAC426464669005C9FBC /* MyPackageFilterCollectionViewCell.swift */; };
 		AACCAAD72646466A005C9FBC /* MyPackageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCAAC526464669005C9FBC /* MyPackageTableViewCell.swift */; };
-		AACCAAD82646466A005C9FBC /* MyPostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCAAC626464669005C9FBC /* MyPostTableViewCell.swift */; };
 		AACCAADA2646466A005C9FBC /* MyBadgeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCAAC826464669005C9FBC /* MyBadgeCollectionViewCell.swift */; };
 		AACCAADB2646466A005C9FBC /* MyPackageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCAAC926464669005C9FBC /* MyPackageCollectionViewCell.swift */; };
 		AACCAADC2646466A005C9FBC /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCAACB26464669005C9FBC /* EditProfileViewController.swift */; };
@@ -366,7 +365,6 @@
 		AACCAAC326464669005C9FBC /* MyPostView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyPostView.swift; sourceTree = "<group>"; };
 		AACCAAC426464669005C9FBC /* MyPackageFilterCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyPackageFilterCollectionViewCell.swift; sourceTree = "<group>"; };
 		AACCAAC526464669005C9FBC /* MyPackageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyPackageTableViewCell.swift; sourceTree = "<group>"; };
-		AACCAAC626464669005C9FBC /* MyPostTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyPostTableViewCell.swift; sourceTree = "<group>"; };
 		AACCAAC826464669005C9FBC /* MyBadgeCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyBadgeCollectionViewCell.swift; sourceTree = "<group>"; };
 		AACCAAC926464669005C9FBC /* MyPackageCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyPackageCollectionViewCell.swift; sourceTree = "<group>"; };
 		AACCAACB26464669005C9FBC /* EditProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
@@ -537,7 +535,6 @@
 				DACA9642264BAA1000E95165 /* AlertListViewController.swift */,
 				AACCAAC426464669005C9FBC /* MyPackageFilterCollectionViewCell.swift */,
 				AACCAAC526464669005C9FBC /* MyPackageTableViewCell.swift */,
-				AACCAAC626464669005C9FBC /* MyPostTableViewCell.swift */,
 				AACCAAC826464669005C9FBC /* MyBadgeCollectionViewCell.swift */,
 				AACCAAC926464669005C9FBC /* MyPackageCollectionViewCell.swift */,
 				AA14469F26863C0F00A149EE /* MyPageSegmentCell.swift */,
@@ -1778,7 +1775,6 @@
 				DA1284D12658956300764A2D /* AuthResponse.swift in Sources */,
 				AA74A56026931A0700A14194 /* TermsCheckItem.swift in Sources */,
 				DA579E7A2658B76B00E724A4 /* PostRouter.swift in Sources */,
-				AACCAAD82646466A005C9FBC /* MyPostTableViewCell.swift in Sources */,
 				AA14468D2684736800A149EE /* MapSearchResultView.swift in Sources */,
 				AACCADB4264F75F2005C9FBC /* FeedMessage.swift in Sources */,
 				AA1446A226864E5F00A149EE /* MyPageYongYongView.swift in Sources */,

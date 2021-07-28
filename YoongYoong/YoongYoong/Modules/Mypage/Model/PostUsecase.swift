@@ -10,6 +10,8 @@ struct PostListModel {
   let month : String
   let postCount: Int
   let packageCount: Int
-  let postList:[PostSimpleModel]
+  let postList:[PostResponse]
+  
+  static let sample =  PostListModel(month: "2020년 6월", postCount: 0, packageCount: 0, postList: [])
 }
 

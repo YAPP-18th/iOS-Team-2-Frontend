@@ -11,6 +11,8 @@ import RxCocoa
 
 class MyPostView: UIView {
   let disposeBag = DisposeBag()
+  
+  var postList: [PostResponse] = []
   private let monthlyInformationView = UIView().then{
     $0.backgroundColor = UIColor.brandColorGreen03
   }
@@ -37,13 +39,9 @@ class MyPostView: UIView {
     $0.text = "0개"
   }
   private let tableView = UITableView().then{
-    $0.rowHeight = UITableView.automaticDimension
-    $0.estimatedRowHeight = 130
-    $0.backgroundColor = .systemGray
     $0.separatorStyle = .none
-    $0.register(MyPostTableViewCell.self,
-                forCellReuseIdentifier: MyPostTableViewCell.identifier)
-    $0.isScrollEnabled = false
+    $0.register(StoreReviewCell.self,
+                forCellReuseIdentifier: StoreReviewCell.identifier)
   }
   let nextMonthBtn = UIButton().then{
     $0.setImage(UIImage(named: "icMyPostArrowRightActive"), for: .normal)
@@ -56,6 +54,8 @@ class MyPostView: UIView {
   private var cellCount = 0
   override init(frame: CGRect) {
     super.init(frame: frame)
+    self.tableView.dataSource = self
+    self.tableView.delegate = self
     setupView()
     setupLayout()
   }
@@ -67,27 +67,11 @@ class MyPostView: UIView {
 extension MyPostView {
   func bindCell(model: PostListModel) {
     cellCount = model.postList.count
-    let feedSelect = tableView.rx.modelSelected(PostSimpleModel.self).map{$0.feedId}
     self.timeStampLabel.text = model.month
     self.postCount.text = "\(model.postCount)"
     self.packageCount.text = "\(model.packageCount)"
-    Observable.just(model.postList)
-      .bind(to: tableView.rx.items(cellIdentifier: MyPostTableViewCell.identifier,
-                                   cellType: MyPostTableViewCell.self)) { row, data, cell in
-        cell.bind(model: data)
-      }.disposed(by: disposeBag)
-
-
-    tableView.rx
-        .observeWeakly(CGSize.self, "contentSize")
-        .compactMap { $0?.height }
-        .distinctUntilChanged()
-        .bind { [weak self] height in
-          self?.tableView.snp.updateConstraints{
-            $0.height.equalTo(height)
-          }
-        }
-        .disposed(by: disposeBag)
+    self.postList = model.postList
+    self.tableView.reloadData()
   }
   
 }
@@ -141,5 +125,39 @@ extension MyPostView {
       $0.top.equalTo(monthlyInformationView.snp.bottom)
       $0.leading.trailing.bottom.equalToSuperview()
     }
+  }
+}
+
+extension MyPostView: UITableViewDataSource, UITableViewDelegate {
+  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    return self.postList.count
+  }
+  
+  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    guard let cell = tableView.dequeueReusableCell(withIdentifier: StoreReviewCell.identifier, for: indexPath) as? StoreReviewCell else { return .init() }
+    let item = self.postList[indexPath.row]
+    let menu = item.postContainers.map { "\($0.food) \($0.foodCount) "}.joined(separator: "/ ")
+    cell.viewModel = .init(name: item.user.nickname, date: item.createdDate, menu: menu, content: item.content ?? "")
+    
+    let profileToken = ImageDownloadManager.shared.downloadImage(with: item.user.imageUrl) { image in
+      cell.profileImageView.image = image
+    }
+    
+    let menuToken = ImageDownloadManager.shared.downloadImage(with: item.images[0]) { image in
+      cell.menuImageView.image = image
+    }
+    
+    cell.onReuse = {
+      if let profileToken = profileToken,
+         let menuToken = menuToken {
+        ImageDownloadManager.shared.cancelLoad(profileToken)
+        ImageDownloadManager.shared.cancelLoad(menuToken)
+      }
+    }
+    return cell
+  }
+  
+  func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    return UITableView.automaticDimension
   }
 }

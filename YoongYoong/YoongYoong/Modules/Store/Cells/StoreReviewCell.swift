@@ -13,6 +13,7 @@ class StoreReviewCell: UITableViewCell {
     var name: String
     var date: String
     var menu: String
+    var content: String
   }
   
   var viewModel: ViewModel? {
@@ -135,6 +136,7 @@ extension StoreReviewCell {
     nameLabel.text = vm.name
     dateLabel.text = vm.date
     menuLabel.text = vm.menu
+    contentLabel.text = vm.content
   }
   
   override func prepareForReuse() {
