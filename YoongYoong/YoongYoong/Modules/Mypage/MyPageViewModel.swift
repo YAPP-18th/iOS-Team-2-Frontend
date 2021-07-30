@@ -45,7 +45,7 @@ extension MypageViewModel {
     }
     let containerItems = BehaviorSubject<[ContainerSection]>(value: dummy)
     
-    let badgeArr = [BadgeModel(badgeId: 0, imagePath: "icBadge001", title: "관심도 용기", discription: "처음으로 다른 사람의 포스트에\n좋아요를 누르면 드려요", condition: "다른 사람 포스트에 첫 좋아요를 누를 시"),
+    let badgeArr: [BadgeModel] = globalUser.value.id == 0 ? [] : [BadgeModel(badgeId: 0, imagePath: "icBadge001", title: "관심도 용기", discription: "처음으로 다른 사람의 포스트에\n좋아요를 누르면 드려요", condition: "다른 사람 포스트에 첫 좋아요를 누를 시"),
                     BadgeModel(badgeId: 1, imagePath: "icBadge002", title: "첫 용기", discription: "깨끗한 지구를 위한 첫 걸음!\n당신의 용기 덕분이예요", condition: "첫 포스트를 올릴 시 획득"),
                     BadgeModel(badgeId: 2, imagePath: "icBadge003", title: "작심삼일 극복!", discription: "연속 3일이상 포스트를 작성해보세요", condition: "연속 3일 이상 포스트를 올릴 시"),
                     BadgeModel(badgeId: 3, imagePath: "icBadge004", title: "말 건내는 용기", discription: "처음으로 다른 사람의 포스트에 댓글을 달면 드려요", condition: "다른 사람 포스트에 첫 댓글을 달면"),

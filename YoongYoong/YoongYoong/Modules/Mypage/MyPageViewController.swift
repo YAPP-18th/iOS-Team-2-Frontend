@@ -125,7 +125,7 @@ class MyPageViewController: ViewController {
       $0.leading.trailing.top.bottom.height.equalToSuperview()
       $0.width.equalTo(UIScreen.main.bounds.width * 3)
     }
-    $0.isPagingEnabled = true
+    $0.isScrollEnabled = false
     $0.showsHorizontalScrollIndicator = false
     $0.showsVerticalScrollIndicator = false
   }
@@ -148,6 +148,23 @@ class MyPageViewController: ViewController {
       layout.minimumInteritemSpacing = 0
       layout.itemSize = .init(width: width, height: height)
     }
+  }
+  
+  private let badgeEmptyView = UIView()
+  private let badgeEmptyLabel = UILabel().then {
+    $0.numberOfLines = 3
+    $0.textAlignment = .center
+    $0.font = .krBody2
+    $0.text = """
+              용기내용과 함께
+              지구와 우리 모두를 위한
+              용기를 내보아요
+              """
+    $0.textColor = .systemGrayText02
+  }
+  private let badgeEmptyImageView = UIImageView().then {
+    $0.image = UIImage(named: "imgBadgeEmpty")
+    $0.contentMode = .scaleAspectFit
   }
   
   private let postListView = MyPostView()
@@ -240,6 +257,12 @@ class MyPageViewController: ViewController {
     [loginCircleView, loginBtn, rightArrowImageView].forEach {
       loginContainer.addSubview($0)
     }
+    
+    badgeCollectionView.addSubview(badgeEmptyView)
+    
+    [badgeEmptyLabel, badgeEmptyImageView].forEach {
+      badgeEmptyView.addSubview($0)
+    }
   }
   
   override func setupLayout() {
@@ -315,6 +338,20 @@ class MyPageViewController: ViewController {
       $0.leading.trailing.bottom.equalToSuperview()
       $0.bottom.equalTo(self.view.safeAreaLayoutGuide)
     }
+    badgeEmptyView.snp.makeConstraints {
+      $0.top.bottom.equalToSuperview()
+      $0.centerX.equalTo(self.view)
+    }
+    
+    badgeEmptyLabel.snp.makeConstraints {
+      $0.centerX.equalToSuperview()
+      $0.top.equalTo(60)
+    }
+    
+    badgeEmptyImageView.snp.makeConstraints {
+      $0.top.equalTo(badgeEmptyLabel.snp.bottom).offset(18)
+      $0.centerX.equalToSuperview()
+    }
   }
   override func bindViewModel() {
     guard let viewModel = viewModel as? MypageViewModel else { return }
@@ -353,7 +390,12 @@ class MyPageViewController: ViewController {
         self.navigator.show(segue: .splash(viewModel: $0), sender: self, transition: .root(in: window))
       }
     }.disposed(by: disposeBag)
-    output.badgeList.drive(badgeCollectionView.rx.items(dataSource: badgeDataSource)).disposed(by: disposeBag)
+    let badgeResult = output.badgeList.asObservable().share(replay: 1)
+      
+    badgeResult.bind(to: badgeCollectionView.rx.items(dataSource: badgeDataSource)).disposed(by: disposeBag)
+    badgeResult.subscribe(onNext: { badgeList in
+      self.badgeEmptyView.isHidden = !badgeList[0].items.isEmpty
+    }).disposed(by: self.disposeBag)
     output.containers.bind(to: yonggiCollectionView.tableView.rx.items(dataSource: yonggiCollectionView.datasource)).disposed(by: self.disposeBag)
     output.selectedBadge.subscribe(onNext: { badge in
       showBadgeDetailView.shared.showBadge(image: badge.imagePath, title: badge.title, description: badge.discription, condition: badge.condition)
