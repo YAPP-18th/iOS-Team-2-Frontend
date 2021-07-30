@@ -384,12 +384,13 @@ class MyPageViewController: ViewController {
       }
     }.disposed(by: disposeBag)
     loginBtn.rx.tap.bind(to: loginTrigger).disposed(by: disposeBag)
-    login.bind{[weak self] in
+    login.bind(onNext: { [weak self] _ in
       guard let self = self else {return}
+      LoginManager.shared.makeLogoutStatus()
       if let window = self.view.window {
-        self.navigator.show(segue: .splash(viewModel: $0), sender: self, transition: .root(in: window))
+          self.navigator.show(segue: .splash(viewModel: SplashViewModel()), sender: self, transition: .root(in: window))
       }
-    }.disposed(by: disposeBag)
+    }).disposed(by: disposeBag)
     let badgeResult = output.badgeList.asObservable().share(replay: 1)
       
     badgeResult.bind(to: badgeCollectionView.rx.items(dataSource: badgeDataSource)).disposed(by: disposeBag)
@@ -451,11 +452,9 @@ extension MyPageViewController {
 //    }
   }
   private func checkLogin() {
-    if !LoginManager.shared.isLogin {
       AlertAction.shared.showAlertView(title: "로그인이 필요한 서비스입니다.",description: "로그인 화면으로 이동하시겠습니까?", grantMessage: "확인", denyMessage: "취소", okAction: { [weak self] in
         self?.loginTrigger.onNext(())
       })
-    }
   }
     
     private func setUserData(_ user: UserInfo) {
@@ -498,8 +497,13 @@ extension MyPageViewController: UICollectionViewDataSource {
 extension MyPageViewController: UICollectionViewDelegate {
   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
     if collectionView == self.segmentView {
-      self.selectedTabIndex = indexPath.item
-      collectionView.reloadData()
+      if globalUser.value.id == 0 && indexPath.item != 0 {
+        self.checkLogin()
+      } else {
+        self.selectedTabIndex = indexPath.item
+        collectionView.reloadData()
+      }
+      
     }
   }
 }
