@@ -136,7 +136,29 @@ extension FeedViewController: UITableViewDelegate {
   }
   
   func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-    guard let vm = self.viewModel as? FeedViewModel else { return }
+    guard cellHeights[indexPath] == nil else { return }
+    getHeight(indexPath: indexPath)
+  }
+
+  func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+    if let height = cellHeights[indexPath] {
+      return height
+    } else {
+      return getHeight(indexPath: indexPath)
+    }
+  }
+  
+  func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    if let height = cellHeights[indexPath] {
+      return height
+    } else {
+      return getHeight(indexPath: indexPath)
+    }
+  }
+  
+  @discardableResult
+  private func getHeight(indexPath: IndexPath) -> CGFloat{
+    guard let vm = self.viewModel as? FeedViewModel else { return 0 }
     let item = vm.feedElements.value[indexPath.row]
     let viewModel = FeedListTableViewCell.ViewModel(
       profile: item.user.imageUrl,
@@ -151,13 +173,6 @@ extension FeedViewController: UITableViewDelegate {
     )
     let height = FeedListTableViewCell.getHeight(viewModel: viewModel)
     cellHeights[indexPath] = height
-  }
-
-  func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-    return cellHeights[indexPath] ?? UITableView.automaticDimension
-  }
-  
-  func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-    return cellHeights[indexPath] ?? UITableView.automaticDimension
+    return height
   }
 }
