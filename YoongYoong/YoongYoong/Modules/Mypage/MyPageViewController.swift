@@ -51,38 +51,60 @@ enum TabType: Int, CaseIterable{
 }
 
 class MyPageViewController: ViewController {
-  private let profileView = UIView().then{
-    $0.backgroundColor = .white
-  }
+  
   private let scrollView = ScrollStackView()
   private let containerView = UIView().then{
     $0.backgroundColor = .white
   }
-  private let userProfile = UIImageView().then {
+  
+  private let profileView = UIView().then{
+    $0.backgroundColor = .white
+  }
+  
+  // Login 되어 있을 경우의 뷰
+  
+  private let userContainer = UIView()
+  
+  private let profileImageView = UIImageView().then {
     $0.image = UIImage(named: "iconUserAvater")
     $0.layer.cornerRadius = 25
     $0.layer.masksToBounds = true
   }
-  private let userName = UILabel().then {
+  private let userNameLabel = UILabel().then {
     $0.textColor = .black
     $0.font = .sdGhothicNeo(ofSize: 16, weight: .bold)
   }
-  private let loginBtn = UIButton().then {
-    $0.isHidden = true
-    $0.setTitle("로그인", for: .normal)
-    $0.titleLabel?.font = .sdGhothicNeo(ofSize: 18, weight: .regular)
-    $0.setTitleColor(.black, for: .normal)
-  }
-  private let comments = UILabel().then {
+  
+  private let userIntroLabel = UILabel().then {
     $0.numberOfLines = 2
     $0.textColor = .black
     $0.font = .sdGhothicNeo(ofSize: 14, weight: .regular)
-    
-    
   }
+  
   private let editProfileBtn = UIButton().then {
     $0.setImage(UIImage(named: "EditProfileBtn"), for: .normal)
   }
+  
+  // Login 되어 있지 않을 경우의 뷰
+  private let loginContainer = UIView()
+  
+  private let loginCircleView = UIView().then {
+    $0.backgroundColor = .brandColorBlue01
+    $0.layer.cornerRadius = 25
+  }
+  
+  private let loginBtn = UIButton().then {
+    $0.setTitle("로그인", for: .normal)
+    $0.titleLabel?.font = .krButton1
+    $0.setTitleColor(.black, for: .normal)
+  }
+  
+  private let rightArrowImageView = UIImageView().then {
+    $0.image = UIImage(named: "icMyPageArrowRight")
+    $0.contentMode = .scaleAspectFit
+  }
+  
+  
   private let segmentView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout()).then {
     if let layout = $0.collectionViewLayout as? UICollectionViewFlowLayout {
       let width = UIScreen.main.bounds.width / 3
@@ -189,7 +211,11 @@ class MyPageViewController: ViewController {
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     tabIndicator.frame.origin.x = CGFloat((UIScreen.main.bounds.width / 3.0 - 108)/2)
-    (viewModel as? MypageViewModel)?.getUserInfo()
+    if let viewModel = viewModel as? MypageViewModel {
+      viewModel.getUserInfo()
+    viewModel.getPostList()
+    }
+    
   }
   
   override func setupView() {
@@ -203,8 +229,16 @@ class MyPageViewController: ViewController {
       collectionViewContainer.addArrangedSubview($0)
     }
     
-    [userProfile, userName, comments, editProfileBtn].forEach {
+    [userContainer, loginContainer].forEach {
       profileView.addSubview($0)
+    }
+    
+    [profileImageView, userNameLabel, userIntroLabel, editProfileBtn].forEach {
+      userContainer.addSubview($0)
+    }
+    
+    [loginCircleView, loginBtn, rightArrowImageView].forEach {
+      loginContainer.addSubview($0)
     }
   }
   
@@ -218,23 +252,50 @@ class MyPageViewController: ViewController {
       $0.height.equalTo(117)
     }
     
-    userProfile.snp.makeConstraints{
+    [userContainer, loginContainer].forEach {
+      $0.snp.makeConstraints {
+        $0.edges.equalToSuperview()
+      }
+    }
+    
+    // Login 되어있을 경우
+    profileImageView.snp.makeConstraints{
       $0.centerY.equalToSuperview()
       $0.leading.equalTo(16)
       $0.width.height.equalTo(50)
     }
     
-    userName.snp.makeConstraints{
-      $0.top.equalTo(userProfile.snp.top)
-      $0.leading.equalTo(userProfile.snp.trailing).offset(14)
+    userNameLabel.snp.makeConstraints{
+      $0.top.equalTo(profileImageView.snp.top)
+      $0.leading.equalTo(profileImageView.snp.trailing).offset(14)
     }
-    comments.snp.makeConstraints{
-      $0.leading.equalTo(userName.snp.leading)
-      $0.top.equalTo(userName.snp.bottom).offset(8)
+    
+    userIntroLabel.snp.makeConstraints{
+      $0.leading.equalTo(userNameLabel.snp.leading)
+      $0.top.equalTo(userNameLabel.snp.bottom).offset(8)
     }
+    
     editProfileBtn.snp.makeConstraints{
       $0.trailing.top.equalToSuperview()
       $0.width.height.equalTo(40)
+    }
+    
+    // Login 되어 있지 않을 경우
+    loginCircleView.snp.makeConstraints {
+      $0.leading.equalTo(16)
+      $0.centerY.equalToSuperview()
+      $0.width.height.equalTo(50)
+    }
+    
+    loginBtn.snp.makeConstraints{
+      $0.centerY.equalTo(loginCircleView)
+      $0.leading.equalTo(loginCircleView.snp.trailing).offset(6)
+    }
+    
+    rightArrowImageView.snp.makeConstraints {
+      $0.centerY.equalTo(loginBtn)
+      $0.leading.equalTo(loginBtn.snp.trailing).offset(8)
+      $0.width.height.equalTo(24)
     }
     
     segmentView.snp.makeConstraints{
@@ -253,19 +314,6 @@ class MyPageViewController: ViewController {
       $0.top.equalTo(yongyongView.snp.bottom)
       $0.leading.trailing.bottom.equalToSuperview()
       $0.bottom.equalTo(self.view.safeAreaLayoutGuide)
-    }
-    
-    if !LoginManager.shared.isLogin {
-      userName.isHidden = true
-      userProfile.image = UIImage()
-      comments.isHidden = true
-      editProfileBtn.isHidden = true
-      loginBtn.isHidden = false
-      profileView.add(loginBtn)
-      loginBtn.snp.makeConstraints{
-        $0.centerY.equalTo(userProfile)
-        $0.leading.equalTo(userProfile.snp.trailing).offset(6)
-      }
     }
   }
   override func bindViewModel() {
@@ -319,12 +367,11 @@ class MyPageViewController: ViewController {
       .observeOn(MainScheduler.instance)
       .subscribe(onNext: { [weak self] userInfo in
         guard let self = self else { return }
-        
-        ImageDownloadManager.shared.downloadImage(url: userInfo.imageUrl).asDriver(onErrorJustReturn: UIImage(named: "icPostThumbnail")!).drive(self.userProfile.rx.image)
-          .disposed(by: self.disposeBag)
-        self.userName.text = userInfo.nickname
-        self.comments.text = userInfo.introduction
-        viewModel.getPostList()
+        if userInfo.id == 0 {
+            self.setLogoutStatus()
+        } else {
+            self.setUserData(userInfo)
+        }
       }).disposed(by: self.disposeBag)
     
     postListView.didSelectPost = { post in
@@ -368,6 +415,20 @@ extension MyPageViewController {
       })
     }
   }
+    
+    private func setUserData(_ user: UserInfo) {
+      self.loginContainer.isHidden = true
+      self.userContainer.isHidden = false
+        ImageDownloadManager.shared.downloadImage(url: user.imageUrl).asDriver(onErrorJustReturn: UIImage(named: "icPostThumbnail")!).drive(self.profileImageView.rx.image)
+          .disposed(by: self.disposeBag)
+        self.userNameLabel.text = user.nickname
+        self.userIntroLabel.text = user.introduction
+    }
+    
+    private func setLogoutStatus() {
+      self.loginContainer.isHidden = false
+      self.userContainer.isHidden = true
+    }
 }
 
 extension MyPageViewController: UICollectionViewDataSource {
