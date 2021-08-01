@@ -34,6 +34,8 @@ class TipDetailFirstView: UIView {
   
   let vStackView = ScrollStackView().then {
     $0.stackView.spacing = 56
+    $0.backgroundColor = .clear
+    $0.stackView.backgroundColor = .clear
   }
   
   override init(frame: CGRect) {

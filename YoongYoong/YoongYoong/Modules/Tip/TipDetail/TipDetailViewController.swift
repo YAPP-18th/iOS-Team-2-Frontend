@@ -134,6 +134,8 @@ class TipDetailViewController: ViewController {
     self.view.layoutIfNeeded()
     
     topConstraint.update(offset: 30)
+    tipView.layer.cornerRadius = 15
+    tipView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
     
     let showTip = UIViewPropertyAnimator(duration: 0.25, curve: .easeIn) {
       self.view.layoutIfNeeded()
