@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6AFAAC9AAB1CEE62B8A4467B /* Pods_YoongYoong.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 758DACE043760F2E75EB5FCB /* Pods_YoongYoong.framework */; };
+		3674C10B235C4B841B18A88A /* Pods_YoongYoong.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B11347EBB09EE57B4173684 /* Pods_YoongYoong.framework */; };
 		7E3191EC265B5FFC000326A7 /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E3191EB265B5FFC000326A7 /* Place.swift */; };
 		7E32AC612636F6F200E694EB /* PostImageSelectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E32AC5A2636F6F200E694EB /* PostImageSelectionViewCell.swift */; };
 		7E32AC622636F6F200E694EB /* PostImageContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E32AC5C2636F6F200E694EB /* PostImageContainer.swift */; };
@@ -42,6 +42,7 @@
 		7ED3422B26552F9D0070DED5 /* SearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ED3422A26552F9D0070DED5 /* SearchService.swift */; };
 		7ED49A35264E480900E1F518 /* ContainerListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ED49A34264E480900E1F518 /* ContainerListModel.swift */; };
 		7EDCDB6F262321D60029BE45 /* PostSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EDCDB6E262321D60029BE45 /* PostSearchViewController.swift */; };
+		7EF17C322DC3535CF48A0930 /* Pods_YoongYoong_YoongYoongUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF74B164FE84C3A0A85ECB14 /* Pods_YoongYoong_YoongYoongUITests.framework */; };
 		7EF2DC64263076F80002E1E3 /* PostMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF2DC63263076F80002E1E3 /* PostMapViewController.swift */; };
 		7EF2DC69263077610002E1E3 /* PostMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF2DC68263077610002E1E3 /* PostMapViewModel.swift */; };
 		AA144649267DA69200A149EE /* MapSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA144648267DA69200A149EE /* MapSearchViewController.swift */; };
@@ -224,7 +225,6 @@
 		DAF5C5C8266263A100BF93E0 /* marketing.html in Resources */ = {isa = PBXBuildFile; fileRef = DAF5C5C4266263A000BF93E0 /* marketing.html */; };
 		DAF5C5C9266263A100BF93E0 /* location.html in Resources */ = {isa = PBXBuildFile; fileRef = DAF5C5C5266263A100BF93E0 /* location.html */; };
 		DAF5C6462662C1AE00BF93E0 /* profileRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF5C6452662C1AE00BF93E0 /* profileRequest.swift */; };
-		DBBE82F53A75CC8AAF58B667 /* Pods_YoongYoong_YoongYoongUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 238ACAD42E9502C9F4DB3139 /* Pods_YoongYoong_YoongYoongUITests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -245,11 +245,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		238ACAD42E9502C9F4DB3139 /* Pods_YoongYoong_YoongYoongUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_YoongYoong_YoongYoongUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		0ABDEE5BF365E37B9265C0D3 /* Pods-용기내용.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-용기내용.debug.xcconfig"; path = "Target Support Files/Pods-용기내용/Pods-용기내용.debug.xcconfig"; sourceTree = "<group>"; };
 		4A06BD70420FBCDDEF5E50E3 /* Pods_YoongYoongTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_YoongYoongTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		51140A4B8BD97A0FFF3C9E87 /* Pods-용기내용-YoongYoongUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-용기내용-YoongYoongUITests.release.xcconfig"; path = "Target Support Files/Pods-용기내용-YoongYoongUITests/Pods-용기내용-YoongYoongUITests.release.xcconfig"; sourceTree = "<group>"; };
 		5E844A4FB1E67E67DDBA7C1C /* Pods-YoongYoong-YoongYoongUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YoongYoong-YoongYoongUITests.debug.xcconfig"; path = "Target Support Files/Pods-YoongYoong-YoongYoongUITests/Pods-YoongYoong-YoongYoongUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		6B8446DB571903D78466AE9B /* Pods-YoongYoongTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YoongYoongTests.debug.xcconfig"; path = "Target Support Files/Pods-YoongYoongTests/Pods-YoongYoongTests.debug.xcconfig"; sourceTree = "<group>"; };
-		758DACE043760F2E75EB5FCB /* Pods_YoongYoong.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_YoongYoong.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7E3191EB265B5FFC000326A7 /* Place.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Place.swift; sourceTree = "<group>"; };
 		7E32AC5A2636F6F200E694EB /* PostImageSelectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostImageSelectionViewCell.swift; sourceTree = "<group>"; };
 		7E32AC5C2636F6F200E694EB /* PostImageContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostImageContainer.swift; sourceTree = "<group>"; };
@@ -286,6 +286,7 @@
 		7EDCDB6E262321D60029BE45 /* PostSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostSearchViewController.swift; sourceTree = "<group>"; };
 		7EF2DC63263076F80002E1E3 /* PostMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostMapViewController.swift; sourceTree = "<group>"; };
 		7EF2DC68263077610002E1E3 /* PostMapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostMapViewModel.swift; sourceTree = "<group>"; };
+		8B11347EBB09EE57B4173684 /* Pods_YoongYoong.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_YoongYoong.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		948D7D766C7E57695042FF1F /* Pods-YoongYoong.dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YoongYoong.dev.xcconfig"; path = "Target Support Files/Pods-YoongYoong/Pods-YoongYoong.dev.xcconfig"; sourceTree = "<group>"; };
 		9AA94A64E3F69882F456EE4D /* Pods-YoongYoong.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YoongYoong.debug.xcconfig"; path = "Target Support Files/Pods-YoongYoong/Pods-YoongYoong.debug.xcconfig"; sourceTree = "<group>"; };
 		9BB5CF0D7707EB35250D4235 /* Pods-YoongYoong-YoongYoongUITests.dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YoongYoong-YoongYoongUITests.dev.xcconfig"; path = "Target Support Files/Pods-YoongYoong-YoongYoongUITests/Pods-YoongYoong-YoongYoongUITests.dev.xcconfig"; sourceTree = "<group>"; };
@@ -424,6 +425,8 @@
 		AAF67E08262AE69600F643E1 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		AB05194427AB14D9AFFEE470 /* Pods-YoongYoongTests.dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YoongYoongTests.dev.xcconfig"; path = "Target Support Files/Pods-YoongYoongTests/Pods-YoongYoongTests.dev.xcconfig"; sourceTree = "<group>"; };
 		C4A4BE283F0F18E7064708AB /* Pods-YoongYoong.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YoongYoong.release.xcconfig"; path = "Target Support Files/Pods-YoongYoong/Pods-YoongYoong.release.xcconfig"; sourceTree = "<group>"; };
+		C72FB7BCCB4F24C3D1E2CFFA /* Pods-용기내용.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-용기내용.release.xcconfig"; path = "Target Support Files/Pods-용기내용/Pods-용기내용.release.xcconfig"; sourceTree = "<group>"; };
+		CF74B164FE84C3A0A85ECB14 /* Pods_YoongYoong_YoongYoongUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_YoongYoong_YoongYoongUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA0F5AE4263E6006003AE118 /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 		DA0F5B18263E9BFD003AE118 /* UITextField+Extenstions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extenstions.swift"; sourceTree = "<group>"; };
 		DA1284BB2658941600764A2D /* Moya+RxSwift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Moya+RxSwift.swift"; sourceTree = "<group>"; };
@@ -443,7 +446,7 @@
 		DA5D36EB2661E5D300C41C82 /* CommentResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentResponse.swift; sourceTree = "<group>"; };
 		DA5D370C26621AC800C41C82 /* MyPageEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageEmptyView.swift; sourceTree = "<group>"; };
 		DA5D371E2662549B00C41C82 /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
-		DAB00023260F12CA00D8208F /* 용기내용.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "용기내용.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DAB00023260F12CA00D8208F /* YoongYoong.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YoongYoong.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAB00026260F12CA00D8208F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DAB00030260F12CA00D8208F /* YoongYoong.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = YoongYoong.xcdatamodel; sourceTree = "<group>"; };
 		DAB00032260F12CD00D8208F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -477,6 +480,7 @@
 		DAF5C5C5266263A100BF93E0 /* location.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = location.html; sourceTree = "<group>"; };
 		DAF5C6452662C1AE00BF93E0 /* profileRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = profileRequest.swift; sourceTree = "<group>"; };
 		DAFB3C6D264021380065E3C4 /* UIApplication+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+Extensions.swift"; sourceTree = "<group>"; };
+		DE3C5774EC3A9C27398E70E8 /* Pods-용기내용-YoongYoongUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-용기내용-YoongYoongUITests.debug.xcconfig"; path = "Target Support Files/Pods-용기내용-YoongYoongUITests/Pods-용기내용-YoongYoongUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		F1BA7E9CFA81CCA931C8F5E2 /* Pods-YoongYoong-YoongYoongUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YoongYoong-YoongYoongUITests.release.xcconfig"; path = "Target Support Files/Pods-YoongYoong-YoongYoongUITests/Pods-YoongYoong-YoongYoongUITests.release.xcconfig"; sourceTree = "<group>"; };
 		F1D48CD7588577A288A8C11C /* Pods-YoongYoongTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YoongYoongTests.release.xcconfig"; path = "Target Support Files/Pods-YoongYoongTests/Pods-YoongYoongTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -486,7 +490,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6AFAAC9AAB1CEE62B8A4467B /* Pods_YoongYoong.framework in Frameworks */,
+				3674C10B235C4B841B18A88A /* Pods_YoongYoong.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -502,7 +506,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DBBE82F53A75CC8AAF58B667 /* Pods_YoongYoong_YoongYoongUITests.framework in Frameworks */,
+				7EF17C322DC3535CF48A0930 /* Pods_YoongYoong_YoongYoongUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1162,9 +1166,9 @@
 		CDA85A6B298B95FB1F3880D7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				758DACE043760F2E75EB5FCB /* Pods_YoongYoong.framework */,
-				238ACAD42E9502C9F4DB3139 /* Pods_YoongYoong_YoongYoongUITests.framework */,
 				4A06BD70420FBCDDEF5E50E3 /* Pods_YoongYoongTests.framework */,
+				8B11347EBB09EE57B4173684 /* Pods_YoongYoong.framework */,
+				CF74B164FE84C3A0A85ECB14 /* Pods_YoongYoong_YoongYoongUITests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1245,7 +1249,7 @@
 		DAB00024260F12CA00D8208F /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				DAB00023260F12CA00D8208F /* 용기내용.app */,
+				DAB00023260F12CA00D8208F /* YoongYoong.app */,
 				DAB0003C260F12CE00D8208F /* YoongYoongTests.xctest */,
 				DAB00047260F12CE00D8208F /* YoongYoongUITests.xctest */,
 			);
@@ -1354,6 +1358,10 @@
 				6B8446DB571903D78466AE9B /* Pods-YoongYoongTests.debug.xcconfig */,
 				F1D48CD7588577A288A8C11C /* Pods-YoongYoongTests.release.xcconfig */,
 				AB05194427AB14D9AFFEE470 /* Pods-YoongYoongTests.dev.xcconfig */,
+				0ABDEE5BF365E37B9265C0D3 /* Pods-용기내용.debug.xcconfig */,
+				C72FB7BCCB4F24C3D1E2CFFA /* Pods-용기내용.release.xcconfig */,
+				DE3C5774EC3A9C27398E70E8 /* Pods-용기내용-YoongYoongUITests.debug.xcconfig */,
+				51140A4B8BD97A0FFF3C9E87 /* Pods-용기내용-YoongYoongUITests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -1361,9 +1369,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		DAB00022260F12CA00D8208F /* 용기내용 */ = {
+		DAB00022260F12CA00D8208F /* YoongYoong */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = DAB00050260F12CE00D8208F /* Build configuration list for PBXNativeTarget "용기내용" */;
+			buildConfigurationList = DAB00050260F12CE00D8208F /* Build configuration list for PBXNativeTarget "YoongYoong" */;
 			buildPhases = (
 				7CB8543938EE7069FADD2959 /* [CP] Check Pods Manifest.lock */,
 				DAB0001F260F12CA00D8208F /* Sources */,
@@ -1375,9 +1383,9 @@
 			);
 			dependencies = (
 			);
-			name = "용기내용";
+			name = YoongYoong;
 			productName = YoongYoong;
-			productReference = DAB00023260F12CA00D8208F /* 용기내용.app */;
+			productReference = DAB00023260F12CA00D8208F /* YoongYoong.app */;
 			productType = "com.apple.product-type.application";
 		};
 		DAB0003B260F12CE00D8208F /* YoongYoongTests */ = {
@@ -1455,7 +1463,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				DAB00022260F12CA00D8208F /* 용기내용 */,
+				DAB00022260F12CA00D8208F /* YoongYoong */,
 				DAB0003B260F12CE00D8208F /* YoongYoongTests */,
 				DAB00046260F12CE00D8208F /* YoongYoongUITests */,
 			);
@@ -1836,12 +1844,12 @@
 /* Begin PBXTargetDependency section */
 		DAB0003E260F12CE00D8208F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = DAB00022260F12CA00D8208F /* 용기내용 */;
+			target = DAB00022260F12CA00D8208F /* YoongYoong */;
 			targetProxy = DAB0003D260F12CE00D8208F /* PBXContainerItemProxy */;
 		};
 		DAB00049260F12CE00D8208F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = DAB00022260F12CA00D8208F /* 용기내용 */;
+			target = DAB00022260F12CA00D8208F /* YoongYoong */;
 			targetProxy = DAB00048260F12CE00D8208F /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -2127,7 +2135,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		DAB00050260F12CE00D8208F /* Build configuration list for PBXNativeTarget "용기내용" */ = {
+		DAB00050260F12CE00D8208F /* Build configuration list for PBXNativeTarget "YoongYoong" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DAB00051260F12CE00D8208F /* Debug */,
