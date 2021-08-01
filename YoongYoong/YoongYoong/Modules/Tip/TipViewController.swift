@@ -24,6 +24,8 @@ class TipViewController: ViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    title = "다회용기 이용 TIP"
+    setupNavigationBar(.white)
   }
   
   override func viewWillAppear(_ animated: Bool) {
