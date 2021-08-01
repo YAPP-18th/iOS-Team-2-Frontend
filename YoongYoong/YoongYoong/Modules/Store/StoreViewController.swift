@@ -11,6 +11,7 @@ import RxCocoa
 
 class StoreViewController: ViewController {
   let vStackView = ScrollStackView().then {
+//    $0.contentInsetAdjustmentBehavior = .never
     $0.contentInset.bottom = 88
   }
   private let topContainerView = UIView().then {
@@ -94,8 +95,6 @@ class StoreViewController: ViewController {
     viewModel.getPostList()
   }
   
-  
-  
   override func viewWillDisappear(_ animated: Bool) {
     super.viewWillDisappear(animated)
     self.navigationController?.setNavigationBarHidden(false, animated: animated)
@@ -117,11 +116,15 @@ class StoreViewController: ViewController {
     super.setupView()
     self.view.addSubview(vStackView)
     self.view.addSubview(postButton)
+    
+    vStackView.backgroundColor = .brandColorTertiary01
+    yonggiView.backgroundColor = .white
+    yonggiCommentView.backgroundColor = .white
+    tableViewContainer.backgroundColor = UIColor(red: 242/255, green: 242/255, blue: 247/255, alpha: 1)
+    
     [topContainerView, yonggiView, yonggiCommentView, tableViewContainer].forEach {
       vStackView.addArrangedSubview($0)
     }
-    
-    
     
     [backButton, nameLabel, distanceLabel, locationImageView, addressLabel].forEach {
       topContainerView.addSubview($0)
@@ -177,7 +180,7 @@ class StoreViewController: ViewController {
     }
     
     tableViewContainer.snp.makeConstraints {
-      $0.height.greaterThanOrEqualTo(300)
+      $0.height.greaterThanOrEqualTo(500)
     }
     
     emptyLabel.snp.makeConstraints {

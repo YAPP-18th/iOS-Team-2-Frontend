@@ -18,6 +18,8 @@ class StoreYonggiCommentView: UIView {
       self.updateView()
     }
   }
+    
+    let mainContainerView = UIView()
   
   let titleLabel = UILabel().then {
     $0.font = .krTitle1
@@ -63,18 +65,24 @@ class StoreYonggiCommentView: UIView {
 
 extension StoreYonggiCommentView {
   private func configuration() {
-    backgroundColor = UIColor.brandColorTertiary01.withAlphaComponent(0.3)
+    mainContainerView.backgroundColor = UIColor(red: 92/255, green: 177/255, blue: 210/255, alpha: 0.3)
   }
   
   private func setupView() {
+    self.addSubview(mainContainerView)
+    
     [titleLabel, yongyongImageView, commentContainer].forEach {
-      self.addSubview($0)
+        mainContainerView.addSubview($0)
     }
     
     commentContainer.addSubview(commentLabel)
   }
   
   private func setupLayout() {
+    mainContainerView.snp.makeConstraints {
+        $0.edges.equalToSuperview()
+    }
+    
     titleLabel.snp.makeConstraints {
       $0.leading.equalTo(16)
       $0.centerY.equalToSuperview()
