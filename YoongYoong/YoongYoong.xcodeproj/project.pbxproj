@@ -102,6 +102,8 @@
 		AAC83411266265D000D3E267 /* ImageDownloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC83410266265D000D3E267 /* ImageDownloadManager.swift */; };
 		AAC834132662691200D3E267 /* FeedContentImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC834122662691200D3E267 /* FeedContentImageCollectionViewCell.swift */; };
 		AAC8653A26B1A3FD000FEA07 /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC8653926B1A3FD000FEA07 /* MyPageViewController.swift */; };
+		AAC8854826B4FBCA0022CF2F /* BadgeListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC8854726B4FBCA0022CF2F /* BadgeListViewController.swift */; };
+		AAC8854A26B4FEC30022CF2F /* BadgeListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC8854926B4FEC30022CF2F /* BadgeListViewModel.swift */; };
 		AACCAA7826451B64005C9FBC /* TipDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCAA7726451B64005C9FBC /* TipDetailViewController.swift */; };
 		AACCAA8326451CBE005C9FBC /* TipDetailFirstView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCAA8226451CBE005C9FBC /* TipDetailFirstView.swift */; };
 		AACCAA8826453786005C9FBC /* TipDetailFirstListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCAA8726453786005C9FBC /* TipDetailFirstListView.swift */; };
@@ -348,6 +350,8 @@
 		AAC83410266265D000D3E267 /* ImageDownloadManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDownloadManager.swift; sourceTree = "<group>"; };
 		AAC834122662691200D3E267 /* FeedContentImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedContentImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		AAC8653926B1A3FD000FEA07 /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
+		AAC8854726B4FBCA0022CF2F /* BadgeListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgeListViewController.swift; sourceTree = "<group>"; };
+		AAC8854926B4FEC30022CF2F /* BadgeListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgeListViewModel.swift; sourceTree = "<group>"; };
 		AACCAA7726451B64005C9FBC /* TipDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipDetailViewController.swift; sourceTree = "<group>"; };
 		AACCAA8226451CBE005C9FBC /* TipDetailFirstView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipDetailFirstView.swift; sourceTree = "<group>"; };
 		AACCAA8726453786005C9FBC /* TipDetailFirstListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipDetailFirstListView.swift; sourceTree = "<group>"; };
@@ -864,6 +868,7 @@
 		AAC78FE5262A6FAD009CC84E /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				AAC8854626B4FBB40022CF2F /* Badge */,
 				AA74A53E268F287300A14194 /* Store */,
 				AA85A82E2689C97E00996E7A /* FindPasswordInput */,
 				AA14469A2685BC8400A149EE /* KakaoLogin */,
@@ -918,6 +923,15 @@
 				AAD024392643C13C00F1EC2B /* TipSection.swift */,
 			);
 			path = Tip;
+			sourceTree = "<group>";
+		};
+		AAC8854626B4FBB40022CF2F /* Badge */ = {
+			isa = PBXGroup;
+			children = (
+				AAC8854726B4FBCA0022CF2F /* BadgeListViewController.swift */,
+				AAC8854926B4FEC30022CF2F /* BadgeListViewModel.swift */,
+			);
+			path = Badge;
 			sourceTree = "<group>";
 		};
 		AACCAA7626451B55005C9FBC /* TipDetail */ = {
@@ -1688,6 +1702,7 @@
 				AAD45C9E2619CAEC00A6F4D6 /* UIColor+Extensions.swift in Sources */,
 				7ED3422B26552F9D0070DED5 /* SearchService.swift in Sources */,
 				AACCAD8C264F68EC005C9FBC /* Button.swift in Sources */,
+				AAC8854A26B4FEC30022CF2F /* BadgeListViewModel.swift in Sources */,
 				AA836E4126622792008B731B /* BaseResponse.swift in Sources */,
 				DAB00027260F12CA00D8208F /* AppDelegate.swift in Sources */,
 				AACCAADE2646466A005C9FBC /* BadgeDetailView.swift in Sources */,
@@ -1697,6 +1712,7 @@
 				7E32AC622636F6F200E694EB /* PostImageContainer.swift in Sources */,
 				AA74A54B268F3C3300A14194 /* StoreYonggiCommentView.swift in Sources */,
 				7EA041CC266254B60092AC46 /* PostRequest.swift in Sources */,
+				AAC8854826B4FBCA0022CF2F /* BadgeListViewController.swift in Sources */,
 				7EB3A60F265F61F7009CED8B /* Post.swift in Sources */,
 				7E3191EC265B5FFC000326A7 /* Place.swift in Sources */,
 				AAD45C582619C06800A6F4D6 /* UIFont+Extensions.swift in Sources */,

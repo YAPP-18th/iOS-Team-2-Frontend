@@ -46,6 +46,7 @@ class Navigator {
     case store(viewModel: StoreViewModel)
     case manageEmail(viewModel: ViewModel? = nil)
     case editProfile(viewModel: EditProfileViewModel)
+    case badgeList(viewModel: BadgeListViewModel)
   }
   
   enum Transition {
@@ -60,6 +61,7 @@ class Navigator {
     case customModal
     case modal
     case modalFullScreen
+    case cover
     case detail
     case alert
     case setting
@@ -168,6 +170,11 @@ class Navigator {
       let editProfileVC = EditProfileViewController(viewModel: viewModel, navigator: self)
       editProfileVC.hidesBottomBarWhenPushed = true
       return editProfileVC
+    case .badgeList(let viewModel):
+      let badgeListVC = BadgeListViewController(viewModel: viewModel, navigator: self)
+      badgeListVC.modalPresentationStyle = .overFullScreen
+      badgeListVC.modalTransitionStyle = .crossDissolve
+      return badgeListVC
     }
    
   }
@@ -225,6 +232,13 @@ class Navigator {
     case .modalFullScreen:
       DispatchQueue.main.async {
         target.modalPresentationStyle = .fullScreen
+        sender.present(target, animated: true, completion: nil)
+      }
+      
+    case .cover:
+      DispatchQueue.main.async {
+        target.modalPresentationStyle = .overFullScreen
+        target.modalTransitionStyle = .crossDissolve
         sender.present(target, animated: true, completion: nil)
       }
       

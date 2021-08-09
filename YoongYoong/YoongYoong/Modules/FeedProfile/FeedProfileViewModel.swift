@@ -19,12 +19,13 @@ class FeedProfileViewModel: ViewModel, ViewModelType {
     super.init()
   }
   struct Input {
-    
+    let badge: Observable<Void>
   }
   
   struct Output {
     let profile: Driver<UserInfo>
     let items: BehaviorRelay<[ProfilePostListSection]>
+    let badge: Observable<BadgeListViewModel>
   }
   
   let feedElements = PublishSubject<[PostResponse]>()
@@ -43,9 +44,14 @@ class FeedProfileViewModel: ViewModel, ViewModelType {
     
     self.fetchFeedList()
     
+    let badge = input.badge.map { _ -> BadgeListViewModel in
+      return .init(user: self.userInfo)
+    }
+    
     return Output(
       profile: .just(self.userInfo),
-      items: elements
+      items: elements,
+      badge: badge
     )
   }
   
