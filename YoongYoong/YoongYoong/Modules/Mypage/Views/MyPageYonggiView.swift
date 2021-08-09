@@ -29,11 +29,15 @@ class MyPageYonggiView: UIView {
     $0.backgroundColor = .systemGray05
   }
   
-  let datasource = RxTableViewSectionedReloadDataSource<ContainerSection>(configureCell: { datasource, tv, indexPath, item in
+  lazy var datasource = RxTableViewSectionedReloadDataSource<ContainerSection>(configureCell: { datasource, tv, indexPath, item in
     guard let cell = tv.dequeueReusableCell(withIdentifier: ContainerListItemCell.reuseIdentifier, for: indexPath) as? ContainerListItemCell else { return UITableViewCell()}
 
     cell.configureCell(item)
     cell.bind()
+    cell.favoriteButton.rx.tap.takeUntil(cell.rx.methodInvoked(#selector(UITableViewCell.prepareForReuse)))
+        .bind { [weak self] in
+            cell.favoriteButton.isSelected.toggle()
+        }.disposed(by: self.disposeBag)
 //    cell.isFavoirite
 //      .map { indexPath }
 //      .bind(to: input.favoriteDidTap)

@@ -19,6 +19,7 @@ class MypageViewModel: ViewModel , ViewModelType {
   struct Input {
     let containerSelect: Observable<ContainerCellModel>
     let selectBadge: Observable<IndexPath>
+    let favoriteDidTap: PublishSubject<IndexPath>
   }
   struct Output {
     let messageIndicator: Observable<[String]>
@@ -26,6 +27,8 @@ class MypageViewModel: ViewModel , ViewModelType {
     let badgeList: Driver<[MyBadgeSection]>
     let selectedBadge: Observable<BadgeModel>
   }
+    
+    let reloadContainer = PublishSubject<Void>()
 }
 extension MypageViewModel {
   // contentCell에 바인딩
@@ -33,17 +36,27 @@ extension MypageViewModel {
     currentMonth.accept(changed)
     getPostList()
   }
+    
   func transform(input: Input) -> Output {
     let message = postList.map{ model -> [String] in
         return ["용기를 내고 배지를 모아보세요",
                 "지금까지 총 \(model.packageCount)개의 용기를 냈어요!",
                 "자주 사용하는 용기를 등록하세요!"]
       }
-    var dummy: [ContainerSection] = []
-    if LoginManager.shared.isLogin {
-      dummy = getContainers()
-    }
-    let containerItems = BehaviorSubject<[ContainerSection]>(value: dummy)
+    
+    
+    let model = SelectContainerModel.shared
+    
+    let containerItems = BehaviorSubject<[ContainerSection]>(value: model.containers())
+    input.favoriteDidTap
+      .map{model.favoriteDidTap($0.section, $0.row)}
+      .subscribe(onNext: {
+        containerItems.onNext(model.containers())
+      }).disposed(by: disposeBag)
+    
+    reloadContainer.subscribe(onNext: { _ in
+        containerItems.onNext(model.containers())
+    })
     
     let badgeArr: [BadgeModel] = globalUser.value.id == 0 ? [] : [BadgeModel(badgeId: 0, imagePath: "icBadge001", title: "관심도 용기", discription: "처음으로 다른 사람의 포스트에\n좋아요를 누르면 드려요", condition: "다른 사람 포스트에 첫 좋아요를 누를 시"),
                     BadgeModel(badgeId: 1, imagePath: "icBadge002", title: "첫 용기", discription: "깨끗한 지구를 위한 첫 걸음!\n당신의 용기 덕분이예요", condition: "첫 포스트를 올릴 시 획득"),
@@ -100,41 +113,6 @@ extension MypageViewModel {
         }
       }.startWith(origin)
       
-  }
-  
-  private func getContainers() -> [ContainerSection] {
-    return [
-      .init(id: 0, items: []),
-      .init(id: 1, items: [
-        .init(identity: "밀폐 용기/S", title: "밀폐 용기", size: "S", isFavorite: false),
-        .init(identity: "밀폐 용기/M", title: "밀폐 용기", size: "M", isFavorite: false),
-        .init(identity: "밀폐 용기/L", title: "밀폐 용기", size: "L", isFavorite: false)
-      ]),
-      
-      .init(id: 2, items: [
-        .init(identity: "냄비/S", title: "냄비", size: "S", isFavorite: false),
-        .init(identity: "냄비/M", title: "냄비", size: "M", isFavorite: false),
-        .init(identity: "냄비/L", title: "냄비", size: "L", isFavorite: false)
-      ]),
-      
-      .init(id: 3, items: [
-        .init(identity: "텀블러/S", title: "텀블러", size: "S", isFavorite: false),
-        .init(identity: "텀블러/M", title: "텀블러", size: "M", isFavorite: false),
-        .init(identity: "텀블러/L", title: "텀블러", size: "L", isFavorite: false)
-      ]),
-      
-      .init(id: 4, items: [
-        .init(identity: "보온 도시락/S", title: "보온 도시락", size: "S", isFavorite: false),
-        .init(identity: "보온 도시락/M", title: "보온 도시락", size: "M", isFavorite: false),
-        .init(identity: "보온 도시락/L", title: "보온 도시락", size: "L", isFavorite: false)
-      ]),
-      
-      .init(id: 5, items: [
-        .init(identity: "프라이팬/S", title: "프라이팬", size: "S", isFavorite: false),
-        .init(identity: "프라이팬/M", title: "프라이팬", size: "M", isFavorite: false),
-        .init(identity: "프라이팬/L", title: "프라이팬", size: "L", isFavorite: false)
-      ]),
-    ]
   }
   
   func getUserInfo() {

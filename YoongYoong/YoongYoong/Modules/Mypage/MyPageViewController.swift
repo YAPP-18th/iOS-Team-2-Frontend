@@ -231,6 +231,7 @@ class MyPageViewController: ViewController {
     if let viewModel = viewModel as? MypageViewModel {
       viewModel.getUserInfo()
     viewModel.getPostList()
+        viewModel.reloadContainer.onNext(())
     }
     
   }
@@ -357,8 +358,23 @@ class MyPageViewController: ViewController {
     guard let viewModel = viewModel as? MypageViewModel else { return }
     let input = MypageViewModel.Input(
       containerSelect: .empty(),
-      selectBadge: self.badgeCollectionView.rx.itemSelected.asObservable())
+      selectBadge: self.badgeCollectionView.rx.itemSelected.asObservable(),
+        favoriteDidTap: PublishSubject<IndexPath>())
     let output = viewModel.transform(input: input)
+    
+    let yonggiDatasource = RxTableViewSectionedReloadDataSource<ContainerSection>(configureCell: { datasource, tv, indexPath, item in
+      guard let cell = tv.dequeueReusableCell(withIdentifier: ContainerListItemCell.reuseIdentifier, for: indexPath) as? ContainerListItemCell else { return UITableViewCell()}
+      
+      cell.configureCell(item)
+      cell.bind()
+      cell.isFavoirite
+        .map { indexPath }
+        .bind(to: input.favoriteDidTap)
+        .disposed(by: self.disposeBag)
+      
+      return cell
+    })
+    
     let login = viewModel.logIn(inputs: loginTrigger)
     
     editProfileBtn.rx.tap.bind{ [weak self] in
@@ -366,6 +382,8 @@ class MyPageViewController: ViewController {
       let viewModel = EditProfileViewModel()
       self.navigator.show(segue: .editProfile(viewModel: viewModel), sender: self, transition: .navigation(.right, animated: true, hidesTabbar: true))
     }.disposed(by: disposeBag)
+    
+    
     leftButtonItem.rx.tap.bind{ [weak self] in
       if LoginManager.shared.isLogin {
         self?.navigator.show(segue: .alertList(viewModel: AlertViewModel()), sender: self, transition: .navigation())
@@ -397,7 +415,7 @@ class MyPageViewController: ViewController {
     badgeResult.subscribe(onNext: { badgeList in
       self.badgeEmptyView.isHidden = !badgeList[0].items.isEmpty
     }).disposed(by: self.disposeBag)
-    output.containers.bind(to: yonggiCollectionView.tableView.rx.items(dataSource: yonggiCollectionView.datasource)).disposed(by: self.disposeBag)
+    output.containers.bind(to: yonggiCollectionView.tableView.rx.items(dataSource: yonggiDatasource)).disposed(by: self.disposeBag)
     output.selectedBadge.subscribe(onNext: { badge in
       showBadgeDetailView.shared.showBadge(image: badge.imagePath, title: badge.title, description: badge.discription, condition: badge.condition)
     }).disposed(by: disposeBag)
@@ -434,7 +452,6 @@ class MyPageViewController: ViewController {
       viewModel.changeCurrentMonth(for: lastMonth)
     }
   }
-  
 }
 //MARK: -Selector
 extension MyPageViewController {

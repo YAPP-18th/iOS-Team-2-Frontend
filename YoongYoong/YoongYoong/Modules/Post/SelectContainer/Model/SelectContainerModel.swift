@@ -9,7 +9,8 @@ import Foundation
 
 class SelectContainerModel {
   
-  init() { loadMyContainers() }
+    static let shared = SelectContainerModel()
+  private init() { loadMyContainers() }
   
   func containers() -> [ContainerSection] {
     return defaultContainers

@@ -28,7 +28,7 @@ class SelectContainerViewModel: ViewModel, ViewModelType {
   weak var delegate: SelectContainerDelegate?
 
   func transform(input: Input) -> Output {
-    let model = SelectContainerModel()
+    let model = SelectContainerModel.shared
     
     let containerItems = BehaviorSubject<[ContainerSection]>(value: model.containers())
     let dismiss = PublishRelay<Void>()
