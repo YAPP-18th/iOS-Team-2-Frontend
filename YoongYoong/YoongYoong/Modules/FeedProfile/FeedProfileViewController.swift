@@ -101,7 +101,9 @@ class FeedProfileViewController: ViewController {
     
     output.profile.drive(onNext: { userInfo in
       self.nicknameLabel.text = userInfo.nickname
-      ImageDownloadManager.shared.downloadImage(url: userInfo.imageUrl).bind(to: self.profileImageView.rx.image).disposed(by: self.disposeBag)
+      if let url = userInfo.imageUrl {
+        ImageDownloadManager.shared.downloadImage(url: url).bind(to: self.profileImageView.rx.image).disposed(by: self.disposeBag)
+      }
       self.stateLabel.text = userInfo.introduction
     }).disposed(by: self.disposeBag)
     let dataSource = RxCollectionViewSectionedReloadDataSource<ProfilePostListSection> { (dataSource, collectionView, indexPath, item) in

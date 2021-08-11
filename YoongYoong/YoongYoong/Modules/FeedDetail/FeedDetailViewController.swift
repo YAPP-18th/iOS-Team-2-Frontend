@@ -218,7 +218,10 @@ class FeedDetailViewController: ViewController {
       )
     let output = viewModel.transform(input: input)
     output.feed.drive(onNext: { feed in
-      ImageDownloadManager.shared.downloadImage(url: feed.user.imageUrl).bind(to: self.profileImageView.rx.image).disposed(by: self.disposeBag)
+      if let url = feed.user.imageUrl {
+        ImageDownloadManager.shared.downloadImage(url: url).bind(to: self.profileImageView.rx.image).disposed(by: self.disposeBag)
+      }
+      
       self.nameLabel.text = feed.user.nickname
       self.dateLabel.text = feed.createdDate
       self.storeNameLabel.text = feed.placeName

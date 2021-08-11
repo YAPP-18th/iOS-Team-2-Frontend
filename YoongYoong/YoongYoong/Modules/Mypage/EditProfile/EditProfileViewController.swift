@@ -132,7 +132,10 @@ class EditProfileViewController : ViewController {
     let user = globalUser.value
     self.nameTextField.text = user.nickname
     self.commentTextView.text = user.introduction
-    ImageDownloadManager.shared.downloadImage(url: user.imageUrl).bind(to: self.profileBtn.rx.image(for: .normal)).disposed(by: self.disposeBag)
+    if let url = user.imageUrl {
+      ImageDownloadManager.shared.downloadImage(url: url).bind(to: self.profileBtn.rx.image(for: .normal)).disposed(by: self.disposeBag)
+    }
+    
   }
   
 }

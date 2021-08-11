@@ -477,8 +477,11 @@ extension MyPageViewController {
     private func setUserData(_ user: UserInfo) {
       self.loginContainer.isHidden = true
       self.userContainer.isHidden = false
-        ImageDownloadManager.shared.downloadImage(url: user.imageUrl).asDriver(onErrorJustReturn: UIImage(named: "icPostThumbnail")!).drive(self.profileImageView.rx.image)
+      if let url = user.imageUrl {
+        ImageDownloadManager.shared.downloadImage(url: url).asDriver(onErrorJustReturn: UIImage(named: "icPostThumbnail")!).drive(self.profileImageView.rx.image)
           .disposed(by: self.disposeBag)
+      }
+        
         self.userNameLabel.text = user.nickname
         self.userIntroLabel.text = user.introduction
     }

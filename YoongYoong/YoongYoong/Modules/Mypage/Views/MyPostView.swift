@@ -183,21 +183,27 @@ extension MyPostView: UITableViewDataSource, UITableViewDelegate {
     let menu = item.postContainers.map { "\($0.food) \($0.foodCount) "}.joined(separator: "/ ")
     cell.viewModel = .init(name: item.user.nickname, date: item.createdDate, menu: menu, content: item.content ?? "")
     
-    let profileToken = ImageDownloadManager.shared.downloadImage(with: item.user.imageUrl) { image in
-      cell.profileImageView.image = image
-    }
-    
     let menuToken = ImageDownloadManager.shared.downloadImage(with: item.images[0]) { image in
       cell.menuImageView.image = image
     }
     
-    cell.onReuse = {
-      if let profileToken = profileToken,
-         let menuToken = menuToken {
-        ImageDownloadManager.shared.cancelLoad(profileToken)
-        ImageDownloadManager.shared.cancelLoad(menuToken)
+    if let url = item.user.imageUrl {
+      let profileToken = ImageDownloadManager.shared.downloadImage(with: url) { image in
+        cell.profileImageView.image = image
+      }
+      cell.onReuse = {
+        if let profileToken = profileToken,
+           let menuToken = menuToken {
+          ImageDownloadManager.shared.cancelLoad(profileToken)
+          ImageDownloadManager.shared.cancelLoad(menuToken)
+        }
       }
     }
+    
+    
+    
+    
+    
     return cell
   }
   
