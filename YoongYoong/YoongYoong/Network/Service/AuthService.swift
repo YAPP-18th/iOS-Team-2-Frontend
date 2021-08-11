@@ -25,7 +25,9 @@ protocol AuthorizeServiceType: AnyObject {
   func checkNickNameDuplicate(_ param: String) -> Observable<Bool>
 
   func signup(_ param: SignupRequest, image: Data) -> Observable<Response>
+  func signup(_ param: AppleRegistrationDTO) -> Observable<Response>
   func login(_ param : LoginRequest) -> Observable<Response>
+  func appleLogin(_ param: AppleLoginRequest) -> Observable<Response>
   func guest() -> Observable<Response>
   func deletAccount(id: Int) -> Observable<Response>
   func findPassword(_ param: FindPasswordRequest) -> Observable<Bool>
@@ -37,6 +39,7 @@ protocol AuthorizeServiceType: AnyObject {
 }
 
 class AuthorizeService: AuthorizeServiceType {
+  
   let disposeBag = DisposeBag()
   private let provider: MoyaProvider<AuthRouter>
   init(provider: MoyaProvider<AuthRouter>) {
@@ -63,12 +66,24 @@ extension AuthorizeService {
   func signup(_ param: SignupRequest, image: Data) -> Observable<Response> {
     provider.rx.request(.register(param: param, image: image))
       .asObservable()
-    
   }
+  
+  func signup(_ param: AppleRegistrationDTO) -> Observable<Response> {
+    provider.rx.request(.appleRegister(param: param))
+      .asObservable()
+  }
+  
   func login(_ param: LoginRequest) -> Observable<Response> {
     provider.rx.request(.login(param: param))
       .asObservable()
   }
+  
+  func appleLogin(_ param: AppleLoginRequest) -> Observable<Response>{
+    provider.rx.request(.appleLogin(param: param))
+      .asObservable()
+  }
+  
+  
   func guest() -> Observable<Response> {
     provider.rx.request(.guest)
       .asObservable()

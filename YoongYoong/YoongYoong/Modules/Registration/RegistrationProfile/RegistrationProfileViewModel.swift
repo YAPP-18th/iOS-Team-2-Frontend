@@ -12,6 +12,7 @@ import Moya
 
 class RegistrationProfileViewModel : ViewModel, ViewModelType {
   
+  let isAppleRegistration: Bool
   let isMarketingAgree: Bool
   let email: String
   let password: String
@@ -19,10 +20,12 @@ class RegistrationProfileViewModel : ViewModel, ViewModelType {
   private let service : AuthorizeServiceType = AuthorizeService(provider: MoyaProvider<AuthRouter>(plugins:[NetworkLoggerPlugin()]))
   
   init(
+    isAppleRegistration: Bool = false,
     isMarketingAgree: Bool,
     email: String,
     password: String
   ) {
+    self.isAppleRegistration = isAppleRegistration
     self.isMarketingAgree = isMarketingAgree
     self.email = email
     self.password = password
@@ -34,6 +37,7 @@ class RegistrationProfileViewModel : ViewModel, ViewModelType {
     let register: Observable<(String, String, UIImage)>
   }
   struct Output {
+    let defaultNickname: Driver<String?>
     let nicknameLength: Driver<String>
     let introduceLength: Driver<String>
     let checkNicknameResult: Driver<Bool>
@@ -50,22 +54,30 @@ class RegistrationProfileViewModel : ViewModel, ViewModelType {
     
    input.register.subscribe(onNext: { [weak self] nickname, introduction, image in
       guard let self = self else { return }
+    if self.isAppleRegistration {
+      AppleRegistration.shared.nickname = nickname
+      let dto = AppleRegistration.shared.toDTO()
+      self.service.signup(dto).bind(to: self.signUp).disposed(by: self.disposeBag)
+    } else {
       let dto = SignupRequest(
-        email: self.email,
-        password: self.password,
-        nickname: nickname,
-        introduction: introduction,
-        location: true,
-        service: true,
-        privacy: true,
-        marketing: self.isMarketingAgree
-      )
-    self.service.signup(dto, image: image.pngData()!).bind(to: self.signUp).disposed(by: self.disposeBag)
+              email: self.email,
+              password: self.password,
+              nickname: nickname,
+              introduction: introduction,
+              location: true,
+              service: true,
+              privacy: true,
+              marketing: self.isMarketingAgree
+        )
+      self.service.signup(dto, image: image.pngData()!).bind(to: self.signUp).disposed(by: self.disposeBag)
+    }
+    
    }).disposed(by: disposeBag)
     
     let nicknameLength = input.nicknameChanged.filter { !$0.isEmpty }.map { "\($0.count)" }.asDriver(onErrorJustReturn: "0")
     let introduceLength = input.introduceChanged.filter { !$0.isEmpty }.map { "\($0.count)" }.asDriver(onErrorJustReturn: "0")
     return .init(
+      defaultNickname: .just(self.isAppleRegistration ? AppleRegistration.shared.nickname : nil),
       nicknameLength: nicknameLength,
       introduceLength: introduceLength,
       checkNicknameResult: result.asDriver(onErrorDriveWith: .empty()),

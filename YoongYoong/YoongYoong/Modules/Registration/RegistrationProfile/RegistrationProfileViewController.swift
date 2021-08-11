@@ -143,7 +143,7 @@ class RegistrationProfileViewController: ViewController {
     }.disposed(by: disposeBag)
     
     output.signUp.drive(onNext: { response in
-      if response.statusCode == 201 {
+      if (200..<300).contains(response.statusCode) {
         AlertAction.shared.showAlertView(title: "회원가입이 완료되었습니다.", grantMessage: "확인", denyMessage: "취소" , okAction: { [weak self] in
             guard let self = self else { return }
             self.navigator.show(segue: .login(viewModel: .init()), sender: self, transition: .root(in: self.view.window!))
@@ -152,6 +152,8 @@ class RegistrationProfileViewController: ViewController {
         print("실패")
       }
     }).disposed(by: disposeBag)
+    
+    output.defaultNickname.drive(self.nicknameField.rx.text).disposed(by: disposeBag)
   }
   
   override func configuration() {

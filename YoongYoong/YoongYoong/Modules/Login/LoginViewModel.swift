@@ -24,22 +24,29 @@ class LoginViewModel : ViewModel, ViewModelType {
     
     struct Output {
         let loginResult: Observable<(Bool, LoginResponse?)>
+      let appleLoginResult: Observable<(Bool, LoginResponse?)>
         let guestLoginResult: Observable<(Bool, LoginResponse?)>
         let registration: Driver<RegistrationTermsViewModel>
         let findPassword: Driver<FindPasswordViewModel>
     }
+  
+  let appleLogin = PublishSubject<String>()
     
     func transform(input: Input) -> Output {
-        weak var `self` = self
         let registrationResult = input.login
             .withLatestFrom(input.param)
             .flatMapLatest{
-                self?.service.login(.init(email: $0.0, password: $0.1)) ?? .empty()
+                self.service.login(.init(email: $0.0, password: $0.1))
             }
             .map{ ((200...300).contains($0.statusCode) ,try? $0.map(LoginResponse.self, atKeyPath: "data"))}
         
+      let appleLoginResult = self.appleLogin
+        .flatMapLatest {
+          self.service.appleLogin(.init(socialId: $0))
+        }.map{ ((200...300).contains($0.statusCode) ,try? $0.map(LoginResponse.self, atKeyPath: "data"))}
+      
         let guestLogin = input.guest
-            .flatMap(self!.service.guest)
+            .flatMap(self.service.guest)
             .map{ ((200...300).contains($0.statusCode) ,try? $0.map(LoginResponse.self, atKeyPath: "data"))}
         
         let registration = input.registration.asDriver(onErrorJustReturn: ()).map { () -> RegistrationTermsViewModel in
@@ -53,7 +60,8 @@ class LoginViewModel : ViewModel, ViewModelType {
         }
         
         return .init(
-            loginResult: registrationResult,
+          loginResult: registrationResult,
+          appleLoginResult: appleLoginResult,
             guestLoginResult: guestLogin,
             registration: registration,
             findPassword: findPassword

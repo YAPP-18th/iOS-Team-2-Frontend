@@ -10,6 +10,13 @@ import RxSwift
 import RxCocoa
 
 class RegistrationTermsViewModel : ViewModel, ViewModelType {
+  
+  let isAppleRegistration: Bool
+  
+  init(isAppleRegistration: Bool = false) {
+    self.isAppleRegistration = isAppleRegistration
+  }
+  
   struct Input {
     let checkAll: Observable<Bool>
     let check: Observable<IndexPath>
@@ -56,7 +63,13 @@ class RegistrationTermsViewModel : ViewModel, ViewModelType {
     let nextEnabled = self.terms.map { $0[0].selected && $0[1].selected && $0[2].selected }.asDriver(onErrorJustReturn: false)
     
     let registrationEmail = input.next.asDriver(onErrorJustReturn: false).map { isMarkettingAgree -> RegistrationEmailViewModel in
-      let viewModel = RegistrationEmailViewModel(isMarketingAgree: isMarkettingAgree)
+      if self.isAppleRegistration {
+        AppleRegistration.shared.location = true
+        AppleRegistration.shared.marketing = isMarkettingAgree
+        AppleRegistration.shared.privacy = true
+        AppleRegistration.shared.service = true
+      }
+      let viewModel = RegistrationEmailViewModel(isAppleRegistration: self.isAppleRegistration, isMarketingAgree: isMarkettingAgree)
       return viewModel
     }
     

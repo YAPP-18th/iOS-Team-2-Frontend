@@ -10,7 +10,9 @@ import Moya
 
 enum AuthRouter {
   case register(param: SignupRequest, image: Data)
+  case appleRegister(param: AppleRegistrationDTO)
   case login(param: LoginRequest)
+  case appleLogin(param: AppleLoginRequest)
   case guest
   case profile
   case emailCheck(param: CheckEmailDuplicateRequest)
@@ -32,8 +34,12 @@ extension AuthRouter: TargetType {
     switch self {
     case .register:
       return "/user/sign-up"
+    case .appleRegister:
+      return "/user/login/apple"
     case .login:
       return "/user/login"
+    case .appleLogin:
+      return "/user/login/apple"
     case .guest:
       return "/user/login/guest"
     case .profile:
@@ -57,7 +63,7 @@ extension AuthRouter: TargetType {
   
   var method: Moya.Method {
     switch self {
-    case .register, .login, .guest, .findPasswordCode:
+    case .register, .appleRegister, .login, .appleLogin, .guest, .findPasswordCode:
       return .post
     case .emailCheck,
          .nickNameCheck,
@@ -80,7 +86,11 @@ extension AuthRouter: TargetType {
     case let .register(param, image):
       let multipart = MultipartFormData(provider: .data(image), name: "profileImage", fileName: "profileImage.png", mimeType: "image/png")
       return .uploadCompositeMultipart([multipart], urlParameters: try! param.asParameters())
+    case let .appleRegister(param):
+      return .requestJSONEncodable(param)
     case .login(let param):
+      return .requestJSONEncodable(param)
+    case .appleLogin(let param):
       return .requestJSONEncodable(param)
     case .guest:
       return .requestPlain

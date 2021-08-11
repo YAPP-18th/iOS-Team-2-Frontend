@@ -174,6 +174,24 @@ class LoginViewController: ViewController {
                     self?.present(alert, animated: true, completion: nil)
                 }
             }.disposed(by: self.disposeBag)
+      
+      output.appleLoginResult
+          .bind{ [weak self] result, response in
+              if result,
+                 let token = response?.accessToken {
+                  LoginManager.shared.makeLoginStatus(status: .logined, accessToken: token)
+                  let alert = YYAlertController(title: "알림", message: "로그인이 정상적으로 완료되었습니다.")
+                  let okAction = YYAlertAction(title: "확인", style: .default) { [weak self] in
+                      let viewModel = TabBarViewModel()
+                      self?.navigator.show(segue: .tabs(viewModel: viewModel), sender: self, transition: .modalFullScreen)
+                  }
+                  alert.addAction(okAction)
+                  self?.present(alert, animated: true, completion: nil)
+              } else {
+                let viewModel = RegistrationTermsViewModel(isAppleRegistration: true)
+                self?.navigator.show(segue: .registrationTerms(viewModel: viewModel), sender: self, transition: .navigation(.right))
+              }
+          }.disposed(by: self.disposeBag)
         output.guestLoginResult
             .bind{ [weak self] result, response in
                 if result,
@@ -399,9 +417,12 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
             
             // Todo: 첫 인증시 저장해야함
             let userIdentifier = appleIDCredential.user
-            let fullName = appleIDCredential.fullName
+          let fullName = "\(appleIDCredential.fullName?.familyName ?? "")\(appleIDCredential.fullName?.givenName ?? "")"
             let email = appleIDCredential.email
-            print(userIdentifier)
+          AppleRegistration.shared.socialId = userIdentifier
+          AppleRegistration.shared.email = email
+          AppleRegistration.shared.nickname = fullName
+          (self.viewModel as? LoginViewModel)?.appleLogin.onNext(userIdentifier)
         default:
             break
         }

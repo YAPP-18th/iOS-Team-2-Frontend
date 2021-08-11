@@ -65,11 +65,15 @@ class RegistrationEmailViewController: ViewController {
     )
     
     let output = viewModel.transform(input: input)
-    
-    output.registrationPassword.drive(onNext: { viewModel in
+    output.defaultEmail.drive(self.emailField.rx.text).disposed(by: disposeBag)
+    output.registrationPassword.subscribe(onNext: { viewModel in
       self.navigator.show(segue: .registrationPassword(viewModel: viewModel), sender: self, transition: .navigation(.right))
     }).disposed(by: disposeBag)
   
+    output.registrationProfile.subscribe(onNext: { viewModel in
+      self.navigator.show(segue: .registrationProfile(viewModel: viewModel), sender: self, transition: .navigation(.right))
+    }).disposed(by: disposeBag)
+    
     Observable.zip(output.validEmail.asObservable(), output.checkEmailResult.asObservable()).subscribe(onNext: { [weak self] in
       let isValid = !(!$0 || !$1)
       self?.warningImageView.isHidden = isValid

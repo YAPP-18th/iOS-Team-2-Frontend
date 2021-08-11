@@ -12,6 +12,10 @@ struct LoginRequest: Encodable {
   let password:String
 }
 
+struct AppleLoginRequest: Encodable {
+  let socialId: String
+}
+
 struct SignupRequest: Encodable {
   let email: String
   let password: String

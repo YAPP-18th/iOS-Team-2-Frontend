@@ -12,8 +12,10 @@ import Moya
 
 class RegistrationEmailViewModel: ViewModel, ViewModelType {
   let isMarketingAgree: Bool
+  let isAppleRegistration: Bool
   
-  init(isMarketingAgree: Bool) {
+  init(isAppleRegistration: Bool, isMarketingAgree: Bool) {
+    self.isAppleRegistration = isAppleRegistration
     self.isMarketingAgree = isMarketingAgree
   }
   
@@ -23,18 +25,31 @@ class RegistrationEmailViewModel: ViewModel, ViewModelType {
     let emailCheck: Observable<String>
   }
   struct Output {
-    let registrationPassword: Driver<RegistrationPasswordViewModel>
+    let defaultEmail: Driver<String?>
+    let registrationPassword: Observable<RegistrationPasswordViewModel>
+    let registrationProfile: Observable<RegistrationProfileViewModel>
     let checkEmailResult: Driver<Bool>
     let validEmail: Driver<Bool>
   }
+  
+  let registrationPassword = PublishSubject<RegistrationPasswordViewModel>()
+  let registrationProfile = PublishSubject<RegistrationProfileViewModel>()
+  
   func transform(input: Input) -> Output {
-    let registrationPassword = input.next.asDriver(onErrorJustReturn: "").map { email -> RegistrationPasswordViewModel in
-      let viewModel = RegistrationPasswordViewModel(
-        isMarketingAgree: self.isMarketingAgree,
-        email: email
-      )
-      return viewModel
-    }
+    input.next.subscribe(onNext: { email in
+      if self.isAppleRegistration {
+        AppleRegistration.shared.email = email
+        let viewModel = RegistrationProfileViewModel(isAppleRegistration: true, isMarketingAgree: self.isMarketingAgree, email: email, password: "")
+        self.registrationProfile.onNext(viewModel)
+      } else {
+        let viewModel = RegistrationPasswordViewModel(
+          isMarketingAgree: self.isMarketingAgree,
+          email: email
+        )
+        self.registrationPassword.onNext(viewModel)
+      }
+    }).disposed(by: disposeBag)
+    
     let result = input.emailCheck
       .flatMapLatest{ [weak self] email in
         self?.service.checkEmailDuplicate(.init(email: email)) ?? .empty()
@@ -45,7 +60,9 @@ class RegistrationEmailViewModel: ViewModel, ViewModelType {
         return self?.validateEmailPattern(text: email) ?? .empty()
       }
     return .init(
-      registrationPassword: registrationPassword,
+      defaultEmail: .just(self.isAppleRegistration ? AppleRegistration.shared.email : nil),
+      registrationPassword: self.registrationPassword,
+      registrationProfile: self.registrationProfile,
       checkEmailResult: result.asDriver(onErrorDriveWith: .empty()),
       validEmail: validEmail.asDriver(onErrorDriveWith: .empty())
     )
