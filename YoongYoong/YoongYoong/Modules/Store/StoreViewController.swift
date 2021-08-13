@@ -256,6 +256,7 @@ extension StoreViewController: UITableViewDataSource, UITableViewDelegate {
     let count = (viewModel as? StoreViewModel)?.postList.value.count ?? 0
     self.emptyImageView.isHidden = count != 0
     self.emptyLabel.isHidden = count != 0
+    tableView.separatorStyle = count == 0 ? .none : .singleLine
     return count
   }
   
