@@ -74,15 +74,31 @@ class RegistrationPasswordViewController: ViewController {
     
     let output = viewModel.transform(input: input)
     
+    output.validPassword
+      .do(onNext: { _ in
+        self.passwordWarningLabel.isHidden = (self.passwordField.textField.text?.count ?? 0) == 0
+        self.passwordWarningImageView.isHidden = (self.passwordField.textField.text?.count ?? 0) == 0
+      })
+      .filter { _ in (self.passwordField.textField.text?.count ?? 0) != 0 }
+      .drive(onNext: {
+          self.passwordWarningLabel.isHidden = $0
+          self.passwordWarningImageView.isHidden = $0
+      }).disposed(by: disposeBag)
+    
+    output.matchPassword
+      .do(onNext: { _ in
+        self.passwordConfirmWarningLabel.isHidden = (self.passwordConfirmField.textField.text?.count ?? 0) == 0
+        self.passwordConfirmWarningImageView.isHidden = (self.passwordConfirmField.textField.text?.count ?? 0) == 0
+      })
+      .filter { _ in (self.passwordConfirmField.textField.text?.count ?? 0) != 0 }
+      .drive(onNext: {
+        self.passwordConfirmWarningLabel.isHidden = $0
+        self.passwordConfirmWarningImageView.isHidden = $0
+      }).disposed(by: disposeBag)
     Observable.combineLatest(
       output.validPassword.asObservable(),
       output.matchPassword.asObservable()
     ).subscribe(onNext: {
-      self.passwordWarningLabel.isHidden = $0
-      self.passwordWarningImageView.isHidden = $0
-      self.passwordConfirmWarningLabel.isHidden = $1
-      self.passwordConfirmWarningImageView.isHidden = $1
-      
       self.nextButton.isEnabled = $0 && $1
     }).disposed(by: disposeBag)
     
