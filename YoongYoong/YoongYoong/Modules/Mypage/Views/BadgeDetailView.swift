@@ -29,7 +29,7 @@ extension showBadgeDetailView {
       style.alignment = .center
       buttonAction = conditionAction
       titleLabel.text = title
-    self.image.image = UIImage(named: image)
+    self.badgeImageView.image = UIImage(named: image)
     blackView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(denyAction)))
     descriptionLabel.text = description
     conditionBtn.setTitle(condition, for: .normal)
@@ -110,7 +110,9 @@ class BadgeDetailView: UIView{
     $0.translatesAutoresizingMaskIntoConstraints = false
     return $0
   }(UIView(frame: .zero))
-  let image = UIImageView()
+  let badgeImageView = UIImageView().then {
+    $0.contentMode = .scaleAspectFit
+  }
   let titleLabel = UILabel().then{
     $0.textColor = .black
     $0.font = .sdGhothicNeo(ofSize: 16, weight: .bold)
@@ -145,7 +147,7 @@ class BadgeDetailView: UIView{
       blackView.frame = CGRect(x: 0, y: 0, width: window.frame.width, height: window.frame.height)
       window.addSubview(blackView)
       window.addSubview(badgeDetailView)
-      badgeDetailView.adds([titleLabel,image,descriptionLabel,conditionBtn,dissmissBtn])
+      badgeDetailView.adds([titleLabel,badgeImageView,descriptionLabel,conditionBtn,dissmissBtn])
       badgeDetailView.snp.makeConstraints{
         $0.leading.trailing.bottom.equalToSuperview()
         $0.height.equalTo(374)
@@ -155,13 +157,13 @@ class BadgeDetailView: UIView{
         $0.top.equalToSuperview().offset(16)
         $0.width.height.equalTo(22)
       }
-      image.snp.makeConstraints{
+      badgeImageView.snp.makeConstraints{
         $0.top.equalToSuperview().offset(47)
         $0.centerX.equalToSuperview()
         $0.width.height.equalTo(110)
       }
       titleLabel.snp.makeConstraints{
-        $0.top.equalTo(image.snp.bottom).offset(24)
+        $0.top.equalTo(badgeImageView.snp.bottom).offset(24)
         $0.centerX.equalToSuperview()
       }
       descriptionLabel.snp.makeConstraints{

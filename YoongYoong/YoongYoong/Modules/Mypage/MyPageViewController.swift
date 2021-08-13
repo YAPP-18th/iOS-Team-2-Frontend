@@ -132,7 +132,7 @@ class MyPageViewController: ViewController {
   
   let badgeDataSource = RxCollectionViewSectionedReloadDataSource<MyBadgeSection> { _, collectionView, indexPath, item in
     guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MyBadgeCollectionViewCell.identifier, for: indexPath) as? MyBadgeCollectionViewCell else { return .init() }
-    cell.bindCell(ImagePath: item.imagePath, title: item.title, collected: indexPath.item % 2 == 0)
+    cell.bindCell(ImagePath: item.imagePath, title: item.title, collected: false)
     print(#function)
     return cell
   }
