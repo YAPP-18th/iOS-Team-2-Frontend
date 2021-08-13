@@ -41,9 +41,14 @@ class RegistrationTermsViewController: ViewController {
     $0.bounces = false
   }
   
-  let dataSource = RxTableViewSectionedReloadDataSource<TermsCheckSection> { dataSource, tableView, indexPath, item in
+  lazy var dataSource = RxTableViewSectionedReloadDataSource<TermsCheckSection> { dataSource, tableView, indexPath, item in
     guard let cell = tableView.dequeueReusableCell(withIdentifier: TermsCheckTableViewCell.identifier, for: indexPath) as? TermsCheckTableViewCell else { return .init() }
     cell.bind(to: item)
+    cell.detailButton.rx.tap.subscribe(onNext: {
+      let vc = TermViewControlelr(viewModel: nil, navigator: self.navigator)
+      vc.tag = indexPath.row
+      self.navigationController?.pushViewController(vc, animated: true)
+    }).disposed(by: self.disposeBag)
     return cell
   }
   

@@ -50,7 +50,7 @@ extension TermsCheckTableViewCell {
   
   private func setupView() {
     [checkButton, checkLabel, detailButton].forEach {
-      self.addSubview($0)
+      self.contentView.addSubview($0)
     }
   }
   
@@ -70,9 +70,9 @@ extension TermsCheckTableViewCell {
     detailButton.snp.makeConstraints {
       $0.trailing.equalTo(-37)
       $0.centerY.equalTo(checkLabel)
+      $0.width.equalTo(43)
+      $0.height.equalTo(34)
     }
-    
-    detailButton.setContentHuggingPriority(.required, for: .horizontal)
   }
   
   func bind(to viewModel: TermsCheckTableViewCellViewModel) {
