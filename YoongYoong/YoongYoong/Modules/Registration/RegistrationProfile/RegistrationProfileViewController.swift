@@ -68,11 +68,14 @@ class RegistrationProfileViewController: ViewController {
     $0.layer.cornerRadius = 12
   }
   
-  let introduceTextView = UITextView().then {
-    $0.text = "자신을 소개해주세요!"
-    $0.backgroundColor = .systemGray00
-    $0.font = .krBody2
-    $0.textColor = .systemGrayText01
+  private let introduceTextView = UITextView().then{
+    $0.font = .sdGhothicNeo(ofSize: 14, weight: .regular)
+    $0.textColor = .black
+    $0.layer.cornerRadius = 8
+    $0.layer.borderWidth = 1
+    $0.placeholder = "한 줄로 자신을 소개해주세요!"
+    $0.layer.borderColor = UIColor.lightGray.cgColor
+    $0.translatesAutoresizingMaskIntoConstraints = false
   }
   
   let introduceLengthLabel = UILabel().then {
@@ -162,6 +165,8 @@ class RegistrationProfileViewController: ViewController {
     self.navigationItem.title = "프로필 만들기"
     self.setupBackButton()
     self.saveButton.isEnabled = true
+    self.nicknameField.delegate = self
+    self.introduceTextView.delegate = self
   }
   
   override func setupView() {
@@ -242,11 +247,11 @@ class RegistrationProfileViewController: ViewController {
       $0.top.equalTo(nicknameDivider.snp.bottom).offset(26)
       $0.leading.equalTo(24)
       $0.trailing.equalTo(-24)
-      $0.height.equalTo(76)
     }
     
     introduceTextView.snp.makeConstraints {
       $0.top.leading.equalTo(16)
+      $0.height.equalTo(76)
       $0.trailing.bottom.equalTo(-16)
     }
     
@@ -291,5 +296,19 @@ extension RegistrationProfileViewController : SingleImagePickerDelegate {
     profileButton.layer.masksToBounds = true
     
     self.profileImageView.isHidden = true
+  }
+}
+
+extension RegistrationProfileViewController: UITextViewDelegate, UITextFieldDelegate {
+  func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+    guard let str = textView.text else { return true }
+    let newLength = str.count + text.count - range.length
+    return newLength <= 50
+  }
+  
+  func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+    guard let text = textField.text else { return true }
+    let newLength = text.count + string.count - range.length
+    return newLength <= 15
   }
 }

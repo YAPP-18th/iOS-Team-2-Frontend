@@ -27,6 +27,7 @@ extension UITextView {
         }
         set {
             let placeholderLabel = self.placeholderLabel
+          placeholderLabel.textColor = .systemGray02
             placeholderLabel.text = newValue
             placeholderLabel.numberOfLines = 0
             let width = UIScreen.main.bounds.width - textContainer.lineFragmentPadding * 2
