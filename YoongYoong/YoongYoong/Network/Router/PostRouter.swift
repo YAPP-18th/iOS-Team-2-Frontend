@@ -13,6 +13,7 @@ enum PostRouter {
   case fetchPostList
   case fetchCommentList(id: Int)
   case addPost(param: PostRequestDTO)
+  case editPost(param: PostEditDTO)
   case addComment(id: Int, param: CommentRequestDTO)
   case modifyComment(postId: Int, commentId: Int, param: CommentRequestDTO)
   case deleteComment(postId: Int, commentId: Int)
@@ -45,6 +46,8 @@ extension PostRouter: TargetType {
       return "/post/\(postId)/comment/\(commentId)"
     case .addPost:
       return "/post"
+    case .editPost(let param):
+      return "/post/\(param.postId)"
     case .fetchPostBy:
       return "/post"
     case .fetchMyPost:
@@ -75,7 +78,7 @@ extension PostRouter: TargetType {
     case .addPost,
          .addComment:
       return .post
-    case .modifyComment, .likePost:
+    case .modifyComment, .likePost, .editPost:
       return .put
     case .deleteComment, .deletePost:
       return .delete
@@ -125,6 +128,8 @@ extension PostRouter: TargetType {
       print("multiparts \(multipartFormDatas)")
       
       return .uploadMultipart(multipartFormDatas)
+    case let .editPost(param):
+      return .requestParameters(parameters: ["reviewBadge": param.reviewBadge, "content": param.content], encoding: JSONEncoding.default)
     case let .addComment(_, comment):
       return .requestParameters(parameters: try! comment.asParameters(), encoding: JSONEncoding.default)
     case let .modifyComment(_, _, comment):

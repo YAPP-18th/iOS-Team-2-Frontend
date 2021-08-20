@@ -214,7 +214,8 @@ class FeedDetailViewController: ViewController {
     guard let viewModel = self.viewModel as? FeedDetailViewModel else { return }
     let input = FeedDetailViewModel.Input(
       addComment: self.sendCommentButton.rx.tap.map { self.commentField.text ?? "" }.filter { !$0.isEmpty }.asObservable(),
-      like: self.likeButton.rx.tap.asObservable()
+      like: self.likeButton.rx.tap.asObservable(),
+      edit: self.editButton.rx.tap.asObservable()
       )
     let output = viewModel.transform(input: input)
     output.feed.drive(onNext: { feed in
@@ -231,7 +232,9 @@ class FeedDetailViewController: ViewController {
       self.containerListView.viewModel = .init(menus: feed.postContainers)
     }).disposed(by: self.disposeBag)
     
-    
+    output.edit.subscribe(onNext: { viewModel in
+      self.navigator.show(segue: .addReview(viewModel: viewModel), sender: self, transition: .navigation(.right, animated: true, hidesTabbar: true))
+    }).disposed(by: disposeBag)
     
     viewModel.feedMessageElements
       .observeOn(MainScheduler.instance)
@@ -248,10 +251,6 @@ class FeedDetailViewController: ViewController {
     
     moreButton.rx.tap.bind(onNext: {
       self.moreContainer.isHidden = !self.moreContainer.isHidden
-    }).disposed(by: disposeBag)
-    
-    editButton.rx.tap.bind(onNext: {
-      print("editButtonTapped")
     }).disposed(by: disposeBag)
     
     deleteButton.rx.tap.bind(onNext: {

@@ -18,6 +18,12 @@ struct PostRequestDTO: Encodable {
   let placeLongitude: String
 }
 
+struct PostEditDTO: Encodable {
+  let postId: Int
+  let reviewBadge: String
+  let content: String
+}
+
 struct PostContainerDTO: Encodable {
   let container: ContainerDTO
   let containerCount: Int

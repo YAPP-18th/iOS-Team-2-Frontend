@@ -28,10 +28,12 @@ class FeedDetailViewModel : ViewModel, ViewModelType {
   struct Input {
     let addComment: Observable<String>
     let like: Observable<Void>
+    let edit: Observable<Void>
   }
   
   struct Output {
     let feed: Driver<PostResponse>
+    let edit: Observable<PostReviewViewModel>
   }
   
   let back = PublishSubject<Void>()
@@ -56,8 +58,13 @@ class FeedDetailViewModel : ViewModel, ViewModelType {
       self.deleteComment(commentId: comment.commentId)
     }).disposed(by: self.disposeBag)
     contentImageURL.accept(feed.images)
+    
+    let edit = input.edit.map { _ -> PostReviewViewModel in
+      return PostReviewViewModel(reviewMode: .edit(self.feed))
+    }
     return .init(
-      feed: currentFeed.asDriver()
+      feed: currentFeed.asDriver(),
+      edit: edit
     )
   }
   

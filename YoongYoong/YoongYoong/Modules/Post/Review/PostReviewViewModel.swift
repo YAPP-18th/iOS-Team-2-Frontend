@@ -10,6 +10,16 @@ import RxSwift
 import RxCocoa
 
 class PostReviewViewModel: ViewModel, ViewModelType {
+  enum ReviewMode {
+    case review
+    case edit(PostResponse)
+  }
+  
+  let reviewMode: ReviewMode
+  
+  init(reviewMode: ReviewMode = .review) {
+    self.reviewMode = reviewMode
+  }
   struct Input {
     let discountButtonDidTap: BehaviorRelay<Bool>
     let smileButtonDidTap: BehaviorRelay<Bool>
@@ -42,11 +52,19 @@ class PostReviewViewModel: ViewModel, ViewModelType {
     
     input.uploadButtonDidTap
       .subscribe(onNext: {
-        PostData.shared.toDTO { model.addPost($0) }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 10.0) {
-          uploadDidEnd.onNext(())
+        if case .review = self.reviewMode {
+          PostData.shared.toDTO { model.addPost($0) {
+            uploadDidEnd.onNext(())
+          } }
+        } else if case .edit(let post) = self.reviewMode {
+          let dto = PostEditDTO(
+            postId: post.postId,
+            reviewBadge: PostData.shared.reviewBadges ?? "FFF",
+            content: PostData.shared.content ?? "")
+          model.editPost(dto) {
+            uploadDidEnd.onNext(())
+          }
         }
-        
       }).disposed(by: disposeBag)
     
     return Output(uploadButtonIsEnabled: buttonEnabled,

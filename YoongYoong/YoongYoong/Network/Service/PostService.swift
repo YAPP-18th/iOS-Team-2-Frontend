@@ -35,6 +35,10 @@ final class PostService: PostServiceType {
     return provider.rx.request(.addPost(param: requestDTO)).asObservable()
   }
   
+  func editRequest(_ requestDTO: PostEditDTO) -> Observable<Response> {
+    return provider.rx.request(.editPost(param: requestDTO)).asObservable()
+  }
+  
   func fetchAllPosts() -> Observable<Result<BaseResponse<[PostResponse]>, PostAPIError>> {
     return provider.rx.request(.fetchPostList).asObservable()
       .map { response -> Result<BaseResponse<[PostResponse]>, PostAPIError> in
