@@ -117,7 +117,7 @@ extension AuthRouter: TargetType {
     switch self {
     case .deleteAccount, .profile :
       return ["Content-Type":"application/json",
-              "Authorization" : "Bearer \(UserDefaultHelper<String>.value(forKey: .accessToken)!)"]
+              "Authorization" : "Bearer \(UserDefaultHelper<String>.value(forKey: .accessToken) ?? "")"]
     default:
       return ["Content-Type":"application/json"]
     }
