@@ -44,7 +44,7 @@ class EditProfileViewController : ViewController {
     $0.layer.cornerRadius = 8
     $0.layer.borderWidth = 1
     $0.placeholder = "한 줄로 자신을 소개해주세요!"
-    $0.layer.borderColor = UIColor.lightGray.cgColor
+    $0.layer.borderColor = UIColor.systemGray02.cgColor
     $0.translatesAutoresizingMaskIntoConstraints = false
   }
   private let commentTextCounter = UILabel().then{
@@ -66,6 +66,11 @@ class EditProfileViewController : ViewController {
     super.viewDidLoad()
     setupSimpleNavigationItem(title: "프로필 편집")
     
+  }
+  
+  override func configuration() {
+    self.nameTextField.delegate = self
+    self.commentTextView.delegate = self
   }
   override func setupLayout() {
     self.view.adds([profileBtn,
@@ -145,5 +150,21 @@ extension EditProfileViewController : SingleImagePickerDelegate {
         self.profileBtn.setImage(image, for: .normal)
         self.profileBtn.imageView?.layer.cornerRadius = 43
       }
+  }
+}
+
+
+
+extension EditProfileViewController: UITextViewDelegate, UITextFieldDelegate {
+  func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+    guard let str = textView.text else { return true }
+    let newLength = str.count + text.count - range.length
+    return newLength <= 50
+  }
+  
+  func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+    guard let text = textField.text else { return true }
+    let newLength = text.count + string.count - range.length
+    return newLength <= 15
   }
 }

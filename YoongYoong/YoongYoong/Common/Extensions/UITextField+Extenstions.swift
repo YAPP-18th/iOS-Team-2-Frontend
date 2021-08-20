@@ -11,7 +11,7 @@ import UIKit
 extension UITextField {
   func addUnderBar() {
     let underbar = UIView().then{
-      $0.backgroundColor = .black
+      $0.backgroundColor = UIColor.systemGray02
     }
     self.add(underbar)
     underbar.snp.makeConstraints{

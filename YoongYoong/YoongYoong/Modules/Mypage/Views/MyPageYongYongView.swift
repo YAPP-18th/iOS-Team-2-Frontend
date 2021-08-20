@@ -53,7 +53,7 @@ class MyPageYongYongView: UIView {
   }
   
   private func configuration() {
-    self.backgroundColor = .brandColorGreen02
+    self.backgroundColor = .brandColorGreen03
   }
   
   private func setupView() {
