@@ -81,9 +81,9 @@ class SelectContainerModel {
   private var defaultContainers: [ContainerSection] = [
     .init(id: 0, items: []),
     .init(id: 1, items: [
-      .init(identity: "밀폐 용기/S", title: "밀폐 용기", size: "S", isFavorite: false),
-      .init(identity: "밀폐 용기/M", title: "밀폐 용기", size: "M", isFavorite: false),
-      .init(identity: "밀폐 용기/L", title: "밀폐 용기", size: "L", isFavorite: false)
+      .init(identity: "밀폐용기/S", title: "밀폐용기", size: "S", isFavorite: false),
+      .init(identity: "밀폐용기/M", title: "밀폐용기", size: "M", isFavorite: false),
+      .init(identity: "밀폐용기/L", title: "밀폐용기", size: "L", isFavorite: false)
     ]),
     
     .init(id: 2, items: [
@@ -99,9 +99,9 @@ class SelectContainerModel {
     ]),
     
     .init(id: 4, items: [
-      .init(identity: "보온 도시락/S", title: "보온 도시락", size: "S", isFavorite: false),
-      .init(identity: "보온 도시락/M", title: "보온 도시락", size: "M", isFavorite: false),
-      .init(identity: "보온 도시락/L", title: "보온 도시락", size: "L", isFavorite: false)
+      .init(identity: "보온도시락/S", title: "보온도시락", size: "S", isFavorite: false),
+      .init(identity: "보온도시락/M", title: "보온도시락", size: "M", isFavorite: false),
+      .init(identity: "보온도시락/L", title: "보온도시락", size: "L", isFavorite: false)
     ]),
     
     .init(id: 5, items: [
