@@ -98,6 +98,8 @@ extension PostRouter: TargetType {
       let contentMP = MultipartFormData(provider: .data("\(param.content)".data(using: .utf8)!), name: "content")
       let reviewBadgeMP = MultipartFormData(provider: .data("\(param.reviewBadge)".data(using: .utf8)!), name: "reviewBadge")
       let placeLocationMP = MultipartFormData(provider: .data("\(param.placeLocation)".data(using: .utf8)!), name: "placeLocation")
+      let placeLatitudeMP = MultipartFormData(provider: .data("\(param.placeLatitude)".data(using: .utf8)!), name: "placeLatitude")
+      let placeLongitudeMP = MultipartFormData(provider: .data("\(param.placeLongitude)".data(using: .utf8)!), name: "placeLongitude")
       
       for i in 0..<param.postImages.count {
         let imageData = param.postImages[i]
@@ -118,7 +120,7 @@ extension PostRouter: TargetType {
       }
       
         
-      multipartFormDatas += [placeNameMP, placeLocationMP, contentMP, reviewBadgeMP]
+      multipartFormDatas += [placeNameMP, placeLocationMP, placeLatitudeMP, placeLongitudeMP, contentMP, reviewBadgeMP]
       
       print("multiparts \(multipartFormDatas)")
       
