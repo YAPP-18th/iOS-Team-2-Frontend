@@ -19,7 +19,7 @@ class SettingViewController : ViewController {
         $0.register(settingTableViewCell.self, forCellReuseIdentifier: settingTableViewCell.identifier)
         $0.register(settingTableViewHeader.self, forHeaderFooterViewReuseIdentifier: settingTableViewHeader.identifier)
     }
-    private let service = AuthorizeService(provider: MoyaProvider<AuthRouter>(plugins:[NetworkLoggerPlugin()]))
+    private let service = AuthorizeService(provider: APIProvider(plugins:[NetworkLoggerPlugin()]))
     
     
     private var sections: [String] = ["알림 설정", "계정 관리","기타"]

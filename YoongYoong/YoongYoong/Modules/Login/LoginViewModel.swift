@@ -12,7 +12,7 @@ import Moya
 import AuthenticationServices
 
 class LoginViewModel : ViewModel, ViewModelType {
-    private let service : AuthorizeServiceType = AuthorizeService(provider: MoyaProvider<AuthRouter>(plugins:[NetworkLoggerPlugin()]))
+    private let service : AuthorizeServiceType = AuthorizeService(provider: APIProvider(plugins:[NetworkLoggerPlugin()]))
     
     struct Input {
         let param : Observable<(String,String)>

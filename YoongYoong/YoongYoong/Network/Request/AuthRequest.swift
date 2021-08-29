@@ -56,3 +56,8 @@ struct ResetPasswordRequest: Encodable {
   let code: String
   let password: String
 }
+
+struct RefreshTokenRequest: Encodable {
+  let id: Int
+  let token: String
+}

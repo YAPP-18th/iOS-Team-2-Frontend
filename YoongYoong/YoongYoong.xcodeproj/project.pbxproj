@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		3674C10B235C4B841B18A88A /* Pods_YoongYoong.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B11347EBB09EE57B4173684 /* Pods_YoongYoong.framework */; };
+		42F1CAC326D93CFA00DD63A4 /* JWT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F1CAC226D93CFA00DD63A4 /* JWT.swift */; };
+		42F1CAC526D9F5DA00DD63A4 /* APIProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F1CAC426D9F5DA00DD63A4 /* APIProvider.swift */; };
+		42F1CAC726D9F5EF00DD63A4 /* APIRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F1CAC626D9F5EF00DD63A4 /* APIRouter.swift */; };
 		7E3191EC265B5FFC000326A7 /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E3191EB265B5FFC000326A7 /* Place.swift */; };
 		7E32AC612636F6F200E694EB /* PostImageSelectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E32AC5A2636F6F200E694EB /* PostImageSelectionViewCell.swift */; };
 		7E32AC622636F6F200E694EB /* PostImageContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E32AC5C2636F6F200E694EB /* PostImageContainer.swift */; };
@@ -186,7 +189,6 @@
 		D6F9AC8B71CC355648D6E8B6 /* Pods_YoongYoongTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A06BD70420FBCDDEF5E50E3 /* Pods_YoongYoongTests.framework */; };
 		DA1284BC2658941600764A2D /* Moya+RxSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1284BB2658941600764A2D /* Moya+RxSwift.swift */; };
 		DA1284C1265894E500764A2D /* NetworkLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1284C0265894E500764A2D /* NetworkLogger.swift */; };
-		DA1284C72658952600764A2D /* AuthRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1284C62658952600764A2D /* AuthRouter.swift */; };
 		DA1284D12658956300764A2D /* AuthResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1284D02658956300764A2D /* AuthResponse.swift */; };
 		DA1284D62658957A00764A2D /* AuthRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1284D52658957A00764A2D /* AuthRequest.swift */; };
 		DA1284DC265899A600764A2D /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1284DB265899A600764A2D /* AuthService.swift */; };
@@ -194,8 +196,6 @@
 		DA1284E626589C3400764A2D /* LogInManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1284E526589C3400764A2D /* LogInManager.swift */; };
 		DA579E652658A8CE00E724A4 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA579E642658A8CE00E724A4 /* LoginViewController.swift */; };
 		DA579E6D2658A91E00E724A4 /* NSMutableAttributedString+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA579E6C2658A91E00E724A4 /* NSMutableAttributedString+Extensions.swift */; };
-		DA579E752658B75700E724A4 /* PlaceRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA579E742658B75700E724A4 /* PlaceRouter.swift */; };
-		DA579E7A2658B76B00E724A4 /* PostRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA579E792658B76B00E724A4 /* PostRouter.swift */; };
 		DA579E7F2658BF5000E724A4 /* PlaceReqest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA579E7E2658BF5000E724A4 /* PlaceReqest.swift */; };
 		DA5D36E72661E4C500C41C82 /* PostResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5D36E62661E4C500C41C82 /* PostResponse.swift */; };
 		DA5D36EC2661E5D300C41C82 /* CommentResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5D36EB2661E5D300C41C82 /* CommentResponse.swift */; };
@@ -249,6 +249,9 @@
 
 /* Begin PBXFileReference section */
 		0ABDEE5BF365E37B9265C0D3 /* Pods-용기내용.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-용기내용.debug.xcconfig"; path = "Target Support Files/Pods-용기내용/Pods-용기내용.debug.xcconfig"; sourceTree = "<group>"; };
+		42F1CAC226D93CFA00DD63A4 /* JWT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JWT.swift; sourceTree = "<group>"; };
+		42F1CAC426D9F5DA00DD63A4 /* APIProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIProvider.swift; sourceTree = "<group>"; };
+		42F1CAC626D9F5EF00DD63A4 /* APIRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRouter.swift; sourceTree = "<group>"; };
 		4A06BD70420FBCDDEF5E50E3 /* Pods_YoongYoongTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_YoongYoongTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		51140A4B8BD97A0FFF3C9E87 /* Pods-용기내용-YoongYoongUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-용기내용-YoongYoongUITests.release.xcconfig"; path = "Target Support Files/Pods-용기내용-YoongYoongUITests/Pods-용기내용-YoongYoongUITests.release.xcconfig"; sourceTree = "<group>"; };
 		5E844A4FB1E67E67DDBA7C1C /* Pods-YoongYoong-YoongYoongUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YoongYoong-YoongYoongUITests.debug.xcconfig"; path = "Target Support Files/Pods-YoongYoong-YoongYoongUITests/Pods-YoongYoong-YoongYoongUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -437,7 +440,6 @@
 		DA0F5B18263E9BFD003AE118 /* UITextField+Extenstions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extenstions.swift"; sourceTree = "<group>"; };
 		DA1284BB2658941600764A2D /* Moya+RxSwift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Moya+RxSwift.swift"; sourceTree = "<group>"; };
 		DA1284C0265894E500764A2D /* NetworkLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkLogger.swift; sourceTree = "<group>"; };
-		DA1284C62658952600764A2D /* AuthRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRouter.swift; sourceTree = "<group>"; };
 		DA1284D02658956300764A2D /* AuthResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthResponse.swift; sourceTree = "<group>"; };
 		DA1284D52658957A00764A2D /* AuthRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRequest.swift; sourceTree = "<group>"; };
 		DA1284DB265899A600764A2D /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
@@ -445,8 +447,6 @@
 		DA1284E526589C3400764A2D /* LogInManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInManager.swift; sourceTree = "<group>"; };
 		DA579E642658A8CE00E724A4 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		DA579E6C2658A91E00E724A4 /* NSMutableAttributedString+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSMutableAttributedString+Extensions.swift"; sourceTree = "<group>"; };
-		DA579E742658B75700E724A4 /* PlaceRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceRouter.swift; sourceTree = "<group>"; };
-		DA579E792658B76B00E724A4 /* PostRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostRouter.swift; sourceTree = "<group>"; };
 		DA579E7E2658BF5000E724A4 /* PlaceReqest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceReqest.swift; sourceTree = "<group>"; };
 		DA5D36E62661E4C500C41C82 /* PostResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostResponse.swift; sourceTree = "<group>"; };
 		DA5D36EB2661E5D300C41C82 /* CommentResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentResponse.swift; sourceTree = "<group>"; };
@@ -1206,10 +1206,8 @@
 		DA1284C52658950600764A2D /* Router */ = {
 			isa = PBXGroup;
 			children = (
-				DA1284C62658952600764A2D /* AuthRouter.swift */,
-				DA579E742658B75700E724A4 /* PlaceRouter.swift */,
-				DA579E792658B76B00E724A4 /* PostRouter.swift */,
 				7EA88B6D2654017C00D7CEEF /* SearchRouter.swift */,
+				42F1CAC626D9F5EF00DD63A4 /* APIRouter.swift */,
 			);
 			path = Router;
 			sourceTree = "<group>";
@@ -1247,6 +1245,7 @@
 				7E95988B265A6509000243B5 /* PlaceService.swift */,
 				7EA041CD266274A30092AC46 /* PostService.swift */,
 				DAF5C5BC2662567D00BF93E0 /* PostService.swift */,
+				42F1CAC426D9F5DA00DD63A4 /* APIProvider.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -1324,6 +1323,7 @@
 				AA85A835268CCD4A00996E7A /* YYAlertController.swift */,
 				AA85A837268CCECF00996E7A /* YYAlertAction.swift */,
 				AA37545C26A3070E0027E4B2 /* Cashable.swift */,
+				42F1CAC226D93CFA00DD63A4 /* JWT.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -1678,6 +1678,7 @@
 				7E32AC652636F6F200E694EB /* PostImageSelectionViewController.swift in Sources */,
 				AAC78FE8262A6FC4009CC84E /* TabBarViewModel.swift in Sources */,
 				AA74A545268F346B00A14194 /* StoreYonggiView.swift in Sources */,
+				42F1CAC326D93CFA00DD63A4 /* JWT.swift in Sources */,
 				AAD024302643BE9000F1EC2B /* Tip.swift in Sources */,
 				7EC4DC5826416CCF00E51FC2 /* ContainerListTabBarCell.swift in Sources */,
 				AAD024102642A4FB00F1EC2B /* FeedListContainerListViewModel.swift in Sources */,
@@ -1694,7 +1695,6 @@
 				AAC78F91262A67FD009CC84E /* Application.swift in Sources */,
 				AACCAA952646285D005C9FBC /* TipDetailSecondView.swift in Sources */,
 				AA344617261B2F240034E1BC /* MapViewController.swift in Sources */,
-				DA1284C72658952600764A2D /* AuthRouter.swift in Sources */,
 				DACA9643264BAA1000E95165 /* AlertListViewController.swift in Sources */,
 				7E32AC642636F6F200E694EB /* PostImageSelectionViewModel.swift in Sources */,
 				DA1284C1265894E500764A2D /* NetworkLogger.swift in Sources */,
@@ -1731,7 +1731,6 @@
 				AA74A540268F287E00A14194 /* StoreViewController.swift in Sources */,
 				DACA9648264BAAE400E95165 /* AlertTableViewCell.swift in Sources */,
 				AACCAAD52646466A005C9FBC /* MyPostView.swift in Sources */,
-				DA579E752658B75700E724A4 /* PlaceRouter.swift in Sources */,
 				AA85A8342689D18800996E7A /* MyPageYonggiView.swift in Sources */,
 				DABB2CF9263033F60061EC98 /* UIView+Extensions.swift in Sources */,
 				AACCADA0264F6FA3005C9FBC /* FeedDetailMessageTableViewCell.swift in Sources */,
@@ -1802,7 +1801,6 @@
 				AA1446972685B25900A149EE /* FindPasswordCodeViewController.swift in Sources */,
 				DA1284D12658956300764A2D /* AuthResponse.swift in Sources */,
 				AA74A56026931A0700A14194 /* TermsCheckItem.swift in Sources */,
-				DA579E7A2658B76B00E724A4 /* PostRouter.swift in Sources */,
 				AA14468D2684736800A149EE /* MapSearchResultView.swift in Sources */,
 				AACCADB4264F75F2005C9FBC /* FeedMessage.swift in Sources */,
 				AA1446A226864E5F00A149EE /* MyPageYongYongView.swift in Sources */,
@@ -1823,6 +1821,7 @@
 				AAF67E09262AE69600F643E1 /* LocationManager.swift in Sources */,
 				AACCAADC2646466A005C9FBC /* EditProfileViewController.swift in Sources */,
 				AA85A838268CCECF00996E7A /* YYAlertAction.swift in Sources */,
+				42F1CAC526D9F5DA00DD63A4 /* APIProvider.swift in Sources */,
 				AACCAA9A264628EB005C9FBC /* TipDetailSecondListView.swift in Sources */,
 				AACCAAA426463A76005C9FBC /* TipDetailThirdListView.swift in Sources */,
 				AA14469C2685BC9400A149EE /* KakaoLoginViewController.swift in Sources */,
@@ -1838,6 +1837,7 @@
 				7E9F7B8726281D8B00051D03 /* PostSearchResultItemCell.swift in Sources */,
 				7E5D68AA2646389B0014E23A /* PostNavigationController.swift in Sources */,
 				7EC9BA002641531D007565C6 /* ContainerListHeaderView.swift in Sources */,
+				42F1CAC726D9F5EF00DD63A4 /* APIRouter.swift in Sources */,
 				AA85A8302689CBC600996E7A /* FindPasswordInputViewController.swift in Sources */,
 				AA1446992685B2C300A149EE /* FindPasswordCodeViewModel.swift in Sources */,
 			);

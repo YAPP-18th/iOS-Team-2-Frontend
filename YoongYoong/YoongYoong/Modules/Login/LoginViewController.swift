@@ -158,8 +158,9 @@ class LoginViewController: ViewController {
         output.loginResult
             .bind{ [weak self] result, response in
                 if result,
-                   let token = response?.accessToken {
-                    LoginManager.shared.makeLoginStatus(status: .logined, accessToken: token)
+                   let token = response?.accessToken,
+                   let refreshToken = response?.refreshToken {
+                    LoginManager.shared.makeLoginStatus(accessToken: token, refreshToken: refreshToken)
                     let alert = YYAlertController(title: "알림", message: "로그인이 정상적으로 완료되었습니다.")
                     let okAction = YYAlertAction(title: "확인", style: .default) { [weak self] in
                         let viewModel = TabBarViewModel()
@@ -178,8 +179,9 @@ class LoginViewController: ViewController {
       output.appleLoginResult
           .bind{ [weak self] result, response in
               if result,
-                 let token = response?.accessToken {
-                  LoginManager.shared.makeLoginStatus(status: .logined, accessToken: token)
+                 let token = response?.accessToken,
+                 let refreshToken = response?.refreshToken {
+                  LoginManager.shared.makeLoginStatus(accessToken: token, refreshToken: refreshToken)
                   let alert = YYAlertController(title: "알림", message: "로그인이 정상적으로 완료되었습니다.")
                   let okAction = YYAlertAction(title: "확인", style: .default) { [weak self] in
                       let viewModel = TabBarViewModel()
@@ -196,7 +198,7 @@ class LoginViewController: ViewController {
             .bind{ [weak self] result, response in
                 if result,
                    let token = response?.accessToken {
-                    LoginManager.shared.makeLoginStatus(status: .logined, accessToken: token)
+                    LoginManager.shared.makeLoginStatus(accessToken: token)
                     let alert = YYAlertController(title: "알림", message: "로그인이 정상적으로 완료되었습니다.")
                     let okAction = YYAlertAction(title: "확인", style: .default) { [weak self] in
                         let viewModel = TabBarViewModel()

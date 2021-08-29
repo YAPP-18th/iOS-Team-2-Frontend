@@ -11,7 +11,7 @@ import RxCocoa
 import Moya
 
 class EditProfileViewModel : ViewModel, ViewModelType {
-  private let service = AuthorizeService(provider: MoyaProvider<AuthRouter>(plugins:[NetworkLoggerPlugin()]))
+  private let service = AuthorizeService(provider: APIProvider(plugins:[NetworkLoggerPlugin()]))
   struct Input {
     let loadView : Observable<Void>
     let ProfileImage : Observable<UIImage>

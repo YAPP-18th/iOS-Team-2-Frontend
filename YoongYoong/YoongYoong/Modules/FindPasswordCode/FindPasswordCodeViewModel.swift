@@ -11,7 +11,7 @@ import RxCocoa
 import Moya
 
 class FindPasswordCodeViewModel: ViewModel, ViewModelType {
-  private let service : AuthorizeServiceType = AuthorizeService(provider: MoyaProvider<AuthRouter>(plugins:[NetworkLoggerPlugin()]))
+  private let service : AuthorizeServiceType = AuthorizeService(provider: APIProvider(plugins:[NetworkLoggerPlugin()]))
   
   let email: String
   

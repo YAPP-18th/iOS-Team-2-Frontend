@@ -12,8 +12,8 @@ import RxSwift
 protocol PlaceServiceType {}
 
 final class PlaceService {
-  let provider: MoyaProvider<PlaceRouter>
-  init(provider: MoyaProvider<PlaceRouter> = .init(plugins:[NetworkLoggerPlugin()])) {
+  let provider: APIProvider
+  init(provider: APIProvider = .init(plugins:[NetworkLoggerPlugin()])) {
     self.provider = provider
   }
   

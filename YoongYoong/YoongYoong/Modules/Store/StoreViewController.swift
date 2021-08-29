@@ -219,6 +219,10 @@ class StoreViewController: ViewController {
         self?.showPermissionAlert()
       }).disposed(by: disposeBag)
     
+    output.login.subscribe(onNext: { [weak self] in
+      self?.showLoginAlert()
+    }).disposed(by: disposeBag)
+    
     viewModel.postList
       .observeOn(MainScheduler.instance)
         .subscribe(onNext: { list in
@@ -234,6 +238,7 @@ class StoreViewController: ViewController {
         let list = item.map { StoreYonggiItemView.ViewModel(container: (.init(rawValue: $0.name) ?? .없음), size: $0.size) }
         self.yonggiView.viewModelList = list
     }).disposed(by: disposeBag)
+
   }
   
   private func showPermissionAlert() {
@@ -248,6 +253,15 @@ class StoreViewController: ViewController {
   
   @objc func back() {
     self.navigationController?.popViewController(animated: true)
+  }
+  
+  func showLoginAlert() {
+    AlertAction.shared.showAlertView(title: "로그인이 필요한 서비스입니다.",description: "로그인 화면으로 이동하시겠습니까?", grantMessage: "확인", denyMessage: "취소", okAction: { [weak self] in
+      LoginManager.shared.makeLogoutStatus()
+      if let window = self?.view.window {
+          self?.navigator.show(segue: .splash(viewModel: SplashViewModel()), sender: self, transition: .root(in: window))
+      }
+    })
   }
 }
 

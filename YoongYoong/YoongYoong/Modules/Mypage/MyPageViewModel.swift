@@ -11,8 +11,8 @@ import RxCocoa
 import Moya
 
 class MypageViewModel: ViewModel , ViewModelType {
-  private let service = MyPostService(provider: MoyaProvider<PostRouter>(plugins:[NetworkLoggerPlugin()]))
-  private let authService : AuthorizeServiceType = AuthorizeService(provider: MoyaProvider<AuthRouter>(plugins:[NetworkLoggerPlugin()]))
+  private let service = MyPostService(provider: APIProvider(plugins:[NetworkLoggerPlugin()]))
+  private let authService : AuthorizeServiceType = AuthorizeService(provider: APIProvider(plugins:[NetworkLoggerPlugin()]))
   
   let currentMonth = BehaviorRelay<Int>(value: Int(Date().month) ?? 6)
   let postList = BehaviorRelay<PostListModel>(value: .sample)

@@ -41,8 +41,8 @@ protocol AuthorizeServiceType: AnyObject {
 class AuthorizeService: AuthorizeServiceType {
   
   let disposeBag = DisposeBag()
-  private let provider: MoyaProvider<AuthRouter>
-  init(provider: MoyaProvider<AuthRouter>) {
+  private let provider: APIProvider
+  init(provider: APIProvider) {
     self.provider = provider
   }
 }
@@ -118,6 +118,7 @@ extension AuthorizeService {
   func getProfile() {
     provider.rx.request(.profile)
       .asObservable()
+      .catchErrorJustReturn(Response(statusCode: 403, data: Data()))
       .map { response -> UserInfo in
         if case (200...300) = response.statusCode,
            let result = try? JSONDecoder().decode(BaseResponse<UserInfo>.self, from: response.data),

@@ -25,6 +25,7 @@ class StoreViewModel: ViewModel, ViewModelType {
   
   struct Output {
     let place: Driver<Place>
+    let login: PublishSubject<Void>
     let imageSelectionView: PublishRelay<PostImageSelectionViewModel>
     let setting: PublishRelay<Void>
   }
@@ -35,20 +36,27 @@ class StoreViewModel: ViewModel, ViewModelType {
   
   func transform(input: Input) -> Output {
     let imageSelectionView = PublishRelay<PostImageSelectionViewModel>()
+    let login = PublishSubject<Void>()
     let setting = PublishRelay<Void>()
     input.post.subscribe(onNext: { [weak self] _ in
-      self?.photoLibraryAuthorization() { granted in
-        guard granted else {
-          setting.accept(())
-          return
+      if LoginManager.shared.isLogin, LoginManager.shared.loginStatus == .logined {
+        self?.photoLibraryAuthorization() { granted in
+          guard granted else {
+            setting.accept(())
+            return
+          }
+          
+          imageSelectionView.accept(PostImageSelectionViewModel())
         }
-        
-        imageSelectionView.accept(PostImageSelectionViewModel())
+      } else {
+        login.onNext(())
       }
+      
     }).disposed(by: disposeBag)
     
     return .init(
       place: .just(self.place),
+      login: login,
       imageSelectionView: imageSelectionView,
       setting: setting
     )

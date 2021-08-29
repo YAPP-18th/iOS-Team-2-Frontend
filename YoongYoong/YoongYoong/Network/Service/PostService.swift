@@ -26,8 +26,8 @@ enum PostAPIError: Error {
 
 final class PostService: PostServiceType {
   
-  private let provider: MoyaProvider<PostRouter>
-  init(provider: MoyaProvider<PostRouter> = .init(plugins:[NetworkLoggerPlugin()])) {
+  private let provider: APIProvider
+  init(provider: APIProvider = .init(plugins:[NetworkLoggerPlugin()])) {
     self.provider = provider
   }
   
@@ -220,8 +220,8 @@ protocol MyPostServiceType: AnyObject {
 }
 
 class MyPostService: MyPostServiceType {
-  private let provider: MoyaProvider<PostRouter>
-  init(provider: MoyaProvider<PostRouter>) {
+  private let provider: APIProvider
+  init(provider: APIProvider) {
     self.provider = provider
   }
 }

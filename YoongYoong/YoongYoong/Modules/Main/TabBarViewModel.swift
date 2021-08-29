@@ -11,7 +11,7 @@ import RxSwift
 import Moya
 
 class TabBarViewModel: ViewModel, ViewModelType {
-  private let service : AuthorizeServiceType = AuthorizeService(provider: MoyaProvider<AuthRouter>(plugins:[NetworkLoggerPlugin()]))
+  private let service : AuthorizeServiceType = AuthorizeService(provider: APIProvider(plugins:[NetworkLoggerPlugin()]))
     struct Input {
         let postTapDidTap: Observable<Void>
     }
@@ -19,16 +19,18 @@ class TabBarViewModel: ViewModel, ViewModelType {
     struct Output {
         let tabBarItems: Driver<[TabBarItem]>
         let postView: PublishSubject<PostSearchViewModel>
+      let login: PublishSubject<Void>
         let setting: PublishSubject<Void>
     }
     
     func transform(input: Input) -> Output {
         let postView = PublishSubject<PostSearchViewModel>()
+      let login = PublishSubject<Void>()
         let setting = PublishSubject<Void>()
         input.postTapDidTap
             .subscribe(onNext:{ [weak self] in
                 guard let self = self else { return }
-                
+              if LoginManager.shared.isLogin && LoginManager.shared.loginStatus == .logined {
                 // 위치 권한 설정
                 if LocationManager.shared.locationServicesEnabled {
                     switch self.locationManager.permissionStatus.value {
@@ -45,6 +47,10 @@ class TabBarViewModel: ViewModel, ViewModelType {
                 } else {
                     setting.onNext(())
                 }
+              } else {
+                login.onNext(())
+              }
+                
                 
             }).disposed(by: disposeBag)
         
@@ -54,6 +60,7 @@ class TabBarViewModel: ViewModel, ViewModelType {
         getUser()
         return Output(tabBarItems: tabBarItems,
                       postView: postView,
+                      login: login,
                       setting: setting)
     }
     

@@ -19,7 +19,7 @@ class RegistrationEmailViewModel: ViewModel, ViewModelType {
     self.isMarketingAgree = isMarketingAgree
   }
   
-  private let service : AuthorizeServiceType = AuthorizeService(provider: MoyaProvider<AuthRouter>(plugins:[NetworkLoggerPlugin()]))
+  private let service : AuthorizeServiceType = AuthorizeService(provider: APIProvider(plugins:[NetworkLoggerPlugin()]))
   struct Input {
     let next: Observable<String>
     let emailCheck: Observable<String>

@@ -11,7 +11,7 @@ import RxSwift
 import Moya
 
 class FindPasswordInputViewModel: ViewModel, ViewModelType {
-  private let service : AuthorizeServiceType = AuthorizeService(provider: MoyaProvider<AuthRouter>(plugins:[NetworkLoggerPlugin()]))
+  private let service : AuthorizeServiceType = AuthorizeService(provider: APIProvider(plugins:[NetworkLoggerPlugin()]))
   
   let email: String
   let code: String
@@ -81,3 +81,4 @@ class FindPasswordInputViewModel: ViewModel, ViewModelType {
     }).disposed(by: disposeBag)
   }
 }
+

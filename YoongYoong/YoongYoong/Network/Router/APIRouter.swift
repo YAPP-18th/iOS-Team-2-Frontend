@@ -1,15 +1,35 @@
 //
-//  PostRouter.swift
+//  APIRouter.swift
 //  YoongYoong
 //
-//  Created by 김태훈 on 2021/05/22.
+//  Created by 손병근 on 2021/08/28.
+//  Copyright © 2021 YoongYoong. All rights reserved.
 //
 
 import Foundation
-
 import Moya
 
-enum PostRouter {
+enum APIRouter {
+  // Auth
+  case register(param: SignupRequest, image: Data)
+  case appleRegister(param: AppleRegistrationDTO)
+  case login(param: LoginRequest)
+  case appleLogin(param: AppleLoginRequest)
+  case guest
+  case profile
+  case emailCheck(param: CheckEmailDuplicateRequest)
+  case deleteAccount(id: Int)
+  case nickNameCheck(param: String)
+  case modifyProfiel(param: ModifyProfileParam)
+  case findPassword(param: FindPasswordRequest)
+  case findPasswordCode(param: FindPasswordCodeRequest)
+  case resetPassword(param: ResetPasswordRequest)
+  case refreshToken(param: RefreshTokenRequest)
+  //place
+  case fetchPlaceList(param : PlaceRequest)
+  case fetchReviewCount(name: String)
+  case fetchReviewCountAll(Void)
+  //post
   case fetchPostList
   case fetchCommentList(id: Int)
   case addPost(param: PostRequestDTO)
@@ -27,14 +47,62 @@ enum PostRouter {
 }
 
 
-extension PostRouter: TargetType {
+extension APIRouter: TargetType {
+  var headers: [String : String]? {
+    if self.authorizationType == .bearer {
+      return ["Content-Type":"application/json",
+              "Authorization" : "Bearer \(UserDefaultHelper<String>.value(forKey: .accessToken) ?? "")"]
+    } else {
+      return nil
+    }
+  }
+  
   public var baseURL: URL {
-    return URL(string: "http://52.78.137.81:8080")!
+    switch self {
+    default:
+      return URL(string: "http://52.78.137.81:8080")!
+    }
   }
   
   var path: String {
     switch self {
-    
+    //auth
+    case .register:
+      return "/user/sign-up"
+    case .appleRegister:
+      return "/user/login/apple"
+    case .login:
+      return "/user/login"
+    case .appleLogin:
+      return "/user/login/apple"
+    case .guest:
+      return "/user/login/guest"
+    case .profile:
+      return "/user/profile"
+    case .emailCheck:
+      return "/user/check/email"
+    case .deleteAccount:
+      return "/user/withdrawal"
+    case .nickNameCheck:
+      return "/user/check/nickname"
+    case .modifyProfiel:
+      return "/user/profile"
+    case .findPassword:
+      return "/user/password/email"
+    case .findPasswordCode:
+      return "/user/password/email"
+    case .resetPassword:
+      return "/user/password"
+    case .refreshToken:
+      return "/user/token"
+    //place
+    case .fetchPlaceList:
+      return "/place"
+    case .fetchReviewCount:
+      return "/place/review-count"
+    case .fetchReviewCountAll:
+      return "/place/review-count/all"
+    //post
     case .fetchPostList:
       return "/post"
     case .fetchCommentList(let id),
@@ -67,6 +135,24 @@ extension PostRouter: TargetType {
   
   var method: Moya.Method {
     switch self {
+    // auth
+    case .register, .appleRegister, .login, .appleLogin, .guest, .findPasswordCode:
+      return .post
+    case .emailCheck,
+         .nickNameCheck,
+         .findPassword,
+         .profile:
+      return .get
+    case .deleteAccount:
+      return .delete
+    case .modifyProfiel, .resetPassword, .refreshToken:
+      return .put
+    // place
+    case .fetchReviewCount,
+         .fetchPlaceList,
+         .fetchReviewCountAll:
+      return .get
+    //post
     case .fetchPostList,
          .fetchCommentList,
          .fetchPostBy,
@@ -84,12 +170,51 @@ extension PostRouter: TargetType {
       return .delete
     }
   }
+  
   var sampleData: Data {
     return Data()
   }
   
   var task: Task {
     switch self {
+    //auth
+    case let .register(param, image):
+      let multipart = MultipartFormData(provider: .data(image), name: "profileImage", fileName: "profileImage.png", mimeType: "image/png")
+      return .uploadCompositeMultipart([multipart], urlParameters: try! param.asParameters())
+    case let .appleRegister(param):
+      return .requestJSONEncodable(param)
+    case .login(let param):
+      return .requestJSONEncodable(param)
+    case .appleLogin(let param):
+      return .requestJSONEncodable(param)
+    case .guest:
+      return .requestPlain
+    case .profile:
+      return .requestPlain
+    case .emailCheck(let param):
+      return .requestParameters(parameters: try! param.asParameters(), encoding: URLEncoding.default)
+    case .deleteAccount(let id):
+      return .requestParameters(parameters: try! ["userId" : id].asParameters(), encoding: URLEncoding.default)
+    case .nickNameCheck(param: let param):
+      return .requestParameters(parameters: try! ["nickname" : param].asParameters(), encoding: URLEncoding.default)
+    case .modifyProfiel:
+      return .requestPlain
+    case .findPassword(let param):
+      return .requestParameters(parameters: try! param.asParameters(), encoding: URLEncoding.default)
+    case .findPasswordCode(let param):
+      return .requestJSONEncodable(param)
+    case .resetPassword(let param):
+      return .requestJSONEncodable(param)
+    case .refreshToken(let param):
+      return .requestJSONEncodable(param)
+    //place
+    case .fetchPlaceList(param: let param):
+      return .requestJSONEncodable(param)
+    case .fetchReviewCount(name: let name):
+      return .requestParameters(parameters: try! ["name" : name].asParameters(), encoding: JSONEncoding.default)
+    case .fetchReviewCountAll():
+      return .requestPlain
+    //post
     case .fetchPostList:
       return .requestPlain
     case .fetchCommentList:
@@ -164,12 +289,35 @@ extension PostRouter: TargetType {
       return .requestPlain
     }
   }
-  
-  var headers: [String : String]? {
+}
+
+extension APIRouter: AccessTokenAuthorizable {
+  var authorizationType: AuthorizationType? {
     switch self {
+    //auth
+    case .deleteAccount, .profile:
+      return .bearer
+    //profile
+    case .fetchPlaceList, .fetchReviewCount, .fetchReviewCountAll:
+      return .bearer
+    //post
+    case .fetchPostList,
+         .fetchCommentList,
+         .addPost,
+         .editPost,
+         .addComment,
+         .modifyComment,
+         .deleteComment,
+         .fetchPostBy,
+         .fetchMyPost,
+         .fetchOtherPost,
+         .likePost,
+         .fetchStorePost,
+         .fetchStoreContainer,
+         .deletePost:
+      return .bearer
     default:
-      return ["Content-Type":"application/json",
-              "Authorization" : "Bearer \(UserDefaultHelper<String>.value(forKey: .accessToken)!)"]
+      return nil
     }
   }
 }

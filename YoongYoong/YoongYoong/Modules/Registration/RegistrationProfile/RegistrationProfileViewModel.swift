@@ -17,7 +17,7 @@ class RegistrationProfileViewModel : ViewModel, ViewModelType {
   let email: String
   let password: String
   
-  private let service : AuthorizeServiceType = AuthorizeService(provider: MoyaProvider<AuthRouter>(plugins:[NetworkLoggerPlugin()]))
+  private let service : AuthorizeServiceType = AuthorizeService(provider: APIProvider(plugins:[NetworkLoggerPlugin()]))
   
   init(
     isAppleRegistration: Bool = false,
