@@ -45,8 +45,8 @@ class MapViewController: ViewController {
   
   let storeInfoView = MapStoreInfoView()
   
-  var myLocationButtonBottomToSuperview: Constraint!
-  var myLocationButtonBottomToStoreInfo: Constraint!
+  var myLocationButtonBottomToSuperview: Constraint?
+  var myLocationButtonBottomToStoreInfo: Constraint?
   
   
   var markers: [NMFMarker] = []
@@ -153,8 +153,8 @@ class MapViewController: ViewController {
       $0.width.height.equalTo(48)
     }
     
-    myLocationButtonBottomToSuperview.isActive = true
-    myLocationButtonBottomToStoreInfo.isActive = false
+    myLocationButtonBottomToSuperview?.isActive = true
+    myLocationButtonBottomToStoreInfo?.isActive = false
     
     storeInfoView.isHidden = true
   }
@@ -202,7 +202,7 @@ class MapViewController: ViewController {
   private func addMarker(list: [PostResponse]) {
     resetMarkers()
     list.forEach { element in
-      let position = NMGLatLng(lat: Double(element.placeLatitude!)!, lng: Double(element.placeLongitude!)!)
+      let position = NMGLatLng(lat: element.placeLatitude, lng: element.placeLongitude)
       let marker = NMFMarker(position: position, iconImage: NMFOverlayImage(name: "icMapPin_deselected"))
       marker.mapView = self.mapView
       marker.touchHandler = { [weak self] overlay in
@@ -224,7 +224,7 @@ extension MapViewController {
     self.moveCamera(.init(latitude: position.lat, longitude: position.lng), zoom: false)
     if let selectedMarker = self.selectedMarker {
       if selectedMarker != marker {
-        selectedMarker.iconImage = .init(image: UIImage(named: "icMapPin_deselected")!)
+        deselectMarker(marker: selectedMarker)
       }
     }
 
@@ -234,8 +234,18 @@ extension MapViewController {
   private func selectMarker(marker: NMFMarker) {
     marker.iconImage = .init(image: UIImage(named: "icMapPin_selected")!)
     selectedMarker = marker
+    storeInfoView.isHidden = false
+    myLocationButtonBottomToSuperview?.isActive = false
+    myLocationButtonBottomToStoreInfo?.isActive = true
+    
   }
   
+  private func deselectMarker(marker: NMFMarker) {
+    storeInfoView.isHidden = true
+    marker.iconImage = .init(image: UIImage(named: "icMapPin_deselected")!)
+    myLocationButtonBottomToSuperview?.isActive = true
+    myLocationButtonBottomToStoreInfo?.isActive = false
+  }
   private func moveCamera(_ position: CLLocationCoordinate2D, animated: Bool = true, zoom: Bool = true) {
     let cameraUpdate = zoom ? NMFCameraUpdate(scrollTo: NMGLatLng(lat: position.latitude, lng: position.longitude), zoomTo: 16.0) : NMFCameraUpdate(scrollTo: NMGLatLng(lat: position.latitude, lng: position.longitude))
     if animated {
@@ -253,7 +263,9 @@ extension MapViewController: NMFMapViewTouchDelegate {
   
   
   func mapView(_ mapView: NMFMapView, didTapMap latlng: NMGLatLng, point: CGPoint) {
-    //Todo: 맵 터치시 수행할 작업 ex) 핀 비활성화 및 매장 선택 취소
+    if let selectedMarker = self.selectedMarker {
+      deselectMarker(marker: selectedMarker)
+    }
   }
 }
 
