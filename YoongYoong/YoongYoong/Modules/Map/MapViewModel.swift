@@ -11,6 +11,8 @@ import RxCocoa
 import RxSwift
 
 class MapViewModel: ViewModel, ViewModelType {
+  let service = PostService(provider: APIProvider())
+  
   struct Input {
     let tip: Observable<Void>
     let myLocation: Observable<Void>
@@ -23,18 +25,27 @@ class MapViewModel: ViewModel, ViewModelType {
     let appSetting: Observable<Void>
     let location: Driver<CLLocationCoordinate2D>
     let search: Driver<MapSearchViewModel>
+    let pin: Driver<[PostResponse]>
+    let error: Observable<Error>
   }
   
+  var pinUpdateTrigger = PublishSubject<Void>()
   var settingTrigger = PublishSubject<Void>()
   var appSettingTrigger = PublishSubject<Void>()
-  
+  var error = PublishSubject<Error>()
   var location = PublishSubject<CLLocationCoordinate2D>()
+  var pin = BehaviorRelay<[PostResponse]>(value: [])
   
   func transform(input: Input) -> Output {
     let tip = input.tip.asDriver(onErrorJustReturn: ()).map { () -> TipViewModel in
       let viewModel = TipViewModel()
       return viewModel
     }
+    
+    pinUpdateTrigger.subscribe(onNext: {
+      self.updatePin()
+    }).disposed(by: disposeBag)
+    
     //1 -
     input.myLocation.subscribe(onNext: { [weak self] in
       guard let self = self else { return }
@@ -53,7 +64,9 @@ class MapViewModel: ViewModel, ViewModelType {
       setting: setting,
       appSetting: appSetting,
       location: location,
-      search: search
+      search: search,
+      pin: self.pin.asDriver(),
+      error: self.error
     )
   }
   
@@ -72,5 +85,20 @@ class MapViewModel: ViewModel, ViewModelType {
     } else {
       self.settingTrigger.onNext(())
     }
+  }
+  
+  func updatePin() {
+    service.fetchAllPosts()
+      .subscribe(onNext: { result in
+        switch result  {
+        case .success(let response):
+          let list = (response.data ?? []).filter { $0.placeLatitude != nil && $0.placeLongitude != nil }
+          self.pin.accept(list)
+        case .failure(let error):
+          self.error.onNext(error)
+        }
+      }, onError: { error in
+        self.error.onNext(error)
+      }).disposed(by: disposeBag)
   }
 }

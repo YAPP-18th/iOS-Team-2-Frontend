@@ -47,9 +47,19 @@ class MapViewController: ViewController {
   
   var myLocationButtonBottomToSuperview: Constraint!
   var myLocationButtonBottomToStoreInfo: Constraint!
+  
+  
+  var markers: [NMFMarker] = []
+  var selectedMarker: NMFMarker?
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     (self.viewModel as? MapViewModel)?.myLocation()
+  }
+  
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    (self.viewModel as? MapViewModel)?.updatePin()
   }
   
   override func bindViewModel() {
@@ -86,6 +96,10 @@ class MapViewController: ViewController {
     
     output.search.drive(onNext: { [weak self] viewModel in
       self?.navigator.show(segue: .mapSearch(viewModel: viewModel), sender: self, transition: .navigation(animated: false))
+    }).disposed(by: disposeBag)
+    
+    output.pin.drive(onNext: {[weak self] list in
+      self?.addMarker(list: list)
     }).disposed(by: disposeBag)
     
   }
@@ -177,12 +191,61 @@ class MapViewController: ViewController {
   @objc func mapButtonTapped() {
     
   }
+  
+  private func resetMarkers() {
+    markers.forEach {
+      $0.mapView = nil
+    }
+    markers.removeAll()
+  }
+  
+  private func addMarker(list: [PostResponse]) {
+    resetMarkers()
+    list.forEach { element in
+      let position = NMGLatLng(lat: Double(element.placeLatitude!)!, lng: Double(element.placeLongitude!)!)
+      let marker = NMFMarker(position: position, iconImage: NMFOverlayImage(name: "icMapPin_deselected"))
+      marker.mapView = self.mapView
+      marker.touchHandler = { [weak self] overlay in
+        guard let self = self else { return true }
+        self.didTap(overlay as! NMFMarker)
+        return true
+      }
+      self.markers.append(marker)
+    }
+
+  }
 }
 
 extension MapViewController {
   // MARK: - Private
   private func didTap(_ marker: NMFMarker) {
     //Todo: 마커 터치시 수행할 작업 ex) 핀 활성화 및 매장 선택
+    let position = marker.position
+    self.moveCamera(.init(latitude: position.lat, longitude: position.lng), zoom: false)
+    if let selectedMarker = self.selectedMarker {
+      if selectedMarker != marker {
+        selectedMarker.iconImage = .init(image: UIImage(named: "icMapPin_deselected")!)
+      }
+    }
+
+    self.selectMarker(marker: marker)
+  }
+  
+  private func selectMarker(marker: NMFMarker) {
+    marker.iconImage = .init(image: UIImage(named: "icMapPin_selected")!)
+    selectedMarker = marker
+  }
+  
+  private func moveCamera(_ position: CLLocationCoordinate2D, animated: Bool = true, zoom: Bool = true) {
+    let cameraUpdate = zoom ? NMFCameraUpdate(scrollTo: NMGLatLng(lat: position.latitude, lng: position.longitude), zoomTo: 16.0) : NMFCameraUpdate(scrollTo: NMGLatLng(lat: position.latitude, lng: position.longitude))
+    if animated {
+      cameraUpdate.animation = .easeOut
+      cameraUpdate.animationDuration = 1
+    }
+
+    mapView.moveCamera(cameraUpdate) { isCanceled in
+      
+    }
   }
 }
 

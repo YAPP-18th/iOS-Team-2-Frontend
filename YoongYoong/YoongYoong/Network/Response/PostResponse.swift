@@ -20,6 +20,8 @@ struct PostResponse: Decodable, Hashable{
   let reviewBadge: String
   let user: UserInfo
   var isLikePressed: Bool
+  let placeLatitude: String?
+  let placeLongitude: String?
 }
 struct UserInfo : Decodable, Hashable {
   let email: String
