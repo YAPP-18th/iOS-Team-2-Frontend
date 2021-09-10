@@ -169,7 +169,7 @@ class LoginViewController: ViewController {
                     alert.addAction(okAction)
                     self?.present(alert, animated: true, completion: nil)
                 } else {
-                    let alert = YYAlertController(title: "등록되지 않은 계정입니다.", message: "이메일 혹은 비밀번호를 다시 입력해주세요")
+                    let alert = YYAlertController(title: "로그인 오류", message: "이메일 혹은 비밀번호를 다시 입력해주세요")
                     let okAction = YYAlertAction(title: "확인", style: .default)
                     alert.addAction(okAction)
                     self?.present(alert, animated: true, completion: nil)
@@ -207,7 +207,7 @@ class LoginViewController: ViewController {
                     alert.addAction(okAction)
                     self?.present(alert, animated: true, completion: nil)
                 } else {
-                    let alert = YYAlertController(title: "등록되지 않은 계정입니다.", message: "이메일 혹은 비밀번호를 다시 입력해주세요")
+                    let alert = YYAlertController(title: "로그인 오류", message: "이메일 혹은 비밀번호를 다시 입력해주세요")
                     let okAction = YYAlertAction(title: "확인", style: .default)
                     alert.addAction(okAction)
                     self?.present(alert, animated: true, completion: nil)
