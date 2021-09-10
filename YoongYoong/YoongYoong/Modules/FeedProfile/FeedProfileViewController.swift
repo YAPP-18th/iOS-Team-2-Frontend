@@ -139,7 +139,7 @@ extension FeedProfileViewController: UICollectionViewDelegate, UICollectionViewD
   }
   
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-    let width = collectionView.frame.size.width / 3
+    let width = UIScreen.main.bounds.size.width / 3
     let height = width
     return .init(width: width, height: height)
   }

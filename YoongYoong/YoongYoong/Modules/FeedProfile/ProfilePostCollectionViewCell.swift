@@ -16,7 +16,7 @@ class ProfilePostCollectionViewCell: UICollectionViewCell {
   
   let contentImageView = UIImageView().then {
     $0.contentMode = .scaleAspectFill
-    $0.backgroundColor = .lightGray
+    $0.layer.masksToBounds = true
   }
   
   override init(frame: CGRect) {
@@ -55,8 +55,7 @@ extension ProfilePostCollectionViewCell {
   private func setupLayout() {
     
     contentImageView.snp.makeConstraints {
-      $0.top.leading.equalTo(1)
-      $0.trailing.bottom.equalTo(-1)
+      $0.edges.equalToSuperview().inset(1)
     }
   }
   
