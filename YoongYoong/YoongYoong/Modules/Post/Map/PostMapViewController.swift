@@ -148,7 +148,7 @@ class PostMapViewController: ViewController {
     }
     
     storeInfoView.snp.makeConstraints {
-      $0.centerX.equalTo(view)
+      $0.leading.trailing.equalToSuperview().inset(19)
       $0.bottom.equalTo(postButton.snp.top).offset(-16)
     }
     
