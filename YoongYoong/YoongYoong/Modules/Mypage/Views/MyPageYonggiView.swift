@@ -29,22 +29,6 @@ class MyPageYonggiView: UIView {
     $0.backgroundColor = .systemGray05
   }
   
-  lazy var datasource = RxTableViewSectionedReloadDataSource<ContainerSection>(configureCell: { datasource, tv, indexPath, item in
-    guard let cell = tv.dequeueReusableCell(withIdentifier: ContainerListItemCell.reuseIdentifier, for: indexPath) as? ContainerListItemCell else { return UITableViewCell()}
-
-    cell.configureCell(item)
-    cell.bind()
-    cell.favoriteButton.rx.tap.takeUntil(cell.rx.methodInvoked(#selector(UITableViewCell.prepareForReuse)))
-        .bind { [weak self] in
-            cell.favoriteButton.isSelected.toggle()
-        }.disposed(by: self.disposeBag)
-//    cell.isFavoirite
-//      .map { indexPath }
-//      .bind(to: input.favoriteDidTap)
-//      .disposed(by: self.disposeBag)
-    return cell
-  })
-  
   override init(frame: CGRect) {
     super.init(frame: frame)
     configuration()
@@ -139,7 +123,13 @@ extension MyPageYonggiView: UITableViewDelegate {
 extension MyPageYonggiView: UICollectionViewDelegate {
   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
     containerListTabBar.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
-    tableView.scrollToRow(at: IndexPath(row: 0, section: indexPath.row), at: .top, animated: true)
+    if let count = tableView.dataSource?.tableView(tableView, numberOfRowsInSection: 0),
+       count != 0{
+      tableView.scrollToRow(at: IndexPath(row: 0, section: indexPath.row), at: .top, animated: true)
+    } else {
+      tableView.scrollToRow(at: IndexPath(row: 0, section: max(1,indexPath.row)), at: .top, animated: true)
+    }
+    
     currentTopSection = indexPath.row
     flag = false
   }

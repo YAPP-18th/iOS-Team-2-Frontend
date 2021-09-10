@@ -59,10 +59,10 @@ class SelectContainerModel {
     guard let data = UserDefaultStorage.myContainers else { return }
     favorites = data.map { containerInfo($0) }
     for (id, size) in favorites {
-      defaultContainers[id].items[size].isFavorite = true
+      defaultContainers[id + 1].items[size].isFavorite = true
     }
     
-    defaultContainers[0].items = favorites.map { defaultContainers[$0.id].items[$0.size] }
+    defaultContainers[0].items = favorites.map { defaultContainers[$0.id + 1].items[$0.size] }
   }
   
   private func containerInfo(_ identity: String) -> (id: Int, size: Int) {

@@ -49,6 +49,7 @@ extension MypageViewModel {
     
     let containerItems = BehaviorSubject<[ContainerSection]>(value: model.containers())
     input.favoriteDidTap
+      .do(onNext: { print("section: \($0.section), row: \($0.row)")})
       .map{model.favoriteDidTap($0.section, $0.row)}
       .subscribe(onNext: {
         containerItems.onNext(model.containers())
@@ -56,7 +57,7 @@ extension MypageViewModel {
     
     reloadContainer.subscribe(onNext: { _ in
         containerItems.onNext(model.containers())
-    })
+    }).disposed(by: disposeBag)
     
     let badgeArr: [BadgeModel] = globalUser.value.id == 0 ? [] : [BadgeModel(badgeId: 0, imagePath: "icBadge001", title: "관심도 용기", discription: "처음으로 다른 사람의 포스트에\n좋아요를 누르면 드려요", condition: "다른 사람 포스트에 첫 좋아요를 누를 시"),
                     BadgeModel(badgeId: 1, imagePath: "icBadge002", title: "첫 용기", discription: "깨끗한 지구를 위한 첫 걸음!\n당신의 용기 덕분이예요", condition: "첫 포스트를 올릴 시 획득"),

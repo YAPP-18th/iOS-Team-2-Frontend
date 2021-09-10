@@ -42,6 +42,7 @@ class SelectContainerViewModel: ViewModel, ViewModelType {
       }).disposed(by: disposeBag)
     
     input.favoriteDidTap
+      .do(onNext: { print("section: \($0.section) row: \($0.row)")})
       .map{model.favoriteDidTap($0.section, $0.row)}
       .subscribe(onNext: {
         containerItems.onNext(model.containers())
