@@ -240,6 +240,7 @@ extension FeedListTableViewCell {
   private func updateView() {
     guard let vm = self.viewModel else { return }
     self.nameLabel.text = vm.name
+    self.dateLabel.text = vm.date
     self.storeNameLabel.text = vm.storeName
     self.containerListView.viewModel = .init(menus: vm.menus)
     self.likeButton.setImage(UIImage(named: vm.isLiked ? "icFeedLikeFilled": "icFeedLikeStroked"), for: .normal)

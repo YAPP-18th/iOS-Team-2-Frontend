@@ -45,13 +45,13 @@ class FeedViewModel: ViewModel, ViewModelType {
     brave.accept(braveWord.randomBrave() ?? BraveWord.default)
     
     input.feedSelected.subscribe(onNext: { IndexPath in
-      let feed = self.feedElements.value[IndexPath.row]
+      let feed = self.feedElements.value.reversed()[IndexPath.row]
       let viewModel = FeedDetailViewModel(feed: feed)
       self.feedDetail.onNext(viewModel)
     }).disposed(by: disposeBag)
     
     likeChanged.subscribe(onNext: { indexPath in
-      let feed = self.feedElements.value[indexPath.row]
+      let feed = self.feedElements.value.reversed()[indexPath.row]
       self.likePost(feed: feed)
     }).disposed(by: disposeBag)
     

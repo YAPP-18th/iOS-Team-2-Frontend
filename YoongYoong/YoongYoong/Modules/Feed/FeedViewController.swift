@@ -88,7 +88,7 @@ extension FeedViewController: UITableViewDataSource {
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     guard let viewModel = self.viewModel as? FeedViewModel,
           let cell = tableView.dequeueReusableCell(withIdentifier: FeedListTableViewCell.identifier, for: indexPath) as? FeedListTableViewCell else { return .init() }
-    let item = viewModel.feedElements.value[indexPath.row]
+    let item = viewModel.feedElements.value.reversed()[indexPath.row]
     
     if let url = item.user.imageUrl {
       let token = ImageDownloadManager.shared.downloadImage(with: url) { image in
@@ -165,7 +165,7 @@ extension FeedViewController: UITableViewDelegate {
   @discardableResult
   private func getHeight(indexPath: IndexPath) -> CGFloat{
     guard let vm = self.viewModel as? FeedViewModel else { return 0 }
-    let item = vm.feedElements.value[indexPath.row]
+    let item = vm.feedElements.value.reversed()[indexPath.row]
     let viewModel = FeedListTableViewCell.ViewModel(
       profile: item.user.imageUrl,
       name: item.user.nickname,
