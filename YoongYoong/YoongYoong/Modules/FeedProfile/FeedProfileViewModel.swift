@@ -20,22 +20,24 @@ class FeedProfileViewModel: ViewModel, ViewModelType {
   }
   struct Input {
     let badge: Observable<Void>
+    let feedSelected: Observable<IndexPath>
   }
   
   struct Output {
     let profile: Driver<UserInfo>
     let items: BehaviorRelay<[ProfilePostListSection]>
     let badge: Observable<BadgeListViewModel>
+    let detail: Observable<FeedDetailViewModel>
   }
   
-  let feedElements = PublishSubject<[PostResponse]>()
-  
+  let feedElements = BehaviorRelay<[PostResponse]>(value: [])
+  let feedDetail = PublishSubject<FeedDetailViewModel>()
   func transform(input: Input) -> Output {
     let elements = BehaviorRelay<[ProfilePostListSection]>(value: [])
     
     feedElements.map { feedList -> [ProfilePostListSection] in
       var elements: [ProfilePostListSection] = []
-      let cellViewModel = feedList.map { feed -> ProfilePostListSection.Item in
+      let cellViewModel = feedList.reversed().map { feed -> ProfilePostListSection.Item in
         ProfilePostCollectionViewCellViewModel.init(with: feed)
       }
       elements.append(ProfilePostListSection(items: cellViewModel))
@@ -43,7 +45,11 @@ class FeedProfileViewModel: ViewModel, ViewModelType {
     }.bind(to: elements).disposed(by: disposeBag)
     
     self.fetchFeedList()
-    
+    input.feedSelected.subscribe(onNext: { IndexPath in
+      let feed = self.feedElements.value.reversed()[IndexPath.row]
+      let viewModel = FeedDetailViewModel(feed: feed)
+      self.feedDetail.onNext(viewModel)
+    }).disposed(by: disposeBag)
     let badge = input.badge.map { _ -> BadgeListViewModel in
       return .init(user: self.userInfo)
     }
@@ -51,7 +57,8 @@ class FeedProfileViewModel: ViewModel, ViewModelType {
     return Output(
       profile: .just(self.userInfo),
       items: elements,
-      badge: badge
+      badge: badge,
+      detail: self.feedDetail
     )
   }
   
@@ -59,7 +66,7 @@ class FeedProfileViewModel: ViewModel, ViewModelType {
     self.provider.fetchOtherPosts(userId: self.userInfo.id).subscribe(onNext: { result in
       switch result {
       case let .success(list):
-        self.feedElements.onNext(list.data ?? [])
+        self.feedElements.accept(list.data ?? [])
       case let .failure(error):
         print(error.localizedDescription)
       }

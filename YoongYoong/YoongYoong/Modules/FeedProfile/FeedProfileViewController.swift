@@ -96,7 +96,8 @@ class FeedProfileViewController: ViewController {
   override func bindViewModel() {
     super.bindViewModel()
     guard let viewModel = viewModel as? FeedProfileViewModel else { return }
-    let input = FeedProfileViewModel.Input(badge: self.badgeButton.rx.tap.asObservable())
+    let input = FeedProfileViewModel.Input(badge: self.badgeButton.rx.tap.asObservable(),
+                                           feedSelected: self.collectionView.rx.itemSelected.asObservable())
     let output = viewModel.transform(input: input)
     
     output.profile.drive(onNext: { userInfo in
@@ -121,6 +122,10 @@ class FeedProfileViewController: ViewController {
       guard let self = self else { return }
       self.navigator.show(segue: .badgeList(viewModel: viewModel), sender: self, transition: .cover)
       
+    }).disposed(by: disposeBag)
+    
+    output.detail.bind(onNext: { [weak self] viewModel in
+      self?.navigator.show(segue: .feedDetail(viewModel: viewModel), sender: self, transition: .navigation(.right))
     }).disposed(by: disposeBag)
   }
 }
