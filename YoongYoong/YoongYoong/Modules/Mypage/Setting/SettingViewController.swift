@@ -22,9 +22,8 @@ class SettingViewController : ViewController {
     private let service = AuthorizeService(provider: APIProvider(plugins:[NetworkLoggerPlugin()]))
     
     
-    private var sections: [String] = ["알림 설정", "계정 관리","기타"]
-    private var items: [[String]] = [["알림 받기"],
-                                     ["계정 이메일"],
+    private var sections: [String] = ["계정 관리","기타"]
+    private var items: [[String]] = [["계정 이메일"],
                                      ["로그아웃", "탈퇴하기", "약관 및 정책"]]
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -70,9 +69,6 @@ extension SettingViewController : UITableViewDelegate, UITableViewDataSource {
             return UITableViewCell()
         }
         cell.layout()
-        if indexPath.section == 0 && indexPath.row == 0 {
-            cell.radioBtn.isHidden = false
-        }
         cell.titleLabel.text = items[indexPath.section][indexPath.row]
         return cell
     }
@@ -80,10 +76,8 @@ extension SettingViewController : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.section {
         case 0:
-            print("알림 선택")
-        case 1:
-            self.navigator.show(segue: .manageEmail(viewModel: nil), sender: self, transition: .navigation(.right))
-        case 2 :
+            self.navigator.show(segue: .manageEmail(viewModel: ManageEmailViewModel()), sender: self, transition: .navigation(.right))
+        case 1 :
             switch indexPath.row {
             case 0 :
                 let alert = UIAlertController(title: "정말 로그아웃 하시겠습니까?", message: "", preferredStyle: .alert)

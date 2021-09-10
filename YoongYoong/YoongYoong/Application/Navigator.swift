@@ -44,7 +44,7 @@ class Navigator {
     case alertList(viewModel: AlertViewModel)
     case settingList(viewModel: SettingViewModel)
     case store(viewModel: StoreViewModel)
-    case manageEmail(viewModel: ViewModel? = nil)
+    case manageEmail(viewModel: ManageEmailViewModel)
     case editProfile(viewModel: EditProfileViewModel)
     case badgeList(viewModel: BadgeListViewModel)
   }
@@ -163,8 +163,8 @@ class Navigator {
     case .store(let viewModel):
       let storeVC = StoreViewController(viewModel: viewModel, navigator: self)
       return storeVC
-    case .manageEmail:
-        let manageEmailVC = ManageEmailViewController(viewModel: nil, navigator: self)
+    case .manageEmail(let viewModel):
+        let manageEmailVC = ManageEmailViewController(viewModel: viewModel, navigator: self)
         return manageEmailVC
     case .editProfile(let viewModel):
       let editProfileVC = EditProfileViewController(viewModel: viewModel, navigator: self)
