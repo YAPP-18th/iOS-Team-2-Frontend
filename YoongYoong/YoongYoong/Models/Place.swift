@@ -24,3 +24,12 @@ struct Place {
   }
   
 }
+
+struct PinModel {
+  var name: String
+  var postCount: Int
+  var address: String
+  var latitude: Double
+  var longitude: Double
+  var distance: Double
+}

@@ -35,7 +35,7 @@ protocol AuthorizeServiceType: AnyObject {
   func resetPassword(_ param: ResetPasswordRequest) -> Observable<Bool>
   
   func getProfile()
-  
+  func editProfile(_ param: ModifyProfileParam) -> Observable<Bool>
 }
 
 class AuthorizeService: AuthorizeServiceType {
@@ -129,5 +129,11 @@ extension AuthorizeService {
         }
       }.bind(to: globalUser)
       .disposed(by: self.disposeBag)
+  }
+  
+  func editProfile(_ param: ModifyProfileParam) -> Observable<Bool> {
+    return provider.rx.request(.modifyProfile(param: param))
+      .asObservable()
+      .map { (200...300).contains($0.statusCode) }
   }
 }

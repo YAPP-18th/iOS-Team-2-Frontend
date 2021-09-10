@@ -118,7 +118,7 @@ class EditProfileViewController : ViewController {
                                             ProfileImage: Observable.just(profileBtn.image(for: .normal) ?? UIImage()),
                                             nameText: nameTextField.rx.text.orEmpty.filter { !$0.isEmpty }.debounce(DispatchTimeInterval.milliseconds(800), scheduler: MainScheduler.instance),
                                             commentText: commentTextView.rx.text.orEmpty.asObservable(),
-                                            changeAction: submitBtn.rx.tap.asObservable())
+                                            changeAction: submitBtn.rx.tap.map { return (self.nameTextField.text!, self.commentTextView.text)})
     let output = viewModel.transform(input: inputs)
     output.changeBtnActivate.drive{[weak self] result in
       self?.submitBtn.isEnabled = result
@@ -141,8 +141,12 @@ class EditProfileViewController : ViewController {
       ImageDownloadManager.shared.downloadImage(url: url).bind(to: self.profileBtn.rx.image(for: .normal)).disposed(by: self.disposeBag)
     }
     
+    viewModel.profileChanged.subscribe(onNext: { _ in
+      AlertAction.shared.showAlertView(title: "프로필 수정이 완료되었습니다.", grantMessage: "확인") {
+        self.navigationController?.popViewController(animated: true)
+      }
+    }).disposed(by: disposeBag)
   }
-  
 }
 extension EditProfileViewController : SingleImagePickerDelegate {
   func didSelect(image: UIImage?) {

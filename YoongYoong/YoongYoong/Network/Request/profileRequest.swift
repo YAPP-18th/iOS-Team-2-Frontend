@@ -9,5 +9,5 @@ import Foundation
 struct ModifyProfileParam : Encodable{
   let id : Int
   let introduction: String
-  let nickName: String
+  let nickname: String
 }

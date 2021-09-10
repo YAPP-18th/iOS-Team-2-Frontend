@@ -61,3 +61,8 @@ struct RefreshTokenRequest: Encodable {
   let id: Int
   let token: String
 }
+
+struct EditProfileRequest: Encodable {
+  let nickname: String
+  let comment: String
+}

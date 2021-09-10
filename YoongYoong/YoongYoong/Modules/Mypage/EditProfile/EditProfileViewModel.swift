@@ -17,7 +17,7 @@ class EditProfileViewModel : ViewModel, ViewModelType {
     let ProfileImage : Observable<UIImage>
     let nameText: Observable<String>
     let commentText: Observable<String>
-    let changeAction: Observable<Void>
+    let changeAction: Observable<(String, String)>
   }
   struct Output {
     let changeBtnActivate: Driver<Bool>
@@ -25,6 +25,8 @@ class EditProfileViewModel : ViewModel, ViewModelType {
     let commentTextCount: Driver<Int>
     let profile:Observable<ProfileModel>
   }
+  
+  let profileChanged = PublishSubject<Void>()
 }
 extension EditProfileViewModel {
   func transform(input: Input) -> Output {
@@ -37,8 +39,12 @@ extension EditProfileViewModel {
       return firstCondition && secondCondition
     }
     let nicknameCheck = input.nameText.flatMap {
-      self.service.checkNickNameDuplicate($0) ?? .empty()
+      self.service.checkNickNameDuplicate($0)
     }
+    
+    input.changeAction.subscribe(onNext: { nickName, introduction in
+      self.updateProfile(nickname: nickName, introduction: introduction)
+    }).disposed(by: disposeBag)
     
     let combined = Observable.combineLatest(textValidate, nicknameCheck).map{ $0.0 && $0.1}
     
@@ -48,5 +54,14 @@ extension EditProfileViewModel {
                  nameTextCount: nameCount.asDriver(onErrorDriveWith: .empty()),
                  commentTextCount: commentCount.asDriver(onErrorDriveWith: .empty()),
                  profile: currentProfile)
+  }
+  
+  private func updateProfile(nickname: String, introduction: String) {
+  let param = ModifyProfileParam(id: globalUser.value.id, introduction: introduction, nickname: nickname)
+    service.editProfile(param).subscribe(onNext: { result in
+      if result {
+        self.profileChanged.onNext(())
+      }
+    }).disposed(by: disposeBag)
   }
 }
