@@ -51,15 +51,17 @@ class MapViewController: ViewController {
   
   var markers: [NMFMarker] = []
   var selectedMarker: NMFMarker?
+  var selectedPin: PinModel?
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    (self.viewModel as? MapViewModel)?.myLocation()
+    guard let viewModel = self.viewModel as? MapViewModel else { return }
+    viewModel.myLocation()
+    viewModel.updatePin()
   }
   
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
-    (self.viewModel as? MapViewModel)?.updatePin()
   }
   
   override func bindViewModel() {
@@ -117,6 +119,9 @@ class MapViewController: ViewController {
     mapView.touchDelegate = self
     
     listButton.addTarget(self, action: #selector(listButtonTapped), for: .touchUpInside)
+    let gesture = UITapGestureRecognizer(target: self, action: #selector(goToStore))
+    self.storeInfoView.addGestureRecognizer(gesture)
+    self.storeInfoView.isUserInteractionEnabled = true
   }
   
   override func setupView() {
@@ -199,20 +204,31 @@ class MapViewController: ViewController {
     markers.removeAll()
   }
   
-  private func addMarker(list: [PostResponse]) {
+  private func addMarker(list: [PinModel]) {
     resetMarkers()
     list.forEach { element in
-      let position = NMGLatLng(lat: element.placeLatitude, lng: element.placeLongitude)
+      let position = NMGLatLng(lat: element.latitude, lng: element.longitude)
       let marker = NMFMarker(position: position, iconImage: NMFOverlayImage(name: "icMapPin_deselected"))
       marker.mapView = self.mapView
       marker.touchHandler = { [weak self] overlay in
         guard let self = self else { return true }
+        self.storeInfoView.distanceLabel.text =  "\(Int(element.distance))M"
+        self.storeInfoView.nameLabel.text = element.name
+        self.storeInfoView.postCountLabel.text = "|   포스트\(element.postCount)개"
+        self.storeInfoView.locationLabel.text = element.address
+        self.selectedPin = element
         self.didTap(overlay as! NMFMarker)
         return true
       }
       self.markers.append(marker)
     }
 
+  }
+  @objc func goToStore() {
+    guard let pin = self.selectedPin else { return }
+    let place = Place(name: pin.name, roadAddress: pin.address, address: pin.address, distance: "\(Int(pin.distance))M", latitude: "\(pin.latitude)", longtitude: "\(pin.longitude)", reviewCount: pin.postCount)
+    let viewModel = StoreViewModel(place: place)
+    self.navigator.show(segue: .store(viewModel: viewModel), sender: self, transition: .navigation(.right, animated: true, hidesTabbar: true))
   }
 }
 

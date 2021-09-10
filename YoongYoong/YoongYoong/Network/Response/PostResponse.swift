@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CoreLocation
 
 struct PostResponse: Decodable, Hashable{
   let commentCount: Int
@@ -58,6 +59,9 @@ struct PostResponse: Decodable, Hashable{
     placeLatitude = Double(latitude)!
     let longitude = try container.decodeIfPresent(String.self, forKey: .placeLongitude) ?? "0.0"
     placeLongitude = Double(longitude)!
+    
+    let startLocation = CLLocation(latitude: 0, longitude: 0)
+    let destLocation = startLocation.distance(from: CLLocation(latitude: placeLatitude, longitude: placeLongitude))
   }
 }
 struct UserInfo : Decodable, Hashable {

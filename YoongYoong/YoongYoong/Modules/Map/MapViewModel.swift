@@ -25,7 +25,7 @@ class MapViewModel: ViewModel, ViewModelType {
     let appSetting: Observable<Void>
     let location: Driver<CLLocationCoordinate2D>
     let search: Driver<MapSearchViewModel>
-    let pin: Driver<[PostResponse]>
+    let pin: Driver<[PinModel]>
     let error: Observable<Error>
   }
   
@@ -34,7 +34,7 @@ class MapViewModel: ViewModel, ViewModelType {
   var appSettingTrigger = PublishSubject<Void>()
   var error = PublishSubject<Error>()
   var location = PublishSubject<CLLocationCoordinate2D>()
-  var pin = BehaviorRelay<[PostResponse]>(value: [])
+  var pin = BehaviorRelay<[PinModel]>(value: [])
   
   func transform(input: Input) -> Output {
     let tip = input.tip.asDriver(onErrorJustReturn: ()).map { () -> TipViewModel in
@@ -93,12 +93,47 @@ class MapViewModel: ViewModel, ViewModelType {
         switch result  {
         case .success(let response):
           let list = (response.data ?? []).filter { $0.placeLatitude != nil && $0.placeLongitude != nil }
-          self.pin.accept(list)
+          self.updatePinInfo(list: list)
         case .failure(let error):
           self.error.onNext(error)
         }
       }, onError: { error in
         self.error.onNext(error)
       }).disposed(by: disposeBag)
+    
+    let group = DispatchGroup()
+    
+    for i in 0..<10 {
+      defer {
+        group.leave()
+      }
+      group.enter()
+      print("hello \(i)")
+    }
+  }
+  
+  func updatePinInfo(list: [PostResponse]) {
+    for post in list {
+      let address = post.placeLocation
+      let name = post.placeName
+      
+      let myDistance = CLLocation(latitude: LocationManager.shared.locationChanged.value.latitude, longitude: LocationManager.shared.locationChanged.value.longitude)
+      let destnation = CLLocation(latitude: post.placeLatitude, longitude: post.placeLongitude)
+      let distance = myDistance.distance(from: destnation)
+      service.storePosts(name: name, address: address).subscribe(onNext: { result in
+        switch result {
+        case .success(let count):
+          let pinModel = PinModel(name: name, postCount: count, address: address, latitude: post.placeLatitude, longitude: post.placeLongitude, distance: distance)
+          var pinList = self.pin.value
+          pinList.append(pinModel)
+          self.pin.accept(pinList)
+        case .failure(let error):
+          let pinModel = PinModel(name: name, postCount: 0, address: address, latitude: post.placeLatitude, longitude: post.placeLongitude, distance: distance)
+          var pinList = self.pin.value
+          pinList.append(pinModel)
+          self.pin.accept(pinList)
+        }
+      }).disposed(by: disposeBag)
+    }
   }
 }

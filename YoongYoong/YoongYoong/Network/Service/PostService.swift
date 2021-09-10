@@ -191,7 +191,7 @@ final class PostService: PostServiceType {
   }
   
   func storePosts(place: Place) -> Observable<Result<[PostResponse], PostAPIError>> {
-    return provider.rx.request(.fetchStorePost(place: place))
+    return provider.rx.request(.fetchStorePost(name: place.name, address: place.address))
       .asObservable()
       .map { response -> Result<[PostResponse], PostAPIError> in
         switch response.statusCode {
@@ -199,6 +199,30 @@ final class PostService: PostServiceType {
           do {
             let results = try JSONDecoder().decode(BaseResponse<[PostResponse]>.self, from: response.data)
             return .success(results.data ?? [])
+          } catch {
+            return .failure(.error("JSON Parsing Error"))
+          }
+        case 400:
+          // 잘못된 parameter를 전달한 경우
+          return .failure(.error("Bad Request"))
+        case 500:
+          // parameter가 누락된 경우
+          return .failure(.error("Internal Server Error"))
+        default:
+          return .failure(.error("원인 모를 에러"))
+        }
+      }
+  }
+  
+  func storePosts(name: String, address: String) -> Observable<Result<Int, PostAPIError>> {
+    return provider.rx.request(.fetchStorePost(name: name, address: address))
+      .asObservable()
+      .map { response -> Result<Int, PostAPIError> in
+        switch response.statusCode {
+        case 200:
+          do {
+            let results = try JSONDecoder().decode(BaseResponse<[PostResponse]>.self, from: response.data)
+            return .success(results.count)
           } catch {
             return .failure(.error("JSON Parsing Error"))
           }

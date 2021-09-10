@@ -20,7 +20,7 @@ enum APIRouter {
   case emailCheck(param: CheckEmailDuplicateRequest)
   case deleteAccount(id: Int)
   case nickNameCheck(param: String)
-  case modifyProfiel(param: ModifyProfileParam)
+  case modifyProfile(param: ModifyProfileParam)
   case findPassword(param: FindPasswordRequest)
   case findPasswordCode(param: FindPasswordCodeRequest)
   case resetPassword(param: ResetPasswordRequest)
@@ -41,7 +41,7 @@ enum APIRouter {
   case fetchMyPost(month: Int)
   case fetchOtherPost(id: Int)
   case likePost(id: Int)
-  case fetchStorePost(place: Place)
+  case fetchStorePost(name: String, address: String)
   case fetchStoreContainer(place: Place)
   case deletePost(id: Int)
 }
@@ -50,7 +50,7 @@ enum APIRouter {
 extension APIRouter: TargetType {
   var headers: [String : String]? {
     if self.authorizationType == .bearer {
-      return ["Content-Type":"application/json",
+      return [
               "Authorization" : "Bearer \(UserDefaultHelper<String>.value(forKey: .accessToken) ?? "")"]
     } else {
       return nil
@@ -85,7 +85,7 @@ extension APIRouter: TargetType {
       return "/user/withdrawal"
     case .nickNameCheck:
       return "/user/check/nickname"
-    case .modifyProfiel:
+    case .modifyProfile:
       return "/user/profile"
     case .findPassword:
       return "/user/password/email"
@@ -145,7 +145,7 @@ extension APIRouter: TargetType {
       return .get
     case .deleteAccount:
       return .delete
-    case .modifyProfiel, .resetPassword, .refreshToken:
+    case .modifyProfile, .resetPassword, .refreshToken:
       return .put
     // place
     case .fetchReviewCount,
@@ -197,8 +197,8 @@ extension APIRouter: TargetType {
       return .requestParameters(parameters: try! ["userId" : id].asParameters(), encoding: URLEncoding.default)
     case .nickNameCheck(param: let param):
       return .requestParameters(parameters: try! ["nickname" : param].asParameters(), encoding: URLEncoding.default)
-    case .modifyProfiel:
-      return .requestPlain
+    case .modifyProfile(let param):
+      return .requestParameters(parameters: try! param.asParameters(), encoding: URLEncoding.default)
     case .findPassword(let param):
       return .requestParameters(parameters: try! param.asParameters(), encoding: URLEncoding.default)
     case .findPasswordCode(let param):
@@ -298,7 +298,7 @@ extension APIRouter: AccessTokenAuthorizable {
     case .deleteAccount, .profile:
       return .bearer
     //profile
-    case .fetchPlaceList, .fetchReviewCount, .fetchReviewCountAll:
+    case .modifyProfile, .fetchPlaceList, .fetchReviewCount, .fetchReviewCountAll:
       return .bearer
     //post
     case .fetchPostList,
