@@ -49,6 +49,11 @@ enum APIRouter {
 
 extension APIRouter: TargetType {
   var headers: [String : String]? {
+    if case .refreshToken(let param) = self {
+      return [
+        "Authorization" : "Bearer \(param.token)"
+      ]
+    }
     if self.authorizationType == .bearer {
       return [
               "Authorization" : "Bearer \(UserDefaultHelper<String>.value(forKey: .accessToken) ?? "")"]
@@ -93,8 +98,8 @@ extension APIRouter: TargetType {
       return "/user/password/email"
     case .resetPassword:
       return "/user/password"
-    case .refreshToken:
-      return "/user/token"
+    case .refreshToken(let param):
+      return "/user/token/\(param.id)"
     //place
     case .fetchPlaceList:
       return "/place"
@@ -136,7 +141,7 @@ extension APIRouter: TargetType {
   var method: Moya.Method {
     switch self {
     // auth
-    case .register, .appleRegister, .login, .appleLogin, .guest, .findPasswordCode:
+    case .register, .appleRegister, .login, .appleLogin, .guest, .findPasswordCode, .refreshToken:
       return .post
     case .emailCheck,
          .nickNameCheck,
@@ -145,7 +150,7 @@ extension APIRouter: TargetType {
       return .get
     case .deleteAccount:
       return .delete
-    case .modifyProfile, .resetPassword, .refreshToken:
+    case .modifyProfile, .resetPassword:
       return .put
     // place
     case .fetchReviewCount,
@@ -205,8 +210,8 @@ extension APIRouter: TargetType {
       return .requestJSONEncodable(param)
     case .resetPassword(let param):
       return .requestJSONEncodable(param)
-    case .refreshToken(let param):
-      return .requestJSONEncodable(param)
+    case .refreshToken:
+      return .requestPlain
     //place
     case .fetchPlaceList(param: let param):
       return .requestJSONEncodable(param)

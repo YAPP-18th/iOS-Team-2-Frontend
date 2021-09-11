@@ -119,15 +119,12 @@ extension AuthorizeService {
     provider.rx.request(.profile)
       .asObservable()
       .catchErrorJustReturn(Response(statusCode: 403, data: Data()))
+      .filter { (200...300).contains($0.statusCode) }
       .map { response -> UserInfo in
-        if case (200...300) = response.statusCode,
-           let result = try? JSONDecoder().decode(BaseResponse<UserInfo>.self, from: response.data),
-           let userInfo = result.data {
-          return userInfo
-        } else {
-          return .init(email: "", id: 0, imageUrl: "", introduction: "", nickname: "")
-        }
-      }.bind(to: globalUser)
+        let result = try! JSONDecoder().decode(BaseResponse<UserInfo>.self, from: response.data)
+        return result.data!
+      }
+      .bind(to: globalUser)
       .disposed(by: self.disposeBag)
   }
   
