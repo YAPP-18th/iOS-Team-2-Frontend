@@ -61,6 +61,13 @@ final class BadgeListViewController: ViewController {
     guard let viewModel = self.viewModel as? BadgeListViewModel else { return }
   
     let output = viewModel.transform(input: BadgeListViewModel.Input())
+    output.user.subscribe(onNext: { [weak self] user in
+      let nickname = user.nickname
+      let attrText = NSMutableAttributedString()
+        .string(nickname, font: .krBody1, color: .white)
+        .string("님의 배지", font: .krTitle1, color: .white)
+      self?.titleLabel.attributedText = attrText
+    }).disposed(by: disposeBag)
     output.badgeList.drive(badgeCollectionView.rx.items(dataSource: badgeDataSource)).disposed(by: disposeBag)
   }
   
