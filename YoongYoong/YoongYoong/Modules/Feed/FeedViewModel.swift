@@ -24,6 +24,7 @@ class FeedViewModel: ViewModel, ViewModelType {
     let items: BehaviorRelay<[PostResponse]>
     let profile: Observable<FeedProfileViewModel>
     let detail: Observable<FeedDetailViewModel>
+    let login: PublishSubject<Void>
   }
   
   private let dateFormatter: DateFormatter = {
@@ -39,7 +40,7 @@ class FeedViewModel: ViewModel, ViewModelType {
   let userSelection = PublishSubject<FeedProfileViewModel>()
   let likeChanged = PublishRelay<(IndexPath)>()
   func transform(input: Input) -> Output {
-    
+    let login = PublishSubject<Void>()
     currentDate.accept(dateFormatter.string(from: Date()))
     let braveWord = BraveWord()
     brave.accept(braveWord.randomBrave() ?? BraveWord.default)
@@ -51,14 +52,20 @@ class FeedViewModel: ViewModel, ViewModelType {
     }).disposed(by: disposeBag)
     
     likeChanged.subscribe(onNext: { indexPath in
-      let feed = self.feedElements.value.reversed()[indexPath.row]
-      self.likePost(feed: feed)
+      if LoginManager.shared.isLogin, LoginManager.shared.loginStatus == .logined {
+        let feed = self.feedElements.value.reversed()[indexPath.row]
+        self.likePost(feed: feed)
+      } else {
+        login.onNext(())
+      }
+      
     }).disposed(by: disposeBag)
     
     return Output(
       items: feedElements,
       profile: self.userSelection,
-      detail: self.feedDetail
+      detail: self.feedDetail,
+      login: login
     )
   }
   

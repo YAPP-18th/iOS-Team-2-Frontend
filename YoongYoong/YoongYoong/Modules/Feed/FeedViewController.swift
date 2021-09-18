@@ -76,6 +76,19 @@ class FeedViewController: ViewController {
       .subscribe(onNext: { _ in
       self.tableView.reloadData()
       }).disposed(by: disposeBag)
+    
+    output.login.subscribe(onNext: { [weak self] in
+      self?.showLoginAlert()
+    }).disposed(by: disposeBag)
+  }
+  
+  func showLoginAlert() {
+    AlertAction.shared.showAlertView(title: "로그인이 필요한 서비스입니다.",description: "로그인 화면으로 이동하시겠습니까?", grantMessage: "확인", denyMessage: "취소", okAction: { [weak self] in
+      LoginManager.shared.makeLogoutStatus()
+      if let window = self?.view.window {
+          self?.navigator.show(segue: .splash(viewModel: SplashViewModel()), sender: self, transition: .root(in: window))
+      }
+    })
   }
 }
 

@@ -34,6 +34,7 @@ class FeedDetailViewModel : ViewModel, ViewModelType {
   struct Output {
     let feed: Driver<PostResponse>
     let edit: Observable<PostReviewViewModel>
+    let login: PublishSubject<Void>
   }
   
   let back = PublishSubject<Void>()
@@ -47,12 +48,21 @@ class FeedDetailViewModel : ViewModel, ViewModelType {
     let commentMode = BehaviorRelay<CommentMode>(value: .normal)
   
   func transform(input: Input) -> Output {
+    let login = PublishSubject<Void>()
     input.addComment.subscribe(onNext: { comment in
-      let requestDTO = CommentRequestDTO(content: comment)
-      self.addComment(requestDTO: requestDTO)
+      if LoginManager.shared.isLogin, LoginManager.shared.loginStatus == .logined {
+        let requestDTO = CommentRequestDTO(content: comment)
+        self.addComment(requestDTO: requestDTO)
+      } else {
+        login.onNext(())
+      }
     }).disposed(by: self.disposeBag)
     input.like.subscribe(onNext: { _ in
-      self.likePost(feed: self.currentFeed.value)
+      if LoginManager.shared.isLogin, LoginManager.shared.loginStatus == .logined {
+        self.likePost(feed: self.currentFeed.value)
+      } else {
+        login.onNext(())
+      }
     }).disposed(by: self.disposeBag)
     deleteComment.subscribe(onNext: { comment in
       self.deleteComment(commentId: comment.commentId)
@@ -64,7 +74,8 @@ class FeedDetailViewModel : ViewModel, ViewModelType {
     }
     return .init(
       feed: currentFeed.asDriver(),
-      edit: edit
+      edit: edit,
+      login: login
     )
   }
   
