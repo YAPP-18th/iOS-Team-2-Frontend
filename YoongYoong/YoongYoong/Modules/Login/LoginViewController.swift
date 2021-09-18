@@ -63,8 +63,12 @@ class LoginViewController: ViewController {
         $0.layer.masksToBounds = true
     }
     
-    let signWithKakaoContentView = UIView()
-    let signWithAppleContentView = UIView()
+  let signWithKakaoContentView = UIView().then {
+    $0.isUserInteractionEnabled = false
+  }
+  let signWithAppleContentView = UIView().then {
+    $0.isUserInteractionEnabled = false
+  }
     
     let signInWithKakaoImageView = UIImageView().then {
         $0.image = UIImage(named: "kakaoLogo")
