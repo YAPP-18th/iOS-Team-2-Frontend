@@ -24,6 +24,8 @@ class KakaoLoginViewController: ViewController {
   
   override func configuration() {
     super.configuration()
+    navigationItem.title = "카카오 로그인"
+    navigationItem.rightBarButtonItem = .init(title: "닫기", style: .plain, target: self, action: #selector(closeButtonTapped))
   }
   
   override func setupView() {
@@ -35,6 +37,10 @@ class KakaoLoginViewController: ViewController {
     self.webView.snp.makeConstraints {
       $0.edges.equalTo(self.view.safeAreaLayoutGuide)
     }
+  }
+  
+  @objc func closeButtonTapped() {
+    self.navigationController?.dismiss(animated: true, completion: nil)
   }
 }
 extension KakaoLoginViewController: WKNavigationDelegate {
