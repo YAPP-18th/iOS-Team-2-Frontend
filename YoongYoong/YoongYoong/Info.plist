@@ -2,13 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSAppTransportSecurity</key>
-	<dict>
-		<key>NSAllowsArbitraryLoads</key>
-		<true/>
-	</dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>CFBundleDisplayName</key>
+	<string>용기내용</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -42,14 +39,19 @@
 	<true/>
 	<key>NMFClientId</key>
 	<string>$(NMAP_CLIENT_ID)</string>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>포스팅을 위한 카메라 사용.</string>
+	<string>포스팅에 사용될 사진 촬영을 위하여 카메라 접근 권한이 필요합니다.</string>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>후기를 남길 가게의 위치를 찾기 위해 위치 정보를 사용합니다.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>후기를 남길 가게의 위치를 찾기 위해 위치 정보를 사용합니다.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>포스팅을 위한 사진 등록</string>
+	<string>포스팅에 사용될 사진 사용을 위하여 사진첩 접근 권한이 필요합니다.</string>
 	<key>PHPhotoLibraryPreventAutomaticLimitedAccessAlert</key>
 	<true/>
 	<key>UIAppFonts</key>
