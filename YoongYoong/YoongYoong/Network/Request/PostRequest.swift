@@ -40,3 +40,7 @@ struct CommentRequestDTO: Encodable {
   let content: String
 }
 
+struct ReportDTO: Encodable {
+  let postId: Int
+  let reportNumber: Int
+}

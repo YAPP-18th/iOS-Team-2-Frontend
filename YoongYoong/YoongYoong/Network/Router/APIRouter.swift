@@ -25,6 +25,7 @@ enum APIRouter {
   case findPasswordCode(param: FindPasswordCodeRequest)
   case resetPassword(param: ResetPasswordRequest)
   case refreshToken(param: RefreshTokenRequest)
+  case block(id: Int)
   //place
   case fetchPlaceList(param : PlaceRequest)
   case fetchReviewCount(name: String)
@@ -44,6 +45,7 @@ enum APIRouter {
   case fetchStorePost(name: String, address: String)
   case fetchStoreContainer(place: Place)
   case deletePost(id: Int)
+  case report(param: ReportDTO)
 }
 
 
@@ -100,6 +102,8 @@ extension APIRouter: TargetType {
       return "/user/password"
     case .refreshToken(let param):
       return "/user/token/\(param.id)"
+    case .block(let id):
+      return "/user/block/\(id)"
     //place
     case .fetchPlaceList:
       return "/place"
@@ -135,6 +139,8 @@ extension APIRouter: TargetType {
       return "/place"
     case .deletePost(let id):
       return "/post/\(id)"
+    case .report(let param):
+      return "post/\(param.postId)/report"
     }
   }
   
@@ -146,7 +152,8 @@ extension APIRouter: TargetType {
     case .emailCheck,
          .nickNameCheck,
          .findPassword,
-         .profile:
+         .profile,
+         .block:
       return .get
     case .deleteAccount:
       return .delete
@@ -169,7 +176,7 @@ extension APIRouter: TargetType {
     case .addPost,
          .addComment:
       return .post
-    case .modifyComment, .likePost, .editPost:
+    case .modifyComment, .likePost, .editPost, .report:
       return .put
     case .deleteComment, .deletePost:
       return .delete
@@ -211,6 +218,8 @@ extension APIRouter: TargetType {
     case .resetPassword(let param):
       return .requestJSONEncodable(param)
     case .refreshToken:
+      return .requestPlain
+    case .block:
       return .requestPlain
     //place
     case .fetchPlaceList(param: let param):
@@ -292,6 +301,8 @@ extension APIRouter: TargetType {
       )
     case .deletePost:
       return .requestPlain
+    case .report(let param):
+      return .requestParameters(parameters: try! ["reportNumber" : param.reportNumber].asParameters(), encoding: URLEncoding.default)
     }
   }
 }
@@ -300,7 +311,7 @@ extension APIRouter: AccessTokenAuthorizable {
   var authorizationType: AuthorizationType? {
     switch self {
     //auth
-    case .deleteAccount, .profile:
+    case .deleteAccount, .profile, .block:
       return .bearer
     //profile
     case .modifyProfile, .fetchPlaceList, .fetchReviewCount, .fetchReviewCountAll:
@@ -319,7 +330,8 @@ extension APIRouter: AccessTokenAuthorizable {
          .likePost,
          .fetchStorePost,
          .fetchStoreContainer,
-         .deletePost:
+         .deletePost,
+         .report:
       return .bearer
     default:
       return nil
