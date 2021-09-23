@@ -34,7 +34,7 @@ protocol AuthorizeServiceType: AnyObject {
   func findPasswordCode(_ param: FindPasswordCodeRequest) -> Observable<Bool>
   func resetPassword(_ param: ResetPasswordRequest) -> Observable<Bool>
   
-  func getProfile()
+  func getProfile(got: @escaping () -> Void)
   func editProfile(_ param: ModifyProfileParam) -> Observable<Bool>
 }
 
@@ -115,14 +115,19 @@ extension AuthorizeService {
       .map { (200...300).contains($0.statusCode) }
   }
   
-  func getProfile() {
+  func getProfile(got: @escaping () -> Void) {
     provider.rx.request(.profile)
       .asObservable()
       .catchErrorJustReturn(Response(statusCode: 403, data: Data()))
       .filter { (200...300).contains($0.statusCode) }
       .map { response -> UserInfo in
         let result = try! JSONDecoder().decode(BaseResponse<UserInfo>.self, from: response.data)
+        if let id = result.data?.id {
+          UserDefaultHelper.set(id, forKey: .userId)
+        }
         return result.data!
+      }.do { _ in
+        got()
       }
       .bind(to: globalUser)
       .disposed(by: self.disposeBag)

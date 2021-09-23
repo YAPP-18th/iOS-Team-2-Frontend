@@ -83,6 +83,6 @@ class TabBarViewModel: ViewModel, ViewModelType {
     }
   
   private func getUser() {
-    service.getProfile()
+    service.getProfile { }
   }
 }

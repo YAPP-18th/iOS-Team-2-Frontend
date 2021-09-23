@@ -117,7 +117,7 @@ extension MypageViewModel {
   }
   
   func getUserInfo() {
-    authService.getProfile()
+    authService.getProfile { }
   }
   
   func getPostList() {

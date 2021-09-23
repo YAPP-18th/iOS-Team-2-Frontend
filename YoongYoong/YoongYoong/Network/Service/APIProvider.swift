@@ -91,9 +91,10 @@ extension Reactive where Base: APIProvider {
               if loginManager.tokenExpired && loginManager.refreshTokenExpired {
                 single(.error(APIError.tokenExpired))
               } else if loginManager.tokenExpired,
-                        let refreshToken = loginManager.refreshToken {
+                        let refreshToken = loginManager.refreshToken,
+                        let id = UserDefaultStorage.userId {
                 rescheduleCurrentRequest()
-                _ = refreshAccessToken(request: .init(id: globalUser.value.id, token: refreshToken))
+                _ = refreshAccessToken(request: .init(id: id, token: refreshToken))
               } else {
                 single(.error(APIError.tokenExpired))
               }

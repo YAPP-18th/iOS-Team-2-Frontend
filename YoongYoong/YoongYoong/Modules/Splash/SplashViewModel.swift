@@ -10,6 +10,8 @@ import RxSwift
 import RxCocoa
 
 class SplashViewModel : ViewModel, ViewModelType {
+  private let service : AuthorizeServiceType = AuthorizeService(provider: APIProvider(plugins:[NetworkLoggerPlugin()]))
+  
   struct Input {
     
   }
@@ -35,10 +37,13 @@ class SplashViewModel : ViewModel, ViewModelType {
       
       if !LoginManager.shared.isLogin {
         self.loginSubject.onNext(LoginViewModel())
-        return
+      } else {
+        self.service.getProfile {
+          self.mainSubject.onNext(TabBarViewModel())
+        }
       }
       
-      self.mainSubject.onNext(TabBarViewModel())
+      
       
     }).disposed(by: disposeBag)
     
