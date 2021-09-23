@@ -35,7 +35,7 @@ class FeedDetailViewController: ViewController {
   }
   
   let moreButton = UIButton().then {
-    $0.setImage(UIImage(named: "icFeedDetailMore"), for: .normal)
+    $0.setImage(UIImage(named: "icFeedDetailEdit"), for: .normal)
     $0.contentMode = .center
   }
   let moreContainer = UIStackView().then {
@@ -160,6 +160,9 @@ class FeedDetailViewController: ViewController {
   var commentFieldBotton: Constraint!
   
   
+  let reportAction = PublishSubject<Void>()
+  let banAction = PublishSubject<Void>()
+  
   override func viewDidLoad() {
     super.viewDidLoad()
   }
@@ -212,11 +215,14 @@ class FeedDetailViewController: ViewController {
   override func bindViewModel() {
     super.bindViewModel()
     guard let viewModel = self.viewModel as? FeedDetailViewModel else { return }
+    
     let input = FeedDetailViewModel.Input(
       addComment: self.sendCommentButton.rx.tap.map { self.commentField.text ?? "" }.filter { !$0.isEmpty }.asObservable(),
       like: self.likeButton.rx.tap.asObservable(),
-      edit: self.editButton.rx.tap.asObservable()
-      )
+      edit: self.editButton.rx.tap.asObservable(),
+      report: reportAction,
+      ban: banAction
+    )
     let output = viewModel.transform(input: input)
     output.feed.drive(onNext: { feed in
       if let url = feed.user.imageUrl {
@@ -249,8 +255,14 @@ class FeedDetailViewController: ViewController {
       self.commentField.text = ""
     }).disposed(by: disposeBag)
     
-    moreButton.rx.tap.bind(onNext: {
-      self.moreContainer.isHidden = !self.moreContainer.isHidden
+    moreButton.rx.tap.bind(onNext: { [weak self] in
+      guard let self = self else { return }
+      if globalUser.value.id != viewModel.currentFeed.value.user.id {
+        self.showReportBanSheet()
+      } else {
+        self.moreContainer.isHidden = !self.moreContainer.isHidden
+      }
+      
     }).disposed(by: disposeBag)
     
     deleteButton.rx.tap.bind(onNext: {
@@ -267,7 +279,12 @@ class FeedDetailViewController: ViewController {
       self.navigationController?.popViewController(animated: true)
     }).disposed(by: disposeBag)
     
-    self.moreButton.isHidden = globalUser.value.id != viewModel.currentFeed.value.user.id
+    if globalUser.value.id != viewModel.currentFeed.value.user.id {
+      moreButton.setImage(UIImage(named: "icFeedDetailMore"), for: .normal)
+    } else {
+      moreButton.setImage(UIImage(named: "icFeedDetailEdit"), for: .normal)
+    }
+    
     output.login.subscribe(onNext: { [weak self] in
       self?.showLoginAlert()
     }).disposed(by: disposeBag)
@@ -469,6 +486,19 @@ class FeedDetailViewController: ViewController {
           self?.navigator.show(segue: .splash(viewModel: SplashViewModel()), sender: self, transition: .root(in: window))
       }
     })
+  }
+  
+  func showReportBanSheet() {
+    let sheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+    let reportAction = UIAlertAction(title: "신고하기", style: .default) { [weak self] _ in
+      self?.reportAction.onNext(())
+    }
+    let banAction = UIAlertAction(title: "차단하기", style: .default) { [weak self] _ in
+      self?.banAction.onNext(())
+    }
+    let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
+    [reportAction, banAction, cancelAction].forEach { sheet.addAction($0) }
+    self.present(sheet, animated: true, completion: nil)
   }
 }
 

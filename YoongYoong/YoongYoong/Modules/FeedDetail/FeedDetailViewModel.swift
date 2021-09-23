@@ -29,6 +29,8 @@ class FeedDetailViewModel : ViewModel, ViewModelType {
     let addComment: Observable<String>
     let like: Observable<Void>
     let edit: Observable<Void>
+    let report: PublishSubject<Void>
+    let ban: PublishSubject<Void>
   }
   
   struct Output {
