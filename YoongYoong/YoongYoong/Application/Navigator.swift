@@ -47,6 +47,7 @@ class Navigator {
     case manageEmail(viewModel: ManageEmailViewModel)
     case editProfile(viewModel: EditProfileViewModel)
     case badgeList(viewModel: BadgeListViewModel)
+    case report(viewModel: ReportViewModel)
   }
   
   enum Transition {
@@ -82,7 +83,8 @@ class Navigator {
       return nav
     case .kakaoLogin(let viewModel):
       let kakaoLoginVC = KakaoLoginViewController(viewModel: viewModel, navigator: self)
-      return kakaoLoginVC
+      let nvc = UINavigationController(rootViewController: kakaoLoginVC)
+      return nvc
     case .findPassword(let viewModel):
       let findPasswordVC = FindPasswordViewController(viewModel: viewModel, navigator: self)
       return findPasswordVC
@@ -175,6 +177,11 @@ class Navigator {
       badgeListVC.modalPresentationStyle = .overFullScreen
       badgeListVC.modalTransitionStyle = .crossDissolve
       return badgeListVC
+    case .report(let viewModel):
+      let reportVC = ReportViewController(viewModel: viewModel, navigator: self)
+      reportVC.modalPresentationStyle = .overFullScreen
+      reportVC.modalTransitionStyle = .crossDissolve
+      return reportVC
     }
    
   }
